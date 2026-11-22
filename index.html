@@ -1,0 +1,4233 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>لوحة العمل ومدرب النطق</title>
+
+  <!-- Google Fonts: Cairo (Arabic), Inter (English UI), JetBrains Mono (Clocks & Numbers) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ==========================================================================
+       1. DESIGN TOKENS & THEME VARIABLES (DARK DEFAULT + CLEAN LIGHT MODE)
+       ========================================================================== */
+    :root {
+      --bg-body: #0b1120;
+      --bg-surface: #111827;
+      --bg-card: #162033;
+      --bg-card-hover: #1b2840;
+      --bg-input: #0e1628;
+      --bg-pill: #0f172a;
+      --bg-glass: rgba(17, 24, 39, 0.86);
+
+      --border-subtle: #1f2d45;
+      --border-strong: #2c3e5e;
+
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+
+      --accent-indigo: #6366f1;
+      --accent-indigo-hover: #4f46e5;
+      --accent-indigo-soft: rgba(99, 102, 241, 0.14);
+
+      --accent-emerald: #10b981;
+      --accent-emerald-soft: rgba(16, 185, 129, 0.14);
+
+      --accent-amber: #f59e0b;
+      --accent-amber-soft: rgba(245, 158, 11, 0.14);
+
+      --accent-rose: #f43f5e;
+      --accent-rose-soft: rgba(244, 63, 94, 0.14);
+
+      --accent-sky: #38bdf8;
+      --accent-sky-soft: rgba(56, 189, 248, 0.14);
+
+      --accent-violet: #a855f7;
+      --accent-violet-soft: rgba(168, 85, 247, 0.14);
+
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.25);
+      --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.35);
+      --shadow-lg: 0 18px 42px rgba(0, 0, 0, 0.5);
+
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
+      --radius-pill: 9999px;
+
+      /* Phonetic Highlight Colors (Dark Mode) */
+      --ph-flap-bg: rgba(59, 130, 246, 0.22);
+      --ph-flap-fg: #93c5fd;
+      --ph-flap-bd: rgba(59, 130, 246, 0.5);
+
+      --ph-schwa-bg: rgba(168, 85, 247, 0.22);
+      --ph-schwa-fg: #d8b4fe;
+      --ph-schwa-bd: rgba(168, 85, 247, 0.5);
+
+      --ph-ed-bg: rgba(16, 185, 129, 0.22);
+      --ph-ed-fg: #6ee7b7;
+      --ph-ed-bd: rgba(16, 185, 129, 0.5);
+
+      --ph-th-bg: rgba(249, 115, 22, 0.22);
+      --ph-th-fg: #fdba74;
+      --ph-th-bd: rgba(249, 115, 22, 0.5);
+
+      --ph-pb-bg: rgba(244, 63, 94, 0.22);
+      --ph-pb-fg: #fda4af;
+      --ph-pb-bd: rgba(244, 63, 94, 0.5);
+
+      --ph-conn-bg: rgba(234, 179, 8, 0.22);
+      --ph-conn-fg: #fde047;
+      --ph-conn-bd: rgba(234, 179, 8, 0.5);
+    }
+
+    html.light {
+      --bg-body: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f1f5f9;
+      --bg-input: #f8fafc;
+      --bg-pill: #f1f5f9;
+      --bg-glass: rgba(255, 255, 255, 0.92);
+
+      --border-subtle: #e2e8f0;
+      --border-strong: #cbd5e1;
+
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
+
+      --shadow-sm: 0 1px 4px rgba(15, 23, 42, 0.06);
+      --shadow-md: 0 6px 20px rgba(15, 23, 42, 0.08);
+      --shadow-lg: 0 18px 40px rgba(15, 23, 42, 0.14);
+
+      /* Phonetic Highlight Colors (Light Mode) */
+      --ph-flap-bg: rgba(37, 99, 235, 0.12);
+      --ph-flap-fg: #1d4ed8;
+      --ph-flap-bd: rgba(37, 99, 235, 0.35);
+
+      --ph-schwa-bg: rgba(147, 51, 234, 0.12);
+      --ph-schwa-fg: #7e22ce;
+      --ph-schwa-bd: rgba(147, 51, 234, 0.35);
+
+      --ph-ed-bg: rgba(5, 150, 105, 0.12);
+      --ph-ed-fg: #047857;
+      --ph-ed-bd: rgba(5, 150, 105, 0.35);
+
+      --ph-th-bg: rgba(234, 88, 12, 0.12);
+      --ph-th-fg: #c2410c;
+      --ph-th-bd: rgba(234, 88, 12, 0.35);
+
+      --ph-pb-bg: rgba(225, 29, 72, 0.12);
+      --ph-pb-fg: #be123c;
+      --ph-pb-bd: rgba(225, 29, 72, 0.35);
+
+      --ph-conn-bg: rgba(202, 138, 4, 0.14);
+      --ph-conn-fg: #a16207;
+      --ph-conn-bd: rgba(202, 138, 4, 0.4);
+    }
+
+    /* ==========================================================================
+       2. RESET & BASE TYPOGRAPHY
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: 'Cairo', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-body);
+      color: var(--text-primary);
+      line-height: 1.55;
+      min-height: 100vh;
+      transition: background-color 0.25s ease, color 0.25s ease;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .font-en {
+      font-family: 'Inter', 'Cairo', sans-serif;
+    }
+
+    .font-mono {
+      font-family: 'JetBrains Mono', 'Inter', monospace;
+      font-variant-numeric: tabular-nums;
+    }
+
+    button, input, select, textarea {
+      font-family: inherit;
+      color: inherit;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      background: transparent;
+    }
+
+    button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+      outline: 2px solid var(--accent-indigo);
+      outline-offset: 2px;
+    }
+
+    /* Subtle custom scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(99, 102, 241, 0.32);
+      border-radius: 999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(99, 102, 241, 0.55);
+    }
+
+    /* ==========================================================================
+       3. LAYOUT CONTAINER & SLEEK HEADER BAR (NO BIG TITLE / NO LOGO TEXT)
+       ========================================================================== */
+    .app-shell {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 16px 18px 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .top-header {
+      position: sticky;
+      top: 10px;
+      z-index: 30;
+      background: var(--bg-glass);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      padding: 10px 14px;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    /* Segmented Pill Navigation Switcher */
+    .nav-switcher {
+      display: inline-flex;
+      align-items: center;
+      background: var(--bg-pill);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-pill);
+      padding: 4px;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+
+    .nav-tab-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 16px;
+      border-radius: var(--radius-pill);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+
+    .nav-tab-btn:hover {
+      color: var(--text-primary);
+    }
+
+    .nav-tab-btn.active {
+      background: linear-gradient(135deg, #6366f1, #4f46e5);
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
+    }
+
+    .nav-tab-btn svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    /* Redesigned Crisp World Clocks Strip */
+    .clocks-strip {
+      display: flex;
+      align-items: stretch;
+      gap: 10px;
+      flex-shrink: 0;
+      overflow-x: auto;
+      max-width: 100%;
+      padding-bottom: 2px;
+    }
+
+    .clock-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 8px 14px;
+      min-width: 162px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 2px;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .clock-card:hover {
+      border-color: var(--border-strong);
+    }
+
+    .clock-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      white-space: nowrap;
+    }
+
+    .clock-city-wrap {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      white-space: nowrap;
+    }
+
+    .clock-dot {
+      width: 8px;
+      height: 8px;
+      min-width: 8px;
+      min-height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: inline-block;
+    }
+
+    .dot-cairo {
+      background: #10b981;
+      box-shadow: 0 0 8px rgba(16, 185, 129, 0.85);
+    }
+
+    .dot-et {
+      background: #6366f1;
+      box-shadow: 0 0 8px rgba(99, 102, 241, 0.85);
+    }
+
+    .dot-mst {
+      background: #f59e0b;
+      box-shadow: 0 0 8px rgba(245, 158, 11, 0.85);
+    }
+
+    .clock-city {
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      white-space: nowrap;
+    }
+
+    .clock-offset {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: var(--radius-pill);
+      background: var(--bg-pill);
+      color: var(--text-muted);
+      border: 1px solid var(--border-subtle);
+      direction: ltr;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .clock-time {
+      font-family: 'JetBrains Mono', 'Inter', monospace;
+      font-variant-numeric: tabular-nums;
+      font-size: 1.02rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      direction: ltr;
+      text-align: left;
+      line-height: 1.25;
+    }
+
+    .clock-date {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      white-space: nowrap;
+      direction: ltr;
+      text-align: left;
+      line-height: 1.1;
+    }
+
+    /* Compact Header Action Controls */
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      flex-shrink: 0;
+    }
+
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 11px;
+      border-radius: var(--radius-md);
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      font-size: 0.76rem;
+      font-weight: 700;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+
+    .action-btn:hover {
+      background: var(--bg-card-hover);
+      color: var(--text-primary);
+      border-color: var(--border-strong);
+    }
+
+    .action-btn.danger {
+      color: var(--accent-rose);
+      background: var(--accent-rose-soft);
+      border-color: rgba(244, 63, 94, 0.25);
+    }
+
+    .action-btn.danger:hover {
+      background: rgba(244, 63, 94, 0.22);
+    }
+
+    .action-btn svg {
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+    }
+
+    /* ==========================================================================
+       4. SHARED COMPONENTS (CARDS, BUTTONS, INPUTS, BANNERS, BADGES)
+       ========================================================================== */
+    .tab-panel {
+      display: none;
+      flex-direction: column;
+      gap: 18px;
+      animation: fadeSlideIn 0.25s ease;
+    }
+
+    .tab-panel.active {
+      display: flex;
+    }
+
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .sample-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding: 10px 16px;
+      border-radius: var(--radius-md);
+      background: var(--accent-amber-soft);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .sample-banner.hidden {
+      display: none;
+    }
+
+    .sample-banner-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .card-title-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .card-icon svg {
+      width: 19px;
+      height: 19px;
+    }
+
+    .icon-indigo { background: var(--accent-indigo-soft); color: var(--accent-indigo); }
+    .icon-emerald { background: var(--accent-emerald-soft); color: var(--accent-emerald); }
+    .icon-amber { background: var(--accent-amber-soft); color: var(--accent-amber); }
+    .icon-sky { background: var(--accent-sky-soft); color: var(--accent-sky); }
+    .icon-violet { background: var(--accent-violet-soft); color: var(--accent-violet); }
+    .icon-rose { background: var(--accent-rose-soft); color: var(--accent-rose); }
+
+    .card-title {
+      font-size: 0.96rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      line-height: 1.25;
+    }
+
+    .card-subtitle {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 9px 16px;
+      border-radius: var(--radius-md);
+      font-size: 0.8rem;
+      font-weight: 700;
+      transition: all 0.18s ease;
+      white-space: nowrap;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #6366f1, #4f46e5);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.28);
+    }
+
+    .btn-primary:hover {
+      filter: brightness(1.08);
+    }
+
+    .btn-emerald {
+      background: var(--accent-emerald);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+    }
+
+    .btn-emerald:hover {
+      filter: brightness(1.06);
+    }
+
+    .btn-soft-emerald {
+      background: var(--accent-emerald-soft);
+      color: var(--accent-emerald);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .btn-soft-emerald:hover {
+      background: rgba(16, 185, 129, 0.22);
+    }
+
+    .btn-soft-indigo {
+      background: var(--accent-indigo-soft);
+      color: var(--accent-indigo);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+    }
+
+    .btn-soft-indigo:hover {
+      background: rgba(99, 102, 241, 0.22);
+    }
+
+    .btn-soft-rose {
+      background: var(--accent-rose-soft);
+      color: var(--accent-rose);
+      border: 1px solid rgba(244, 63, 94, 0.3);
+    }
+
+    .btn-secondary {
+      background: var(--bg-pill);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .btn-secondary:hover {
+      color: var(--text-primary);
+      border-color: var(--border-strong);
+    }
+
+    .btn-sm {
+      padding: 6px 11px;
+      font-size: 0.74rem;
+      border-radius: var(--radius-sm);
+    }
+
+    .field-label {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      margin-bottom: 5px;
+    }
+
+    .input, .select, .textarea {
+      width: 100%;
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 9px 12px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      transition: border-color 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .input:focus, .select:focus, .textarea:focus {
+      outline: none;
+      border-color: var(--accent-indigo);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.16);
+    }
+
+    .textarea {
+      resize: vertical;
+      min-height: 110px;
+      line-height: 1.65;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 7px;
+      background: var(--bg-pill);
+      border-radius: var(--radius-pill);
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      border-radius: var(--radius-pill);
+      transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 2px 9px;
+      border-radius: var(--radius-pill);
+      font-size: 0.7rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    /* ==========================================================================
+       5. TAB 1: DASHBOARD & INCOME GRID
+       ========================================================================== */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .kpi-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 12px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .kpi-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .kpi-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+    }
+
+    .kpi-value-row {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-top: 6px;
+      flex-wrap: wrap;
+    }
+
+    .kpi-value {
+      font-family: 'JetBrains Mono', 'Inter', monospace;
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      line-height: 1.15;
+    }
+
+    .kpi-sub-egp {
+      font-family: 'JetBrains Mono', 'Inter', monospace;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--accent-emerald);
+      margin-top: 3px;
+    }
+
+    .kpi-inline-controls {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .mini-edit-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 4px 8px;
+    }
+
+    .mini-edit-box label {
+      font-size: 0.66rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .mini-edit-box input {
+      width: 58px;
+      background: transparent;
+      border: none;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      text-align: left;
+      direction: ltr;
+    }
+
+    .mini-edit-box input:focus {
+      outline: none;
+    }
+
+    .kpi-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border-subtle);
+      font-size: 0.74rem;
+      color: var(--text-secondary);
+    }
+
+    /* Two-column sections */
+    .split-grid {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 18px;
+      align-items: start;
+    }
+
+    .col-5 { grid-column: span 5; }
+    .col-7 { grid-column: span 7; }
+    .col-6 { grid-column: span 6; }
+
+    /* Focus & Shift Timer */
+    .mode-switch {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px;
+      padding: 4px;
+      background: var(--bg-pill);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      margin-bottom: 14px;
+    }
+
+    .mode-btn {
+      padding: 7px 10px;
+      border-radius: 9px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      transition: all 0.2s ease;
+    }
+
+    .mode-btn.active {
+      background: var(--accent-indigo);
+      color: #ffffff;
+      box-shadow: 0 2px 10px rgba(99, 102, 241, 0.3);
+    }
+
+    .preset-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .preset-pill {
+      padding: 5px 12px;
+      border-radius: var(--radius-pill);
+      font-family: 'JetBrains Mono', 'Cairo', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      background: var(--bg-pill);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-subtle);
+      transition: all 0.18s ease;
+    }
+
+    .preset-pill.active {
+      background: var(--accent-indigo-soft);
+      color: var(--accent-indigo);
+      border-color: var(--accent-indigo);
+    }
+
+    .timer-ring-box {
+      position: relative;
+      width: 196px;
+      height: 196px;
+      margin: 6px auto 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .timer-ring-svg {
+      width: 100%;
+      height: 100%;
+      transform: rotate(-90deg);
+    }
+
+    .timer-ring-bg {
+      fill: none;
+      stroke: var(--bg-pill);
+      stroke-width: 9;
+    }
+
+    .timer-ring-fg {
+      fill: none;
+      stroke: url(#timerGrad);
+      stroke-width: 9;
+      stroke-linecap: round;
+      transition: stroke-dashoffset 0.3s linear;
+    }
+
+    .timer-center {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 4px;
+    }
+
+    .timer-phase {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--accent-indigo);
+    }
+
+    .timer-digits {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 2.05rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      direction: ltr;
+      line-height: 1.1;
+    }
+
+    .timer-est-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.73rem;
+      font-weight: 700;
+      padding: 2px 10px;
+      border-radius: var(--radius-pill);
+      background: var(--accent-emerald-soft);
+      color: var(--accent-emerald);
+      direction: ltr;
+    }
+
+    .timer-inputs-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .timer-controls-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    /* Priority Daily Tasks */
+    .task-form {
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .task-form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr auto;
+      gap: 8px;
+    }
+
+    .filter-pills {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .filter-pill {
+      padding: 5px 12px;
+      border-radius: var(--radius-pill);
+      font-size: 0.74rem;
+      font-weight: 700;
+      background: var(--bg-pill);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-subtle);
+      transition: all 0.18s ease;
+    }
+
+    .filter-pill.active {
+      background: var(--accent-indigo);
+      color: #ffffff;
+      border-color: var(--accent-indigo);
+    }
+
+    .task-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 365px;
+      overflow-y: auto;
+      padding-left: 4px;
+    }
+
+    .task-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 11px 12px;
+      border-radius: var(--radius-md);
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      transition: border-color 0.18s ease, opacity 0.2s ease;
+    }
+
+    .task-item:hover {
+      border-color: var(--border-strong);
+    }
+
+    .task-item.done {
+      opacity: 0.58;
+    }
+
+    .task-check {
+      width: 20px;
+      height: 20px;
+      min-width: 20px;
+      border-radius: 6px;
+      border: 2px solid var(--border-strong);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+      transition: all 0.18s ease;
+    }
+
+    .task-item.done .task-check {
+      background: var(--accent-emerald);
+      border-color: var(--accent-emerald);
+      color: #ffffff;
+    }
+
+    .task-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .task-text {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      word-break: break-word;
+    }
+
+    .task-item.done .task-text {
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+
+    .task-meta {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 5px;
+      flex-wrap: wrap;
+    }
+
+    .prio-high { background: var(--accent-rose-soft); color: var(--accent-rose); }
+    .prio-medium { background: var(--accent-amber-soft); color: var(--accent-amber); }
+    .prio-low { background: var(--accent-emerald-soft); color: var(--accent-emerald); }
+
+    .icon-btn-del {
+      padding: 4px;
+      border-radius: 6px;
+      color: var(--text-muted);
+      transition: all 0.15s ease;
+    }
+
+    .icon-btn-del:hover {
+      color: var(--accent-rose);
+      background: var(--accent-rose-soft);
+    }
+
+    /* Platform Performance & SVG Donut Chart */
+    .perf-layout {
+      display: grid;
+      grid-template-columns: 230px 1fr;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .donut-wrap {
+      position: relative;
+      width: 220px;
+      height: 220px;
+      margin: 0 auto;
+    }
+
+    .donut-svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    .donut-segment {
+      fill: none;
+      stroke-width: 24;
+      cursor: pointer;
+      transition: stroke-width 0.2s ease, opacity 0.2s ease;
+    }
+
+    .donut-segment:hover, .donut-segment.highlighted {
+      stroke-width: 29;
+    }
+
+    .donut-center {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      pointer-events: none;
+      padding: 26px;
+    }
+
+    .donut-center-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      max-width: 130px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .donut-center-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      direction: ltr;
+    }
+
+    .donut-center-pct {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--accent-emerald);
+    }
+
+    .platform-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .plat-row {
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 10px 12px;
+      transition: border-color 0.18s ease, transform 0.18s ease;
+    }
+
+    .plat-row:hover, .plat-row.highlighted {
+      border-color: var(--accent-indigo);
+    }
+
+    .plat-row-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 6px;
+      flex-wrap: wrap;
+    }
+
+    .plat-name-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .plat-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .plat-stats {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.74rem;
+      color: var(--text-secondary);
+      direction: ltr;
+    }
+
+    .plat-stats strong {
+      color: var(--text-primary);
+    }
+
+    .plat-stats .rate-tag {
+      color: var(--accent-emerald);
+      font-weight: 700;
+    }
+
+    /* Log Entry Form & Table */
+    .entry-form-grid {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 16px;
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 14px;
+    }
+
+    .span-2 { grid-column: span 2; }
+    .span-3 { grid-column: span 3; }
+    .span-1 { grid-column: span 1; }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: right;
+      font-size: 0.8rem;
+    }
+
+    thead th {
+      background: var(--bg-pill);
+      color: var(--text-secondary);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 11px 12px;
+      border-bottom: 1px solid var(--border-subtle);
+      white-space: nowrap;
+    }
+
+    tbody td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border-subtle);
+      vertical-align: middle;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    tbody tr:hover {
+      background: var(--bg-card-hover);
+    }
+
+    /* ==========================================================================
+       6. TAB 2: AMERICAN ACCENT COACH (C1 TRAINER)
+       ========================================================================== */
+    .coach-control-bar {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .coach-top-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .coach-mini-card {
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .practice-timer-digits {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--accent-indigo);
+      direction: ltr;
+    }
+
+    .streak-stats {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .streak-stat-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .streak-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--accent-emerald);
+    }
+
+    .streak-lbl {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    .speed-group {
+      display: inline-flex;
+      gap: 4px;
+      background: var(--bg-pill);
+      padding: 3px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .speed-btn {
+      padding: 5px 9px;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      transition: all 0.15s ease;
+    }
+
+    .speed-btn.active {
+      background: var(--accent-indigo);
+      color: #ffffff;
+    }
+
+    /* Phonetic Legend Toggle Bar */
+    .legend-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding-top: 12px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .legend-label {
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      margin-left: 4px;
+    }
+
+    .legend-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 11px;
+      border-radius: var(--radius-pill);
+      font-size: 0.73rem;
+      font-weight: 700;
+      border: 1px solid transparent;
+      transition: all 0.18s ease;
+    }
+
+    .legend-chip .chip-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .legend-chip.off {
+      opacity: 0.35;
+      filter: grayscale(0.7);
+    }
+
+    .chip-flap { background: var(--ph-flap-bg); color: var(--ph-flap-fg); border-color: var(--ph-flap-bd); }
+    .chip-flap .chip-dot { background: #3b82f6; }
+
+    .chip-schwa { background: var(--ph-schwa-bg); color: var(--ph-schwa-fg); border-color: var(--ph-schwa-bd); }
+    .chip-schwa .chip-dot { background: #a855f7; }
+
+    .chip-ed { background: var(--ph-ed-bg); color: var(--ph-ed-fg); border-color: var(--ph-ed-bd); }
+    .chip-ed .chip-dot { background: #10b981; }
+
+    .chip-th { background: var(--ph-th-bg); color: var(--ph-th-fg); border-color: var(--ph-th-bd); }
+    .chip-th .chip-dot { background: #f97316; }
+
+    .chip-pb { background: var(--ph-pb-bg); color: var(--ph-pb-fg); border-color: var(--ph-pb-bd); }
+    .chip-pb .chip-dot { background: #f43f5e; }
+
+    .chip-conn { background: var(--ph-conn-bg); color: var(--ph-conn-fg); border-color: var(--ph-conn-bd); }
+    .chip-conn .chip-dot { background: #eab308; }
+
+    /* Coach Sub-Tabs */
+    .subtabs-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .subtab-btn {
+      padding: 9px 16px;
+      border-radius: var(--radius-md);
+      font-size: 0.82rem;
+      font-weight: 700;
+      background: var(--bg-card);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-subtle);
+      transition: all 0.18s ease;
+    }
+
+    .subtab-btn:hover {
+      color: var(--text-primary);
+      border-color: var(--border-strong);
+    }
+
+    .subtab-btn.active {
+      background: var(--accent-indigo);
+      color: #ffffff;
+      border-color: var(--accent-indigo);
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+    }
+
+    .subtab-panel {
+      display: none;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .subtab-panel.active {
+      display: flex;
+    }
+
+    /* Inline Phonetic Highlighting Spans */
+    .ph-word {
+      display: inline-block;
+      padding: 1px 6px;
+      margin: 0 1px;
+      border-radius: 6px;
+      border-bottom: 2px solid transparent;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.12s ease, background-color 0.2s ease;
+    }
+
+    .ph-word:hover {
+      transform: translateY(-1px);
+    }
+
+    .ph-flap { background: var(--ph-flap-bg); color: var(--ph-flap-fg); border-bottom-color: var(--ph-flap-bd); }
+    .ph-schwa { background: var(--ph-schwa-bg); color: var(--ph-schwa-fg); border-bottom-color: var(--ph-schwa-bd); }
+    .ph-ed { background: var(--ph-ed-bg); color: var(--ph-ed-fg); border-bottom-color: var(--ph-ed-bd); }
+    .ph-th { background: var(--ph-th-bg); color: var(--ph-th-fg); border-bottom-color: var(--ph-th-bd); }
+    .ph-pb { background: var(--ph-pb-bg); color: var(--ph-pb-fg); border-bottom-color: var(--ph-pb-bd); }
+    .ph-conn { background: var(--ph-conn-bg); color: var(--ph-conn-fg); border-bottom-color: var(--ph-conn-bd); }
+
+    /* Toggled-off highlight rules */
+    .hide-flap .ph-flap,
+    .hide-schwa .ph-schwa,
+    .hide-ed .ph-ed,
+    .hide-th .ph-th,
+    .hide-pb .ph-pb,
+    .hide-conn .ph-conn {
+      background: transparent;
+      color: inherit;
+      border-bottom-color: transparent;
+      padding: 0;
+      margin: 0;
+      font-weight: inherit;
+    }
+
+    /* Sentence Shadowing Cards */
+    .category-pills {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .cat-pill {
+      padding: 7px 14px;
+      border-radius: var(--radius-pill);
+      font-size: 0.78rem;
+      font-weight: 700;
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      transition: all 0.18s ease;
+    }
+
+    .cat-pill.active {
+      background: var(--accent-indigo-soft);
+      color: var(--accent-indigo);
+      border-color: var(--accent-indigo);
+    }
+
+    .script-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .sentence-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .sentence-card {
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 15px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .sentence-card.speaking {
+      border-color: var(--accent-indigo);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+    }
+
+    .sentence-en {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.03rem;
+      line-height: 1.85;
+      color: var(--text-primary);
+      direction: ltr;
+      text-align: left;
+    }
+
+    .sentence-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      padding-top: 8px;
+      border-top: 1px dashed var(--border-subtle);
+    }
+
+    .sentence-ar-tip {
+      font-size: 0.76rem;
+      color: var(--text-secondary);
+      flex: 1;
+      min-width: 200px;
+    }
+
+    /* Built-in Voice Recorder Box */
+    .recorder-box {
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .rec-status {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .rec-pulse {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent-rose);
+      display: none;
+      animation: pulseRec 1s infinite;
+    }
+
+    .rec-pulse.active {
+      display: inline-block;
+    }
+
+    @keyframes pulseRec {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); opacity: 0.4; }
+    }
+
+    .rec-audio-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .rec-audio-wrap audio {
+      height: 36px;
+      max-width: 260px;
+    }
+
+    .rec-error-msg {
+      width: 100%;
+      font-size: 0.76rem;
+      color: var(--accent-amber);
+      background: var(--accent-amber-soft);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      display: none;
+    }
+
+    /* Sound Drills Grid */
+    .drills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 12px;
+    }
+
+    .drill-card {
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      cursor: pointer;
+      text-align: right;
+      transition: all 0.18s ease;
+      position: relative;
+    }
+
+    .drill-card:hover {
+      border-color: var(--accent-indigo);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .drill-card.playing {
+      border-color: var(--accent-emerald);
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+    }
+
+    .drill-word {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      direction: ltr;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .drill-phonetic {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--accent-indigo);
+      direction: ltr;
+      text-align: left;
+    }
+
+    .drill-tip {
+      font-size: 0.74rem;
+      color: var(--text-secondary);
+      line-height: 1.45;
+    }
+
+    /* Floating Phonetic Tooltip */
+    #phonetic-tooltip {
+      position: fixed;
+      z-index: 100;
+      max-width: 280px;
+      background: #0f172a;
+      color: #f8fafc;
+      border: 1px solid #334155;
+      border-radius: var(--radius-md);
+      padding: 10px 13px;
+      box-shadow: var(--shadow-lg);
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(4px);
+      transition: opacity 0.15s ease, transform 0.15s ease;
+    }
+
+    #phonetic-tooltip.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .tt-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 4px;
+      direction: ltr;
+    }
+
+    .tt-respell {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: #93c5fd;
+    }
+
+    .tt-cat {
+      font-size: 0.66rem;
+      font-weight: 700;
+      padding: 1px 7px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      color: #e2e8f0;
+    }
+
+    .tt-tip {
+      font-size: 0.75rem;
+      color: #cbd5e1;
+      line-height: 1.45;
+    }
+
+    /* ==========================================================================
+       7. MODALS & TOASTS
+       ========================================================================== */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      background: rgba(2, 6, 23, 0.72);
+      backdrop-filter: blur(5px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-lg);
+      max-width: 440px;
+      width: 100%;
+      padding: 20px;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .modal-title {
+      font-size: 0.98rem;
+      font-weight: 800;
+    }
+
+    .color-swatches {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .swatch-btn {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      transition: transform 0.15s ease;
+    }
+
+    .swatch-btn.selected {
+      transform: scale(1.15);
+      border-color: #ffffff;
+      box-shadow: 0 0 0 2px var(--accent-indigo);
+    }
+
+    #toast-container {
+      position: fixed;
+      bottom: 18px;
+      left: 18px;
+      z-index: 90;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-width: 340px;
+      width: calc(100% - 36px);
+      pointer-events: none;
+    }
+
+    .toast {
+      pointer-events: auto;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 11px 14px;
+      border-radius: var(--radius-md);
+      background: #0f172a;
+      color: #f8fafc;
+      border: 1px solid #334155;
+      box-shadow: var(--shadow-lg);
+      font-size: 0.78rem;
+      font-weight: 700;
+      animation: fadeSlideIn 0.2s ease;
+    }
+
+    .toast-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ==========================================================================
+       8. RESPONSIVE BREAKPOINTS
+       ========================================================================== */
+    @media (max-width: 1200px) {
+      .kpi-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .top-header {
+        justify-content: center;
+      }
+      .col-5, .col-7 {
+        grid-column: span 12;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .coach-top-row {
+        grid-template-columns: 1fr;
+      }
+      .perf-layout {
+        grid-template-columns: 1fr;
+      }
+      .entry-form-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .entry-form-grid .span-3, .entry-form-grid .span-2, .entry-form-grid .span-1 {
+        grid-column: span 1;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .app-shell {
+        padding: 10px 12px 28px;
+      }
+      .top-header {
+        position: static;
+        padding: 10px;
+      }
+      .kpi-grid {
+        grid-template-columns: 1fr;
+      }
+      .clocks-strip {
+        width: 100%;
+      }
+      .clock-card {
+        min-width: 154px;
+        flex: 1 0 154px;
+      }
+      .task-form-row {
+        grid-template-columns: 1fr 1fr;
+      }
+      .task-form-row button {
+        grid-column: span 2;
+      }
+      .action-btn span {
+        display: none;
+      }
+      .nav-tab-btn {
+        padding: 7px 12px;
+        font-size: 0.78rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Phonetic Tooltip -->
+  <div id="phonetic-tooltip" role="tooltip" aria-hidden="true">
+    <div class="tt-top">
+      <span id="tt-respell" class="tt-respell"></span>
+      <span id="tt-cat" class="tt-cat"></span>
+    </div>
+    <div id="tt-tip" class="tt-tip"></div>
+  </div>
+
+  <!-- Toast Notification Stack -->
+  <div id="toast-container"></div>
+
+  <div class="app-shell">
+
+    <!-- ==================== CLEAN SLEEK HEADER BAR (NO TITLE TEXT) ==================== -->
+    <header class="top-header">
+      <!-- Navigation Pill Switcher -->
+      <nav class="nav-switcher" aria-label="التنقل الرئيسي">
+        <button id="tab-btn-dashboard" type="button" class="nav-tab-btn active" data-main-tab="dashboard">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
+          </svg>
+          <span>لوحة العمل والدخل</span>
+        </button>
+        <button id="tab-btn-coach" type="button" class="nav-tab-btn" data-main-tab="coach">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" />
+          </svg>
+          <span>مدرب النطق الأمريكي</span>
+        </button>
+      </nav>
+
+      <!-- Redesigned World Clocks Strip -->
+      <div class="clocks-strip" aria-label="ساعات التوقيت العالمية">
+        <!-- Cairo -->
+        <div class="clock-card">
+          <div class="clock-top">
+            <div class="clock-city-wrap">
+              <span class="clock-dot dot-cairo"></span>
+              <span class="clock-city">مصر (القاهرة)</span>
+            </div>
+          </div>
+          <div id="clock-cairo" class="clock-time">--:--:-- --</div>
+          <div id="date-cairo" class="clock-date">---</div>
+        </div>
+
+        <!-- US Eastern -->
+        <div class="clock-card">
+          <div class="clock-top">
+            <div class="clock-city-wrap">
+              <span class="clock-dot dot-et"></span>
+              <span class="clock-city">شرق أمريكا (ET)</span>
+            </div>
+            <span id="offset-et" class="clock-offset">-7h</span>
+          </div>
+          <div id="clock-et" class="clock-time">--:--:-- --</div>
+          <div id="date-et" class="clock-date">---</div>
+        </div>
+
+        <!-- US Arizona -->
+        <div class="clock-card">
+          <div class="clock-top">
+            <div class="clock-city-wrap">
+              <span class="clock-dot dot-mst"></span>
+              <span class="clock-city">أريزونا (MST)</span>
+            </div>
+            <span id="offset-mst" class="clock-offset">-9h</span>
+          </div>
+          <div id="clock-mst" class="clock-time">--:--:-- --</div>
+          <div id="date-mst" class="clock-date">---</div>
+        </div>
+      </div>
+
+      <!-- Compact Action Controls -->
+      <div class="header-actions">
+        <button id="btn-theme" type="button" class="action-btn" title="تبديل الوضع الليلي والنهاري">
+          <svg id="icon-sun" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+          </svg>
+          <svg id="icon-moon" style="display:none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+          </svg>
+          <span>المظهر</span>
+        </button>
+
+        <button id="btn-export" type="button" class="action-btn" title="تصدير نسخة احتياطية JSON">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+          </svg>
+          <span>نسخ احتياطي</span>
+        </button>
+
+        <label class="action-btn" title="استيراد نسخة احتياطية JSON" style="cursor:pointer">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+          </svg>
+          <span>استيراد</span>
+          <input id="input-import" type="file" accept="application/json" style="display:none" />
+        </label>
+
+        <button id="btn-reset-open" type="button" class="action-btn danger" title="تصفير البيانات">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+          </svg>
+          <span>تصفير البيانات</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ======================================================================
+         TAB 1: لوحة العمل والدخل (FREELANCE & INCOME DASHBOARD)
+         ====================================================================== -->
+    <main id="panel-dashboard" class="tab-panel active">
+
+      <!-- Dismissible Sample Data Notice -->
+      <div id="sample-banner" class="sample-banner hidden">
+        <span>تعرض اللوحة حالياً بيانات تجريبية جاهزة لتجربة كل الميزات. يمكنك البدء من الصفر بضغطة واحدة.</span>
+        <div class="sample-banner-actions">
+          <button id="btn-quick-zero" type="button" class="btn btn-sm btn-soft-rose">تصفير والبدء الفعلي</button>
+          <button id="btn-dismiss-sample" type="button" class="btn btn-sm btn-secondary">إخفاء</button>
+        </div>
+      </div>
+
+      <!-- 4 KPI Cards Grid -->
+      <section class="kpi-grid" aria-label="مؤشرات الأداء">
+        <!-- KPI 1: Monthly Income + Inline Goal & Exchange Rate -->
+        <div class="kpi-card">
+          <div>
+            <div class="kpi-top">
+              <div>
+                <div class="kpi-label">الدخل الشهري المحقق</div>
+                <div class="kpi-value-row">
+                  <span id="kpi-usd" class="kpi-value" dir="ltr">$0.00</span>
+                  <span id="kpi-pct" class="badge icon-indigo font-mono">0%</span>
+                </div>
+                <div id="kpi-egp" class="kpi-sub-egp" dir="ltr">≈ 0 EGP</div>
+              </div>
+              <div class="card-icon icon-indigo">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+            </div>
+            <div style="margin-top:10px">
+              <div class="progress-track">
+                <div id="kpi-goal-bar" class="progress-fill" style="width:0%;background:linear-gradient(90deg,#6366f1,#a855f7)"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="kpi-inline-controls">
+            <div class="mini-edit-box">
+              <label for="inline-goal">الهدف ($)</label>
+              <input id="inline-goal" type="number" min="1" step="50" />
+            </div>
+            <div class="mini-edit-box">
+              <label for="inline-rate">الدولار</label>
+              <input id="inline-rate" type="number" min="1" step="0.1" />
+            </div>
+          </div>
+        </div>
+
+        <!-- KPI 2: Total Logged Hours -->
+        <div class="kpi-card">
+          <div class="kpi-top">
+            <div>
+              <div class="kpi-label">إجمالي ساعات العمل (هذا الشهر)</div>
+              <div class="kpi-value-row">
+                <span id="kpi-hours" class="kpi-value" dir="ltr">0.0</span>
+                <span style="font-size:0.85rem;font-weight:700;color:var(--text-secondary)">ساعة</span>
+              </div>
+            </div>
+            <div class="card-icon icon-sky">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+          </div>
+          <div class="kpi-footer">
+            <span>المتوسط اليومي:</span>
+            <strong id="kpi-daily-avg" class="font-mono" style="color:var(--accent-sky)" dir="ltr">0.0 hrs/day</strong>
+          </div>
+        </div>
+
+        <!-- KPI 3: Effective Hourly Rate -->
+        <div class="kpi-card">
+          <div class="kpi-top">
+            <div>
+              <div class="kpi-label">متوسط العائد للساعة</div>
+              <div class="kpi-value-row">
+                <span id="kpi-hourly" class="kpi-value" dir="ltr">$0.00</span>
+                <span class="font-mono" style="font-size:0.78rem;color:var(--text-muted)" dir="ltr">/ hr</span>
+              </div>
+            </div>
+            <div class="card-icon icon-emerald">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
+              </svg>
+            </div>
+          </div>
+          <div class="kpi-footer">
+            <span>الأعلى عائداً:</span>
+            <span id="kpi-top-plat" class="badge icon-emerald" style="max-width:165px;overflow:hidden;text-overflow:ellipsis">لا توجد بيانات</span>
+          </div>
+        </div>
+
+        <!-- KPI 4: Daily Tasks -->
+        <div class="kpi-card">
+          <div class="kpi-top">
+            <div>
+              <div class="kpi-label">مهام اليوم</div>
+              <div class="kpi-value-row">
+                <span id="kpi-tasks-done" class="kpi-value">0</span>
+                <span style="font-size:0.8rem;color:var(--text-secondary)">من <strong id="kpi-tasks-total" class="font-mono">0</strong> مكتملة</span>
+              </div>
+            </div>
+            <div class="card-icon icon-amber">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:0.72rem;color:var(--text-muted);margin-bottom:6px">
+              <span>نسبة الإنجاز</span>
+              <strong id="kpi-tasks-pct" class="font-mono">0%</strong>
+            </div>
+            <div class="progress-track">
+              <div id="kpi-tasks-bar" class="progress-fill" style="width:0%;background:linear-gradient(90deg,#f59e0b,#10b981)"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Row 2: Focus & Shift Timer + Daily Priority Tasks -->
+      <section class="split-grid">
+        <!-- Focus & Shift Timer (5 cols) -->
+        <div class="card col-5">
+          <div class="card-header">
+            <div class="card-title-group">
+              <div class="card-icon icon-indigo">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div>
+                <h2 class="card-title">تايمر التركيز وحساب الشفت</h2>
+                <p class="card-subtitle">بومودورو أو شفت مفتوح مع حساب العائد اللحظي</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mode Switch -->
+          <div class="mode-switch">
+            <button id="timer-mode-pomo" type="button" class="mode-btn active">بومودورو (تنازلي)</button>
+            <button id="timer-mode-shift" type="button" class="mode-btn">شفت مفتوح (تصاعدي)</button>
+          </div>
+
+          <!-- Presets -->
+          <div id="timer-presets-row" class="preset-row">
+            <button type="button" class="preset-pill active" data-mins="25">25m</button>
+            <button type="button" class="preset-pill" data-mins="50">50m</button>
+            <button type="button" class="preset-pill" data-mins="90">90m</button>
+          </div>
+
+          <!-- SVG Circular Progress -->
+          <div class="timer-ring-box">
+            <svg class="timer-ring-svg" viewBox="0 0 200 200">
+              <defs>
+                <linearGradient id="timerGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#6366f1" />
+                  <stop offset="100%" stop-color="#10b981" />
+                </linearGradient>
+              </defs>
+              <circle class="timer-ring-bg" cx="100" cy="100" r="88" />
+              <circle id="timer-ring-fg" class="timer-ring-fg" cx="100" cy="100" r="88" stroke-dasharray="552.92" stroke-dashoffset="0" />
+            </svg>
+            <div class="timer-center">
+              <span id="timer-phase-lbl" class="timer-phase">جلسة تركيز</span>
+              <div id="timer-digits" class="timer-digits">25:00</div>
+              <div id="timer-est" class="timer-est-pill">Est: $0.00</div>
+            </div>
+          </div>
+
+          <!-- Platform + Hourly Rate -->
+          <div class="timer-inputs-row">
+            <div>
+              <label for="timer-platform" class="field-label">المنصة</label>
+              <select id="timer-platform" class="select"></select>
+            </div>
+            <div>
+              <label for="timer-rate" class="field-label">سعر الساعة ($)</label>
+              <input id="timer-rate" type="number" min="0" step="0.5" class="input font-mono" dir="ltr" />
+            </div>
+          </div>
+
+          <!-- Controls -->
+          <div class="timer-controls-row">
+            <button id="btn-timer-toggle" type="button" class="btn btn-primary">ابدأ الجلسة</button>
+            <button id="btn-timer-reset" type="button" class="btn btn-secondary">إعادة ضبط</button>
+          </div>
+
+          <!-- 1-Click Direct Log Button -->
+          <button id="btn-timer-log" type="button" class="btn btn-soft-emerald" style="width:100%">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>تسجيل الجلسة في السجل</span>
+          </button>
+        </div>
+
+        <!-- Daily Priority Tasks (7 cols) -->
+        <div class="card col-7">
+          <div class="card-header">
+            <div class="card-title-group">
+              <div class="card-icon icon-amber">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div>
+                <h2 class="card-title">المهام اليومية حسب الأولوية</h2>
+                <p class="card-subtitle">رتّب أولويات يومك وتابع الإنجاز لحظة بلحظة</p>
+              </div>
+            </div>
+            <button id="btn-clear-done-tasks" type="button" class="btn btn-sm btn-soft-rose">مسح المكتمل</button>
+          </div>
+
+          <form id="form-task" class="task-form">
+            <input id="task-input" type="text" class="input" required placeholder="أضف مهمة جديدة... (مثال: متابعة طلبات UPS أو شفت ترجمة)" />
+            <div class="task-form-row">
+              <select id="task-priority" class="select">
+                <option value="high">أولوية عالية</option>
+                <option value="medium" selected>أولوية متوسطة</option>
+                <option value="low">أولوية عادية</option>
+              </select>
+              <select id="task-platform" class="select"></select>
+              <button type="submit" class="btn btn-primary">إضافة</button>
+            </div>
+          </form>
+
+          <div class="filter-pills" id="task-filters">
+            <button type="button" class="filter-pill active" data-tfilter="all">الكل</button>
+            <button type="button" class="filter-pill" data-tfilter="high">عالية</button>
+            <button type="button" class="filter-pill" data-tfilter="active">قيد التنفيذ</button>
+            <button type="button" class="filter-pill" data-tfilter="completed">مكتمل</button>
+          </div>
+
+          <div id="task-list" class="task-list"></div>
+        </div>
+      </section>
+
+      <!-- Row 3: Platform Performance & SVG Donut Breakdown -->
+      <section class="card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <div class="card-icon icon-emerald">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z" />
+              </svg>
+            </div>
+            <div>
+              <h2 class="card-title">أداء المنصات وتوزيع الدخل</h2>
+              <p class="card-subtitle">مرّر المؤشر على أي شريحة أو منصة لمقارنة حصتها والعائد الفعلي للساعة</p>
+            </div>
+          </div>
+          <button id="btn-add-platform" type="button" class="btn btn-sm btn-primary">+ إضافة منصة</button>
+        </div>
+
+        <div class="perf-layout">
+          <!-- Crisp Interactive SVG Donut -->
+          <div class="donut-wrap">
+            <svg id="donut-svg" class="donut-svg" viewBox="0 0 220 220"></svg>
+            <div class="donut-center">
+              <div id="donut-center-label" class="donut-center-label">إجمالي الدخل</div>
+              <div id="donut-center-val" class="donut-center-val">$0</div>
+              <div id="donut-center-pct" class="donut-center-pct">100%</div>
+            </div>
+          </div>
+
+          <!-- Horizontal Platform Progress Bars -->
+          <div id="platform-bars" class="platform-bars"></div>
+        </div>
+      </section>
+
+      <!-- Row 4: Income & Shift Log Table -->
+      <section class="card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <div class="card-icon icon-violet">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z" />
+              </svg>
+            </div>
+            <div>
+              <h2 class="card-title">سجل الدخل والشفتات</h2>
+              <p class="card-subtitle">أضف دفعة يدوية أو راجع السجل مع تصفية حسب المنصة ووسيلة السحب</p>
+            </div>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <select id="log-filter-platform" class="select" style="width:auto;padding:6px 10px;font-size:0.75rem"></select>
+            <select id="log-filter-payout" class="select" style="width:auto;padding:6px 10px;font-size:0.75rem">
+              <option value="all">كل وسائل السحب</option>
+              <option value="PayPal">PayPal</option>
+              <option value="Airtm">Airtm</option>
+              <option value="تحويل بنكي">تحويل بنكي</option>
+              <option value="معلّق">معلّق</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Manual Add Entry Form -->
+        <form id="form-entry" class="entry-form-grid">
+          <div class="span-1">
+            <label for="entry-date" class="field-label">التاريخ</label>
+            <input id="entry-date" type="date" class="input font-mono" dir="ltr" required />
+          </div>
+          <div class="span-2">
+            <label for="entry-platform" class="field-label">المنصة</label>
+            <select id="entry-platform" class="select" required></select>
+          </div>
+          <div class="span-1">
+            <label for="entry-hours" class="field-label">الساعات</label>
+            <input id="entry-hours" type="number" min="0" step="0.1" class="input font-mono" dir="ltr" placeholder="3.5" required />
+          </div>
+          <div class="span-1">
+            <label for="entry-amount" class="field-label">المبلغ ($)</label>
+            <input id="entry-amount" type="number" min="0" step="0.01" class="input font-mono" dir="ltr" placeholder="45" required />
+          </div>
+          <div class="span-1">
+            <label for="entry-payout" class="field-label">السحب</label>
+            <select id="entry-payout" class="select">
+              <option value="PayPal">PayPal</option>
+              <option value="Airtm">Airtm</option>
+              <option value="تحويل بنكي">تحويل بنكي</option>
+              <option value="معلّق">معلّق</option>
+            </select>
+          </div>
+          <div class="span-3" style="grid-column: span 5">
+            <input id="entry-note" type="text" class="input" placeholder="ملاحظة اختيارية (مثال: شفت ترجمة طبية أو دفعة عميل)..." />
+          </div>
+          <div class="span-1">
+            <button type="submit" class="btn btn-primary" style="width:100%;height:100%">حفظ السجل</button>
+          </div>
+        </form>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>التاريخ</th>
+                <th>المنصة والملاحظة</th>
+                <th>الساعات</th>
+                <th>الدخل ($)</th>
+                <th>العائد/س</th>
+                <th>وسيلة السحب</th>
+                <th style="text-align:center">حذف</th>
+              </tr>
+            </thead>
+            <tbody id="entries-tbody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <!-- ======================================================================
+         TAB 2: مدرب النطق الأمريكي (AMERICAN ACCENT COACH — C1 TRAINER)
+         ====================================================================== -->
+    <main id="panel-coach" class="tab-panel">
+
+      <!-- Coach Control Bar -->
+      <section class="card coach-control-bar">
+        <div class="coach-top-row">
+          <!-- 10-Min Daily Practice Timer -->
+          <div class="coach-mini-card">
+            <div>
+              <div class="field-label" style="margin-bottom:2px">تايمر التدريب اليومي (10 دقائق)</div>
+              <div id="coach-timer-digits" class="practice-timer-digits">10:00</div>
+            </div>
+            <div style="display:flex;gap:6px">
+              <button id="btn-coach-timer-toggle" type="button" class="btn btn-sm btn-primary">ابدأ</button>
+              <button id="btn-coach-timer-reset" type="button" class="btn btn-sm btn-secondary">إعادة</button>
+            </div>
+          </div>
+
+          <!-- Daily Progress & Streak -->
+          <div class="coach-mini-card">
+            <div class="streak-stats">
+              <div class="streak-stat-item">
+                <span id="coach-drills-today" class="streak-num">0</span>
+                <span class="streak-lbl">تمرين اليوم</span>
+              </div>
+              <div style="width:1px;height:28px;background:var(--border-subtle)"></div>
+              <div class="streak-stat-item">
+                <span id="coach-streak" class="streak-num" style="color:var(--accent-amber)">0</span>
+                <span class="streak-lbl">أيام متتالية 🔥</span>
+              </div>
+            </div>
+            <button id="btn-mark-practiced" type="button" class="btn btn-sm btn-soft-emerald">تم التدريب ✓</button>
+          </div>
+
+          <!-- Speech Speed & en-US Voice Selector -->
+          <div class="coach-mini-card" style="flex-direction:column;align-items:stretch;gap:8px">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap">
+              <span class="field-label" style="margin:0">السرعة:</span>
+              <div class="speed-group" id="speed-selector">
+                <button type="button" class="speed-btn" data-rate="0.75">0.75x بطيء</button>
+                <button type="button" class="speed-btn active" data-rate="1.0">1.0x طبيعي</button>
+                <button type="button" class="speed-btn" data-rate="1.15">1.15x سريع</button>
+              </div>
+            </div>
+            <select id="voice-select" class="select font-en" dir="ltr" style="padding:6px 10px;font-size:0.74rem"></select>
+          </div>
+        </div>
+
+        <!-- Phonetic Highlighting Legend & Toggle Controls -->
+        <div class="legend-bar" id="phonetic-legend">
+          <span class="legend-label">تمييز الأصوات (اضغط للإظهار/الإخفاء):</span>
+          <button type="button" class="legend-chip chip-flap" data-hl="flap"><span class="chip-dot"></span>Flap T</button>
+          <button type="button" class="legend-chip chip-schwa" data-hl="schwa"><span class="chip-dot"></span>Schwa /ə/</button>
+          <button type="button" class="legend-chip chip-ed" data-hl="ed"><span class="chip-dot"></span>-ed Endings</button>
+          <button type="button" class="legend-chip chip-th" data-hl="th"><span class="chip-dot"></span>TH /θ/ &amp; /ð/</button>
+          <button type="button" class="legend-chip chip-pb" data-hl="pb"><span class="chip-dot"></span>P vs B</button>
+          <button type="button" class="legend-chip chip-conn" data-hl="conn"><span class="chip-dot"></span>Connected Speech</button>
+        </div>
+      </section>
+
+      <!-- Coach Sub-Tabs Switcher -->
+      <div class="subtabs-bar" id="coach-subtabs">
+        <button type="button" class="subtab-btn active" data-subtab="shadowing">سكريبتات الشغل (Shadowing)</button>
+        <button type="button" class="subtab-btn" data-subtab="drills">تمارين الأصوات (Sound Drills)</button>
+        <button type="button" class="subtab-btn" data-subtab="custom">نص مخصص (Custom Practice)</button>
+      </div>
+
+      <!-- Shared Built-in Voice Recorder -->
+      <section class="recorder-box" aria-label="مسجل الصوت للمقارنة">
+        <div class="rec-status">
+          <span id="rec-pulse" class="rec-pulse"></span>
+          <div>
+            <div style="font-size:0.84rem;font-weight:800">🎙️ سجّل صوتك وقارن بالنطق الأمريكي</div>
+            <div id="rec-status-text" style="font-size:0.73rem;color:var(--text-muted)">اضغط تسجيل واقرأ الجملة بصوت عالٍ ثم استمع لنفسك</div>
+          </div>
+        </div>
+        <div class="rec-audio-wrap">
+          <span id="rec-timer" class="font-mono" style="font-size:0.85rem;font-weight:700;color:var(--accent-rose);display:none" dir="ltr">00:00</span>
+          <button id="btn-rec-start" type="button" class="btn btn-sm btn-soft-rose">🎙️ ابدأ التسجيل</button>
+          <button id="btn-rec-stop" type="button" class="btn btn-sm btn-secondary" style="display:none">⏹ إيقاف</button>
+          <audio id="rec-playback" controls style="display:none"></audio>
+        </div>
+        <div id="rec-error-msg" class="rec-error-msg"></div>
+      </section>
+
+      <!-- Coach Interactive Content Wrapper (receives hide-* classes) -->
+      <div id="coach-content">
+
+        <!-- SUB-TAB A: SHADOWING SCRIPTS -->
+        <section id="subtab-shadowing" class="subtab-panel active card">
+          <div class="script-toolbar">
+            <div class="category-pills" id="script-categories">
+              <button type="button" class="cat-pill active" data-cat="cold">Cold Calling &amp; Sales</button>
+              <button type="button" class="cat-pill" data-cat="objections">Objection Handling</button>
+              <button type="button" class="cat-pill" data-cat="va">Customer Support &amp; VA</button>
+              <button type="button" class="cat-pill" data-cat="medical">Medical Interpreting (VRI/OPI)</button>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <button id="btn-play-all-script" type="button" class="btn btn-sm btn-primary">▶️ تشغيل السكريبت كامل</button>
+              <button id="btn-stop-speech" type="button" class="btn btn-sm btn-secondary">⏹ إيقاف الصوت</button>
+            </div>
+          </div>
+
+          <p style="font-size:0.76rem;color:var(--text-muted)">
+            اضغط أو مرّر على أي كلمة ملوّنة لرؤية طريقة النطق الصوتي والملاحظة بالعربي، ثم اضغط <strong>🔊 استمع</strong> وردد فوراً بعدها (Shadowing).
+          </p>
+
+          <div id="script-sentences" class="sentence-list"></div>
+        </section>
+
+        <!-- SUB-TAB B: SOUND DRILLS -->
+        <section id="subtab-drills" class="subtab-panel card">
+          <div class="card-header" style="margin-bottom:10px">
+            <div>
+              <h2 class="card-title">تمارين الأصوات الأساسية للوصول لمستوى C1</h2>
+              <p class="card-subtitle">اضغط على أي بطاقة للاستماع فوراً بالنطق الأمريكي وملاحظة التفصيل الصوتي</p>
+            </div>
+          </div>
+
+          <div class="category-pills" id="drill-filters">
+            <button type="button" class="cat-pill active" data-drill="flap">Flap T</button>
+            <button type="button" class="cat-pill" data-drill="schwa">Schwa /ə/</button>
+            <button type="button" class="cat-pill" data-drill="ed">-ed Endings (/t/ /d/ /ɪd/)</button>
+            <button type="button" class="cat-pill" data-drill="th">TH (/θ/ vs /ð/)</button>
+            <button type="button" class="cat-pill" data-drill="pb">P vs B (Minimal Pairs)</button>
+            <button type="button" class="cat-pill" data-drill="conn">Connected Speech</button>
+          </div>
+
+          <div id="drills-grid" class="drills-grid"></div>
+        </section>
+
+        <!-- SUB-TAB C: CUSTOM PRACTICE -->
+        <section id="subtab-custom" class="subtab-panel card">
+          <div class="card-header" style="margin-bottom:8px">
+            <div>
+              <h2 class="card-title">تدريب على نص مخصص (Proposal / Script / Interview)</h2>
+              <p class="card-subtitle">الصق أي نص إنجليزي من شغلك الفعلي للاستماع له بالنطق الأمريكي وتقسيمه لجمل للتدريب</p>
+            </div>
+            <button id="btn-custom-sample" type="button" class="btn btn-sm btn-soft-indigo">تجربة نص مثال</button>
+          </div>
+
+          <textarea id="custom-textarea" class="textarea font-en" dir="ltr" placeholder="Paste your Upwork proposal, cold-calling script, or interview answer here..."></textarea>
+
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button id="btn-custom-speak" type="button" class="btn btn-primary">🔊 استمع بالنطق الأمريكي</button>
+            <button id="btn-custom-split" type="button" class="btn btn-soft-emerald">✂️ تقسيم لجمل (Shadowing)</button>
+            <button id="btn-custom-stop" type="button" class="btn btn-secondary">⏹ إيقاف</button>
+          </div>
+
+          <div id="custom-sentences" class="sentence-list"></div>
+        </section>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- ==================== MODAL: ADD CUSTOM PLATFORM ==================== -->
+  <div id="modal-platform" class="modal-backdrop">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3 class="modal-title">إضافة منصة عمل جديدة</h3>
+        <button type="button" class="icon-btn-del" data-close-modal="modal-platform" aria-label="إغلاق">✕</button>
+      </div>
+      <form id="form-platform" style="display:flex;flex-direction:column;gap:12px">
+        <div>
+          <label for="plat-name" class="field-label">اسم المنصة / العميل</label>
+          <input id="plat-name" type="text" class="input" required placeholder="مثال: Propio / Shopify Store" />
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div>
+            <label for="plat-goal" class="field-label">الهدف الشهري ($)</label>
+            <input id="plat-goal" type="number" min="0" step="10" class="input font-mono" dir="ltr" value="300" required />
+          </div>
+          <div>
+            <label for="plat-rate" class="field-label">سعر الساعة الافتراضي ($)</label>
+            <input id="plat-rate" type="number" min="0" step="0.5" class="input font-mono" dir="ltr" value="10" required />
+          </div>
+        </div>
+        <div>
+          <span class="field-label">لون المنصة</span>
+          <div id="plat-swatches" class="color-swatches"></div>
+          <input id="plat-color" type="hidden" value="#06b6d4" />
+        </div>
+        <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:4px">
+          <button type="button" class="btn btn-secondary" data-close-modal="modal-platform">إلغاء</button>
+          <button type="submit" class="btn btn-primary">حفظ المنصة</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: RESET / CLEAR DATA ==================== -->
+  <div id="modal-reset" class="modal-backdrop">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3 class="modal-title">إدارة وتصفير البيانات</h3>
+        <button type="button" class="icon-btn-del" data-close-modal="modal-reset" aria-label="إغلاق">✕</button>
+      </div>
+      <p style="font-size:0.8rem;color:var(--text-secondary)">اختر الإجراء المطلوب لبيانات لوحة العمل:</p>
+      <button id="btn-do-zero" type="button" class="btn btn-soft-rose" style="width:100%;justify-content:flex-start;padding:12px 14px;text-align:right;white-space:normal">
+        تصفير السجلات والمهام للبدء الفعلي (يحتفظ بالمنصات وإعداداتك)
+      </button>
+      <button id="btn-do-demo" type="button" class="btn btn-soft-indigo" style="width:100%;justify-content:flex-start;padding:12px 14px;text-align:right;white-space:normal">
+        استعادة البيانات التجريبية الافتراضية
+      </button>
+      <div style="display:flex;justify-content:flex-end">
+        <button type="button" class="btn btn-secondary" data-close-modal="modal-reset">إغلاق</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       APPLICATION JAVASCRIPT (DASHBOARD + AMERICAN ACCENT COACH)
+       ======================================================================== -->
+  <script>
+    (() => {
+      'use strict';
+
+      const STORAGE_KEY = 'workspace_freelance_coach_v2';
+      const SWATCH_COLORS = ['#3b82f6', '#10b981', '#8b5cf6', '#f59e0b', '#ec4899', '#06b6d4', '#ef4444', '#6366f1'];
+
+      // ==================== HELPERS ====================
+      function getDateStr(offsetDays = 0) {
+        const d = new Date();
+        d.setDate(d.getDate() + offsetDays);
+        return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+      }
+
+      function escapeHTML(str) {
+        return String(str ?? '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      function fmtUSD(v) {
+        return '$' + Number(v || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      }
+
+      function showToast(msg, type = 'success') {
+        const stack = document.getElementById('toast-container');
+        const colors = { success: '#10b981', info: '#6366f1', error: '#f43f5e', warn: '#f59e0b' };
+        const el = document.createElement('div');
+        el.className = 'toast';
+        el.innerHTML = `<span class="toast-dot" style="background:${colors[type] || colors.info}"></span><span>${escapeHTML(msg)}</span>`;
+        stack.appendChild(el);
+        setTimeout(() => {
+          el.style.opacity = '0';
+          el.style.transform = 'translateY(6px)';
+          el.style.transition = 'all 0.25s ease';
+          setTimeout(() => el.remove(), 260);
+        }, 3000);
+      }
+
+      function playChime() {
+        try {
+          const AC = window.AudioContext || window.webkitAudioContext;
+          if (!AC) return;
+          const ctx = new AC();
+          [523.25, 659.25, 783.99].forEach((freq, i) => {
+            const osc = ctx.createOscillator();
+            const g = ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(freq, ctx.currentTime + i * 0.14);
+            g.gain.setValueAtTime(0.001, ctx.currentTime + i * 0.14);
+            g.gain.exponentialRampToValueAtTime(0.12, ctx.currentTime + i * 0.14 + 0.03);
+            g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.14 + 0.4);
+            osc.connect(g);
+            g.connect(ctx.destination);
+            osc.start(ctx.currentTime + i * 0.14);
+            osc.stop(ctx.currentTime + i * 0.14 + 0.42);
+          });
+        } catch (_) {}
+      }
+
+      // ==================== INITIAL STATE ====================
+      function buildStarterState() {
+        const today = getDateStr(0);
+        return {
+          theme: 'dark',
+          isSample: true,
+          sampleDismissed: false,
+          monthlyGoal: 1700,
+          egpRate: 49.5,
+          platforms: [
+            { id: 'p_curalingo', name: 'Curalingo / Lingotec', goal: 400, rate: 8.5, color: '#3b82f6' },
+            { id: 'p_upwork', name: 'Upwork & VA', goal: 500, rate: 12, color: '#10b981' },
+            { id: 'p_outlier', name: 'Outlier AI', goal: 300, rate: 15, color: '#8b5cf6' },
+            { id: 'p_crowdgen', name: 'CrowdGen / OneForma', goal: 200, rate: 10, color: '#f59e0b' },
+            { id: 'p_sales', name: 'Remote Sales', goal: 300, rate: 14, color: '#ec4899' },
+          ],
+          entries: [
+            { id: 'e1', date: getDateStr(0), platformId: 'p_sales', hours: 4.0, amount: 56, payout: 'PayPal', note: 'مكالمات حجز مواعيد بتوقيت أمريكا' },
+            { id: 'e2', date: getDateStr(-1), platformId: 'p_curalingo', hours: 6.5, amount: 55.25, payout: 'تحويل بنكي', note: 'شفتات ترجمة فورية طبية VRI/OPI' },
+            { id: 'e3', date: getDateStr(-2), platformId: 'p_upwork', hours: 8.0, amount: 96, payout: 'PayPal', note: 'متابعة شحنات UPS وطلبات العملاء' },
+            { id: 'e4', date: getDateStr(-3), platformId: 'p_outlier', hours: 5.5, amount: 82.5, payout: 'Airtm', note: 'مهام تقييم لغوي وتدريب AI' },
+            { id: 'e5', date: getDateStr(-4), platformId: 'p_crowdgen', hours: 4.5, amount: 45, payout: 'معلّق', note: 'تفريغ ومراجعة ملفات صوتية' },
+          ],
+          tasks: [
+            { id: 't1', title: 'متابعة شحنات UPS وتحديث جدول العملاء', priority: 'high', platformId: 'p_upwork', completed: false, createdAt: Date.now() - 4000 },
+            { id: 't2', title: 'مراجعة إيميلات الشغل والرد على Recruiters', priority: 'high', platformId: 'general', completed: true, createdAt: Date.now() - 3000 },
+            { id: 't3', title: 'شفت ترجمة فورية على Lingotec (3 ساعات)', priority: 'medium', platformId: 'p_curalingo', completed: false, createdAt: Date.now() - 2000 },
+            { id: 't4', title: 'تدريب 10 دقائق نطق أمريكي (Shadowing)', priority: 'low', platformId: 'p_sales', completed: false, createdAt: Date.now() - 1000 },
+          ],
+          coach: {
+            lastPracticeDate: today,
+            drillsToday: 0,
+            streak: 1,
+            speechRate: 1.0,
+            voiceName: '',
+          },
+        };
+      }
+
+      let state = loadState();
+      let taskFilter = 'all';
+      let activeScriptCat = 'cold';
+      let activeDrillCat = 'flap';
+      let hoveredPlatformId = null;
+
+      function loadState() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) return buildStarterState();
+          const parsed = JSON.parse(raw);
+          if (!parsed || !Array.isArray(parsed.platforms)) return buildStarterState();
+          const merged = { ...buildStarterState(), ...parsed };
+          merged.coach = { ...buildStarterState().coach, ...(parsed.coach || {}) };
+          // Reset daily drill count if it's a new day
+          const today = getDateStr(0);
+          if (merged.coach.lastPracticeDate !== today) {
+            const yesterday = getDateStr(-1);
+            if (merged.coach.lastPracticeDate !== yesterday) {
+              merged.coach.streak = 0;
+            }
+            merged.coach.drillsToday = 0;
+          }
+          return merged;
+        } catch (err) {
+          return buildStarterState();
+        }
+      }
+
+      function saveState() {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        } catch (err) {
+          showToast('تعذر حفظ البيانات في المتصفح', 'error');
+        }
+      }
+
+      // ==================== THEME ====================
+      function applyTheme() {
+        const isLight = state.theme === 'light';
+        document.documentElement.classList.toggle('light', isLight);
+        document.documentElement.classList.toggle('dark', !isLight);
+        document.getElementById('icon-sun').style.display = isLight ? 'none' : 'block';
+        document.getElementById('icon-moon').style.display = isLight ? 'block' : 'none';
+      }
+
+      // ==================== LIVE TRIPLE WORLD CLOCKS ====================
+      function getHourDiffFromCairo(now, targetTz) {
+        try {
+          const cairoLocal = new Date(now.toLocaleString('en-US', { timeZone: 'Africa/Cairo' }));
+          const targetLocal = new Date(now.toLocaleString('en-US', { timeZone: targetTz }));
+          const diffHrs = Math.round((targetLocal - cairoLocal) / 3600000);
+          return `${diffHrs >= 0 ? '+' : ''}${diffHrs}h`;
+        } catch (_) {
+          return '';
+        }
+      }
+
+      function updateClocks() {
+        const now = new Date();
+        const zones = [
+          { tz: 'Africa/Cairo', timeId: 'clock-cairo', dateId: 'date-cairo', offsetId: null },
+          { tz: 'America/New_York', timeId: 'clock-et', dateId: 'date-et', offsetId: 'offset-et' },
+          { tz: 'America/Phoenix', timeId: 'clock-mst', dateId: 'date-mst', offsetId: 'offset-mst' },
+        ];
+
+        zones.forEach(({ tz, timeId, dateId, offsetId }) => {
+          try {
+            const tStr = new Intl.DateTimeFormat('en-US', {
+              timeZone: tz,
+              hour: '2-digit',
+              minute: '2-digit',
+              second: '2-digit',
+              hour12: true,
+            }).format(now);
+            const dStr = new Intl.DateTimeFormat('en-US', {
+              timeZone: tz,
+              weekday: 'short',
+              month: 'short',
+              day: 'numeric',
+            }).format(now);
+            document.getElementById(timeId).textContent = tStr;
+            document.getElementById(dateId).textContent = dStr;
+            if (offsetId) {
+              const off = getHourDiffFromCairo(now, tz);
+              if (off) document.getElementById(offsetId).textContent = off;
+            }
+          } catch (_) {}
+        });
+      }
+
+      // ==================== DASHBOARD METRICS & RENDERING ====================
+      function getPlatform(id) {
+        return state.platforms.find((p) => p.id === id) || null;
+      }
+
+      function computeMetrics() {
+        const ym = getDateStr(0).slice(0, 7);
+        const monthEntries = state.entries.filter((e) => (e.date || '').startsWith(ym));
+        const activeEntries = monthEntries.length > 0 ? monthEntries : state.entries;
+
+        let totalIncome = 0;
+        let totalHours = 0;
+        const days = new Set();
+        const statsMap = {};
+
+        state.platforms.forEach((p) => {
+          statsMap[p.id] = { ...p, earned: 0, hours: 0, effectiveRate: 0 };
+        });
+
+        activeEntries.forEach((e) => {
+          const amt = Number(e.amount) || 0;
+          const hrs = Number(e.hours) || 0;
+          totalIncome += amt;
+          totalHours += hrs;
+          if (e.date) days.add(e.date);
+          if (statsMap[e.platformId]) {
+            statsMap[e.platformId].earned += amt;
+            statsMap[e.platformId].hours += hrs;
+          }
+        });
+
+        let topPlat = null;
+        Object.values(statsMap).forEach((s) => {
+          s.effectiveRate = s.hours > 0 ? s.earned / s.hours : 0;
+          if (s.effectiveRate > 0 && (!topPlat || s.effectiveRate > topPlat.effectiveRate)) {
+            topPlat = s;
+          }
+        });
+
+        return {
+          totalIncome,
+          totalHours,
+          overallRate: totalHours > 0 ? totalIncome / totalHours : 0,
+          dailyAvg: totalHours > 0 ? totalHours / Math.max(days.size, 1) : 0,
+          topPlat,
+          platformStats: Object.values(statsMap),
+        };
+      }
+
+      function populateSelects() {
+        const configs = [
+          { id: 'timer-platform', all: false, general: false },
+          { id: 'entry-platform', all: false, general: false },
+          { id: 'task-platform', all: false, general: true },
+          { id: 'log-filter-platform', all: true, general: false },
+        ];
+
+        configs.forEach(({ id, all, general }) => {
+          const el = document.getElementById(id);
+          const prev = el.value;
+          el.innerHTML = '';
+          if (all) el.insertAdjacentHTML('beforeend', '<option value="all">كل المنصات</option>');
+          if (general) el.insertAdjacentHTML('beforeend', '<option value="general">عام / إدارة</option>');
+          state.platforms.forEach((p) => {
+            const opt = document.createElement('option');
+            opt.value = p.id;
+            opt.textContent = p.name;
+            el.appendChild(opt);
+          });
+          if (prev && Array.from(el.options).some((o) => o.value === prev)) {
+            el.value = prev;
+          }
+        });
+
+        // Auto-fill timer rate if empty
+        const rateEl = document.getElementById('timer-rate');
+        if (!rateEl.value) {
+          const p = getPlatform(document.getElementById('timer-platform').value);
+          if (p) rateEl.value = p.rate;
+        }
+      }
+
+      function renderKPIs() {
+        const m = computeMetrics();
+        const goal = Math.max(Number(state.monthlyGoal) || 1, 1);
+        const egpRate = Math.max(Number(state.egpRate) || 49.5, 1);
+        const pctRaw = Math.round((m.totalIncome / goal) * 100);
+        const pctBar = Math.min(pctRaw, 100);
+
+        document.getElementById('kpi-usd').textContent = fmtUSD(m.totalIncome);
+        document.getElementById('kpi-pct').textContent = `${pctRaw}%`;
+        document.getElementById('kpi-egp').textContent = `≈ ${Math.round(m.totalIncome * egpRate).toLocaleString('en-US')} EGP`;
+        document.getElementById('kpi-goal-bar').style.width = `${pctBar}%`;
+
+        const goalInput = document.getElementById('inline-goal');
+        const rateInput = document.getElementById('inline-rate');
+        if (document.activeElement !== goalInput) goalInput.value = state.monthlyGoal;
+        if (document.activeElement !== rateInput) rateInput.value = state.egpRate;
+
+        document.getElementById('kpi-hours').textContent = m.totalHours.toFixed(1);
+        document.getElementById('kpi-daily-avg').textContent = `${m.dailyAvg.toFixed(1)} hrs/day`;
+
+        document.getElementById('kpi-hourly').textContent = fmtUSD(m.overallRate);
+        document.getElementById('kpi-top-plat').textContent = m.topPlat
+          ? `${m.topPlat.name} ($${m.topPlat.effectiveRate.toFixed(1)}/h)`
+          : 'لا توجد بيانات';
+
+        const totalT = state.tasks.length;
+        const doneT = state.tasks.filter((t) => t.completed).length;
+        const tPct = totalT > 0 ? Math.round((doneT / totalT) * 100) : 0;
+        document.getElementById('kpi-tasks-done').textContent = doneT;
+        document.getElementById('kpi-tasks-total').textContent = totalT;
+        document.getElementById('kpi-tasks-pct').textContent = `${tPct}%`;
+        document.getElementById('kpi-tasks-bar').style.width = `${tPct}%`;
+
+        // Sample banner visibility
+        const banner = document.getElementById('sample-banner');
+        banner.classList.toggle('hidden', !state.isSample || state.sampleDismissed);
+      }
+
+      // Interactive SVG Donut + Platform Horizontal Progress Bars
+      function renderPlatformPerformance() {
+        const m = computeMetrics();
+        const svg = document.getElementById('donut-svg');
+        const barsEl = document.getElementById('platform-bars');
+        const radius = 78;
+        const circ = 2 * Math.PI * radius;
+
+        // Build Donut SVG
+        let svgHTML = `<circle cx="110" cy="110" r="${radius}" fill="none" stroke="var(--bg-pill)" stroke-width="24" />`;
+        if (m.totalIncome > 0) {
+          let offset = 0;
+          m.platformStats.forEach((p) => {
+            if (p.earned <= 0) return;
+            const share = p.earned / m.totalIncome;
+            const segLen = share * circ;
+            const gap = m.platformStats.filter((x) => x.earned > 0).length > 1 ? 3 : 0;
+            const dash = `${Math.max(segLen - gap, 1)} ${circ}`;
+            const isHi = hoveredPlatformId === p.id ? 'highlighted' : '';
+            svgHTML += `<circle class="donut-segment ${isHi}" data-plat-hover="${escapeHTML(p.id)}" cx="110" cy="110" r="${radius}" stroke="${escapeHTML(p.color)}" stroke-dasharray="${dash}" stroke-dashoffset="${-offset}" transform="rotate(-90 110 110)" />`;
+            offset += segLen;
+          });
+        }
+        svg.innerHTML = svgHTML;
+        updateDonutCenter(m);
+
+        // Build Horizontal Progress Bars
+        barsEl.innerHTML = m.platformStats
+          .map((p) => {
+            const pct = p.goal > 0 ? Math.min(Math.round((p.earned / p.goal) * 100), 100) : 0;
+            const sharePct = m.totalIncome > 0 ? Math.round((p.earned / m.totalIncome) * 100) : 0;
+            const isHi = hoveredPlatformId === p.id ? 'highlighted' : '';
+            return `
+              <div class="plat-row ${isHi}" data-plat-hover="${escapeHTML(p.id)}">
+                <div class="plat-row-top">
+                  <div class="plat-name-wrap">
+                    <span class="plat-dot" style="background:${escapeHTML(p.color)}"></span>
+                    <span>${escapeHTML(p.name)}</span>
+                    <span class="badge" style="background:var(--bg-pill);color:var(--text-muted);font-family:'JetBrains Mono',monospace">${sharePct}%</span>
+                  </div>
+                  <div class="plat-stats">
+                    <span><strong>$${p.earned.toFixed(0)}</strong> / $${p.goal}</span>
+                    <span>${p.hours.toFixed(1)}h</span>
+                    <span class="rate-tag">$${p.effectiveRate.toFixed(1)}/h</span>
+                  </div>
+                </div>
+                <div class="progress-track">
+                  <div class="progress-fill" style="width:${pct}%;background:${escapeHTML(p.color)}"></div>
+                </div>
+              </div>
+            `;
+          })
+          .join('');
+      }
+
+      function updateDonutCenter(metricsObj) {
+        const m = metricsObj || computeMetrics();
+        const labelEl = document.getElementById('donut-center-label');
+        const valEl = document.getElementById('donut-center-val');
+        const pctEl = document.getElementById('donut-center-pct');
+
+        if (hoveredPlatformId) {
+          const p = m.platformStats.find((x) => x.id === hoveredPlatformId);
+          if (p) {
+            const share = m.totalIncome > 0 ? Math.round((p.earned / m.totalIncome) * 100) : 0;
+            labelEl.textContent = p.name;
+            valEl.textContent = `$${p.earned.toFixed(0)}`;
+            pctEl.textContent = `${share}% • $${p.effectiveRate.toFixed(1)}/h`;
+            return;
+          }
+        }
+        labelEl.textContent = 'إجمالي الدخل';
+        valEl.textContent = `$${Math.round(m.totalIncome).toLocaleString('en-US')}`;
+        pctEl.textContent = `${m.totalHours.toFixed(1)} ساعة`;
+      }
+
+      function renderTasks() {
+        const listEl = document.getElementById('task-list');
+        const rank = { high: 1, medium: 2, low: 3 };
+        const labels = {
+          high: { txt: 'عالية', cls: 'prio-high' },
+          medium: { txt: 'متوسطة', cls: 'prio-medium' },
+          low: { txt: 'عادية', cls: 'prio-low' },
+        };
+
+        const items = [...state.tasks]
+          .filter((t) => {
+            if (taskFilter === 'high') return t.priority === 'high' && !t.completed;
+            if (taskFilter === 'active') return !t.completed;
+            if (taskFilter === 'completed') return t.completed;
+            return true;
+          })
+          .sort((a, b) => {
+            if (a.completed !== b.completed) return a.completed ? 1 : -1;
+            const d = (rank[a.priority] || 3) - (rank[b.priority] || 3);
+            return d !== 0 ? d : (b.createdAt || 0) - (a.createdAt || 0);
+          });
+
+        if (items.length === 0) {
+          listEl.innerHTML = `<div style="text-align:center;padding:28px 12px;font-size:0.78rem;color:var(--text-muted);border:1px dashed var(--border-subtle);border-radius:12px">لا توجد مهام في هذا القسم حالياً.</div>`;
+          return;
+        }
+
+        listEl.innerHTML = items
+          .map((t) => {
+            const pr = labels[t.priority] || labels.medium;
+            const plat = t.platformId === 'general' ? null : getPlatform(t.platformId);
+            return `
+              <div class="task-item ${t.completed ? 'done' : ''}">
+                <button type="button" class="task-check" data-toggle-task="${escapeHTML(t.id)}" aria-label="إكمال المهمة">
+                  ${t.completed ? '✓' : ''}
+                </button>
+                <div class="task-body">
+                  <div class="task-text">${escapeHTML(t.title)}</div>
+                  <div class="task-meta">
+                    <span class="badge ${pr.cls}">${pr.txt}</span>
+                    <span class="badge" style="background:var(--bg-pill);color:var(--text-secondary)">
+                      <span class="plat-dot" style="width:6px;height:6px;background:${plat ? escapeHTML(plat.color) : '#64748b'}"></span>
+                      ${plat ? escapeHTML(plat.name) : 'عام'}
+                    </span>
+                  </div>
+                </div>
+                <button type="button" class="icon-btn-del" data-del-task="${escapeHTML(t.id)}" title="حذف المهمة">✕</button>
+              </div>
+            `;
+          })
+          .join('');
+      }
+
+      function renderEntries() {
+        const tbody = document.getElementById('entries-tbody');
+        const fp = document.getElementById('log-filter-platform').value;
+        const fm = document.getElementById('log-filter-payout').value;
+
+        const rows = [...state.entries]
+          .filter((e) => (fp === 'all' ? true : e.platformId === fp))
+          .filter((e) => (fm === 'all' ? true : e.payout === fm))
+          .sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+
+        if (rows.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;padding:26px;color:var(--text-muted)">لا توجد سجلات مطابقة حتى الآن.</td></tr>`;
+          return;
+        }
+
+        const payoutCls = {
+          PayPal: 'icon-indigo',
+          Airtm: 'icon-sky',
+          'تحويل بنكي': 'icon-emerald',
+          'معلّق': 'icon-amber',
+        };
+
+        tbody.innerHTML = rows
+          .map((e) => {
+            const p = getPlatform(e.platformId);
+            const rate = e.hours > 0 ? e.amount / e.hours : 0;
+            return `
+              <tr>
+                <td class="font-mono" style="font-size:0.74rem;color:var(--text-muted);white-space:nowrap" dir="ltr">${escapeHTML(e.date)}</td>
+                <td>
+                  <div style="display:flex;align-items:center;gap:7px;font-weight:700">
+                    <span class="plat-dot" style="width:8px;height:8px;background:${p ? escapeHTML(p.color) : '#64748b'}"></span>
+                    <span>${p ? escapeHTML(p.name) : 'منصة محذوفة'}</span>
+                  </div>
+                  ${e.note ? `<div style="font-size:0.72rem;color:var(--text-muted);margin-top:2px">${escapeHTML(e.note)}</div>` : ''}
+                </td>
+                <td class="font-mono" style="font-weight:700;white-space:nowrap" dir="ltr">${Number(e.hours).toFixed(2)}h</td>
+                <td class="font-mono" style="font-weight:800;color:var(--accent-emerald);white-space:nowrap" dir="ltr">${fmtUSD(e.amount)}</td>
+                <td class="font-mono" style="color:var(--text-secondary);white-space:nowrap" dir="ltr">$${rate.toFixed(1)}/h</td>
+                <td><span class="badge ${payoutCls[e.payout] || 'icon-indigo'}">${escapeHTML(e.payout)}</span></td>
+                <td style="text-align:center">
+                  <button type="button" class="icon-btn-del" data-del-entry="${escapeHTML(e.id)}" title="حذف السجل">✕</button>
+                </td>
+              </tr>
+            `;
+          })
+          .join('');
+      }
+
+      function renderDashboard() {
+        populateSelects();
+        renderKPIs();
+        renderPlatformPerformance();
+        renderTasks();
+        renderEntries();
+        renderFocusTimer();
+      }
+
+      // ==================== FOCUS & SHIFT TIMER ENGINE ====================
+      const RING_C = 2 * Math.PI * 88; // 552.92
+      const focusTimer = {
+        mode: 'pomo', // 'pomo' | 'shift'
+        presetMins: 25,
+        totalSec: 25 * 60,
+        remSec: 25 * 60,
+        elapsedSec: 0,
+        running: false,
+        id: null,
+        lastTs: null,
+      };
+
+      function fmtClock(sec) {
+        const s = Math.max(0, Math.floor(sec));
+        const h = Math.floor(s / 3600);
+        const m = Math.floor((s % 3600) / 60);
+        const r = s % 60;
+        if (h > 0) return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(r).padStart(2, '0')}`;
+        return `${String(m).padStart(2, '0')}:${String(r).padStart(2, '0')}`;
+      }
+
+      function renderFocusTimer() {
+        const digitsEl = document.getElementById('timer-digits');
+        const ringEl = document.getElementById('timer-ring-fg');
+        const estEl = document.getElementById('timer-est');
+        const phaseEl = document.getElementById('timer-phase-lbl');
+        const btnEl = document.getElementById('btn-timer-toggle');
+        const rate = parseFloat(document.getElementById('timer-rate').value) || 0;
+
+        let tracked = 0;
+        let ratio = 0;
+        if (focusTimer.mode === 'pomo') {
+          digitsEl.textContent = fmtClock(focusTimer.remSec);
+          tracked = Math.max(0, focusTimer.totalSec - focusTimer.remSec);
+          ratio = focusTimer.totalSec > 0 ? focusTimer.remSec / focusTimer.totalSec : 0;
+          phaseEl.textContent = `بومودورو (${focusTimer.presetMins} دقيقة)`;
+        } else {
+          digitsEl.textContent = fmtClock(focusTimer.elapsedSec);
+          tracked = focusTimer.elapsedSec;
+          ratio = (focusTimer.elapsedSec % 3600) / 3600;
+          phaseEl.textContent = 'شفت مفتوح';
+        }
+
+        ringEl.style.strokeDashoffset = (RING_C * (1 - ratio)).toFixed(2);
+        estEl.textContent = `Est: ${fmtUSD((tracked / 3600) * rate)}`;
+        btnEl.textContent = focusTimer.running ? 'إيقاف مؤقت' : (tracked > 0 ? 'استكمال' : 'ابدأ الجلسة');
+      }
+
+      function toggleFocusTimer() {
+        if (focusTimer.running) {
+          focusTimer.running = false;
+          clearInterval(focusTimer.id);
+          focusTimer.id = null;
+        } else {
+          focusTimer.running = true;
+          focusTimer.lastTs = Date.now();
+          focusTimer.id = setInterval(() => {
+            const now = Date.now();
+            const dt = (now - focusTimer.lastTs) / 1000;
+            focusTimer.lastTs = now;
+            if (focusTimer.mode === 'pomo') {
+              focusTimer.remSec -= dt;
+              if (focusTimer.remSec <= 0) {
+                focusTimer.remSec = 0;
+                focusTimer.running = false;
+                clearInterval(focusTimer.id);
+                playChime();
+                showToast('انتهت الجلسة! اضغط "تسجيل الجلسة في السجل" لحفظها.', 'success');
+              }
+            } else {
+              focusTimer.elapsedSec += dt;
+            }
+            renderFocusTimer();
+          }, 250);
+        }
+        renderFocusTimer();
+      }
+
+      function resetFocusTimer() {
+        focusTimer.running = false;
+        clearInterval(focusTimer.id);
+        focusTimer.id = null;
+        focusTimer.totalSec = focusTimer.presetMins * 60;
+        focusTimer.remSec = focusTimer.totalSec;
+        focusTimer.elapsedSec = 0;
+        renderFocusTimer();
+      }
+
+      // 1-Click Direct Session Logging
+      function logFocusSessionDirectly() {
+        if (focusTimer.running) toggleFocusTimer();
+        let trackedSec = focusTimer.mode === 'pomo'
+          ? (focusTimer.totalSec - focusTimer.remSec)
+          : focusTimer.elapsedSec;
+
+        if (trackedSec < 30) {
+          if (focusTimer.mode === 'pomo') {
+            trackedSec = focusTimer.presetMins * 60;
+          } else {
+            showToast('شغّل التايمر أولاً لاحتساب وقت الشفت قبل التسجيل.', 'warn');
+            return;
+          }
+        }
+
+        const hours = Number(Math.max(0.05, trackedSec / 3600).toFixed(2));
+        const rate = parseFloat(document.getElementById('timer-rate').value) || 0;
+        const amount = Number((hours * rate).toFixed(2));
+        const platformId = document.getElementById('timer-platform').value;
+        const plat = getPlatform(platformId);
+
+        state.entries.unshift({
+          id: 'e_' + Date.now(),
+          date: getDateStr(0),
+          platformId,
+          hours,
+          amount,
+          payout: 'معلّق',
+          note: focusTimer.mode === 'pomo' ? `جلسة تركيز (${Math.round(trackedSec / 60)} دقيقة)` : 'شفت عمل مسجل من التايمر',
+        });
+        state.isSample = false;
+        saveState();
+        resetFocusTimer();
+        renderDashboard();
+        showToast(`تم تسجيل ${hours} ساعة (${fmtUSD(amount)}) على ${plat ? plat.name : ''}`, 'success');
+      }
+
+      // ========================================================================
+      // TAB 2 DATA: AMERICAN ACCENT COACH (SCRIPTS & PHONETIC DRILLS)
+      // ========================================================================
+      const SCRIPT_LIBRARY = {
+        cold: {
+          title: 'Cold Calling & Sales Opener',
+          sentences: [
+            {
+              plain: "Hi David, this is Essam calling about the property over on Oakwood Drive — got a quick minute?",
+              tokens: [
+                { t: "Hi David, " },
+                { t: "this", c: "th", r: "dhis /ð/", tip: "الـ TH هنا منطوقة (Voiced /ð/) بطرف اللسان بين الأسنان." },
+                { t: " is Essam calling " },
+                { t: "about", c: "schwa", r: "uh-BOWT", tip: "ابدأ بـ Schwa خفيفة /ə/ مش 'أ' واضحة." },
+                { t: " the " },
+                { t: "property", c: "pb", r: "PRAH-per-dee", tip: "انطق الـ P بنفخة هواء واضحة (Aspiration) عشان متطلعش B." },
+                { t: " over on Oakwood Drive — " },
+                { t: "got a", c: "conn", r: "GAH-da", tip: "ادمج got + a مع Flap T سريعة لتطلع طبيعية جداً." },
+                { t: " quick minute?" },
+              ],
+              ar: "افتح المكالمة بنبرة هادية وواثقة؛ دمج got a إلى GAH-da بيخلي البداية أمريكية طبيعية ومش روبوتية.",
+            },
+            {
+              plain: "I wanted to reach out because we just helped a homeowner in your neighborhood get a better cash offer.",
+              tokens: [
+                { t: "I " },
+                { t: "wanted to", c: "conn", r: "WAH-nuh-duh", tip: "في الكلام السريع الأمريكي، الـ t بعد n بتخفف جداً (wanted to → WAH-nuh-duh)." },
+                { t: " reach out because we just " },
+                { t: "helped", c: "ed", r: "helpt /t/", tip: "نهاية -ed بعد p تُنطق /t/ حادة بدون مقطع إضافي (مش help-ed)." },
+                { t: " a homeowner in your neighborhood get a " },
+                { t: "better", c: "flap", r: "BE-der", tip: "Flap T: الـ tt بين حرفين متحركين تُنطق زي 'د' سريعة وخفيفة." },
+                { t: " cash offer." },
+              ],
+              ar: "ركز على نطق helped كمقطع واحد (helpt) مع خفة الـ Flap T في كلمة better.",
+            },
+            {
+              plain: "Would you be open to a quick ten-minute call later today to see if it makes sense for you?",
+              tokens: [
+                { t: "Would you", c: "conn", r: "WOO-juh", tip: "ادمج d + y إلى صوت /dʒ/ الخفيف: WOO-juh." },
+                { t: " be " },
+                { t: "open", c: "pb", r: "OH-pən", tip: "P واضحة بنفخة هواء خفيفة + Schwa في آخر المقطع." },
+                { t: " to a quick ten-minute call " },
+                { t: "later", c: "flap", r: "LAY-der", tip: "Flap T سريعة في كلمة later → LAY-der." },
+                { t: " " },
+                { t: "today", c: "schwa", r: "tə-DAY", tip: "المقطع الأول غير مشدد فيُختصر لـ Schwa /ə/." },
+                { t: " to see if it makes sense for you?" },
+              ],
+              ar: "ارفع نبرة صوتك سنة بسيطة في آخر السؤال (Rising Intonation) مع دمج Would you إلى WOO-juh.",
+            },
+          ],
+        },
+        objections: {
+          title: 'Objection Handling & Booking',
+          sentences: [
+            {
+              plain: "Totally understand you're busy right now — I can send that email over in thirty seconds.",
+              tokens: [
+                { t: "Totally", c: "flap", r: "TOH-də-lee", tip: "Flap T خفيفة مع Schwa في المنتصف." },
+                { t: " understand you're busy right now — I can send " },
+                { t: "that", c: "th", r: "dhaet /ð/", tip: "طرف اللسان يلمس الأسنان العلوية بخفة لنطق /ð/." },
+                { t: " email over in " },
+                { t: "thirty", c: "th", r: "THER-dee", tip: "ابدأ بـ /θ/ بهواء واضح (مش s أو t) مع Flap T في المنتصف." },
+                { t: " seconds." },
+              ],
+              ar: "لما العميل يقولك ابعتلي إيميل، اتفق معاه الأول بسرعة عشان تقلل المقاومة وبعدين اسأل سؤال يثبّت الموعد.",
+            },
+            {
+              plain: "Before I send it over, what's the one thing you'd want to see so it's actually worth your time?",
+              tokens: [
+                { t: "Before I send " },
+                { t: "it over", c: "flap", r: "i-DOH-ver", tip: "الـ t في آخر it بتتحول لـ Flap T لما بعدها حرف متحرك (over)." },
+                { t: ", what's the one " },
+                { t: "thing", c: "th", r: "thing /θ/", tip: "TH مهموسة /θ/ بهواء خارج من طرف اللسان." },
+                { t: " you'd " },
+                { t: "want to", c: "conn", r: "WAH-nuh", tip: "Connected Speech طبيعي جداً في المبيعات: want to → wanna." },
+                { t: " see so it's actually " },
+                { t: "worth", c: "th", r: "werth /θ/", tip: "اقفل الكلمة بـ /θ/ واضحة بدون تحويلها لـ s." },
+                { t: " your time?" },
+              ],
+              ar: "دمج it over (i-DOH-ver) و want to (wanna) بيخليك تسمع زي متحدث أمريكي محترف.",
+            },
+            {
+              plain: "Perfect, I've booked you for Thursday at two PM Eastern, which is twelve PM Arizona time.",
+              tokens: [
+                { t: "Perfect", c: "pb", r: "PER-fikt", tip: "P انفجارية واضحة بهواء في بداية الكلمة." },
+                { t: ", I've " },
+                { t: "booked", c: "ed", r: "bookt /t/", tip: "بعد صوت /k/، نهاية -ed تُنطق /t/ مباشرة: bookt." },
+                { t: " you for " },
+                { t: "Thursday", c: "th", r: "THERZ-day", tip: "ابدأ بـ /θ/ واضحة متبوعة بـ American R." },
+                { t: " at two PM Eastern, which is twelve PM " },
+                { t: "Arizona", c: "schwa", r: "air-ə-ZOH-nə", tip: "انتبه لصوت الـ Schwa /ə/ في المقطعين الثاني والأخير." },
+                { t: " time." },
+              ],
+              ar: "ممتازة لتأكيد فروق التوقيت في أمريكا! خلي بالك من نطق booked → bookt مش book-ed.",
+            },
+          ],
+        },
+        va: {
+          title: 'Customer Support & VA Follow-up',
+          sentences: [
+            {
+              plain: "Hi there, I'm calling on behalf of my client to check on a UPS package that was scheduled for delivery yesterday.",
+              tokens: [
+                { t: "Hi " },
+                { t: "there", c: "th", r: "dher /ð/", tip: "TH منطوقة /ð/ مع سحب اللسان للخلف لصوت R." },
+                { t: ", I'm calling on behalf of my client to check on a UPS " },
+                { t: "package", c: "pb", r: "PAE-kidj", tip: "P قوية بنفخة هواء (تفرقها عن baggage)." },
+                { t: " that was " },
+                { t: "scheduled", c: "ed", r: "SKED-juld /d/", tip: "نهاية -ed بعد /l/ تُنطق /d/ ناعمة بدون مقطع زائد." },
+                { t: " for " },
+                { t: "delivery", c: "schwa", r: "də-LI-və-ree", tip: "ابدأ بـ Schwa سريعة də بدل de المشددة." },
+                { t: " yesterday." },
+              ],
+              ar: "جملة أساسية في شغل الـ VA ومتابعة شحنات UPS. ركز على الفرق الواضح في P في كلمة package.",
+            },
+            {
+              plain: "Could you please confirm if the updated insurance policy has been processed on your end?",
+              tokens: [
+                { t: "Could you", c: "conn", r: "KOO-juh", tip: "ادمج d + y بسلاسة: KOO-juh." },
+                { t: " " },
+                { t: "please", c: "pb", r: "pleez", tip: "P بهواء واضح قبل حرف L." },
+                { t: " " },
+                { t: "confirm", c: "schwa", r: "kən-FERM", tip: "المقطع الأول Schwa خفيفة /kən/ مش كون." },
+                { t: " if the " },
+                { t: "updated", c: "ed", r: "up-DAY-did /ɪd/", tip: "لأن الفعل ينتهي بـ t، تُنطق -ed كمقطع كامل /ɪd/ مع Flap T." },
+                { t: " insurance " },
+                { t: "policy", c: "pb", r: "PAH-lə-see", tip: "P واضحة في البداية وSchwa في المنتصف." },
+                { t: " has been " },
+                { t: "processed", c: "ed", r: "PRAH-sest /t/", tip: "نهاية -ed بعد /s/ تُنطق /t/ حادة: PRAH-sest." },
+                { t: " on your end?" },
+              ],
+              ar: "الجملة دي فيها مقارنتين ممتازتين لـ -ed: كلمة updated (مقطع /ɪd/) وكلمة processed (صوت /t/ مباشر).",
+            },
+            {
+              plain: "I'd appreciate it if you could email a confirmation number once the appointment is confirmed.",
+              tokens: [
+                { t: "I'd " },
+                { t: "appreciate it", c: "flap", r: "ə-PREE-shee-ay-did", tip: "ادمج نهاية appreciate مع it بـ Flap T سريعة." },
+                { t: " if you could email a " },
+                { t: "confirmation", c: "schwa", r: "kahn-fer-MAY-shən", tip: "نهاية -tion تُنطق دائماً shən مع Schwa." },
+                { t: " number once the " },
+                { t: "appointment", c: "pb", r: "ə-POYNT-mənt", tip: "ابدأ بـ Schwa ثم P واضحة بنفخة هواء." },
+                { t: " is " },
+                { t: "confirmed", c: "ed", r: "kən-FERMD /d/", tip: "نهاية -ed بعد m تُنطق /d/ ناعمة." },
+                { t: "." },
+              ],
+              ar: "لما تربط appreciate it مع بعضها، الجملة بتطلع احترافية وسلسة جداً في مكالمات العملاء والعيادات.",
+            },
+          ],
+        },
+        medical: {
+          title: 'Medical Interpreting (VRI / OPI)',
+          sentences: [
+            {
+              plain: "Hello, my name is Essam, your Arabic interpreter. Everything said today will remain strictly confidential.",
+              tokens: [
+                { t: "Hello, my name is Essam, your Arabic " },
+                { t: "interpreter", c: "flap", r: "in-TER-prə-der", tip: "الـ t الثانية بين متحركين تُنطق Flap T خفيفة + P واضحة." },
+                { t: ". " },
+                { t: "Everything", c: "th", r: "EV-ree-thing /θ/", tip: "حافظ على /θ/ واضحة في آخر كلمة Everything." },
+                { t: " said " },
+                { t: "today", c: "schwa", r: "tə-DAY", tip: "Schwa خفيفة في بداية today." },
+                { t: " will remain strictly " },
+                { t: "confidential", c: "schwa", r: "kahn-fə-DEN-shəl", tip: "شدد على المقطع DEN وخفف ما قبله وبعده بالـ Schwa." },
+              ],
+              ar: "الجملة الافتتاحية الأساسية في مكالمات Curalingo / Lingotec. نطق interpreter بوضوح بيدي انطباع احترافي من أول ثانية.",
+            },
+            {
+              plain: "Please speak directly to each other in short sentences, and pause so I can interpret accurately.",
+              tokens: [
+                { t: "Please", c: "pb", r: "pleez", tip: "P واضحة بنفخة هواء." },
+                { t: " speak directly to each " },
+                { t: "other", c: "th", r: "UH-dher /ð/", tip: "TH منطوقة /ð/ مع R أمريكية ناعمة." },
+                { t: " in short sentences, and " },
+                { t: "pause", c: "pb", r: "pawz", tip: "P قوية في بداية الكلمة (مش b)." },
+                { t: " so I can " },
+                { t: "interpret", c: "pb", r: "in-TER-prit", tip: "P واضحة وتوقف خفيف عند t الأخيرة." },
+                { t: " accurately." },
+              ],
+              ar: "توجيه مهم قبل بداية الجلسة الطبية لضمان عدم تداخل الكلام وسهولة الترجمة بدقة.",
+            },
+            {
+              plain: "The patient reported a sharp pain in his upper chest that started about two hours ago.",
+              tokens: [
+                { t: "The " },
+                { t: "patient", c: "pb", r: "PAY-shənt", tip: "P واضحة جداً في البداية + Schwa قبل nt." },
+                { t: " " },
+                { t: "reported", c: "ed", r: "ri-POR-did /ɪd/", tip: "تنتهي بـ t، فتُنطق -ed كمقطع /ɪd/ مع Flap T." },
+                { t: " a sharp " },
+                { t: "pain", c: "pb", r: "payn", tip: "تأكد من نفخة الهواء في P حتى لا تُسمع مثل bane." },
+                { t: " in his upper chest " },
+                { t: "that", c: "th", r: "dhaet /ð/", tip: "TH منطوقة /ð/ سريعة." },
+                { t: " " },
+                { t: "started", c: "ed", r: "STAR-did /ɪd/", tip: "مقطع /ɪd/ كامل + Flap T في المنتصف: STAR-did." },
+                { t: " " },
+                { t: "about", c: "schwa", r: "ə-BOWT", tip: "ابدأ بـ Schwa /ə/ خفيفة." },
+                { t: " two hours ago." },
+              ],
+              ar: "تدريب ممتاز على الدقة الطبية: لاحظ نطق reported (ri-POR-did) و started (STAR-did) مع وضوح P في patient و pain.",
+            },
+          ],
+        },
+      };
+
+      const DRILLS_LIBRARY = {
+        flap: [
+          { word: "better", speak: "better", ph: "BE-der", tip: "الـ tt بين متحركين تتحول لصوت د سريعة وخفيفة (Flap T)." },
+          { word: "water", speak: "water", ph: "WAW-der", tip: "لسانك يلمس سقف الحلق لمسة خاطفة بدون ضغط هواء." },
+          { word: "later", speak: "later", ph: "LAY-der", tip: "مهمة جداً في مكالمات تحديد المواعيد: call you LAY-der." },
+          { word: "meeting", speak: "meeting", ph: "MEE-ding", tip: "الـ t هنا بين متحركين فتُنطق خفيفة جداً مثل d." },
+          { word: "matter", speak: "matter", ph: "MAE-der", tip: "تُستخدم كثيراً في: as a MAE-der of fact." },
+          { word: "computer", speak: "computer", ph: "kəm-PYOO-der", tip: "Schwa في الأول + Flap T قبل er." },
+          { word: "get it", speak: "get it", ph: "GE-dit", tip: "Flap T تحصل أيضاً بين كلمتين لما تنتهي الأولى بـ t وتبدأ الثانية بمتحرك." },
+          { word: "about it", speak: "about it", ph: "ə-BOW-dit", tip: "ادمج الكلمتين معاً بـ Flap T سلسة." },
+        ],
+        schwa: [
+          { word: "about", speak: "about", ph: "ə-BOWT", tip: "أشهر صوت في الإنجليزية الأمريكية؛ افتح فمك بسيط جداً وارتخِ في ə." },
+          { word: "support", speak: "support", ph: "sə-PORT", tip: "المقطع الأول سريع وخفيف جداً، والشدة كلها على PORT." },
+          { word: "confirm", speak: "confirm", ph: "kən-FERM", tip: "لا تقل كون-فيرم؛ خفف المقطع الأول لـ kən." },
+          { word: "today", speak: "today", ph: "tə-DAY", tip: "اختصر to إلى tə سريعة جداً." },
+          { word: "problem", speak: "problem", ph: "PRAH-bləm", tip: "المقطع الثاني lem يُنطق ləm مسترخي." },
+          { word: "medical", speak: "medical", ph: "ME-də-kəl", tip: "صوتا Schwa متتاليان بعد المقطع المشدد ME." },
+          { word: "appointment", speak: "appointment", ph: "ə-POYNT-mənt", tip: "ابدأ بـ ə خفيفة واقفل بـ mənt خفيفة." },
+          { word: "customer", speak: "customer", ph: "KUS-tə-mer", tip: "حرف o هنا يُنطق Schwa /ə/ مش أو." },
+        ],
+        ed: [
+          { word: "booked", speak: "booked", ph: "bookt  /t/", tip: "بعد صوت مهموس (k, p, s, sh, ch, f) تُنطق -ed كصوت /t/ بدون مقطع زائد." },
+          { word: "helped", speak: "helped", ph: "helpt  /t/", tip: "مقطع واحد فقط: helpt (تجنب نطقها help-ed)." },
+          { word: "processed", speak: "processed", ph: "PRAH-sest  /t/", tip: "بعد /s/ تُنطق /t/ مباشرة." },
+          { word: "scheduled", speak: "scheduled", ph: "SKED-juld  /d/", tip: "بعد صوت منطوق (l, n, r, m, v, g) تُنطق -ed كصوت /d/ ناعم." },
+          { word: "confirmed", speak: "confirmed", ph: "kən-FERMD  /d/", tip: "لا تضف حركة قبل الـ d؛ انطق m ثم d مباشرة." },
+          { word: "delivered", speak: "delivered", ph: "də-LI-verd  /d/", tip: "مهمة لمتابعة الشحنات: دمج مباشر لـ r مع d." },
+          { word: "updated", speak: "updated", ph: "up-DAY-did  /ɪd/", tip: "فقط بعد t أو d نضيف مقطع /ɪd/ كامل." },
+          { word: "reported", speak: "reported", ph: "ri-POR-did  /ɪd/", tip: "تنتهي بـ t فتنطق كمقطع /ɪd/ مع Flap T." },
+        ],
+        th: [
+          { word: "think vs sink", speak: "think, sink", ph: "/θɪŋk/ vs /sɪŋk/", tip: "في think أخرج طرف اللسان بخفة بين الأسنان؛ في sink اللسان بالداخل." },
+          { word: "Thursday", speak: "Thursday", ph: "THERZ-day  /θ/", tip: "ابدأ بهواء ناعم من طرف اللسان /θ/." },
+          { word: "thirty-three", speak: "thirty-three", ph: "THER-dee three  /θ/", tip: "تمرين ذهبي للـ /θ/ المتكرر + Flap T." },
+          { word: "month / health", speak: "month, health", ph: "munth, helth  /θ/", tip: "اقفل الكلمة بلسانك بين الأسنان حتى يظهر صوت /θ/ بوضوح." },
+          { word: "this / that", speak: "this, that", ph: "dhis, dhaet  /ð/", tip: "TH منطوقة (تُحدث اهتزازاً في الحنجرة) وليست z أو d." },
+          { word: "there / they", speak: "there, they", ph: "dher, dhay  /ð/", tip: "طرف اللسان يلمس الأسنان العلوية مع اهتزاز صوتي." },
+          { word: "other / mother", speak: "other, mother", ph: "UH-dher, MUH-dher  /ð/", tip: "تأكد من عدم تحويلها لـ ز." },
+          { word: "with the", speak: "with the", ph: "with-dhə", tip: "ادمج صوتي الـ TH بسلاسة بدون فصل الكلمتين." },
+        ],
+        pb: [
+          { word: "pack vs back", speak: "pack, back", ph: "/pʰæk/ vs /bæk/", tip: "ضع يدك أمام فمك: مع pack لازم تحس بهواء قوي؛ مع back لا هواء." },
+          { word: "pay vs bay", speak: "pay, bay", ph: "/pʰeɪ/ vs /beɪ/", tip: "اضغط الشفتين واطلق هواءً قوياً في pay." },
+          { word: "pain vs bane", speak: "pain, bane", ph: "/pʰeɪn/ vs /beɪn/", tip: "أساسية جداً في الترجمة الطبية لتفادي اللبس." },
+          { word: "price vs brace", speak: "price, brace", ph: "/pʰraɪs/ vs /breɪs/", tip: "حافظ على نفخة الـ P حتى مع وجود R بعدها." },
+          { word: "package vs baggage", speak: "package, baggage", ph: "PAE-kidj vs BAE-gidj", tip: "فرق جوهري في مكالمات الشحن والدعم الفني." },
+          { word: "policy", speak: "policy", ph: "PʰAH-lə-see", tip: "P انفجارية واضحة في بداية كلمة policy." },
+          { word: "patient", speak: "patient", ph: "PʰAY-shənt", tip: "تأكد أن أول حرف يخرج بنفس واضح مش b." },
+          { word: "appointment", speak: "appointment", ph: "ə-PʰOYNT-mənt", tip: "حتى في وسط الكلمة، الـ P المشددة تحتاج نفخة هواء." },
+        ],
+        conn: [
+          { word: "want to", speak: "want to", ph: "WAH-nuh (wanna)", tip: "الأمريكان نادراً ما يفصلون want عن to في الكلام الطبيعي." },
+          { word: "going to", speak: "going to", ph: "GUH-nuh (gonna)", tip: "استخدمها في المكالمات الودية: I'm gonna send it right over." },
+          { word: "got a", speak: "got a", ph: "GAH-da", tip: "دمج سريع مع Flap T: Got a quick minute?" },
+          { word: "could you", speak: "could you", ph: "KOO-juh", tip: "حرف d + y يندمجان لصوت /dʒ/ الخفيف." },
+          { word: "would you", speak: "would you", ph: "WOO-juh", tip: "تُستخدم يومياً في المبيعات: Would you be open to..." },
+          { word: "let me", speak: "let me", ph: "LEH-mee (lemme)", tip: "تخفيف الـ t قبل m يجعل الكلام أسرع وأكثر سلاسة." },
+          { word: "kind of", speak: "kind of", ph: "KAIN-də (kinda)", tip: "اختصار شائع جداً في الشرح والمحادثات اليومية." },
+          { word: "check on it", speak: "check on it", ph: "che-KAH-nit", tip: "ربط الحرف الساكن الأخير بالمتحرك في الكلمة التالية (Linking)." },
+        ],
+      };
+
+      // ==================== COACH: SPEECH SYNTHESIS ====================
+      let availableVoices = [];
+      let speechQueueCancel = false;
+
+      function loadVoices() {
+        if (!('speechSynthesis' in window)) return;
+        const all = window.speechSynthesis.getVoices() || [];
+        const usVoices = all.filter((v) => v.lang && v.lang.toLowerCase().startsWith('en-us'));
+        const enVoices = all.filter((v) => v.lang && v.lang.toLowerCase().startsWith('en'));
+        availableVoices = usVoices.length > 0 ? usVoices : (enVoices.length > 0 ? enVoices : all);
+
+        const sel = document.getElementById('voice-select');
+        sel.innerHTML = '';
+        if (availableVoices.length === 0) {
+          sel.innerHTML = '<option value="">Default en-US Voice</option>';
+          return;
+        }
+
+        // Sort preferring natural American voices
+        const preferred = ['Google US English', 'Aria', 'Jenny', 'Guy', 'Andrew', 'Samantha', 'Alex', 'Zira', 'David'];
+        availableVoices.sort((a, b) => {
+          const ia = preferred.findIndex((k) => a.name.includes(k));
+          const ib = preferred.findIndex((k) => b.name.includes(k));
+          const sa = ia === -1 ? 99 : ia;
+          const sb = ib === -1 ? 99 : ib;
+          return sa - sb;
+        });
+
+        availableVoices.forEach((v) => {
+          const opt = document.createElement('option');
+          opt.value = v.name;
+          opt.textContent = `${v.name} (${v.lang})`;
+          sel.appendChild(opt);
+        });
+
+        if (state.coach.voiceName && availableVoices.some((v) => v.name === state.coach.voiceName)) {
+          sel.value = state.coach.voiceName;
+        } else {
+          state.coach.voiceName = availableVoices[0].name;
+          sel.value = availableVoices[0].name;
+        }
+      }
+
+      function stopAllSpeech() {
+        speechQueueCancel = true;
+        if ('speechSynthesis' in window) {
+          window.speechSynthesis.cancel();
+        }
+        document.querySelectorAll('.sentence-card.speaking, .drill-card.playing').forEach((el) => {
+          el.classList.remove('speaking', 'playing');
+        });
+      }
+
+      function speakText(text, onEnd, onStart) {
+        if (!('speechSynthesis' in window)) {
+          showToast('المتصفح الحالي لا يدعم النطق الصوتي (SpeechSynthesis).', 'error');
+          return;
+        }
+        window.speechSynthesis.cancel();
+        const utter = new SpeechSynthesisUtterance(text);
+        utter.lang = 'en-US';
+        utter.rate = Number(state.coach.speechRate) || 1.0;
+        const chosen = availableVoices.find((v) => v.name === state.coach.voiceName);
+        if (chosen) utter.voice = chosen;
+        if (onStart) utter.onstart = onStart;
+        if (onEnd) utter.onend = onEnd;
+        utter.onerror = () => { if (onEnd) onEnd(); };
+        window.speechSynthesis.speak(utter);
+      }
+
+      function playFullScript() {
+        const script = SCRIPT_LIBRARY[activeScriptCat];
+        if (!script) return;
+        stopAllSpeech();
+        speechQueueCancel = false;
+        const cards = document.querySelectorAll('#script-sentences .sentence-card');
+
+        function next(i) {
+          if (speechQueueCancel || i >= script.sentences.length) {
+            cards.forEach((c) => c.classList.remove('speaking'));
+            return;
+          }
+          cards.forEach((c) => c.classList.remove('speaking'));
+          if (cards[i]) cards[i].classList.add('speaking');
+          speakText(script.sentences[i].plain, () => {
+            if (!speechQueueCancel) setTimeout(() => next(i + 1), 350);
+          });
+        }
+        next(0);
+      }
+
+      // ==================== COACH: RENDERING & TOOLTIPS ====================
+      const CAT_LABELS = {
+        flap: 'Flap T',
+        schwa: 'Schwa /ə/',
+        ed: '-ed Ending',
+        th: 'TH Sound',
+        pb: 'P vs B',
+        conn: 'Connected Speech',
+      };
+
+      function renderScriptSentences() {
+        const container = document.getElementById('script-sentences');
+        const script = SCRIPT_LIBRARY[activeScriptCat];
+        if (!script) return;
+
+        container.innerHTML = script.sentences
+          .map((s, idx) => {
+            const richEn = s.tokens
+              .map((tok) => {
+                if (!tok.c) return escapeHTML(tok.t);
+                return `<span class="ph-word ph-${tok.c}" tabindex="0" data-cat="${tok.c}" data-respell="${escapeHTML(tok.r)}" data-tip="${escapeHTML(tok.tip)}">${escapeHTML(tok.t)}</span>`;
+              })
+              .join('');
+
+            return `
+              <div class="sentence-card" data-sidx="${idx}">
+                <div class="sentence-en">${richEn}</div>
+                <div class="sentence-footer">
+                  <div class="sentence-ar-tip">💡 ${escapeHTML(s.ar)}</div>
+                  <button type="button" class="btn btn-sm btn-soft-indigo" data-speak-script="${idx}">🔊 استمع</button>
+                </div>
+              </div>
+            `;
+          })
+          .join('');
+      }
+
+      function renderDrills() {
+        const grid = document.getElementById('drills-grid');
+        const list = DRILLS_LIBRARY[activeDrillCat] || [];
+        grid.innerHTML = list
+          .map((d, idx) => `
+            <button type="button" class="drill-card" data-drill-idx="${idx}">
+              <div class="drill-word">
+                <span>${escapeHTML(d.word)}</span>
+                <span style="font-size:0.9rem">🔊</span>
+              </div>
+              <div class="drill-phonetic">${escapeHTML(d.ph)}</div>
+              <div class="drill-tip">${escapeHTML(d.tip)}</div>
+            </button>
+          `)
+          .join('');
+      }
+
+      function renderCoachStats() {
+        document.getElementById('coach-drills-today').textContent = state.coach.drillsToday || 0;
+        document.getElementById('coach-streak').textContent = state.coach.streak || 0;
+        document.querySelectorAll('#speed-selector .speed-btn').forEach((b) => {
+          b.classList.toggle('active', Number(b.dataset.rate) === Number(state.coach.speechRate));
+        });
+      }
+
+      function recordPracticePoint(showMsg = false) {
+        const today = getDateStr(0);
+        if (state.coach.lastPracticeDate !== today) {
+          const yesterday = getDateStr(-1);
+          state.coach.streak = state.coach.lastPracticeDate === yesterday ? (state.coach.streak + 1) : 1;
+          state.coach.drillsToday = 0;
+          state.coach.lastPracticeDate = today;
+        }
+        if (state.coach.streak === 0) state.coach.streak = 1;
+        state.coach.drillsToday += 1;
+        saveState();
+        renderCoachStats();
+        if (showMsg) showToast('عاش! تم تسجيل تقدمك في تدريب النطق لليوم.', 'success');
+      }
+
+      // Floating Tooltip Positioning
+      const tooltipEl = document.getElementById('phonetic-tooltip');
+      function showTooltipFor(target) {
+        const respell = target.dataset.respell;
+        const tip = target.dataset.tip;
+        const cat = target.dataset.cat;
+        if (!respell) return;
+
+        document.getElementById('tt-respell').textContent = respell;
+        document.getElementById('tt-cat').textContent = CAT_LABELS[cat] || cat;
+        document.getElementById('tt-tip').textContent = tip;
+
+        tooltipEl.classList.add('visible');
+        tooltipEl.setAttribute('aria-hidden', 'false');
+
+        const rect = target.getBoundingClientRect();
+        const ttRect = tooltipEl.getBoundingClientRect();
+        let left = rect.left + (rect.width / 2) - (ttRect.width / 2);
+        left = Math.max(10, Math.min(left, window.innerWidth - ttRect.width - 10));
+        let top = rect.top - ttRect.height - 10;
+        if (top < 10) top = rect.bottom + 10;
+
+        tooltipEl.style.left = `${left}px`;
+        tooltipEl.style.top = `${top}px`;
+      }
+
+      function hideTooltip() {
+        tooltipEl.classList.remove('visible');
+        tooltipEl.setAttribute('aria-hidden', 'true');
+      }
+
+      // ==================== COACH: 10-MINUTE PRACTICE TIMER ====================
+      const coachTimer = { remSec: 600, running: false, id: null, lastTs: null };
+      function renderCoachTimer() {
+        document.getElementById('coach-timer-digits').textContent = fmtClock(coachTimer.remSec);
+        document.getElementById('btn-coach-timer-toggle').textContent = coachTimer.running ? 'إيقاف' : 'ابدأ';
+      }
+
+      function toggleCoachTimer() {
+        if (coachTimer.running) {
+          coachTimer.running = false;
+          clearInterval(coachTimer.id);
+        } else {
+          if (coachTimer.remSec <= 0) coachTimer.remSec = 600;
+          coachTimer.running = true;
+          coachTimer.lastTs = Date.now();
+          coachTimer.id = setInterval(() => {
+            const now = Date.now();
+            coachTimer.remSec -= (now - coachTimer.lastTs) / 1000;
+            coachTimer.lastTs = now;
+            if (coachTimer.remSec <= 0) {
+              coachTimer.remSec = 0;
+              coachTimer.running = false;
+              clearInterval(coachTimer.id);
+              playChime();
+              recordPracticePoint(true);
+            }
+            renderCoachTimer();
+          }, 250);
+        }
+        renderCoachTimer();
+      }
+
+      // ==================== COACH: VOICE RECORDER (MediaRecorder) ====================
+      let mediaRecorder = null;
+      let audioChunks = [];
+      let recInterval = null;
+      let recSeconds = 0;
+      let currentAudioURL = null;
+
+      async function startRecording() {
+        const errBox = document.getElementById('rec-error-msg');
+        errBox.style.display = 'none';
+
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || typeof MediaRecorder === 'undefined') {
+          errBox.textContent = 'الميكروفون غير مدعوم في هذا المتصفح أو محجوب داخل إطار المعاينة. افتح الملف مباشرة في Chrome لتفعيل التسجيل.';
+          errBox.style.display = 'block';
+          return;
+        }
+
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+          audioChunks = [];
+          mediaRecorder = new MediaRecorder(stream);
+
+          mediaRecorder.ondataavailable = (ev) => {
+            if (ev.data && ev.data.size > 0) audioChunks.push(ev.data);
+          };
+
+          mediaRecorder.onstop = () => {
+            stream.getTracks().forEach((t) => t.stop());
+            const blob = new Blob(audioChunks, { type: mediaRecorder.mimeType || 'audio/webm' });
+            if (currentAudioURL) URL.revokeObjectURL(currentAudioURL);
+            currentAudioURL = URL.createObjectURL(blob);
+            const player = document.getElementById('rec-playback');
+            player.src = currentAudioURL;
+            player.style.display = 'block';
+            document.getElementById('rec-status-text').textContent = 'تم التسجيل! اضغط تشغيل للاستماع ومقارنة نطقك.';
+          };
+
+          mediaRecorder.start();
+          recSeconds = 0;
+          document.getElementById('rec-pulse').classList.add('active');
+          document.getElementById('rec-timer').style.display = 'inline';
+          document.getElementById('rec-timer').textContent = '00:00';
+          document.getElementById('btn-rec-start').style.display = 'none';
+          document.getElementById('btn-rec-stop').style.display = 'inline-flex';
+          document.getElementById('rec-status-text').textContent = 'جارٍ التسجيل... اقرأ الجملة بصوت واضح الآن.';
+
+          recInterval = setInterval(() => {
+            recSeconds += 1;
+            document.getElementById('rec-timer').textContent = fmtClock(recSeconds);
+          }, 1000);
+        } catch (err) {
+          errBox.textContent = 'لم يتم منح إذن الميكروفون (أو الإطار المدمج يمنع الوصول للميكروفون). افتح الصفحة في نافذة متصفح مستقلة واسمح بالميكروفون.';
+          errBox.style.display = 'block';
+        }
+      }
+
+      function stopRecording() {
+        clearInterval(recInterval);
+        document.getElementById('rec-pulse').classList.remove('active');
+        document.getElementById('rec-timer').style.display = 'none';
+        document.getElementById('btn-rec-start').style.display = 'inline-flex';
+        document.getElementById('btn-rec-stop').style.display = 'none';
+        if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+          mediaRecorder.stop();
+        }
+      }
+
+      // ==================== MODALS & COLOR SWATCHES ====================
+      function openModal(id) {
+        document.getElementById(id).classList.add('open');
+      }
+      function closeModal(id) {
+        document.getElementById(id).classList.remove('open');
+      }
+
+      function buildSwatches(selected) {
+        document.getElementById('plat-color').value = selected;
+        document.getElementById('plat-swatches').innerHTML = SWATCH_COLORS.map((hex) => `
+          <button type="button" class="swatch-btn ${hex === selected ? 'selected' : ''}" data-swatch="${hex}" style="background:${hex}"></button>
+        `).join('');
+      }
+
+      // ==================== EVENT BINDINGS ====================
+      function bindEvents() {
+        // Main Tab Switching
+        document.querySelectorAll('[data-main-tab]').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const target = btn.dataset.mainTab;
+            document.querySelectorAll('[data-main-tab]').forEach((b) => b.classList.toggle('active', b === btn));
+            document.getElementById('panel-dashboard').classList.toggle('active', target === 'dashboard');
+            document.getElementById('panel-coach').classList.toggle('active', target === 'coach');
+            hideTooltip();
+          });
+        });
+
+        // Theme Toggle
+        document.getElementById('btn-theme').addEventListener('click', () => {
+          state.theme = state.theme === 'dark' ? 'light' : 'dark';
+          saveState();
+          applyTheme();
+        });
+
+        // Export JSON
+        document.getElementById('btn-export').addEventListener('click', () => {
+          try {
+            const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `workspace-backup-${getDateStr(0)}.json`;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            URL.revokeObjectURL(url);
+            showToast('تم تصدير النسخة الاحتياطية بنجاح', 'success');
+          } catch (_) {
+            showToast('تعذر تصدير النسخة الاحتياطية', 'error');
+          }
+        });
+
+        // Import JSON
+        document.getElementById('input-import').addEventListener('change', (e) => {
+          const file = e.target.files?.[0];
+          if (!file) return;
+          const reader = new FileReader();
+          reader.onload = (ev) => {
+            try {
+              const data = JSON.parse(ev.target.result);
+              if (!data || !Array.isArray(data.platforms)) throw new Error('bad');
+              state = { ...buildStarterState(), ...data };
+              saveState();
+              applyTheme();
+              renderDashboard();
+              renderCoachStats();
+              showToast('تم استيراد النسخة الاحتياطية بنجاح', 'success');
+            } catch (_) {
+              showToast('ملف JSON غير صالح', 'error');
+            }
+            e.target.value = '';
+          };
+          reader.readAsText(file);
+        });
+
+        // Reset Modal & Sample Banner Actions
+        document.getElementById('btn-reset-open').addEventListener('click', () => openModal('modal-reset'));
+        document.getElementById('btn-dismiss-sample').addEventListener('click', () => {
+          state.sampleDismissed = true;
+          saveState();
+          renderKPIs();
+        });
+        document.getElementById('btn-quick-zero').addEventListener('click', () => {
+          state.entries = [];
+          state.tasks = [];
+          state.isSample = false;
+          saveState();
+          renderDashboard();
+          showToast('تم تصفير البيانات التجريبية. جاهز للبدء بأرقامك الفعلية!', 'success');
+        });
+        document.getElementById('btn-do-zero').addEventListener('click', () => {
+          state.entries = [];
+          state.tasks = [];
+          state.isSample = false;
+          saveState();
+          renderDashboard();
+          closeModal('modal-reset');
+          showToast('تم التصفير بنجاح', 'success');
+        });
+        document.getElementById('btn-do-demo').addEventListener('click', () => {
+          const theme = state.theme;
+          state = buildStarterState();
+          state.theme = theme;
+          saveState();
+          renderDashboard();
+          renderCoachStats();
+          closeModal('modal-reset');
+          showToast('تمت استعادة البيانات التجريبية', 'info');
+        });
+
+        // Inline Monthly Goal & USD/EGP Rate
+        document.getElementById('inline-goal').addEventListener('input', (e) => {
+          const v = parseFloat(e.target.value);
+          if (v > 0) { state.monthlyGoal = v; saveState(); renderKPIs(); }
+        });
+        document.getElementById('inline-rate').addEventListener('input', (e) => {
+          const v = parseFloat(e.target.value);
+          if (v > 0) { state.egpRate = v; saveState(); renderKPIs(); }
+        });
+
+        // Focus Timer Events
+        document.getElementById('timer-mode-pomo').addEventListener('click', () => {
+          focusTimer.mode = 'pomo';
+          document.getElementById('timer-mode-pomo').classList.add('active');
+          document.getElementById('timer-mode-shift').classList.remove('active');
+          document.getElementById('timer-presets-row').style.display = 'flex';
+          resetFocusTimer();
+        });
+        document.getElementById('timer-mode-shift').addEventListener('click', () => {
+          focusTimer.mode = 'shift';
+          document.getElementById('timer-mode-shift').classList.add('active');
+          document.getElementById('timer-mode-pomo').classList.remove('active');
+          document.getElementById('timer-presets-row').style.display = 'none';
+          resetFocusTimer();
+        });
+        document.getElementById('timer-presets-row').addEventListener('click', (e) => {
+          const btn = e.target.closest('.preset-pill');
+          if (!btn) return;
+          focusTimer.presetMins = parseInt(btn.dataset.mins, 10) || 25;
+          document.querySelectorAll('.preset-pill').forEach((b) => b.classList.toggle('active', b === btn));
+          resetFocusTimer();
+        });
+        document.getElementById('timer-platform').addEventListener('change', (e) => {
+          const p = getPlatform(e.target.value);
+          if (p) { document.getElementById('timer-rate').value = p.rate; renderFocusTimer(); }
+        });
+        document.getElementById('timer-rate').addEventListener('input', renderFocusTimer);
+        document.getElementById('btn-timer-toggle').addEventListener('click', toggleFocusTimer);
+        document.getElementById('btn-timer-reset').addEventListener('click', resetFocusTimer);
+        document.getElementById('btn-timer-log').addEventListener('click', logFocusSessionDirectly);
+
+        // Tasks Events
+        document.getElementById('form-task').addEventListener('submit', (e) => {
+          e.preventDefault();
+          const inp = document.getElementById('task-input');
+          const title = inp.value.trim();
+          if (!title) return;
+          state.tasks.unshift({
+            id: 't_' + Date.now(),
+            title,
+            priority: document.getElementById('task-priority').value,
+            platformId: document.getElementById('task-platform').value,
+            completed: false,
+            createdAt: Date.now(),
+          });
+          state.isSample = false;
+          saveState();
+          inp.value = '';
+          renderKPIs();
+          renderTasks();
+          showToast('تمت إضافة المهمة', 'success');
+        });
+
+        document.getElementById('task-filters').addEventListener('click', (e) => {
+          const btn = e.target.closest('.filter-pill');
+          if (!btn) return;
+          taskFilter = btn.dataset.tfilter;
+          document.querySelectorAll('#task-filters .filter-pill').forEach((b) => b.classList.toggle('active', b === btn));
+          renderTasks();
+        });
+
+        document.getElementById('task-list').addEventListener('click', (e) => {
+          const tog = e.target.closest('[data-toggle-task]');
+          if (tog) {
+            const t = state.tasks.find((x) => x.id === tog.dataset.toggleTask);
+            if (t) { t.completed = !t.completed; saveState(); renderKPIs(); renderTasks(); }
+            return;
+          }
+          const del = e.target.closest('[data-del-task]');
+          if (del) {
+            state.tasks = state.tasks.filter((x) => x.id !== del.dataset.delTask);
+            saveState();
+            renderKPIs();
+            renderTasks();
+          }
+        });
+
+        document.getElementById('btn-clear-done-tasks').addEventListener('click', () => {
+          const before = state.tasks.length;
+          state.tasks = state.tasks.filter((t) => !t.completed);
+          if (state.tasks.length < before) {
+            saveState();
+            renderKPIs();
+            renderTasks();
+            showToast('تم مسح المهام المكتملة', 'info');
+          }
+        });
+
+        // Donut & Platform Bars Synchronized Hover
+        const perfSection = document.querySelector('.perf-layout');
+        perfSection.addEventListener('mouseover', (e) => {
+          const el = e.target.closest('[data-plat-hover]');
+          const pid = el ? el.dataset.platHover : null;
+          if (pid !== hoveredPlatformId) {
+            hoveredPlatformId = pid;
+            document.querySelectorAll('[data-plat-hover]').forEach((node) => {
+              node.classList.toggle('highlighted', node.dataset.platHover === hoveredPlatformId);
+            });
+            updateDonutCenter();
+          }
+        });
+        perfSection.addEventListener('mouseleave', () => {
+          hoveredPlatformId = null;
+          document.querySelectorAll('[data-plat-hover]').forEach((n) => n.classList.remove('highlighted'));
+          updateDonutCenter();
+        });
+
+        // Add Custom Platform
+        document.getElementById('btn-add-platform').addEventListener('click', () => {
+          document.getElementById('plat-name').value = '';
+          buildSwatches(SWATCH_COLORS[state.platforms.length % SWATCH_COLORS.length]);
+          openModal('modal-platform');
+        });
+        document.getElementById('plat-swatches').addEventListener('click', (e) => {
+          const btn = e.target.closest('[data-swatch]');
+          if (btn) buildSwatches(btn.dataset.swatch);
+        });
+        document.getElementById('form-platform').addEventListener('submit', (e) => {
+          e.preventDefault();
+          const name = document.getElementById('plat-name').value.trim();
+          if (!name) return;
+          state.platforms.push({
+            id: 'p_' + Date.now(),
+            name,
+            goal: parseFloat(document.getElementById('plat-goal').value) || 300,
+            rate: parseFloat(document.getElementById('plat-rate').value) || 10,
+            color: document.getElementById('plat-color').value || '#06b6d4',
+          });
+          saveState();
+          renderDashboard();
+          closeModal('modal-platform');
+          showToast(`تمت إضافة منصة "${name}"`, 'success');
+        });
+
+        // Manual Income Entry Form & Table Filters
+        document.getElementById('form-entry').addEventListener('submit', (e) => {
+          e.preventDefault();
+          const hours = parseFloat(document.getElementById('entry-hours').value);
+          const amount = parseFloat(document.getElementById('entry-amount').value);
+          if (isNaN(hours) || isNaN(amount)) return;
+          state.entries.unshift({
+            id: 'e_' + Date.now(),
+            date: document.getElementById('entry-date').value || getDateStr(0),
+            platformId: document.getElementById('entry-platform').value,
+            hours,
+            amount,
+            payout: document.getElementById('entry-payout').value,
+            note: document.getElementById('entry-note').value.trim(),
+          });
+          state.isSample = false;
+          saveState();
+          document.getElementById('entry-hours').value = '';
+          document.getElementById('entry-amount').value = '';
+          document.getElementById('entry-note').value = '';
+          renderDashboard();
+          showToast('تم حفظ السجل في الجدول', 'success');
+        });
+
+        document.getElementById('log-filter-platform').addEventListener('change', renderEntries);
+        document.getElementById('log-filter-payout').addEventListener('change', renderEntries);
+        document.getElementById('entries-tbody').addEventListener('click', (e) => {
+          const del = e.target.closest('[data-del-entry]');
+          if (!del) return;
+          state.entries = state.entries.filter((x) => x.id !== del.dataset.delEntry);
+          saveState();
+          renderDashboard();
+          showToast('تم حذف السجل', 'info');
+        });
+
+        // Close Modals
+        document.querySelectorAll('[data-close-modal]').forEach((b) => {
+          b.addEventListener('click', () => closeModal(b.dataset.closeModal));
+        });
+        document.querySelectorAll('.modal-backdrop').forEach((bd) => {
+          bd.addEventListener('click', (e) => { if (e.target === bd) bd.classList.remove('open'); });
+        });
+
+        // ==================== COACH EVENTS ====================
+        document.getElementById('btn-coach-timer-toggle').addEventListener('click', toggleCoachTimer);
+        document.getElementById('btn-coach-timer-reset').addEventListener('click', () => {
+          coachTimer.running = false;
+          clearInterval(coachTimer.id);
+          coachTimer.remSec = 600;
+          renderCoachTimer();
+        });
+        document.getElementById('btn-mark-practiced').addEventListener('click', () => recordPracticePoint(true));
+
+        // Speech Speed & Voice
+        document.getElementById('speed-selector').addEventListener('click', (e) => {
+          const btn = e.target.closest('.speed-btn');
+          if (!btn) return;
+          state.coach.speechRate = parseFloat(btn.dataset.rate) || 1.0;
+          saveState();
+          renderCoachStats();
+        });
+        document.getElementById('voice-select').addEventListener('change', (e) => {
+          state.coach.voiceName = e.target.value;
+          saveState();
+        });
+
+        // Legend Highlight Toggles
+        document.getElementById('phonetic-legend').addEventListener('click', (e) => {
+          const chip = e.target.closest('.legend-chip');
+          if (!chip) return;
+          const hl = chip.dataset.hl;
+          const isOff = chip.classList.toggle('off');
+          document.getElementById('coach-content').classList.toggle(`hide-${hl}`, isOff);
+        });
+
+        // Coach Sub-Tabs
+        document.getElementById('coach-subtabs').addEventListener('click', (e) => {
+          const btn = e.target.closest('.subtab-btn');
+          if (!btn) return;
+          const target = btn.dataset.subtab;
+          document.querySelectorAll('#coach-subtabs .subtab-btn').forEach((b) => b.classList.toggle('active', b === btn));
+          document.querySelectorAll('.subtab-panel').forEach((p) => p.classList.toggle('active', p.id === `subtab-${target}`));
+          hideTooltip();
+        });
+
+        // Shadowing Categories & Play Controls
+        document.getElementById('script-categories').addEventListener('click', (e) => {
+          const btn = e.target.closest('.cat-pill');
+          if (!btn) return;
+          stopAllSpeech();
+          activeScriptCat = btn.dataset.cat;
+          document.querySelectorAll('#script-categories .cat-pill').forEach((b) => b.classList.toggle('active', b === btn));
+          renderScriptSentences();
+        });
+
+        document.getElementById('btn-play-all-script').addEventListener('click', playFullScript);
+        document.getElementById('btn-stop-speech').addEventListener('click', stopAllSpeech);
+
+        document.getElementById('script-sentences').addEventListener('click', (e) => {
+          const spk = e.target.closest('[data-speak-script]');
+          if (spk) {
+            const idx = parseInt(spk.dataset.speakScript, 10);
+            const script = SCRIPT_LIBRARY[activeScriptCat];
+            if (!script || !script.sentences[idx]) return;
+            stopAllSpeech();
+            const card = spk.closest('.sentence-card');
+            card.classList.add('speaking');
+            speakText(script.sentences[idx].plain, () => card.classList.remove('speaking'));
+            return;
+          }
+          const ph = e.target.closest('.ph-word');
+          if (ph) {
+            showTooltipFor(ph);
+            speakText(ph.textContent);
+          }
+        });
+
+        // Tooltip hover & touch support
+        document.getElementById('coach-content').addEventListener('mouseover', (e) => {
+          const ph = e.target.closest('.ph-word');
+          if (ph) showTooltipFor(ph);
+        });
+        document.getElementById('coach-content').addEventListener('mouseout', (e) => {
+          if (e.target.closest('.ph-word')) hideTooltip();
+        });
+        document.addEventListener('click', (e) => {
+          if (!e.target.closest('.ph-word')) hideTooltip();
+        });
+
+        // Sound Drills Filters & Click-to-Play
+        document.getElementById('drill-filters').addEventListener('click', (e) => {
+          const btn = e.target.closest('.cat-pill');
+          if (!btn) return;
+          activeDrillCat = btn.dataset.drill;
+          document.querySelectorAll('#drill-filters .cat-pill').forEach((b) => b.classList.toggle('active', b === btn));
+          renderDrills();
+        });
+
+        document.getElementById('drills-grid').addEventListener('click', (e) => {
+          const card = e.target.closest('.drill-card');
+          if (!card) return;
+          const idx = parseInt(card.dataset.drillIdx, 10);
+          const item = (DRILLS_LIBRARY[activeDrillCat] || [])[idx];
+          if (!item) return;
+          stopAllSpeech();
+          card.classList.add('playing');
+          speakText(item.speak, () => card.classList.remove('playing'));
+          recordPracticePoint(false);
+        });
+
+        // Custom Practice Textarea
+        document.getElementById('btn-custom-sample').addEventListener('click', () => {
+          document.getElementById('custom-textarea').value =
+            "Hi there! I saw your post about needing a reliable virtual assistant for customer support and order tracking. I've helped clients manage Shopify orders, follow up on UPS shipments, and handle inbound calls smoothly. Would you be open to a quick ten-minute chat later today to see if we're a good fit?";
+        });
+
+        document.getElementById('btn-custom-speak').addEventListener('click', () => {
+          const txt = document.getElementById('custom-textarea').value.trim();
+          if (!txt) { showToast('اكتب أو الصق نصاً إنجليزياً أولاً.', 'warn'); return; }
+          stopAllSpeech();
+          speakText(txt);
+        });
+
+        document.getElementById('btn-custom-stop').addEventListener('click', stopAllSpeech);
+
+        document.getElementById('btn-custom-split').addEventListener('click', () => {
+          const txt = document.getElementById('custom-textarea').value.trim();
+          if (!txt) { showToast('اكتب أو الصق نصاً إنجليزياً أولاً.', 'warn'); return; }
+          const parts = txt.match(/[^.!?\n]+[.!?]?/g)?.map((s) => s.trim()).filter(Boolean) || [txt];
+          const out = document.getElementById('custom-sentences');
+          out.innerHTML = parts
+            .map((sent, i) => `
+              <div class="sentence-card">
+                <div class="sentence-en">${escapeHTML(sent)}</div>
+                <div class="sentence-footer">
+                  <span class="sentence-ar-tip">جملة #${i + 1} — استمع وردد بعدها بنفس الإيقاع</span>
+                  <button type="button" class="btn btn-sm btn-soft-indigo" data-speak-custom="${i}">🔊 استمع</button>
+                </div>
+              </div>
+            `)
+            .join('');
+
+          out.onclick = (ev) => {
+            const btn = ev.target.closest('[data-speak-custom]');
+            if (!btn) return;
+            const i = parseInt(btn.dataset.speakCustom, 10);
+            stopAllSpeech();
+            const card = btn.closest('.sentence-card');
+            card.classList.add('speaking');
+            speakText(parts[i], () => card.classList.remove('speaking'));
+          };
+        });
+
+        // Voice Recorder Controls
+        document.getElementById('btn-rec-start').addEventListener('click', startRecording);
+        document.getElementById('btn-rec-stop').addEventListener('click', stopRecording);
+      }
+
+      // ==================== INIT ====================
+      function init() {
+        document.getElementById('entry-date').value = getDateStr(0);
+        applyTheme();
+        bindEvents();
+        renderDashboard();
+        renderCoachStats();
+        renderCoachTimer();
+        renderScriptSentences();
+        renderDrills();
+
+        updateClocks();
+        setInterval(updateClocks, 1000);
+
+        loadVoices();
+        if ('speechSynthesis' in window) {
+          window.speechSynthesis.onvoiceschanged = loadVoices;
+        }
+      }
+
+      window.addEventListener('DOMContentLoaded', init);
+    })();
+  </script>
+</body>
+</html>
