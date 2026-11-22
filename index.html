@@ -3,28 +3,28 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>لوحة العمل ومدرب النطق</title>
+  <title>لوحة العمل ومدرب النطق الأمريكي</title>
 
-  <!-- Google Fonts: Cairo (Arabic), Inter (English UI), JetBrains Mono (Clocks & Numbers) -->
+  <!-- Arabic & Monospace Web Fonts with crisp system fallbacks -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Tajawal:wght@500;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
 
   <style>
     /* ==========================================================================
-       1. DESIGN TOKENS & THEME VARIABLES (DARK DEFAULT + CLEAN LIGHT MODE)
+       1. DESIGN TOKENS & THEME VARIABLES (DEEP SLATE/INDIGO DARK DEFAULT + LIGHT)
        ========================================================================== */
     :root {
-      --bg-body: #0b1120;
-      --bg-surface: #111827;
-      --bg-card: #162033;
-      --bg-card-hover: #1b2840;
-      --bg-input: #0e1628;
-      --bg-pill: #0f172a;
-      --bg-glass: rgba(17, 24, 39, 0.86);
+      --bg-body: #090e1c;
+      --bg-surface: #0f1629;
+      --bg-card: #121a30;
+      --bg-card-hover: #17223e;
+      --bg-input: #0c1222;
+      --bg-pill: #0b1020;
+      --bg-glass: rgba(18, 26, 48, 0.92);
 
-      --border-subtle: #1f2d45;
-      --border-strong: #2c3e5e;
+      --border-subtle: #1e2b4a;
+      --border-strong: #2f426e;
 
       --text-primary: #f1f5f9;
       --text-secondary: #94a3b8;
@@ -32,26 +32,26 @@
 
       --accent-indigo: #6366f1;
       --accent-indigo-hover: #4f46e5;
-      --accent-indigo-soft: rgba(99, 102, 241, 0.14);
+      --accent-indigo-soft: rgba(99, 102, 241, 0.16);
+
+      --accent-purple: #8b5cf6;
+      --accent-purple-soft: rgba(139, 92, 246, 0.16);
 
       --accent-emerald: #10b981;
-      --accent-emerald-soft: rgba(16, 185, 129, 0.14);
+      --accent-emerald-soft: rgba(16, 185, 129, 0.16);
 
       --accent-amber: #f59e0b;
-      --accent-amber-soft: rgba(245, 158, 11, 0.14);
+      --accent-amber-soft: rgba(245, 158, 11, 0.16);
 
       --accent-rose: #f43f5e;
-      --accent-rose-soft: rgba(244, 63, 94, 0.14);
+      --accent-rose-soft: rgba(244, 63, 94, 0.16);
 
       --accent-sky: #38bdf8;
-      --accent-sky-soft: rgba(56, 189, 248, 0.14);
+      --accent-sky-soft: rgba(56, 189, 248, 0.16);
 
-      --accent-violet: #a855f7;
-      --accent-violet-soft: rgba(168, 85, 247, 0.14);
-
-      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.25);
-      --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.35);
-      --shadow-lg: 0 18px 42px rgba(0, 0, 0, 0.5);
+      --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.28);
+      --shadow-md: 0 10px 28px rgba(0, 0, 0, 0.4);
+      --shadow-lg: 0 20px 48px rgba(0, 0, 0, 0.58);
 
       --radius-sm: 8px;
       --radius-md: 12px;
@@ -59,40 +59,40 @@
       --radius-xl: 20px;
       --radius-pill: 9999px;
 
-      /* Phonetic Highlight Colors (Dark Mode) */
+      /* Phonetic Highlight Colors (Dark) */
       --ph-flap-bg: rgba(59, 130, 246, 0.22);
       --ph-flap-fg: #93c5fd;
-      --ph-flap-bd: rgba(59, 130, 246, 0.5);
+      --ph-flap-bd: rgba(59, 130, 246, 0.52);
 
       --ph-schwa-bg: rgba(168, 85, 247, 0.22);
       --ph-schwa-fg: #d8b4fe;
-      --ph-schwa-bd: rgba(168, 85, 247, 0.5);
+      --ph-schwa-bd: rgba(168, 85, 247, 0.52);
 
       --ph-ed-bg: rgba(16, 185, 129, 0.22);
       --ph-ed-fg: #6ee7b7;
-      --ph-ed-bd: rgba(16, 185, 129, 0.5);
+      --ph-ed-bd: rgba(16, 185, 129, 0.52);
 
       --ph-th-bg: rgba(249, 115, 22, 0.22);
       --ph-th-fg: #fdba74;
-      --ph-th-bd: rgba(249, 115, 22, 0.5);
+      --ph-th-bd: rgba(249, 115, 22, 0.52);
 
       --ph-pb-bg: rgba(244, 63, 94, 0.22);
       --ph-pb-fg: #fda4af;
-      --ph-pb-bd: rgba(244, 63, 94, 0.5);
+      --ph-pb-bd: rgba(244, 63, 94, 0.52);
 
       --ph-conn-bg: rgba(234, 179, 8, 0.22);
       --ph-conn-fg: #fde047;
-      --ph-conn-bd: rgba(234, 179, 8, 0.5);
+      --ph-conn-bd: rgba(234, 179, 8, 0.52);
     }
 
     html.light {
-      --bg-body: #f8fafc;
+      --bg-body: #f3f6fb;
       --bg-surface: #ffffff;
       --bg-card: #ffffff;
       --bg-card-hover: #f1f5f9;
       --bg-input: #f8fafc;
-      --bg-pill: #f1f5f9;
-      --bg-glass: rgba(255, 255, 255, 0.92);
+      --bg-pill: #eef2f7;
+      --bg-glass: rgba(255, 255, 255, 0.94);
 
       --border-subtle: #e2e8f0;
       --border-strong: #cbd5e1;
@@ -101,34 +101,34 @@
       --text-secondary: #475569;
       --text-muted: #64748b;
 
-      --shadow-sm: 0 1px 4px rgba(15, 23, 42, 0.06);
-      --shadow-md: 0 6px 20px rgba(15, 23, 42, 0.08);
-      --shadow-lg: 0 18px 40px rgba(15, 23, 42, 0.14);
+      --shadow-sm: 0 2px 6px rgba(15, 23, 42, 0.06);
+      --shadow-md: 0 8px 22px rgba(15, 23, 42, 0.09);
+      --shadow-lg: 0 18px 42px rgba(15, 23, 42, 0.14);
 
-      /* Phonetic Highlight Colors (Light Mode) */
+      /* Phonetic Highlight Colors (Light) */
       --ph-flap-bg: rgba(37, 99, 235, 0.12);
       --ph-flap-fg: #1d4ed8;
-      --ph-flap-bd: rgba(37, 99, 235, 0.35);
+      --ph-flap-bd: rgba(37, 99, 235, 0.38);
 
       --ph-schwa-bg: rgba(147, 51, 234, 0.12);
       --ph-schwa-fg: #7e22ce;
-      --ph-schwa-bd: rgba(147, 51, 234, 0.35);
+      --ph-schwa-bd: rgba(147, 51, 234, 0.38);
 
       --ph-ed-bg: rgba(5, 150, 105, 0.12);
       --ph-ed-fg: #047857;
-      --ph-ed-bd: rgba(5, 150, 105, 0.35);
+      --ph-ed-bd: rgba(5, 150, 105, 0.38);
 
       --ph-th-bg: rgba(234, 88, 12, 0.12);
       --ph-th-fg: #c2410c;
-      --ph-th-bd: rgba(234, 88, 12, 0.35);
+      --ph-th-bd: rgba(234, 88, 12, 0.38);
 
       --ph-pb-bg: rgba(225, 29, 72, 0.12);
       --ph-pb-fg: #be123c;
-      --ph-pb-bd: rgba(225, 29, 72, 0.35);
+      --ph-pb-bd: rgba(225, 29, 72, 0.38);
 
       --ph-conn-bg: rgba(202, 138, 4, 0.14);
       --ph-conn-fg: #a16207;
-      --ph-conn-bd: rgba(202, 138, 4, 0.4);
+      --ph-conn-bd: rgba(202, 138, 4, 0.42);
     }
 
     /* ==========================================================================
@@ -146,7 +146,7 @@
     }
 
     body {
-      font-family: 'Cairo', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: 'Cairo', 'IBM Plex Sans Arabic', 'Tajawal', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       background-color: var(--bg-body);
       color: var(--text-primary);
       line-height: 1.55;
@@ -156,11 +156,11 @@
     }
 
     .font-en {
-      font-family: 'Inter', 'Cairo', sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Cairo', sans-serif;
     }
 
     .font-mono {
-      font-family: 'JetBrains Mono', 'Inter', monospace;
+      font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       font-variant-numeric: tabular-nums;
     }
 
@@ -173,6 +173,7 @@
       cursor: pointer;
       border: none;
       background: transparent;
+      -webkit-tap-highlight-color: transparent;
     }
 
     button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
@@ -180,32 +181,46 @@
       outline-offset: 2px;
     }
 
-    /* Subtle custom scrollbars */
-    ::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
-    ::-webkit-scrollbar-track {
-      background: transparent;
-    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb {
-      background: rgba(99, 102, 241, 0.32);
+      background: rgba(99, 102, 241, 0.35);
       border-radius: 999px;
     }
-    ::-webkit-scrollbar-thumb:hover {
-      background: rgba(99, 102, 241, 0.55);
+    ::-webkit-scrollbar-thumb:hover { background: rgba(99, 102, 241, 0.6); }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
 
+    @keyframes livePulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.45); opacity: 0.4; }
+    }
+
+    @keyframes syncBluePulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.85); transform: scale(1); }
+      50% { box-shadow: 0 0 0 6px rgba(56, 189, 248, 0); transform: scale(1.18); }
+    }
+
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .spinning { animation: spin 0.85s linear infinite; }
+
     /* ==========================================================================
-       3. LAYOUT CONTAINER & SLEEK HEADER BAR (NO BIG TITLE / NO LOGO TEXT)
+       3. COMPACT TOP NAVIGATION BAR (ZERO LARGE TITLE TEXT)
        ========================================================================== */
     .app-shell {
-      max-width: 1440px;
+      max-width: 1460px;
       margin: 0 auto;
-      padding: 16px 18px 36px;
+      padding: 12px 16px 36px;
       display: flex;
       flex-direction: column;
-      gap: 18px;
+      gap: 16px;
     }
 
     .top-header {
@@ -217,16 +232,16 @@
       -webkit-backdrop-filter: blur(16px);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-xl);
-      padding: 10px 14px;
+      padding: 9px 13px;
       box-shadow: var(--shadow-md);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 14px;
+      gap: 10px;
       flex-wrap: wrap;
     }
 
-    /* Segmented Pill Navigation Switcher */
+    /* Segmented View Switcher */
     .nav-switcher {
       display: inline-flex;
       align-items: center;
@@ -241,24 +256,23 @@
     .nav-tab-btn {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 7px;
-      padding: 8px 16px;
+      padding: 8px 15px;
       border-radius: var(--radius-pill);
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       font-weight: 700;
       color: var(--text-secondary);
       white-space: nowrap;
       transition: all 0.2s ease;
     }
 
-    .nav-tab-btn:hover {
-      color: var(--text-primary);
-    }
+    .nav-tab-btn:hover { color: var(--text-primary); }
 
     .nav-tab-btn.active {
-      background: linear-gradient(135deg, #6366f1, #4f46e5);
+      background: linear-gradient(135deg, #6366f1, #7c3aed);
       color: #ffffff;
-      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
+      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.38);
     }
 
     .nav-tab-btn svg {
@@ -267,47 +281,43 @@
       flex-shrink: 0;
     }
 
-    /* Redesigned Crisp World Clocks Strip */
+    /* Three Live Timezone Clock Cards */
     .clocks-strip {
       display: flex;
       align-items: stretch;
-      gap: 10px;
+      gap: 8px;
       flex-shrink: 0;
-      overflow-x: auto;
       max-width: 100%;
-      padding-bottom: 2px;
     }
 
     .clock-card {
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
-      padding: 8px 14px;
-      min-width: 162px;
+      padding: 6px 11px;
+      min-width: 152px;
       flex-shrink: 0;
       display: flex;
       flex-direction: column;
       justify-content: center;
       gap: 2px;
-      transition: border-color 0.2s ease, transform 0.2s ease;
+      transition: border-color 0.2s ease;
     }
 
-    .clock-card:hover {
-      border-color: var(--border-strong);
-    }
+    .clock-card:hover { border-color: var(--border-strong); }
 
     .clock-top {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 8px;
+      gap: 6px;
       white-space: nowrap;
     }
 
     .clock-city-wrap {
       display: flex;
       align-items: center;
-      gap: 7px;
+      gap: 6px;
       white-space: nowrap;
     }
 
@@ -321,23 +331,12 @@
       display: inline-block;
     }
 
-    .dot-cairo {
-      background: #10b981;
-      box-shadow: 0 0 8px rgba(16, 185, 129, 0.85);
-    }
-
-    .dot-et {
-      background: #6366f1;
-      box-shadow: 0 0 8px rgba(99, 102, 241, 0.85);
-    }
-
-    .dot-mst {
-      background: #f59e0b;
-      box-shadow: 0 0 8px rgba(245, 158, 11, 0.85);
-    }
+    .dot-cairo { background: #10b981; box-shadow: 0 0 9px rgba(16, 185, 129, 0.9); }
+    .dot-et { background: #6366f1; box-shadow: 0 0 9px rgba(99, 102, 241, 0.9); }
+    .dot-mst { background: #f59e0b; box-shadow: 0 0 9px rgba(245, 158, 11, 0.9); }
 
     .clock-city {
-      font-size: 0.74rem;
+      font-size: 0.71rem;
       font-weight: 700;
       color: var(--text-secondary);
       white-space: nowrap;
@@ -345,7 +344,7 @@
 
     .clock-offset {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.65rem;
+      font-size: 0.62rem;
       font-weight: 700;
       padding: 1px 6px;
       border-radius: var(--radius-pill);
@@ -358,9 +357,9 @@
     }
 
     .clock-time {
-      font-family: 'JetBrains Mono', 'Inter', monospace;
+      font-family: 'JetBrains Mono', monospace;
       font-variant-numeric: tabular-nums;
-      font-size: 1.02rem;
+      font-size: 0.94rem;
       font-weight: 700;
       color: var(--text-primary);
       letter-spacing: 0.02em;
@@ -371,9 +370,8 @@
     }
 
     .clock-date {
-      font-family: 'Inter', sans-serif;
-      font-size: 0.68rem;
-      font-weight: 500;
+      font-size: 0.64rem;
+      font-weight: 600;
       color: var(--text-muted);
       white-space: nowrap;
       direction: ltr;
@@ -381,7 +379,7 @@
       line-height: 1.1;
     }
 
-    /* Compact Header Action Controls */
+    /* Header Action Controls */
     .header-actions {
       display: flex;
       align-items: center;
@@ -395,12 +393,13 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
-      padding: 8px 11px;
+      min-height: 36px;
+      padding: 7px 11px;
       border-radius: var(--radius-md);
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
       color: var(--text-secondary);
-      font-size: 0.76rem;
+      font-size: 0.74rem;
       font-weight: 700;
       white-space: nowrap;
       transition: all 0.2s ease;
@@ -412,15 +411,19 @@
       border-color: var(--border-strong);
     }
 
+    .action-btn.sync-pill-btn {
+      background: var(--bg-input);
+      border-color: var(--border-strong);
+      color: var(--text-primary);
+    }
+
     .action-btn.danger {
       color: var(--accent-rose);
       background: var(--accent-rose-soft);
-      border-color: rgba(244, 63, 94, 0.25);
+      border-color: rgba(244, 63, 94, 0.28);
     }
 
-    .action-btn.danger:hover {
-      background: rgba(244, 63, 94, 0.22);
-    }
+    .action-btn.danger:hover { background: rgba(244, 63, 94, 0.22); }
 
     .action-btn svg {
       width: 15px;
@@ -428,56 +431,85 @@
       flex-shrink: 0;
     }
 
+    .sync-badge-tag {
+      font-size: 0.67rem;
+      font-weight: 700;
+      padding: 1px 7px;
+      border-radius: var(--radius-pill);
+      background: var(--bg-pill);
+      color: var(--text-secondary);
+    }
+
+    .sync-badge-tag.synced { background: var(--accent-emerald-soft); color: var(--accent-emerald); }
+    .sync-badge-tag.syncing { background: var(--accent-sky-soft); color: var(--accent-sky); }
+    .sync-badge-tag.error { background: var(--accent-rose-soft); color: var(--accent-rose); }
+
+    /* Cloud Sync Live Indicator Dot */
+    .sync-status-dot {
+      width: 9px;
+      height: 9px;
+      min-width: 9px;
+      border-radius: 50%;
+      display: inline-block;
+      transition: all 0.2s ease;
+    }
+
+    .sync-dot-local {
+      background: #f59e0b;
+      box-shadow: 0 0 8px rgba(245, 158, 11, 0.8);
+    }
+
+    .sync-dot-synced {
+      background: #10b981;
+      box-shadow: 0 0 8px rgba(16, 185, 129, 0.85);
+    }
+
+    .sync-dot-syncing {
+      background: #38bdf8;
+      animation: syncBluePulse 1.1s infinite ease-in-out;
+    }
+
+    .sync-dot-error {
+      background: #f43f5e;
+      box-shadow: 0 0 8px rgba(244, 63, 94, 0.9);
+    }
+
     /* ==========================================================================
-       4. SHARED COMPONENTS (CARDS, BUTTONS, INPUTS, BANNERS, BADGES)
+       4. SHARED COMPONENTS
        ========================================================================== */
     .tab-panel {
       display: none;
       flex-direction: column;
-      gap: 18px;
-      animation: fadeSlideIn 0.25s ease;
+      gap: 16px;
+      animation: fadeSlideIn 0.22s ease;
     }
 
-    .tab-panel.active {
-      display: flex;
-    }
+    .tab-panel.active { display: flex; }
 
-    @keyframes fadeSlideIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .sample-banner {
+    .demo-banner {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
       flex-wrap: wrap;
-      padding: 10px 16px;
+      padding: 11px 15px;
       border-radius: var(--radius-md);
       background: var(--accent-amber-soft);
-      border: 1px solid rgba(245, 158, 11, 0.3);
-      font-size: 0.8rem;
+      border: 1px solid rgba(245, 158, 11, 0.34);
+      font-size: 0.79rem;
       font-weight: 600;
       color: var(--text-primary);
     }
 
-    .sample-banner.hidden {
-      display: none;
-    }
-
-    .sample-banner-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+    .demo-banner.hidden { display: none; }
 
     .card {
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-lg);
-      padding: 18px;
+      padding: 17px;
       box-shadow: var(--shadow-sm);
+      min-width: 0;
     }
 
     .card-header {
@@ -485,7 +517,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      margin-bottom: 16px;
+      margin-bottom: 15px;
       flex-wrap: wrap;
     }
 
@@ -493,6 +525,7 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      min-width: 0;
     }
 
     .card-icon {
@@ -505,27 +538,24 @@
       flex-shrink: 0;
     }
 
-    .card-icon svg {
-      width: 19px;
-      height: 19px;
-    }
+    .card-icon svg { width: 19px; height: 19px; }
 
     .icon-indigo { background: var(--accent-indigo-soft); color: var(--accent-indigo); }
+    .icon-purple { background: var(--accent-purple-soft); color: var(--accent-purple); }
     .icon-emerald { background: var(--accent-emerald-soft); color: var(--accent-emerald); }
     .icon-amber { background: var(--accent-amber-soft); color: var(--accent-amber); }
     .icon-sky { background: var(--accent-sky-soft); color: var(--accent-sky); }
-    .icon-violet { background: var(--accent-violet-soft); color: var(--accent-violet); }
     .icon-rose { background: var(--accent-rose-soft); color: var(--accent-rose); }
 
     .card-title {
-      font-size: 0.96rem;
+      font-size: 0.95rem;
       font-weight: 800;
       color: var(--text-primary);
       line-height: 1.25;
     }
 
     .card-subtitle {
-      font-size: 0.74rem;
+      font-size: 0.73rem;
       color: var(--text-muted);
     }
 
@@ -534,78 +564,59 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
-      padding: 9px 16px;
+      min-height: 38px;
+      padding: 8px 14px;
       border-radius: var(--radius-md);
-      font-size: 0.8rem;
+      font-size: 0.79rem;
       font-weight: 700;
       transition: all 0.18s ease;
       white-space: nowrap;
     }
 
-    .btn:active {
-      transform: scale(0.98);
-    }
+    .btn:active { transform: scale(0.98); }
 
     .btn-primary {
-      background: linear-gradient(135deg, #6366f1, #4f46e5);
+      background: linear-gradient(135deg, #6366f1, #7c3aed);
       color: #ffffff;
-      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.28);
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
     }
-
-    .btn-primary:hover {
-      filter: brightness(1.08);
-    }
-
-    .btn-emerald {
-      background: var(--accent-emerald);
-      color: #ffffff;
-      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
-    }
-
-    .btn-emerald:hover {
-      filter: brightness(1.06);
-    }
+    .btn-primary:hover { filter: brightness(1.08); }
 
     .btn-soft-emerald {
       background: var(--accent-emerald-soft);
       color: var(--accent-emerald);
-      border: 1px solid rgba(16, 185, 129, 0.3);
+      border: 1px solid rgba(16, 185, 129, 0.32);
     }
-
-    .btn-soft-emerald:hover {
-      background: rgba(16, 185, 129, 0.22);
-    }
+    .btn-soft-emerald:hover { background: rgba(16, 185, 129, 0.22); }
 
     .btn-soft-indigo {
       background: var(--accent-indigo-soft);
       color: var(--accent-indigo);
-      border: 1px solid rgba(99, 102, 241, 0.3);
+      border: 1px solid rgba(99, 102, 241, 0.32);
     }
-
-    .btn-soft-indigo:hover {
-      background: rgba(99, 102, 241, 0.22);
-    }
+    .btn-soft-indigo:hover { background: rgba(99, 102, 241, 0.22); }
 
     .btn-soft-rose {
       background: var(--accent-rose-soft);
       color: var(--accent-rose);
-      border: 1px solid rgba(244, 63, 94, 0.3);
+      border: 1px solid rgba(244, 63, 94, 0.32);
     }
+    .btn-soft-rose:hover { background: rgba(244, 63, 94, 0.22); }
 
     .btn-secondary {
       background: var(--bg-pill);
       color: var(--text-secondary);
       border: 1px solid var(--border-subtle);
     }
-
     .btn-secondary:hover {
       color: var(--text-primary);
       border-color: var(--border-strong);
     }
 
     .btn-sm {
-      padding: 6px 11px;
-      font-size: 0.74rem;
+      min-height: 31px;
+      padding: 5px 10px;
+      font-size: 0.73rem;
       border-radius: var(--radius-sm);
     }
 
@@ -623,7 +634,7 @@
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
       padding: 9px 12px;
-      font-size: 0.82rem;
+      font-size: 0.81rem;
       font-weight: 600;
       color: var(--text-primary);
       transition: border-color 0.18s ease, box-shadow 0.18s ease;
@@ -637,7 +648,7 @@
 
     .textarea {
       resize: vertical;
-      min-height: 110px;
+      min-height: 108px;
       line-height: 1.65;
     }
 
@@ -652,7 +663,7 @@
     .progress-fill {
       height: 100%;
       border-radius: var(--radius-pill);
-      transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .badge {
@@ -667,24 +678,25 @@
     }
 
     /* ==========================================================================
-       5. TAB 1: DASHBOARD & INCOME GRID
+       5. SECTION 1: WORK & INCOME DASHBOARD
        ========================================================================== */
     .kpi-grid {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 14px;
+      gap: 13px;
     }
 
     .kpi-card {
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-lg);
-      padding: 16px 18px;
+      padding: 15px 16px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 12px;
+      gap: 11px;
       box-shadow: var(--shadow-sm);
+      min-width: 0;
     }
 
     .kpi-top {
@@ -695,7 +707,7 @@
     }
 
     .kpi-label {
-      font-size: 0.75rem;
+      font-size: 0.74rem;
       font-weight: 700;
       color: var(--text-secondary);
     }
@@ -704,67 +716,139 @@
       display: flex;
       align-items: baseline;
       gap: 8px;
-      margin-top: 6px;
+      margin-top: 5px;
       flex-wrap: wrap;
     }
 
     .kpi-value {
-      font-family: 'JetBrains Mono', 'Inter', monospace;
-      font-size: 1.6rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.52rem;
       font-weight: 800;
       color: var(--text-primary);
       line-height: 1.15;
     }
 
     .kpi-sub-egp {
-      font-family: 'JetBrains Mono', 'Inter', monospace;
-      font-size: 0.78rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.79rem;
       font-weight: 700;
       color: var(--accent-emerald);
       margin-top: 3px;
     }
 
-    .kpi-inline-controls {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
+    /* Live USD/EGP Rate Widget */
+    .fx-widget {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
       padding-top: 10px;
       border-top: 1px solid var(--border-subtle);
+    }
+
+    .kpi-inline-controls {
+      display: grid;
+      grid-template-columns: 1fr 1.35fr;
+      gap: 6px;
     }
 
     .mini-edit-box {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 6px;
+      gap: 4px;
       background: var(--bg-input);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-sm);
-      padding: 4px 8px;
+      padding: 4px 7px;
+      min-width: 0;
     }
 
     .mini-edit-box label {
-      font-size: 0.66rem;
+      font-size: 0.65rem;
       font-weight: 700;
       color: var(--text-muted);
       white-space: nowrap;
     }
 
     .mini-edit-box input {
-      width: 58px;
+      width: 54px;
+      min-width: 44px;
       background: transparent;
       border: none;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.76rem;
+      font-size: 0.75rem;
       font-weight: 700;
       color: var(--text-primary);
       text-align: left;
       direction: ltr;
     }
 
-    .mini-edit-box input:focus {
-      outline: none;
+    .mini-edit-box input:focus { outline: none; }
+
+    .fx-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      font-size: 0.66rem;
+      color: var(--text-muted);
+      flex-wrap: wrap;
     }
+
+    .fx-status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 1px 7px;
+      border-radius: var(--radius-pill);
+      font-weight: 700;
+      font-size: 0.64rem;
+    }
+
+    .fx-live { background: var(--accent-emerald-soft); color: var(--accent-emerald); }
+    .fx-manual { background: var(--accent-amber-soft); color: var(--accent-amber); }
+
+    .fx-pulse-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-emerald);
+      animation: livePulse 1.8s infinite;
+    }
+
+    .fx-refresh-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      background: var(--bg-pill);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      font-weight: 700;
+      transition: all 0.18s ease;
+      flex-shrink: 0;
+    }
+
+    .fx-refresh-btn:hover {
+      color: var(--accent-indigo);
+      border-color: var(--accent-indigo);
+    }
+
+    .fx-auto-btn {
+      padding: 1px 7px;
+      border-radius: var(--radius-pill);
+      background: var(--accent-indigo-soft);
+      color: var(--accent-indigo);
+      border: 1px solid rgba(99, 102, 241, 0.35);
+      font-size: 0.63rem;
+      font-weight: 700;
+      display: none;
+    }
+
+    .fx-auto-btn.visible { display: inline-flex; }
 
     .kpi-footer {
       display: flex;
@@ -773,21 +857,19 @@
       gap: 8px;
       padding-top: 10px;
       border-top: 1px solid var(--border-subtle);
-      font-size: 0.74rem;
+      font-size: 0.73rem;
       color: var(--text-secondary);
     }
 
-    /* Two-column sections */
     .split-grid {
       display: grid;
       grid-template-columns: repeat(12, minmax(0, 1fr));
-      gap: 18px;
+      gap: 16px;
       align-items: start;
     }
 
     .col-5 { grid-column: span 5; }
     .col-7 { grid-column: span 7; }
-    .col-6 { grid-column: span 6; }
 
     /* Focus & Shift Timer */
     .mode-switch {
@@ -798,13 +880,13 @@
       background: var(--bg-pill);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
-      margin-bottom: 14px;
+      margin-bottom: 13px;
     }
 
     .mode-btn {
       padding: 7px 10px;
       border-radius: 9px;
-      font-size: 0.76rem;
+      font-size: 0.75rem;
       font-weight: 700;
       color: var(--text-secondary);
       transition: all 0.2s ease;
@@ -822,14 +904,14 @@
       justify-content: center;
       gap: 6px;
       flex-wrap: wrap;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     .preset-pill {
-      padding: 5px 12px;
+      padding: 5px 13px;
       border-radius: var(--radius-pill);
-      font-family: 'JetBrains Mono', 'Cairo', sans-serif;
-      font-size: 0.75rem;
+      font-family: 'JetBrains Mono', sans-serif;
+      font-size: 0.74rem;
       font-weight: 700;
       background: var(--bg-pill);
       color: var(--text-secondary);
@@ -845,9 +927,9 @@
 
     .timer-ring-box {
       position: relative;
-      width: 196px;
-      height: 196px;
-      margin: 6px auto 16px;
+      width: 190px;
+      height: 190px;
+      margin: 4px auto 14px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -885,14 +967,14 @@
     }
 
     .timer-phase {
-      font-size: 0.7rem;
+      font-size: 0.69rem;
       font-weight: 700;
       color: var(--accent-indigo);
     }
 
     .timer-digits {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 2.05rem;
+      font-size: 1.95rem;
       font-weight: 800;
       color: var(--text-primary);
       direction: ltr;
@@ -901,7 +983,7 @@
 
     .timer-est-pill {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.73rem;
+      font-size: 0.72rem;
       font-weight: 700;
       padding: 2px 10px;
       border-radius: var(--radius-pill);
@@ -924,7 +1006,7 @@
       margin-bottom: 10px;
     }
 
-    /* Priority Daily Tasks */
+    /* Daily Priority Tasks */
     .task-form {
       background: var(--bg-input);
       border: 1px solid var(--border-subtle);
@@ -938,7 +1020,7 @@
 
     .task-form-row {
       display: grid;
-      grid-template-columns: 1fr 1fr auto;
+      grid-template-columns: 1fr 1.2fr auto;
       gap: 8px;
     }
 
@@ -953,7 +1035,7 @@
     .filter-pill {
       padding: 5px 12px;
       border-radius: var(--radius-pill);
-      font-size: 0.74rem;
+      font-size: 0.73rem;
       font-weight: 700;
       background: var(--bg-pill);
       color: var(--text-secondary);
@@ -980,31 +1062,28 @@
       display: flex;
       align-items: flex-start;
       gap: 10px;
-      padding: 11px 12px;
+      padding: 10px 12px;
       border-radius: var(--radius-md);
       background: var(--bg-input);
       border: 1px solid var(--border-subtle);
       transition: border-color 0.18s ease, opacity 0.2s ease;
     }
 
-    .task-item:hover {
-      border-color: var(--border-strong);
-    }
-
-    .task-item.done {
-      opacity: 0.58;
-    }
+    .task-item:hover { border-color: var(--border-strong); }
+    .task-item.done { opacity: 0.56; }
 
     .task-check {
-      width: 20px;
-      height: 20px;
-      min-width: 20px;
+      width: 22px;
+      height: 22px;
+      min-width: 22px;
       border-radius: 6px;
       border: 2px solid var(--border-strong);
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-top: 2px;
+      margin-top: 1px;
+      font-size: 0.78rem;
+      font-weight: 800;
       transition: all 0.18s ease;
     }
 
@@ -1014,13 +1093,10 @@
       color: #ffffff;
     }
 
-    .task-body {
-      flex: 1;
-      min-width: 0;
-    }
+    .task-body { flex: 1; min-width: 0; }
 
     .task-text {
-      font-size: 0.84rem;
+      font-size: 0.83rem;
       font-weight: 700;
       color: var(--text-primary);
       word-break: break-word;
@@ -1043,49 +1119,42 @@
     .prio-medium { background: var(--accent-amber-soft); color: var(--accent-amber); }
     .prio-low { background: var(--accent-emerald-soft); color: var(--accent-emerald); }
 
-    .icon-btn-del {
-      padding: 4px;
+    .icon-btn-sm {
+      padding: 5px 8px;
       border-radius: 6px;
       color: var(--text-muted);
+      font-size: 0.8rem;
       transition: all 0.15s ease;
     }
 
-    .icon-btn-del:hover {
-      color: var(--accent-rose);
-      background: var(--accent-rose-soft);
-    }
+    .icon-btn-sm:hover { color: var(--text-primary); background: var(--bg-pill); }
+    .icon-btn-del:hover { color: var(--accent-rose); background: var(--accent-rose-soft); }
 
-    /* Platform Performance & SVG Donut Chart */
+    /* Platform Performance & Interactive SVG Donut + Hours Comparison */
     .perf-layout {
       display: grid;
-      grid-template-columns: 230px 1fr;
+      grid-template-columns: 220px 1fr;
       gap: 20px;
       align-items: center;
     }
 
     .donut-wrap {
       position: relative;
-      width: 220px;
-      height: 220px;
+      width: 210px;
+      height: 210px;
       margin: 0 auto;
     }
 
-    .donut-svg {
-      width: 100%;
-      height: 100%;
-      overflow: visible;
-    }
+    .donut-svg { width: 100%; height: 100%; overflow: visible; }
 
     .donut-segment {
       fill: none;
       stroke-width: 24;
       cursor: pointer;
-      transition: stroke-width 0.2s ease, opacity 0.2s ease;
+      transition: stroke-width 0.2s ease;
     }
 
-    .donut-segment:hover, .donut-segment.highlighted {
-      stroke-width: 29;
-    }
+    .donut-segment:hover, .donut-segment.highlighted { stroke-width: 29; }
 
     .donut-center {
       position: absolute;
@@ -1096,14 +1165,14 @@
       justify-content: center;
       text-align: center;
       pointer-events: none;
-      padding: 26px;
+      padding: 24px;
     }
 
     .donut-center-label {
       font-size: 0.7rem;
       font-weight: 700;
       color: var(--text-muted);
-      max-width: 130px;
+      max-width: 126px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -1111,7 +1180,7 @@
 
     .donut-center-val {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 1.25rem;
+      font-size: 1.22rem;
       font-weight: 800;
       color: var(--text-primary);
       direction: ltr;
@@ -1124,30 +1193,24 @@
       color: var(--accent-emerald);
     }
 
-    .platform-bars {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
+    .platform-bars { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
 
     .plat-row {
       background: var(--bg-input);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
       padding: 10px 12px;
-      transition: border-color 0.18s ease, transform 0.18s ease;
+      transition: border-color 0.18s ease;
     }
 
-    .plat-row:hover, .plat-row.highlighted {
-      border-color: var(--accent-indigo);
-    }
+    .plat-row:hover, .plat-row.highlighted { border-color: var(--accent-indigo); }
 
     .plat-row-top {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 8px;
-      margin-bottom: 6px;
+      margin-bottom: 7px;
       flex-wrap: wrap;
     }
 
@@ -1155,7 +1218,7 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      font-size: 0.82rem;
+      font-size: 0.81rem;
       font-weight: 700;
     }
 
@@ -1166,23 +1229,37 @@
       flex-shrink: 0;
     }
 
+    .plat-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
     .plat-stats {
       display: flex;
       align-items: center;
       gap: 10px;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.74rem;
+      font-size: 0.73rem;
       color: var(--text-secondary);
       direction: ltr;
     }
 
-    .plat-stats strong {
-      color: var(--text-primary);
+    .plat-stats strong { color: var(--text-primary); }
+    .plat-stats .rate-tag { color: var(--accent-emerald); font-weight: 700; }
+
+    .plat-dual-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
     }
 
-    .plat-stats .rate-tag {
-      color: var(--accent-emerald);
-      font-weight: 700;
+    .bar-caption-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.66rem;
+      color: var(--text-muted);
     }
 
     /* Log Entry Form & Table */
@@ -1197,9 +1274,9 @@
       padding: 14px;
     }
 
-    .span-2 { grid-column: span 2; }
-    .span-3 { grid-column: span 3; }
     .span-1 { grid-column: span 1; }
+    .span-2 { grid-column: span 2; }
+    .span-5 { grid-column: span 5; }
 
     .table-wrap {
       overflow-x: auto;
@@ -1211,15 +1288,15 @@
       width: 100%;
       border-collapse: collapse;
       text-align: right;
-      font-size: 0.8rem;
+      font-size: 0.79rem;
     }
 
     thead th {
       background: var(--bg-pill);
       color: var(--text-secondary);
-      font-size: 0.72rem;
+      font-size: 0.71rem;
       font-weight: 700;
-      padding: 11px 12px;
+      padding: 10px 12px;
       border-bottom: 1px solid var(--border-subtle);
       white-space: nowrap;
     }
@@ -1230,22 +1307,13 @@
       vertical-align: middle;
     }
 
-    tbody tr:last-child td {
-      border-bottom: none;
-    }
-
-    tbody tr:hover {
-      background: var(--bg-card-hover);
-    }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:hover { background: var(--bg-card-hover); }
 
     /* ==========================================================================
-       6. TAB 2: AMERICAN ACCENT COACH (C1 TRAINER)
+       6. SECTION 2: AMERICAN ACCENT COACH (C1)
        ========================================================================== */
-    .coach-control-bar {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
+    .coach-control-bar { display: flex; flex-direction: column; gap: 14px; }
 
     .coach-top-row {
       display: grid;
@@ -1273,16 +1341,8 @@
       direction: ltr;
     }
 
-    .streak-stats {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .streak-stat-item {
-      display: flex;
-      flex-direction: column;
-    }
+    .streak-stats { display: flex; align-items: center; gap: 14px; }
+    .streak-stat-item { display: flex; flex-direction: column; }
 
     .streak-num {
       font-family: 'JetBrains Mono', monospace;
@@ -1307,7 +1367,7 @@
     }
 
     .speed-btn {
-      padding: 5px 9px;
+      padding: 5px 10px;
       border-radius: 6px;
       font-size: 0.72rem;
       font-weight: 700;
@@ -1315,12 +1375,8 @@
       transition: all 0.15s ease;
     }
 
-    .speed-btn.active {
-      background: var(--accent-indigo);
-      color: #ffffff;
-    }
+    .speed-btn.active { background: var(--accent-indigo); color: #ffffff; }
 
-    /* Phonetic Legend Toggle Bar */
     .legend-bar {
       display: flex;
       align-items: center;
@@ -1330,12 +1386,7 @@
       border-top: 1px solid var(--border-subtle);
     }
 
-    .legend-label {
-      font-size: 0.74rem;
-      font-weight: 700;
-      color: var(--text-secondary);
-      margin-left: 4px;
-    }
+    .legend-label { font-size: 0.74rem; font-weight: 700; color: var(--text-secondary); }
 
     .legend-chip {
       display: inline-flex;
@@ -1343,53 +1394,34 @@
       gap: 6px;
       padding: 5px 11px;
       border-radius: var(--radius-pill);
-      font-size: 0.73rem;
+      font-size: 0.72rem;
       font-weight: 700;
       border: 1px solid transparent;
       transition: all 0.18s ease;
     }
 
-    .legend-chip .chip-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-    }
-
-    .legend-chip.off {
-      opacity: 0.35;
-      filter: grayscale(0.7);
-    }
+    .legend-chip .chip-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .legend-chip.off { opacity: 0.34; filter: grayscale(0.75); }
 
     .chip-flap { background: var(--ph-flap-bg); color: var(--ph-flap-fg); border-color: var(--ph-flap-bd); }
     .chip-flap .chip-dot { background: #3b82f6; }
-
     .chip-schwa { background: var(--ph-schwa-bg); color: var(--ph-schwa-fg); border-color: var(--ph-schwa-bd); }
     .chip-schwa .chip-dot { background: #a855f7; }
-
     .chip-ed { background: var(--ph-ed-bg); color: var(--ph-ed-fg); border-color: var(--ph-ed-bd); }
     .chip-ed .chip-dot { background: #10b981; }
-
     .chip-th { background: var(--ph-th-bg); color: var(--ph-th-fg); border-color: var(--ph-th-bd); }
     .chip-th .chip-dot { background: #f97316; }
-
     .chip-pb { background: var(--ph-pb-bg); color: var(--ph-pb-fg); border-color: var(--ph-pb-bd); }
     .chip-pb .chip-dot { background: #f43f5e; }
-
     .chip-conn { background: var(--ph-conn-bg); color: var(--ph-conn-fg); border-color: var(--ph-conn-bd); }
     .chip-conn .chip-dot { background: #eab308; }
 
-    /* Coach Sub-Tabs */
-    .subtabs-bar {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
+    .subtabs-bar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 
     .subtab-btn {
-      padding: 9px 16px;
+      padding: 8px 15px;
       border-radius: var(--radius-md);
-      font-size: 0.82rem;
+      font-size: 0.81rem;
       font-weight: 700;
       background: var(--bg-card);
       color: var(--text-secondary);
@@ -1397,11 +1429,7 @@
       transition: all 0.18s ease;
     }
 
-    .subtab-btn:hover {
-      color: var(--text-primary);
-      border-color: var(--border-strong);
-    }
-
+    .subtab-btn:hover { color: var(--text-primary); border-color: var(--border-strong); }
     .subtab-btn.active {
       background: var(--accent-indigo);
       color: #ffffff;
@@ -1409,17 +1437,9 @@
       box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
     }
 
-    .subtab-panel {
-      display: none;
-      flex-direction: column;
-      gap: 16px;
-    }
+    .subtab-panel { display: none; flex-direction: column; gap: 16px; }
+    .subtab-panel.active { display: flex; }
 
-    .subtab-panel.active {
-      display: flex;
-    }
-
-    /* Inline Phonetic Highlighting Spans */
     .ph-word {
       display: inline-block;
       padding: 1px 6px;
@@ -1428,12 +1448,10 @@
       border-bottom: 2px solid transparent;
       font-weight: 700;
       cursor: pointer;
-      transition: transform 0.12s ease, background-color 0.2s ease;
+      transition: transform 0.12s ease;
     }
 
-    .ph-word:hover {
-      transform: translateY(-1px);
-    }
+    .ph-word:hover { transform: translateY(-1px); }
 
     .ph-flap { background: var(--ph-flap-bg); color: var(--ph-flap-fg); border-bottom-color: var(--ph-flap-bd); }
     .ph-schwa { background: var(--ph-schwa-bg); color: var(--ph-schwa-fg); border-bottom-color: var(--ph-schwa-bd); }
@@ -1442,7 +1460,6 @@
     .ph-pb { background: var(--ph-pb-bg); color: var(--ph-pb-fg); border-bottom-color: var(--ph-pb-bd); }
     .ph-conn { background: var(--ph-conn-bg); color: var(--ph-conn-fg); border-bottom-color: var(--ph-conn-bd); }
 
-    /* Toggled-off highlight rules */
     .hide-flap .ph-flap,
     .hide-schwa .ph-schwa,
     .hide-ed .ph-ed,
@@ -1457,17 +1474,12 @@
       font-weight: inherit;
     }
 
-    /* Sentence Shadowing Cards */
-    .category-pills {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
+    .category-pills { display: flex; gap: 8px; flex-wrap: wrap; }
 
     .cat-pill {
-      padding: 7px 14px;
+      padding: 6px 13px;
       border-radius: var(--radius-pill);
-      font-size: 0.78rem;
+      font-size: 0.77rem;
       font-weight: 700;
       background: var(--bg-input);
       border: 1px solid var(--border-subtle);
@@ -1491,17 +1503,13 @@
       border-bottom: 1px solid var(--border-subtle);
     }
 
-    .sentence-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
+    .sentence-list { display: flex; flex-direction: column; gap: 12px; }
 
     .sentence-card {
       background: var(--bg-input);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
-      padding: 15px 16px;
+      padding: 14px 15px;
       display: flex;
       flex-direction: column;
       gap: 10px;
@@ -1510,12 +1518,16 @@
 
     .sentence-card.speaking {
       border-color: var(--accent-indigo);
-      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.22);
+    }
+
+    .sentence-card.practiced {
+      border-color: rgba(16, 185, 129, 0.45);
     }
 
     .sentence-en {
-      font-family: 'Inter', sans-serif;
-      font-size: 1.03rem;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 1rem;
       line-height: 1.85;
       color: var(--text-primary);
       direction: ltr;
@@ -1536,15 +1548,14 @@
       font-size: 0.76rem;
       color: var(--text-secondary);
       flex: 1;
-      min-width: 200px;
+      min-width: 190px;
     }
 
-    /* Built-in Voice Recorder Box */
     .recorder-box {
       background: var(--bg-input);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
-      padding: 14px 16px;
+      padding: 13px 15px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -1552,11 +1563,7 @@
       flex-wrap: wrap;
     }
 
-    .rec-status {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+    .rec-status { display: flex; align-items: center; gap: 10px; }
 
     .rec-pulse {
       width: 10px;
@@ -1564,29 +1571,12 @@
       border-radius: 50%;
       background: var(--accent-rose);
       display: none;
-      animation: pulseRec 1s infinite;
+      animation: livePulse 1s infinite;
     }
+    .rec-pulse.active { display: inline-block; }
 
-    .rec-pulse.active {
-      display: inline-block;
-    }
-
-    @keyframes pulseRec {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.4); opacity: 0.4; }
-    }
-
-    .rec-audio-wrap {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .rec-audio-wrap audio {
-      height: 36px;
-      max-width: 260px;
-    }
+    .rec-audio-wrap { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .rec-audio-wrap audio { height: 36px; max-width: 240px; }
 
     .rec-error-msg {
       width: 100%;
@@ -1599,10 +1589,9 @@
       display: none;
     }
 
-    /* Sound Drills Grid */
     .drills-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
       gap: 12px;
     }
 
@@ -1610,14 +1599,13 @@
       background: var(--bg-input);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
-      padding: 14px;
+      padding: 13px;
       display: flex;
       flex-direction: column;
-      gap: 7px;
+      gap: 6px;
       cursor: pointer;
       text-align: right;
       transition: all 0.18s ease;
-      position: relative;
     }
 
     .drill-card:hover {
@@ -1628,12 +1616,12 @@
 
     .drill-card.playing {
       border-color: var(--accent-emerald);
-      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.22);
     }
 
     .drill-word {
-      font-family: 'Inter', sans-serif;
-      font-size: 1.05rem;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 1.02rem;
       font-weight: 800;
       color: var(--text-primary);
       direction: ltr;
@@ -1646,7 +1634,7 @@
 
     .drill-phonetic {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       font-weight: 700;
       color: var(--accent-indigo);
       direction: ltr;
@@ -1659,7 +1647,7 @@
       line-height: 1.45;
     }
 
-    /* Floating Phonetic Tooltip */
+    /* Floating Phonetic Tooltip / Popover */
     #phonetic-tooltip {
       position: fixed;
       z-index: 100;
@@ -1676,10 +1664,7 @@
       transition: opacity 0.15s ease, transform 0.15s ease;
     }
 
-    #phonetic-tooltip.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    #phonetic-tooltip.visible { opacity: 1; transform: translateY(0); }
 
     .tt-top {
       display: flex;
@@ -1706,65 +1691,113 @@
       color: #e2e8f0;
     }
 
-    .tt-tip {
-      font-size: 0.75rem;
-      color: #cbd5e1;
-      line-height: 1.45;
-    }
+    .tt-tip { font-size: 0.75rem; color: #cbd5e1; line-height: 1.45; }
 
     /* ==========================================================================
-       7. MODALS & TOASTS
+       7. MODALS (CLOUD SYNC, PLATFORM, RESET) & TOASTS
        ========================================================================== */
     .modal-backdrop {
       position: fixed;
       inset: 0;
       z-index: 60;
-      background: rgba(2, 6, 23, 0.72);
-      backdrop-filter: blur(5px);
+      background: rgba(2, 6, 23, 0.78);
+      backdrop-filter: blur(6px);
       display: none;
       align-items: center;
       justify-content: center;
-      padding: 16px;
+      padding: 14px;
     }
 
-    .modal-backdrop.open {
-      display: flex;
-    }
+    .modal-backdrop.open { display: flex; }
 
     .modal-box {
       background: var(--bg-card);
       border: 1px solid var(--border-strong);
       border-radius: var(--radius-lg);
-      max-width: 440px;
+      max-width: 550px;
       width: 100%;
-      padding: 20px;
+      max-height: 92vh;
+      overflow-y: auto;
+      padding: 18px;
       box-shadow: var(--shadow-lg);
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 13px;
     }
 
     .modal-head {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 10px;
     }
 
-    .modal-title {
-      font-size: 0.98rem;
-      font-weight: 800;
-    }
+    .modal-title { font-size: 0.98rem; font-weight: 800; }
 
-    .color-swatches {
+    .sync-info-box {
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 11px 13px;
       display: flex;
       align-items: center;
-      gap: 8px;
+      justify-content: space-between;
+      gap: 10px;
       flex-wrap: wrap;
+      font-size: 0.78rem;
     }
 
+    .sync-actions-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .sync-tri-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 7px;
+    }
+
+    .code-details {
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 10px 12px;
+      font-size: 0.75rem;
+    }
+
+    .code-details summary {
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--accent-indigo);
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .code-pre {
+      margin-top: 10px;
+      background: #060a14;
+      color: #e2e8f0;
+      border: 1px solid #1e2a47;
+      border-radius: 8px;
+      padding: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      line-height: 1.5;
+      overflow-x: auto;
+      direction: ltr;
+      text-align: left;
+      max-height: 185px;
+    }
+
+    .color-swatches { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
     .swatch-btn {
-      width: 26px;
-      height: 26px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
       border: 2px solid transparent;
       transition: transform 0.15s ease;
@@ -1778,14 +1811,14 @@
 
     #toast-container {
       position: fixed;
-      bottom: 18px;
-      left: 18px;
+      bottom: 16px;
+      left: 16px;
       z-index: 90;
       display: flex;
       flex-direction: column;
       gap: 8px;
       max-width: 340px;
-      width: calc(100% - 36px);
+      width: calc(100% - 32px);
       pointer-events: none;
     }
 
@@ -1794,91 +1827,69 @@
       display: flex;
       align-items: center;
       gap: 9px;
-      padding: 11px 14px;
+      padding: 10px 13px;
       border-radius: var(--radius-md);
       background: #0f172a;
       color: #f8fafc;
       border: 1px solid #334155;
       box-shadow: var(--shadow-lg);
-      font-size: 0.78rem;
+      font-size: 0.77rem;
       font-weight: 700;
       animation: fadeSlideIn 0.2s ease;
     }
 
-    .toast-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
+    .toast-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
 
     /* ==========================================================================
-       8. RESPONSIVE BREAKPOINTS
+       8. RESPONSIVE BREAKPOINTS (TESTED DOWN TO 360px MOBILE SCREENS)
        ========================================================================== */
-    @media (max-width: 1200px) {
-      .kpi-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-      .top-header {
-        justify-content: center;
-      }
-      .col-5, .col-7 {
-        grid-column: span 12;
-      }
+    @media (max-width: 1240px) {
+      .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .top-header { justify-content: center; }
+      .col-5, .col-7 { grid-column: span 12; }
     }
 
     @media (max-width: 900px) {
-      .coach-top-row {
-        grid-template-columns: 1fr;
-      }
-      .perf-layout {
-        grid-template-columns: 1fr;
-      }
-      .entry-form-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-      .entry-form-grid .span-3, .entry-form-grid .span-2, .entry-form-grid .span-1 {
-        grid-column: span 1;
-      }
+      .coach-top-row { grid-template-columns: 1fr; }
+      .perf-layout { grid-template-columns: 1fr; }
+      .entry-form-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .entry-form-grid .span-5, .entry-form-grid .span-2, .entry-form-grid .span-1 { grid-column: span 1; }
+      .entry-form-grid .entry-note-wrap { grid-column: span 2; }
     }
 
     @media (max-width: 640px) {
-      .app-shell {
-        padding: 10px 12px 28px;
-      }
-      .top-header {
-        position: static;
-        padding: 10px;
-      }
-      .kpi-grid {
-        grid-template-columns: 1fr;
-      }
+      .app-shell { padding: 8px 8px 26px; gap: 12px; }
+      .top-header { position: static; padding: 9px; gap: 9px; border-radius: 16px; }
+      .nav-switcher { width: 100%; display: grid; grid-template-columns: 1fr 1fr; }
+      .nav-tab-btn { padding: 8px 6px; font-size: 0.75rem; }
+
+      /* Clean 2-column clock grid on mobile (Cairo spans full width, ET + MST below) */
       .clocks-strip {
         width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 7px;
       }
-      .clock-card {
-        min-width: 154px;
-        flex: 1 0 154px;
-      }
-      .task-form-row {
-        grid-template-columns: 1fr 1fr;
-      }
-      .task-form-row button {
-        grid-column: span 2;
-      }
-      .action-btn span {
-        display: none;
-      }
-      .nav-tab-btn {
-        padding: 7px 12px;
-        font-size: 0.78rem;
-      }
+      .clock-card { min-width: 0; padding: 7px 9px; }
+      .clock-card.clock-cairo-card { grid-column: 1 / -1; }
+      .clock-time { font-size: 0.85rem; }
+
+      .header-actions { width: 100%; justify-content: space-between; gap: 5px; }
+      .action-btn { flex: 1 1 auto; padding: 7px 8px; font-size: 0.72rem; }
+      .action-btn .hide-xs { display: none; }
+
+      .kpi-grid { grid-template-columns: 1fr; }
+      .task-form-row { grid-template-columns: 1fr 1fr; }
+      .task-form-row button { grid-column: span 2; }
+      .sync-actions-grid { grid-template-columns: 1fr; }
+      .sync-tri-grid { grid-template-columns: 1fr; }
+      .card { padding: 13px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Floating Phonetic Tooltip -->
+  <!-- Floating Phonetic Tooltip / Popover -->
   <div id="phonetic-tooltip" role="tooltip" aria-hidden="true">
     <div class="tt-top">
       <span id="tt-respell" class="tt-respell"></span>
@@ -1892,9 +1903,9 @@
 
   <div class="app-shell">
 
-    <!-- ==================== CLEAN SLEEK HEADER BAR (NO TITLE TEXT) ==================== -->
+    <!-- ==================== COMPACT TOP NAVIGATION BAR (NO LARGE TITLE) ==================== -->
     <header class="top-header">
-      <!-- Navigation Pill Switcher -->
+      <!-- Segmented View Switcher -->
       <nav class="nav-switcher" aria-label="التنقل الرئيسي">
         <button id="tab-btn-dashboard" type="button" class="nav-tab-btn active" data-main-tab="dashboard">
           <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -1910,10 +1921,9 @@
         </button>
       </nav>
 
-      <!-- Redesigned World Clocks Strip -->
-      <div class="clocks-strip" aria-label="ساعات التوقيت العالمية">
-        <!-- Cairo -->
-        <div class="clock-card">
+      <!-- Three Live Timezone Clock Cards -->
+      <div class="clocks-strip" aria-label="ساعات التوقيت الحية">
+        <div class="clock-card clock-cairo-card">
           <div class="clock-top">
             <div class="clock-city-wrap">
               <span class="clock-dot dot-cairo"></span>
@@ -1924,7 +1934,6 @@
           <div id="date-cairo" class="clock-date">---</div>
         </div>
 
-        <!-- US Eastern -->
         <div class="clock-card">
           <div class="clock-top">
             <div class="clock-city-wrap">
@@ -1937,7 +1946,6 @@
           <div id="date-et" class="clock-date">---</div>
         </div>
 
-        <!-- US Arizona -->
         <div class="clock-card">
           <div class="clock-top">
             <div class="clock-city-wrap">
@@ -1951,59 +1959,70 @@
         </div>
       </div>
 
-      <!-- Compact Action Controls -->
+      <!-- Header Action Buttons -->
       <div class="header-actions">
-        <button id="btn-theme" type="button" class="action-btn" title="تبديل الوضع الليلي والنهاري">
+        <!-- Cloud Sync Status Pill Button -->
+        <button id="btn-sync-open" type="button" class="action-btn sync-pill-btn" title="إعدادات المزامنة التلقائية عبر Google Sheets">
+          <span id="header-sync-dot" class="sync-status-dot sync-dot-local"></span>
+          <span>مزامنة سحابية</span>
+          <span id="header-sync-badge" class="sync-badge-tag">محلي فقط</span>
+        </button>
+
+        <!-- Light/Dark Theme Toggle -->
+        <button id="btn-theme" type="button" class="action-btn" title="تبديل المظهر">
           <svg id="icon-sun" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
           </svg>
           <svg id="icon-moon" style="display:none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
           </svg>
-          <span>المظهر</span>
+          <span class="hide-xs">المظهر</span>
         </button>
 
-        <button id="btn-export" type="button" class="action-btn" title="تصدير نسخة احتياطية JSON">
+        <!-- JSON Backup -->
+        <button id="btn-export" type="button" class="action-btn" title="نسخ احتياطي JSON">
           <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
           </svg>
-          <span>نسخ احتياطي</span>
+          <span class="hide-xs">نسخ احتياطي</span>
         </button>
 
-        <label class="action-btn" title="استيراد نسخة احتياطية JSON" style="cursor:pointer">
+        <!-- JSON Import -->
+        <label class="action-btn" title="استيراد نسخة احتياطية" style="cursor:pointer">
           <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
           </svg>
-          <span>استيراد</span>
+          <span class="hide-xs">استيراد</span>
           <input id="input-import" type="file" accept="application/json" style="display:none" />
         </label>
 
+        <!-- Reset Data -->
         <button id="btn-reset-open" type="button" class="action-btn danger" title="تصفير البيانات">
           <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
           </svg>
-          <span>تصفير البيانات</span>
+          <span class="hide-xs">تصفير البيانات</span>
         </button>
       </div>
     </header>
 
     <!-- ======================================================================
-         TAB 1: لوحة العمل والدخل (FREELANCE & INCOME DASHBOARD)
+         SECTION 1: لوحة العمل والدخل (WORK & INCOME DASHBOARD)
          ====================================================================== -->
     <main id="panel-dashboard" class="tab-panel active">
 
-      <!-- Dismissible Sample Data Notice -->
-      <div id="sample-banner" class="sample-banner hidden">
-        <span>تعرض اللوحة حالياً بيانات تجريبية جاهزة لتجربة كل الميزات. يمكنك البدء من الصفر بضغطة واحدة.</span>
-        <div class="sample-banner-actions">
+      <!-- Dismissible Demo Data Notice Banner -->
+      <div id="demo-banner" class="demo-banner hidden">
+        <span>تعرض اللوحة حالياً بيانات تجريبية للتجربة. اضغط تصفير للبدء بأرقامك الفعلية ومزامنتها تلقائياً.</span>
+        <div style="display:flex;gap:8px;align-items:center">
           <button id="btn-quick-zero" type="button" class="btn btn-sm btn-soft-rose">تصفير والبدء الفعلي</button>
-          <button id="btn-dismiss-sample" type="button" class="btn btn-sm btn-secondary">إخفاء</button>
+          <button id="btn-dismiss-demo" type="button" class="btn btn-sm btn-secondary">إخفاء</button>
         </div>
       </div>
 
-      <!-- 4 KPI Cards Grid -->
-      <section class="kpi-grid" aria-label="مؤشرات الأداء">
-        <!-- KPI 1: Monthly Income + Inline Goal & Exchange Rate -->
+      <!-- 4 KPI Cards -->
+      <section class="kpi-grid" aria-label="مؤشرات الأداء الشهري">
+        <!-- KPI 1: Monthly Income USD + Live EGP Conversion -->
         <div class="kpi-card">
           <div>
             <div class="kpi-top">
@@ -2021,33 +2040,47 @@
                 </svg>
               </div>
             </div>
-            <div style="margin-top:10px">
+            <div style="margin-top:9px">
               <div class="progress-track">
                 <div id="kpi-goal-bar" class="progress-fill" style="width:0%;background:linear-gradient(90deg,#6366f1,#a855f7)"></div>
               </div>
             </div>
           </div>
 
-          <div class="kpi-inline-controls">
-            <div class="mini-edit-box">
-              <label for="inline-goal">الهدف ($)</label>
-              <input id="inline-goal" type="number" min="1" step="50" />
+          <!-- Editable Monthly Goal + Live USD/EGP Rate Control -->
+          <div class="fx-widget">
+            <div class="kpi-inline-controls">
+              <div class="mini-edit-box">
+                <label for="inline-goal">الهدف ($)</label>
+                <input id="inline-goal" type="number" min="1" step="50" />
+              </div>
+              <div class="mini-edit-box">
+                <label for="inline-rate">الدولار</label>
+                <input id="inline-rate" type="number" min="1" step="0.01" />
+                <button id="btn-fx-refresh" type="button" class="fx-refresh-btn" title="تحديث سعر الدولار المباشر">↻</button>
+              </div>
             </div>
-            <div class="mini-edit-box">
-              <label for="inline-rate">الدولار</label>
-              <input id="inline-rate" type="number" min="1" step="0.1" />
+            <div class="fx-meta-row">
+              <div style="display:flex;align-items:center;gap:5px">
+                <span id="fx-badge" class="fx-status-pill fx-live">
+                  <span id="fx-pulse" class="fx-pulse-dot"></span>
+                  <span id="fx-badge-text">مباشر</span>
+                </span>
+                <button id="btn-fx-auto" type="button" class="fx-auto-btn" title="العودة للسعر المباشر التلقائي">تلقائي</button>
+              </div>
+              <span id="fx-updated-text">جاري جلب السعر...</span>
             </div>
           </div>
         </div>
 
-        <!-- KPI 2: Total Logged Hours -->
+        <!-- KPI 2: Total Work Hours -->
         <div class="kpi-card">
           <div class="kpi-top">
             <div>
               <div class="kpi-label">إجمالي ساعات العمل (هذا الشهر)</div>
               <div class="kpi-value-row">
                 <span id="kpi-hours" class="kpi-value" dir="ltr">0.0</span>
-                <span style="font-size:0.85rem;font-weight:700;color:var(--text-secondary)">ساعة</span>
+                <span style="font-size:0.84rem;font-weight:700;color:var(--text-secondary)">ساعة</span>
               </div>
             </div>
             <div class="card-icon icon-sky">
@@ -2062,7 +2095,7 @@
           </div>
         </div>
 
-        <!-- KPI 3: Effective Hourly Rate -->
+        <!-- KPI 3: Average Hourly Rate + Highest-Earning Platform -->
         <div class="kpi-card">
           <div class="kpi-top">
             <div>
@@ -2080,11 +2113,11 @@
           </div>
           <div class="kpi-footer">
             <span>الأعلى عائداً:</span>
-            <span id="kpi-top-plat" class="badge icon-emerald" style="max-width:165px;overflow:hidden;text-overflow:ellipsis">لا توجد بيانات</span>
+            <span id="kpi-top-plat" class="badge icon-emerald" style="max-width:170px;overflow:hidden;text-overflow:ellipsis">لا توجد بيانات</span>
           </div>
         </div>
 
-        <!-- KPI 4: Daily Tasks -->
+        <!-- KPI 4: Today's Tasks -->
         <div class="kpi-card">
           <div class="kpi-top">
             <div>
@@ -2114,7 +2147,7 @@
 
       <!-- Row 2: Focus & Shift Timer + Daily Priority Tasks -->
       <section class="split-grid">
-        <!-- Focus & Shift Timer (5 cols) -->
+        <!-- Focus & Shift Timer -->
         <div class="card col-5">
           <div class="card-header">
             <div class="card-title-group">
@@ -2125,25 +2158,22 @@
               </div>
               <div>
                 <h2 class="card-title">تايمر التركيز وحساب الشفت</h2>
-                <p class="card-subtitle">بومودورو أو شفت مفتوح مع حساب العائد اللحظي</p>
+                <p class="card-subtitle">بومودورو أو شفت مفتوح مع تقدير لحظي للدخل</p>
               </div>
             </div>
           </div>
 
-          <!-- Mode Switch -->
           <div class="mode-switch">
             <button id="timer-mode-pomo" type="button" class="mode-btn active">بومودورو (تنازلي)</button>
             <button id="timer-mode-shift" type="button" class="mode-btn">شفت مفتوح (تصاعدي)</button>
           </div>
 
-          <!-- Presets -->
           <div id="timer-presets-row" class="preset-row">
             <button type="button" class="preset-pill active" data-mins="25">25m</button>
             <button type="button" class="preset-pill" data-mins="50">50m</button>
             <button type="button" class="preset-pill" data-mins="90">90m</button>
           </div>
 
-          <!-- SVG Circular Progress -->
           <div class="timer-ring-box">
             <svg class="timer-ring-svg" viewBox="0 0 200 200">
               <defs>
@@ -2156,13 +2186,12 @@
               <circle id="timer-ring-fg" class="timer-ring-fg" cx="100" cy="100" r="88" stroke-dasharray="552.92" stroke-dashoffset="0" />
             </svg>
             <div class="timer-center">
-              <span id="timer-phase-lbl" class="timer-phase">جلسة تركيز</span>
+              <span id="timer-phase-lbl" class="timer-phase">بومودورو (25 دقيقة)</span>
               <div id="timer-digits" class="timer-digits">25:00</div>
               <div id="timer-est" class="timer-est-pill">Est: $0.00</div>
             </div>
           </div>
 
-          <!-- Platform + Hourly Rate -->
           <div class="timer-inputs-row">
             <div>
               <label for="timer-platform" class="field-label">المنصة</label>
@@ -2174,22 +2203,17 @@
             </div>
           </div>
 
-          <!-- Controls -->
           <div class="timer-controls-row">
             <button id="btn-timer-toggle" type="button" class="btn btn-primary">ابدأ الجلسة</button>
             <button id="btn-timer-reset" type="button" class="btn btn-secondary">إعادة ضبط</button>
           </div>
 
-          <!-- 1-Click Direct Log Button -->
           <button id="btn-timer-log" type="button" class="btn btn-soft-emerald" style="width:100%">
-            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <span>تسجيل الجلسة في السجل</span>
+            <span>+ تسجيل الجلسة في السجل</span>
           </button>
         </div>
 
-        <!-- Daily Priority Tasks (7 cols) -->
+        <!-- Daily Priority Tasks -->
         <div class="card col-7">
           <div class="card-header">
             <div class="card-title-group">
@@ -2200,21 +2224,27 @@
               </div>
               <div>
                 <h2 class="card-title">المهام اليومية حسب الأولوية</h2>
-                <p class="card-subtitle">رتّب أولويات يومك وتابع الإنجاز لحظة بلحظة</p>
+                <p class="card-subtitle">تُحفظ فوراً وتتزامن تلقائياً بين اللاب والموبايل</p>
               </div>
             </div>
             <button id="btn-clear-done-tasks" type="button" class="btn btn-sm btn-soft-rose">مسح المكتمل</button>
           </div>
 
           <form id="form-task" class="task-form">
-            <input id="task-input" type="text" class="input" required placeholder="أضف مهمة جديدة... (مثال: متابعة طلبات UPS أو شفت ترجمة)" />
+            <input id="task-input" type="text" class="input" required placeholder="أضف مهمة جديدة... (مثال: متابعة شحنات UPS أو شفت ترجمة)" />
             <div class="task-form-row">
               <select id="task-priority" class="select">
                 <option value="high">أولوية عالية</option>
                 <option value="medium" selected>أولوية متوسطة</option>
-                <option value="low">أولوية عادية</option>
+                <option value="low">أولوية منخفضة</option>
               </select>
-              <select id="task-platform" class="select"></select>
+              <select id="task-category" class="select">
+                <option value="ترجمة / Curalingo">ترجمة / Curalingo</option>
+                <option value="فريلانس / VA">فريلانس / VA</option>
+                <option value="مبيعات / مكالمات">مبيعات / مكالمات</option>
+                <option value="منصات AI">منصات AI</option>
+                <option value="عام / إدارة" selected>عام / إدارة</option>
+              </select>
               <button type="submit" class="btn btn-primary">إضافة</button>
             </div>
           </form>
@@ -2230,7 +2260,7 @@
         </div>
       </section>
 
-      <!-- Row 3: Platform Performance & SVG Donut Breakdown -->
+      <!-- Row 3: Platforms Manager & Interactive Earnings/Hours Charts -->
       <section class="card">
         <div class="card-header">
           <div class="card-title-group">
@@ -2241,47 +2271,44 @@
               </svg>
             </div>
             <div>
-              <h2 class="card-title">أداء المنصات وتوزيع الدخل</h2>
-              <p class="card-subtitle">مرّر المؤشر على أي شريحة أو منصة لمقارنة حصتها والعائد الفعلي للساعة</p>
+              <h2 class="card-title">إدارة المنصات ومقارنة الدخل والساعات</h2>
+              <p class="card-subtitle">تحكم بأهداف وسعر الساعة لكل منصة وتابع التوزيع التفاعلي</p>
             </div>
           </div>
           <button id="btn-add-platform" type="button" class="btn btn-sm btn-primary">+ إضافة منصة</button>
         </div>
 
         <div class="perf-layout">
-          <!-- Crisp Interactive SVG Donut -->
           <div class="donut-wrap">
             <svg id="donut-svg" class="donut-svg" viewBox="0 0 220 220"></svg>
             <div class="donut-center">
               <div id="donut-center-label" class="donut-center-label">إجمالي الدخل</div>
               <div id="donut-center-val" class="donut-center-val">$0</div>
-              <div id="donut-center-pct" class="donut-center-pct">100%</div>
+              <div id="donut-center-pct" class="donut-center-pct">0.0 ساعة</div>
             </div>
           </div>
-
-          <!-- Horizontal Platform Progress Bars -->
           <div id="platform-bars" class="platform-bars"></div>
         </div>
       </section>
 
-      <!-- Row 4: Income & Shift Log Table -->
+      <!-- Row 4: Earnings & Sessions Log -->
       <section class="card">
         <div class="card-header">
           <div class="card-title-group">
-            <div class="card-icon icon-violet">
+            <div class="card-icon icon-purple">
               <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z" />
               </svg>
             </div>
             <div>
-              <h2 class="card-title">سجل الدخل والشفتات</h2>
-              <p class="card-subtitle">أضف دفعة يدوية أو راجع السجل مع تصفية حسب المنصة ووسيلة السحب</p>
+              <h2 class="card-title">سجل الجلسات والدخل</h2>
+              <p class="card-subtitle">تحويل تلقائي للجنيه المصري بسعر الصرف المباشر</p>
             </div>
           </div>
           <div style="display:flex;gap:8px;flex-wrap:wrap">
             <select id="log-filter-platform" class="select" style="width:auto;padding:6px 10px;font-size:0.75rem"></select>
             <select id="log-filter-payout" class="select" style="width:auto;padding:6px 10px;font-size:0.75rem">
-              <option value="all">كل وسائل السحب</option>
+              <option value="all">الكل (وسائل السحب)</option>
               <option value="PayPal">PayPal</option>
               <option value="Airtm">Airtm</option>
               <option value="تحويل بنكي">تحويل بنكي</option>
@@ -2290,7 +2317,6 @@
           </div>
         </div>
 
-        <!-- Manual Add Entry Form -->
         <form id="form-entry" class="entry-form-grid">
           <div class="span-1">
             <label for="entry-date" class="field-label">التاريخ</label>
@@ -2309,7 +2335,7 @@
             <input id="entry-amount" type="number" min="0" step="0.01" class="input font-mono" dir="ltr" placeholder="45" required />
           </div>
           <div class="span-1">
-            <label for="entry-payout" class="field-label">السحب</label>
+            <label for="entry-payout" class="field-label">وسيلة السحب</label>
             <select id="entry-payout" class="select">
               <option value="PayPal">PayPal</option>
               <option value="Airtm">Airtm</option>
@@ -2317,11 +2343,11 @@
               <option value="معلّق">معلّق</option>
             </select>
           </div>
-          <div class="span-3" style="grid-column: span 5">
+          <div class="span-5 entry-note-wrap">
             <input id="entry-note" type="text" class="input" placeholder="ملاحظة اختيارية (مثال: شفت ترجمة طبية أو دفعة عميل)..." />
           </div>
           <div class="span-1">
-            <button type="submit" class="btn btn-primary" style="width:100%;height:100%">حفظ السجل</button>
+            <button type="submit" class="btn btn-primary" style="width:100%;height:100%">إضافة جلسة / دفعة</button>
           </div>
         </form>
 
@@ -2332,9 +2358,9 @@
                 <th>التاريخ</th>
                 <th>المنصة والملاحظة</th>
                 <th>الساعات</th>
-                <th>الدخل ($)</th>
+                <th>المبلغ ($ / EGP)</th>
                 <th>العائد/س</th>
-                <th>وسيلة السحب</th>
+                <th>السحب</th>
                 <th style="text-align:center">حذف</th>
               </tr>
             </thead>
@@ -2345,14 +2371,13 @@
     </main>
 
     <!-- ======================================================================
-         TAB 2: مدرب النطق الأمريكي (AMERICAN ACCENT COACH — C1 TRAINER)
+         SECTION 2: مدرب النطق الأمريكي (C1 AMERICAN ACCENT TRAINER)
          ====================================================================== -->
     <main id="panel-coach" class="tab-panel">
 
-      <!-- Coach Control Bar -->
       <section class="card coach-control-bar">
         <div class="coach-top-row">
-          <!-- 10-Min Daily Practice Timer -->
+          <!-- 10-Min Daily Drill Timer -->
           <div class="coach-mini-card">
             <div>
               <div class="field-label" style="margin-bottom:2px">تايمر التدريب اليومي (10 دقائق)</div>
@@ -2364,7 +2389,7 @@
             </div>
           </div>
 
-          <!-- Daily Progress & Streak -->
+          <!-- Completed Drills & Daily Streak (Cloud Synced) -->
           <div class="coach-mini-card">
             <div class="streak-stats">
               <div class="streak-stat-item">
@@ -2383,20 +2408,20 @@
           <!-- Speech Speed & en-US Voice Selector -->
           <div class="coach-mini-card" style="flex-direction:column;align-items:stretch;gap:8px">
             <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap">
-              <span class="field-label" style="margin:0">السرعة:</span>
+              <span class="field-label" style="margin:0">سرعة النطق:</span>
               <div class="speed-group" id="speed-selector">
-                <button type="button" class="speed-btn" data-rate="0.75">0.75x بطيء</button>
-                <button type="button" class="speed-btn active" data-rate="1.0">1.0x طبيعي</button>
-                <button type="button" class="speed-btn" data-rate="1.15">1.15x سريع</button>
+                <button type="button" class="speed-btn" data-rate="0.75">0.75x</button>
+                <button type="button" class="speed-btn active" data-rate="1.0">1.0x</button>
+                <button type="button" class="speed-btn" data-rate="1.15">1.15x</button>
               </div>
             </div>
             <select id="voice-select" class="select font-en" dir="ltr" style="padding:6px 10px;font-size:0.74rem"></select>
           </div>
         </div>
 
-        <!-- Phonetic Highlighting Legend & Toggle Controls -->
+        <!-- Phonetic Legend Toggles -->
         <div class="legend-bar" id="phonetic-legend">
-          <span class="legend-label">تمييز الأصوات (اضغط للإظهار/الإخفاء):</span>
+          <span class="legend-label">تمييز الأصوات:</span>
           <button type="button" class="legend-chip chip-flap" data-hl="flap"><span class="chip-dot"></span>Flap T</button>
           <button type="button" class="legend-chip chip-schwa" data-hl="schwa"><span class="chip-dot"></span>Schwa /ə/</button>
           <button type="button" class="legend-chip chip-ed" data-hl="ed"><span class="chip-dot"></span>-ed Endings</button>
@@ -2406,20 +2431,20 @@
         </div>
       </section>
 
-      <!-- Coach Sub-Tabs Switcher -->
+      <!-- Coach Sub-tabs -->
       <div class="subtabs-bar" id="coach-subtabs">
         <button type="button" class="subtab-btn active" data-subtab="shadowing">سكريبتات الشغل (Shadowing)</button>
-        <button type="button" class="subtab-btn" data-subtab="drills">تمارين الأصوات (Sound Drills)</button>
-        <button type="button" class="subtab-btn" data-subtab="custom">نص مخصص (Custom Practice)</button>
+        <button type="button" class="subtab-btn" data-subtab="drills">تمارين الأصوات (48 بطاقة)</button>
+        <button type="button" class="subtab-btn" data-subtab="custom">نص مخصص + مسجّل صوت</button>
       </div>
 
-      <!-- Shared Built-in Voice Recorder -->
-      <section class="recorder-box" aria-label="مسجل الصوت للمقارنة">
+      <!-- Built-in MediaRecorder Voice Recorder -->
+      <section class="recorder-box" aria-label="مسجّل الصوت للمقارنة">
         <div class="rec-status">
           <span id="rec-pulse" class="rec-pulse"></span>
           <div>
             <div style="font-size:0.84rem;font-weight:800">🎙️ سجّل صوتك وقارن بالنطق الأمريكي</div>
-            <div id="rec-status-text" style="font-size:0.73rem;color:var(--text-muted)">اضغط تسجيل واقرأ الجملة بصوت عالٍ ثم استمع لنفسك</div>
+            <div id="rec-status-text" style="font-size:0.73rem;color:var(--text-muted)">اضغط تسجيل واقرأ الجملة بصوت واضح ثم استمع لمقارنة نطقك</div>
           </div>
         </div>
         <div class="rec-audio-wrap">
@@ -2431,86 +2456,126 @@
         <div id="rec-error-msg" class="rec-error-msg"></div>
       </section>
 
-      <!-- Coach Interactive Content Wrapper (receives hide-* classes) -->
       <div id="coach-content">
-
-        <!-- SUB-TAB A: SHADOWING SCRIPTS -->
+        <!-- SUB-TAB A: Shadowing Work Scripts -->
         <section id="subtab-shadowing" class="subtab-panel active card">
           <div class="script-toolbar">
             <div class="category-pills" id="script-categories">
-              <button type="button" class="cat-pill active" data-cat="cold">Cold Calling &amp; Sales</button>
-              <button type="button" class="cat-pill" data-cat="objections">Objection Handling</button>
-              <button type="button" class="cat-pill" data-cat="va">Customer Support &amp; VA</button>
-              <button type="button" class="cat-pill" data-cat="medical">Medical Interpreting (VRI/OPI)</button>
+              <button type="button" class="cat-pill active" data-cat="cold">Cold Calling &amp; Openers</button>
+              <button type="button" class="cat-pill" data-cat="objections">الاعتراضات وحجز المواعيد</button>
+              <button type="button" class="cat-pill" data-cat="va">الـ VA والدعم</button>
+              <button type="button" class="cat-pill" data-cat="medical">الترجمة الطبية (VRI/OPI)</button>
             </div>
             <div style="display:flex;gap:8px;flex-wrap:wrap">
               <button id="btn-play-all-script" type="button" class="btn btn-sm btn-primary">▶️ تشغيل السكريبت كامل</button>
-              <button id="btn-stop-speech" type="button" class="btn btn-sm btn-secondary">⏹ إيقاف الصوت</button>
+              <button id="btn-stop-speech" type="button" class="btn btn-sm btn-secondary">⏹ إيقاف</button>
             </div>
           </div>
-
-          <p style="font-size:0.76rem;color:var(--text-muted)">
-            اضغط أو مرّر على أي كلمة ملوّنة لرؤية طريقة النطق الصوتي والملاحظة بالعربي، ثم اضغط <strong>🔊 استمع</strong> وردد فوراً بعدها (Shadowing).
-          </p>
-
+          <p style="font-size:0.76rem;color:var(--text-muted)">اضغط على أي كلمة ملوّنة لسماعها ومعرفة نصيحة النطق بالعربي، ثم اضغط <strong>🔊 استمع</strong> و<strong>✓ تم التدريب</strong> بعد الترديد.</p>
           <div id="script-sentences" class="sentence-list"></div>
         </section>
 
-        <!-- SUB-TAB B: SOUND DRILLS -->
+        <!-- SUB-TAB B: 48 Interactive Sound Drill Cards -->
         <section id="subtab-drills" class="subtab-panel card">
-          <div class="card-header" style="margin-bottom:10px">
+          <div class="card-header" style="margin-bottom:8px">
             <div>
-              <h2 class="card-title">تمارين الأصوات الأساسية للوصول لمستوى C1</h2>
-              <p class="card-subtitle">اضغط على أي بطاقة للاستماع فوراً بالنطق الأمريكي وملاحظة التفصيل الصوتي</p>
+              <h2 class="card-title">تمارين الأصوات الأساسية (48 بطاقة تفاعلية)</h2>
+              <p class="card-subtitle">اضغط على أي بطاقة لسماع النطق الأمريكي الصحيح وتدريب المخرج الصوتي</p>
             </div>
           </div>
-
           <div class="category-pills" id="drill-filters">
-            <button type="button" class="cat-pill active" data-drill="flap">Flap T</button>
-            <button type="button" class="cat-pill" data-drill="schwa">Schwa /ə/</button>
-            <button type="button" class="cat-pill" data-drill="ed">-ed Endings (/t/ /d/ /ɪd/)</button>
-            <button type="button" class="cat-pill" data-drill="th">TH (/θ/ vs /ð/)</button>
-            <button type="button" class="cat-pill" data-drill="pb">P vs B (Minimal Pairs)</button>
-            <button type="button" class="cat-pill" data-drill="conn">Connected Speech</button>
+            <button type="button" class="cat-pill active" data-drill="flap">Flap T (8)</button>
+            <button type="button" class="cat-pill" data-drill="schwa">Schwa /ə/ (8)</button>
+            <button type="button" class="cat-pill" data-drill="ed">-ed Endings (8)</button>
+            <button type="button" class="cat-pill" data-drill="th">TH /θ/ &amp; /ð/ (8)</button>
+            <button type="button" class="cat-pill" data-drill="pb">P vs B (8)</button>
+            <button type="button" class="cat-pill" data-drill="conn">Connected Speech (8)</button>
           </div>
-
           <div id="drills-grid" class="drills-grid"></div>
         </section>
 
-        <!-- SUB-TAB C: CUSTOM PRACTICE -->
+        <!-- SUB-TAB C: Custom Text Practice -->
         <section id="subtab-custom" class="subtab-panel card">
           <div class="card-header" style="margin-bottom:8px">
             <div>
-              <h2 class="card-title">تدريب على نص مخصص (Proposal / Script / Interview)</h2>
-              <p class="card-subtitle">الصق أي نص إنجليزي من شغلك الفعلي للاستماع له بالنطق الأمريكي وتقسيمه لجمل للتدريب</p>
+              <h2 class="card-title">نص مخصص للتدريب (Upwork Proposal / Sales Script)</h2>
+              <p class="card-subtitle">الصق أي نص إنجليزي وقسّمه لجمل تفاعلية للتدريب مع مسجّل الصوت</p>
             </div>
-            <button id="btn-custom-sample" type="button" class="btn btn-sm btn-soft-indigo">تجربة نص مثال</button>
+            <button id="btn-custom-sample" type="button" class="btn btn-sm btn-soft-indigo">تجربة مثال</button>
           </div>
-
           <textarea id="custom-textarea" class="textarea font-en" dir="ltr" placeholder="Paste your Upwork proposal, cold-calling script, or interview answer here..."></textarea>
-
           <div style="display:flex;gap:8px;flex-wrap:wrap">
-            <button id="btn-custom-speak" type="button" class="btn btn-primary">🔊 استمع بالنطق الأمريكي</button>
+            <button id="btn-custom-speak" type="button" class="btn btn-primary">🔊 استمع للنص كامل</button>
             <button id="btn-custom-split" type="button" class="btn btn-soft-emerald">✂️ تقسيم لجمل (Shadowing)</button>
             <button id="btn-custom-stop" type="button" class="btn btn-secondary">⏹ إيقاف</button>
           </div>
-
           <div id="custom-sentences" class="sentence-list"></div>
         </section>
-
       </div>
     </main>
-
   </div>
 
-  <!-- ==================== MODAL: ADD CUSTOM PLATFORM ==================== -->
-  <div id="modal-platform" class="modal-backdrop">
+  <!-- ==================== MODAL: CLOUD SYNC SETTINGS (GOOGLE SHEETS) ==================== -->
+  <div id="modal-sync" class="modal-backdrop">
     <div class="modal-box">
       <div class="modal-head">
-        <h3 class="modal-title">إضافة منصة عمل جديدة</h3>
-        <button type="button" class="icon-btn-del" data-close-modal="modal-platform" aria-label="إغلاق">✕</button>
+        <h3 class="modal-title">المزامنة السحابية التلقائية (Google Sheets)</h3>
+        <button type="button" class="icon-btn-sm icon-btn-del" data-close-modal="modal-sync" aria-label="إغلاق">✕</button>
+      </div>
+
+      <div class="sync-info-box">
+        <div style="display:flex;align-items:center;gap:8px;font-weight:700">
+          <span id="modal-sync-dot" class="sync-status-dot sync-dot-local"></span>
+          <span id="modal-sync-status">محلي فقط (غير مربوط)</span>
+        </div>
+        <span id="modal-sync-last" style="font-size:0.72rem;color:var(--text-muted)">لم تتم المزامنة بعد</span>
+      </div>
+
+      <div>
+        <label for="sync-url-input" class="field-label">رابط Google Apps Script Web App</label>
+        <input id="sync-url-input" type="url" class="input font-mono" dir="ltr" placeholder="https://script.google.com/macros/s/.../exec" />
+      </div>
+
+      <div class="sync-actions-grid">
+        <button id="btn-sync-save" type="button" class="btn btn-primary">حفظ وربط</button>
+        <button id="btn-sync-disconnect" type="button" class="btn btn-soft-rose">فصل الربط</button>
+      </div>
+
+      <div class="sync-tri-grid">
+        <button id="btn-sync-now" type="button" class="btn btn-sm btn-soft-indigo">🔄 مزامنة الآن</button>
+        <button id="btn-sync-pull" type="button" class="btn btn-sm btn-secondary">⬇️ سحب من السحابة</button>
+        <button id="btn-sync-push" type="button" class="btn btn-sm btn-secondary">⬆️ رفع للسحابة</button>
+      </div>
+
+      <button id="btn-copy-phone-link" type="button" class="btn btn-sm btn-soft-emerald" style="width:100%">
+        📱 نسخ رابط فتح الموبايل بالمزامنة التلقائية
+      </button>
+
+      <p style="font-size:0.72rem;color:var(--text-muted);line-height:1.55">
+        <strong>طريقة الربط (مرة واحدة فقط):</strong> افتح شيت Google Sheets ← <strong>Extensions ← Apps Script</strong> ← الصق الكود بالأسفل واضغط <strong>Deploy ← New deployment ← Web app</strong> (اجعل الصلاحية <strong>Anyone</strong>) ثم الصق الرابط هنا.
+      </p>
+
+      <!-- Ready-to-copy Google Apps Script code -->
+      <details class="code-details" open>
+        <summary>
+          <span>كود Google Apps Script الجاهز للنسخ</span>
+          <span style="font-size:0.7rem;color:var(--text-muted)">▾</span>
+        </summary>
+        <pre id="apps-script-code" class="code-pre"></pre>
+        <button id="btn-copy-apps-script" type="button" class="btn btn-sm btn-soft-indigo" style="margin-top:8px;width:100%">📋 نسخ كود Apps Script</button>
+      </details>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: ADD / EDIT PLATFORM ==================== -->
+  <div id="modal-platform" class="modal-backdrop">
+    <div class="modal-box" style="max-width:430px">
+      <div class="modal-head">
+        <h3 id="modal-plat-title" class="modal-title">إضافة منصة عمل جديدة</h3>
+        <button type="button" class="icon-btn-sm icon-btn-del" data-close-modal="modal-platform" aria-label="إغلاق">✕</button>
       </div>
       <form id="form-platform" style="display:flex;flex-direction:column;gap:12px">
+        <input id="plat-edit-id" type="hidden" value="" />
         <div>
           <label for="plat-name" class="field-label">اسم المنصة / العميل</label>
           <input id="plat-name" type="text" class="input" required placeholder="مثال: Propio / Shopify Store" />
@@ -2521,7 +2586,7 @@
             <input id="plat-goal" type="number" min="0" step="10" class="input font-mono" dir="ltr" value="300" required />
           </div>
           <div>
-            <label for="plat-rate" class="field-label">سعر الساعة الافتراضي ($)</label>
+            <label for="plat-rate" class="field-label">سعر الساعة ($)</label>
             <input id="plat-rate" type="number" min="0" step="0.5" class="input font-mono" dir="ltr" value="10" required />
           </div>
         </div>
@@ -2532,20 +2597,20 @@
         </div>
         <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:4px">
           <button type="button" class="btn btn-secondary" data-close-modal="modal-platform">إلغاء</button>
-          <button type="submit" class="btn btn-primary">حفظ المنصة</button>
+          <button type="submit" class="btn btn-primary">حفظ</button>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- ==================== MODAL: RESET / CLEAR DATA ==================== -->
+  <!-- ==================== MODAL: RESET / MANAGE DATA ==================== -->
   <div id="modal-reset" class="modal-backdrop">
-    <div class="modal-box">
+    <div class="modal-box" style="max-width:430px">
       <div class="modal-head">
         <h3 class="modal-title">إدارة وتصفير البيانات</h3>
-        <button type="button" class="icon-btn-del" data-close-modal="modal-reset" aria-label="إغلاق">✕</button>
+        <button type="button" class="icon-btn-sm icon-btn-del" data-close-modal="modal-reset" aria-label="إغلاق">✕</button>
       </div>
-      <p style="font-size:0.8rem;color:var(--text-secondary)">اختر الإجراء المطلوب لبيانات لوحة العمل:</p>
+      <p style="font-size:0.8rem;color:var(--text-secondary)">أي تغيير يتم هنا يُحفظ فوراً ويُزامَن تلقائياً مع Google Sheets إذا كانت المزامنة مفعّلة:</p>
       <button id="btn-do-zero" type="button" class="btn btn-soft-rose" style="width:100%;justify-content:flex-start;padding:12px 14px;text-align:right;white-space:normal">
         تصفير السجلات والمهام للبدء الفعلي (يحتفظ بالمنصات وإعداداتك)
       </button>
@@ -2559,16 +2624,78 @@
   </div>
 
   <!-- ========================================================================
-       APPLICATION JAVASCRIPT (DASHBOARD + AMERICAN ACCENT COACH)
+       APPLICATION JAVASCRIPT
        ======================================================================== -->
   <script>
     (() => {
       'use strict';
 
-      const STORAGE_KEY = 'workspace_freelance_coach_v2';
+      const STORAGE_KEY = 'essam_hub_state_v1';
+      const SYNC_URL_KEY = 'essam_hub_sync_url';
+      const FX_CACHE_KEY = 'essam_hub_fx_cache_v1';
       const SWATCH_COLORS = ['#3b82f6', '#10b981', '#8b5cf6', '#f59e0b', '#ec4899', '#06b6d4', '#ef4444', '#6366f1'];
 
-      // ==================== HELPERS ====================
+      const CATEGORY_COLORS = {
+        'ترجمة / Curalingo': '#3b82f6',
+        'فريلانس / VA': '#10b981',
+        'مبيعات / مكالمات': '#ec4899',
+        'منصات AI': '#8b5cf6',
+        'عام / إدارة': '#64748b',
+        'عام': '#64748b',
+        'ترجمة': '#3b82f6',
+        'فريلانس': '#10b981',
+        'مبيعات': '#ec4899',
+        'تقديمات': '#8b5cf6',
+      };
+
+      // Google Apps Script snippet embedded inside Sync Modal for 1-click copy
+      const APPS_SCRIPT_SNIPPET = `function doGet(e) {
+  var sheet = getOrCreateSheet_();
+  var rawState = sheet.getRange('A2').getValue();
+  var updatedAt = Number(sheet.getRange('B2').getValue()) || 0;
+  var parsed = null;
+  if (rawState) {
+    try { parsed = JSON.parse(rawState); } catch (err) { parsed = null; }
+  }
+  return jsonResponse_({ ok: true, updatedAt: updatedAt, state: parsed });
+}
+
+function doPost(e) {
+  try {
+    var payload = JSON.parse(e.postData.contents);
+    var st = payload.state || payload;
+    var sheet = getOrCreateSheet_();
+    var incomingTime = Number(payload.updatedAt || (st && st.updatedAt)) || Date.now();
+    var existingTime = Number(sheet.getRange('B2').getValue()) || 0;
+
+    if (payload.force === true || incomingTime >= existingTime || !sheet.getRange('A2').getValue()) {
+      sheet.getRange('A2').setValue(JSON.stringify(st));
+      sheet.getRange('B2').setValue(incomingTime);
+      sheet.getRange('C2').setValue(new Date().toISOString());
+    }
+    return jsonResponse_({ ok: true, updatedAt: Math.max(incomingTime, existingTime) });
+  } catch (err) {
+    return jsonResponse_({ ok: false, error: err.message });
+  }
+}
+
+function getOrCreateSheet_() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName('HubSync');
+  if (!sheet) {
+    sheet = ss.insertSheet('HubSync');
+    sheet.getRange('A1:C1').setValues([['StateJSON', 'UpdatedAt', 'LastSyncISO']]);
+  }
+  return sheet;
+}
+
+function jsonResponse_(obj) {
+  return ContentService
+    .createTextOutput(JSON.stringify(obj))
+    .setMimeType(ContentService.MimeType.JSON);
+}`;
+
+      // ==================== UTILITIES ====================
       function getDateStr(offsetDays = 0) {
         const d = new Date();
         d.setDate(d.getDate() + offsetDays);
@@ -2588,6 +2715,32 @@
         return '$' + Number(v || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
       }
 
+      function fmtTime12(ts) {
+        try {
+          return new Intl.DateTimeFormat('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }).format(new Date(ts));
+        } catch (_) {
+          return '';
+        }
+      }
+
+      function copyToClipboard(text) {
+        try {
+          const ta = document.createElement('textarea');
+          ta.value = text;
+          ta.setAttribute('readonly', '');
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          ta.style.left = '-9999px';
+          document.body.appendChild(ta);
+          ta.select();
+          ta.setSelectionRange(0, text.length);
+          const ok = document.execCommand('copy');
+          ta.remove();
+          if (ok) return true;
+        } catch (_) {}
+        return false;
+      }
+
       function showToast(msg, type = 'success') {
         const stack = document.getElementById('toast-container');
         const colors = { success: '#10b981', info: '#6366f1', error: '#f43f5e', warn: '#f59e0b' };
@@ -2600,7 +2753,7 @@
           el.style.transform = 'translateY(6px)';
           el.style.transition = 'all 0.25s ease';
           setTimeout(() => el.remove(), 260);
-        }, 3000);
+        }, 3200);
       }
 
       function playChime() {
@@ -2614,7 +2767,7 @@
             osc.type = 'sine';
             osc.frequency.setValueAtTime(freq, ctx.currentTime + i * 0.14);
             g.gain.setValueAtTime(0.001, ctx.currentTime + i * 0.14);
-            g.gain.exponentialRampToValueAtTime(0.12, ctx.currentTime + i * 0.14 + 0.03);
+            g.gain.exponentialRampToValueAtTime(0.11, ctx.currentTime + i * 0.14 + 0.03);
             g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.14 + 0.4);
             osc.connect(g);
             g.connect(ctx.destination);
@@ -2624,15 +2777,39 @@
         } catch (_) {}
       }
 
-      // ==================== INITIAL STATE ====================
+      // ==================== FX LOCAL CACHE ====================
+      function loadCachedFX() {
+        try {
+          const raw = localStorage.getItem(FX_CACHE_KEY);
+          if (!raw) return null;
+          const obj = JSON.parse(raw);
+          if (obj && Number.isFinite(Number(obj.rate)) && Number(obj.rate) > 10) {
+            return { rate: Number(obj.rate), updatedAt: Number(obj.updatedAt) || null };
+          }
+        } catch (_) {}
+        return null;
+      }
+
+      function saveCachedFX(rate, updatedAt) {
+        try {
+          localStorage.setItem(FX_CACHE_KEY, JSON.stringify({ rate, updatedAt }));
+        } catch (_) {}
+      }
+
+      // ==================== STATE MANAGEMENT ====================
       function buildStarterState() {
         const today = getDateStr(0);
+        const cachedFx = loadCachedFX();
         return {
+          version: 1,
+          updatedAt: 0, // 0 ensures cloud state always wins over untouched starter demo
+          isDemo: true,
+          demoDismissed: false,
           theme: 'dark',
-          isSample: true,
-          sampleDismissed: false,
           monthlyGoal: 1700,
-          egpRate: 49.5,
+          egpRate: cachedFx ? cachedFx.rate : 49.5,
+          egpRateManual: false,
+          egpRateUpdatedAt: cachedFx ? cachedFx.updatedAt : null,
           platforms: [
             { id: 'p_curalingo', name: 'Curalingo / Lingotec', goal: 400, rate: 8.5, color: '#3b82f6' },
             { id: 'p_upwork', name: 'Upwork & VA', goal: 500, rate: 12, color: '#10b981' },
@@ -2648,10 +2825,10 @@
             { id: 'e5', date: getDateStr(-4), platformId: 'p_crowdgen', hours: 4.5, amount: 45, payout: 'معلّق', note: 'تفريغ ومراجعة ملفات صوتية' },
           ],
           tasks: [
-            { id: 't1', title: 'متابعة شحنات UPS وتحديث جدول العملاء', priority: 'high', platformId: 'p_upwork', completed: false, createdAt: Date.now() - 4000 },
-            { id: 't2', title: 'مراجعة إيميلات الشغل والرد على Recruiters', priority: 'high', platformId: 'general', completed: true, createdAt: Date.now() - 3000 },
-            { id: 't3', title: 'شفت ترجمة فورية على Lingotec (3 ساعات)', priority: 'medium', platformId: 'p_curalingo', completed: false, createdAt: Date.now() - 2000 },
-            { id: 't4', title: 'تدريب 10 دقائق نطق أمريكي (Shadowing)', priority: 'low', platformId: 'p_sales', completed: false, createdAt: Date.now() - 1000 },
+            { id: 't1', title: 'متابعة شحنات UPS وتحديث جدول العملاء', priority: 'high', category: 'فريلانس / VA', completed: false, createdAt: Date.now() - 4000 },
+            { id: 't2', title: 'مراجعة إيميلات التقديمات والرد على Recruiters', priority: 'high', category: 'عام / إدارة', completed: true, createdAt: Date.now() - 3000 },
+            { id: 't3', title: 'شفت ترجمة فورية على Lingotec (3 ساعات)', priority: 'medium', category: 'ترجمة / Curalingo', completed: false, createdAt: Date.now() - 2000 },
+            { id: 't4', title: 'تدريب 10 دقائق نطق أمريكي (Shadowing)', priority: 'low', category: 'مبيعات / مكالمات', completed: false, createdAt: Date.now() - 1000 },
           ],
           coach: {
             lastPracticeDate: today,
@@ -2659,44 +2836,383 @@
             streak: 1,
             speechRate: 1.0,
             voiceName: '',
+            practicedScripts: {},
           },
         };
       }
 
-      let state = loadState();
+      function normalizeState(parsed) {
+        const base = buildStarterState();
+        const merged = { ...base, ...parsed, version: 1 };
+        if (typeof parsed.isDemo === 'undefined' && typeof parsed.isSample === 'boolean') {
+          merged.isDemo = parsed.isSample;
+        }
+        merged.coach = { ...base.coach, ...(parsed.coach || {}) };
+        if (!merged.coach.practicedScripts || typeof merged.coach.practicedScripts !== 'object') {
+          merged.coach.practicedScripts = {};
+        }
+        if (!Array.isArray(merged.platforms) || merged.platforms.length === 0) merged.platforms = base.platforms;
+        if (!Array.isArray(merged.entries)) merged.entries = [];
+        if (!Array.isArray(merged.tasks)) merged.tasks = [];
+
+        const today = getDateStr(0);
+        if (merged.coach.lastPracticeDate && merged.coach.lastPracticeDate !== today) {
+          const yesterday = getDateStr(-1);
+          if (merged.coach.lastPracticeDate !== yesterday) {
+            merged.coach.streak = 0;
+          }
+          merged.coach.drillsToday = 0;
+          merged.coach.practicedScripts = {};
+        }
+        return merged;
+      }
+
+      function loadLocalState() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY) || localStorage.getItem('hub_workspace_state_v4');
+          if (!raw) return buildStarterState();
+          const parsed = JSON.parse(raw);
+          if (!parsed || typeof parsed !== 'object') return buildStarterState();
+          const st = normalizeState(parsed);
+          const cachedFx = loadCachedFX();
+          if (!st.egpRateManual && cachedFx && (!st.egpRateUpdatedAt || cachedFx.updatedAt > st.egpRateUpdatedAt)) {
+            st.egpRate = cachedFx.rate;
+            st.egpRateUpdatedAt = cachedFx.updatedAt;
+          }
+          return st;
+        } catch (_) {
+          return buildStarterState();
+        }
+      }
+
+      let state = loadLocalState();
       let taskFilter = 'all';
       let activeScriptCat = 'cold';
       let activeDrillCat = 'flap';
       let hoveredPlatformId = null;
 
-      function loadState() {
+      function persistLocalOnly() {
         try {
-          const raw = localStorage.getItem(STORAGE_KEY);
-          if (!raw) return buildStarterState();
-          const parsed = JSON.parse(raw);
-          if (!parsed || !Array.isArray(parsed.platforms)) return buildStarterState();
-          const merged = { ...buildStarterState(), ...parsed };
-          merged.coach = { ...buildStarterState().coach, ...(parsed.coach || {}) };
-          // Reset daily drill count if it's a new day
-          const today = getDateStr(0);
-          if (merged.coach.lastPracticeDate !== today) {
-            const yesterday = getDateStr(-1);
-            if (merged.coach.lastPracticeDate !== yesterday) {
-              merged.coach.streak = 0;
-            }
-            merged.coach.drillsToday = 0;
-          }
-          return merged;
-        } catch (err) {
-          return buildStarterState();
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        } catch (_) {}
+      }
+
+      // Save immediately to localStorage, set updatedAt = Date.now(), and trigger debounced (1.5s) cloud push
+      function saveState(opts = {}) {
+        const markUserChange = opts.markUserChange !== false;
+        const push = opts.push !== false;
+
+        if (markUserChange) {
+          state.isDemo = false;
+          state.updatedAt = Date.now();
+        } else if (push) {
+          state.updatedAt = Date.now();
+        }
+
+        persistLocalOnly();
+        if (push) scheduleCloudPush();
+      }
+
+      // ==================== AUTOMATIC BIDIRECTIONAL CLOUD SYNC ====================
+      let syncUrl = '';
+      let syncStatus = 'local'; // local | syncing | synced | error
+      let lastSyncTime = null;
+      let pushDebounceId = null;
+      let isSyncBusy = false;
+
+      function getSavedSyncUrl() {
+        try {
+          return (localStorage.getItem(SYNC_URL_KEY) || localStorage.getItem('hub_sync_url_v1') || '').trim();
+        } catch (_) {
+          return '';
         }
       }
 
-      function saveState() {
+      function setSavedSyncUrl(url) {
+        syncUrl = (url || '').trim();
         try {
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+          if (syncUrl) localStorage.setItem(SYNC_URL_KEY, syncUrl);
+          else localStorage.removeItem(SYNC_URL_KEY);
+        } catch (_) {}
+      }
+
+      function updateSyncUI(status, customMsg) {
+        syncStatus = status;
+        const hDot = document.getElementById('header-sync-dot');
+        const hBadge = document.getElementById('header-sync-badge');
+        const mDot = document.getElementById('modal-sync-dot');
+        const mStatus = document.getElementById('modal-sync-status');
+        const mLast = document.getElementById('modal-sync-last');
+
+        const dotClassMap = {
+          local: 'sync-status-dot sync-dot-local',
+          syncing: 'sync-status-dot sync-dot-syncing',
+          synced: 'sync-status-dot sync-dot-synced',
+          error: 'sync-status-dot sync-dot-error',
+        };
+        const badgeTextMap = {
+          local: 'محلي فقط',
+          syncing: 'جاري المزامنة...',
+          synced: 'متزامن ✓',
+          error: 'خطأ',
+        };
+        const badgeClassMap = {
+          local: 'sync-badge-tag',
+          syncing: 'sync-badge-tag syncing',
+          synced: 'sync-badge-tag synced',
+          error: 'sync-badge-tag error',
+        };
+        const modalTextMap = {
+          local: 'محلي فقط (غير مربوط)',
+          syncing: 'جاري المزامنة مع Google Sheets...',
+          synced: 'متزامن تلقائياً مع Google Sheets ✓',
+          error: customMsg || 'خطأ في الاتصال بالمزامنة',
+        };
+
+        hDot.className = dotClassMap[status] || dotClassMap.local;
+        hBadge.textContent = badgeTextMap[status] || badgeTextMap.local;
+        hBadge.className = badgeClassMap[status] || badgeClassMap.local;
+
+        mDot.className = dotClassMap[status] || dotClassMap.local;
+        mStatus.textContent = modalTextMap[status] || modalTextMap.local;
+        mLast.textContent = lastSyncTime ? `آخر مزامنة: ${fmtTime12(lastSyncTime)}` : 'لم تتم المزامنة بعد';
+      }
+
+      function scheduleCloudPush() {
+        if (!syncUrl) return;
+        clearTimeout(pushDebounceId);
+        pushDebounceId = setTimeout(() => {
+          pushToCloud(false, false);
+        }, 1500);
+      }
+
+      async function pushToCloud(showFeedback = false, forceOverwrite = false) {
+        if (!syncUrl) return false;
+        updateSyncUI('syncing');
+        isSyncBusy = true;
+        try {
+          if (!state.updatedAt) state.updatedAt = Date.now();
+          // CORS-safe POST using text/plain;charset=utf-8 to avoid OPTIONS preflight on GitHub Pages
+          const res = await fetch(syncUrl, {
+            method: 'POST',
+            redirect: 'follow',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify({
+              action: 'save',
+              updatedAt: state.updatedAt,
+              force: forceOverwrite,
+              state,
+            }),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          const data = await res.json();
+          if (!data || data.ok !== true) throw new Error(data?.error || 'Invalid response');
+          lastSyncTime = Date.now();
+          updateSyncUI('synced');
+          if (showFeedback) showToast('تم رفع بياناتك إلى Google Sheets بنجاح ✓', 'success');
+          return true;
         } catch (err) {
-          showToast('تعذر حفظ البيانات في المتصفح', 'error');
+          updateSyncUI('error', 'فشل رفع البيانات (تحقق من الرابط)');
+          if (showFeedback) showToast('تعذر الاتصال برابط المزامنة. تأكد من صلاحية النشر (Anyone).', 'error');
+          return false;
+        } finally {
+          isSyncBusy = false;
+        }
+      }
+
+      async function smartSyncFromCloud(showFeedback = false, forcePull = false) {
+        if (!syncUrl || isSyncBusy) return false;
+        updateSyncUI('syncing');
+        isSyncBusy = true;
+        try {
+          const sep = syncUrl.includes('?') ? '&' : '?';
+          const res = await fetch(`${syncUrl}${sep}t=${Date.now()}`, {
+            method: 'GET',
+            redirect: 'follow',
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          const cloud = await res.json();
+          if (!cloud || cloud.ok !== true) throw new Error('Invalid cloud payload');
+
+          const cloudState = cloud.state && typeof cloud.state === 'object' ? cloud.state : null;
+          const cloudUpdatedAt = Number((cloudState && cloudState.updatedAt) || cloud.updatedAt) || 0;
+          const cloudIsDemo = cloudState ? Boolean(cloudState.isDemo) : true;
+          const localUpdatedAt = Number(state.updatedAt) || 0;
+
+          if (forcePull) {
+            if (!cloudState) {
+              updateSyncUI('synced');
+              if (showFeedback) showToast('لا توجد بيانات محفوظة في السحابة بعد.', 'warn');
+              return true;
+            }
+            applyCloudSnapshot(cloudState, cloudUpdatedAt);
+            lastSyncTime = Date.now();
+            updateSyncUI('synced');
+            if (showFeedback) showToast('تم سحب أحدث نسخة من Google Sheets بنجاح ✓', 'success');
+            return true;
+          }
+
+          // Bidirectional timestamp comparison
+          if (cloudState && cloudUpdatedAt > 0 && (cloudUpdatedAt > localUpdatedAt || (state.isDemo && !cloudIsDemo))) {
+            applyCloudSnapshot(cloudState, cloudUpdatedAt);
+            lastSyncTime = Date.now();
+            updateSyncUI('synced');
+            if (showFeedback) showToast('تم تحديث البيانات من Google Sheets بنجاح ✓', 'success');
+            return true;
+          } else if (!cloudState || (!state.isDemo && localUpdatedAt > cloudUpdatedAt)) {
+            isSyncBusy = false;
+            return await pushToCloud(showFeedback, false);
+          } else {
+            lastSyncTime = Date.now();
+            updateSyncUI('synced');
+            if (showFeedback) showToast('بياناتك متطابقة ومحدّثة مع السحابة ✓', 'info');
+            return true;
+          }
+        } catch (err) {
+          updateSyncUI('error', 'فشل الاتصال بـ Google Sheets');
+          if (showFeedback) showToast('تعذر الاتصال بـ Google Sheets. تأكد من صحة الرابط والنشر العام (Anyone).', 'error');
+          return false;
+        } finally {
+          isSyncBusy = false;
+        }
+      }
+
+      function applyCloudSnapshot(cloudState, cloudUpdatedAt) {
+        const cachedFx = loadCachedFX();
+        state = normalizeState(cloudState);
+        state.updatedAt = cloudUpdatedAt || Date.now();
+        if (!state.egpRateManual && cachedFx && (!state.egpRateUpdatedAt || cachedFx.updatedAt > state.egpRateUpdatedAt)) {
+          state.egpRate = cachedFx.rate;
+          state.egpRateUpdatedAt = cachedFx.updatedAt;
+        }
+        persistLocalOnly();
+        applyTheme();
+        renderDashboard();
+        renderCoachStats();
+        renderScriptSentences();
+      }
+
+      function handleStartupSyncParam() {
+        let incoming = '';
+        try {
+          const hash = window.location.hash || '';
+          const match = hash.match(/sync=([^&]+)/);
+          if (match && match[1]) {
+            incoming = decodeURIComponent(match[1]).trim();
+          } else {
+            const params = new URLSearchParams(window.location.search);
+            const q = params.get('sync');
+            if (q) incoming = q.trim();
+          }
+
+          if (incoming && incoming.startsWith('http')) {
+            setSavedSyncUrl(incoming);
+            window.history.replaceState({}, '', window.location.pathname);
+            showToast('تم تفعيل المزامنة السحابية تلقائياً!', 'success');
+          } else {
+            syncUrl = getSavedSyncUrl();
+          }
+        } catch (_) {
+          syncUrl = getSavedSyncUrl();
+        }
+
+        const inp = document.getElementById('sync-url-input');
+        if (inp) inp.value = syncUrl;
+
+        if (syncUrl) {
+          smartSyncFromCloud(false, false);
+        } else {
+          updateSyncUI('local');
+        }
+      }
+
+      // ==================== LIVE USD-TO-EGP EXCHANGE RATE ====================
+      const FX_ENDPOINTS = [
+        {
+          url: 'https://open.er-api.com/v6/latest/USD',
+          extract: (d) => (d && d.rates ? Number(d.rates.EGP) : NaN),
+        },
+        {
+          url: 'https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json',
+          extract: (d) => (d && d.usd ? Number(d.usd.egp) : NaN),
+        },
+      ];
+
+      async function fetchWithTimeout(url, ms = 7500) {
+        const ctrl = new AbortController();
+        const tid = setTimeout(() => ctrl.abort(), ms);
+        try {
+          const res = await fetch(url, { signal: ctrl.signal });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          return await res.json();
+        } finally {
+          clearTimeout(tid);
+        }
+      }
+
+      async function fetchLiveExchangeRate(force = false) {
+        if (state.egpRateManual && !force) {
+          renderFXBadge();
+          return;
+        }
+
+        const btn = document.getElementById('btn-fx-refresh');
+        if (btn) btn.classList.add('spinning');
+        document.getElementById('fx-updated-text').textContent = 'جاري التحديث...';
+
+        let liveRate = null;
+        for (const ep of FX_ENDPOINTS) {
+          try {
+            const data = await fetchWithTimeout(ep.url, 7000);
+            const val = ep.extract(data);
+            if (Number.isFinite(val) && val > 10 && val < 500) {
+              liveRate = Number(val.toFixed(2));
+              break;
+            }
+          } catch (_) {
+            // Try fallback endpoint
+          }
+        }
+
+        if (btn) btn.classList.remove('spinning');
+
+        if (liveRate !== null) {
+          const nowTs = Date.now();
+          state.egpRate = liveRate;
+          state.egpRateManual = false;
+          state.egpRateUpdatedAt = nowTs;
+          saveCachedFX(liveRate, nowTs);
+          persistLocalOnly();
+          renderKPIs();
+          renderEntries();
+          if (force) showToast(`تم تحديث سعر الدولار المباشر: ${liveRate} EGP`, 'success');
+        } else {
+          renderFXBadge();
+          if (force) showToast('تعذر جلب السعر المباشر الآن، تم الإبقاء على السعر الحالي.', 'warn');
+        }
+      }
+
+      function renderFXBadge() {
+        const badge = document.getElementById('fx-badge');
+        const pulse = document.getElementById('fx-pulse');
+        const badgeTxt = document.getElementById('fx-badge-text');
+        const autoBtn = document.getElementById('btn-fx-auto');
+        const updTxt = document.getElementById('fx-updated-text');
+
+        if (state.egpRateManual) {
+          badge.className = 'fx-status-pill fx-manual';
+          pulse.style.display = 'none';
+          badgeTxt.textContent = 'يدوي';
+          autoBtn.classList.add('visible');
+          updTxt.textContent = state.egpRateUpdatedAt ? fmtTime12(state.egpRateUpdatedAt) : 'تعديل يدوي';
+        } else {
+          badge.className = 'fx-status-pill fx-live';
+          pulse.style.display = 'inline-block';
+          badgeTxt.textContent = 'مباشر';
+          autoBtn.classList.remove('visible');
+          updTxt.textContent = state.egpRateUpdatedAt
+            ? `تحديث ${fmtTime12(state.egpRateUpdatedAt)}`
+            : 'آخر سعر محفوظ';
         }
       }
 
@@ -2709,7 +3225,7 @@
         document.getElementById('icon-moon').style.display = isLight ? 'block' : 'none';
       }
 
-      // ==================== LIVE TRIPLE WORLD CLOCKS ====================
+      // ==================== LIVE TRIPLE TIMEZONE CLOCKS ====================
       function getHourDiffFromCairo(now, targetTz) {
         try {
           const cairoLocal = new Date(now.toLocaleString('en-US', { timeZone: 'Africa/Cairo' }));
@@ -2786,9 +3302,11 @@
         });
 
         let topPlat = null;
+        let maxHours = 0;
         Object.values(statsMap).forEach((s) => {
           s.effectiveRate = s.hours > 0 ? s.earned / s.hours : 0;
-          if (s.effectiveRate > 0 && (!topPlat || s.effectiveRate > topPlat.effectiveRate)) {
+          if (s.hours > maxHours) maxHours = s.hours;
+          if (s.earned > 0 && (!topPlat || s.earned > topPlat.earned)) {
             topPlat = s;
           }
         });
@@ -2796,6 +3314,7 @@
         return {
           totalIncome,
           totalHours,
+          maxHours,
           overallRate: totalHours > 0 ? totalIncome / totalHours : 0,
           dailyAvg: totalHours > 0 ? totalHours / Math.max(days.size, 1) : 0,
           topPlat,
@@ -2805,18 +3324,16 @@
 
       function populateSelects() {
         const configs = [
-          { id: 'timer-platform', all: false, general: false },
-          { id: 'entry-platform', all: false, general: false },
-          { id: 'task-platform', all: false, general: true },
-          { id: 'log-filter-platform', all: true, general: false },
+          { id: 'timer-platform', all: false },
+          { id: 'entry-platform', all: false },
+          { id: 'log-filter-platform', all: true },
         ];
 
-        configs.forEach(({ id, all, general }) => {
+        configs.forEach(({ id, all }) => {
           const el = document.getElementById(id);
           const prev = el.value;
           el.innerHTML = '';
           if (all) el.insertAdjacentHTML('beforeend', '<option value="all">كل المنصات</option>');
-          if (general) el.insertAdjacentHTML('beforeend', '<option value="general">عام / إدارة</option>');
           state.platforms.forEach((p) => {
             const opt = document.createElement('option');
             opt.value = p.id;
@@ -2828,7 +3345,6 @@
           }
         });
 
-        // Auto-fill timer rate if empty
         const rateEl = document.getElementById('timer-rate');
         if (!rateEl.value) {
           const p = getPlatform(document.getElementById('timer-platform').value);
@@ -2852,13 +3368,14 @@
         const rateInput = document.getElementById('inline-rate');
         if (document.activeElement !== goalInput) goalInput.value = state.monthlyGoal;
         if (document.activeElement !== rateInput) rateInput.value = state.egpRate;
+        renderFXBadge();
 
         document.getElementById('kpi-hours').textContent = m.totalHours.toFixed(1);
         document.getElementById('kpi-daily-avg').textContent = `${m.dailyAvg.toFixed(1)} hrs/day`;
 
         document.getElementById('kpi-hourly').textContent = fmtUSD(m.overallRate);
         document.getElementById('kpi-top-plat').textContent = m.topPlat
-          ? `${m.topPlat.name} ($${m.topPlat.effectiveRate.toFixed(1)}/h)`
+          ? `${m.topPlat.name} ($${m.topPlat.earned.toFixed(0)})`
           : 'لا توجد بيانات';
 
         const totalT = state.tasks.length;
@@ -2869,12 +3386,9 @@
         document.getElementById('kpi-tasks-pct').textContent = `${tPct}%`;
         document.getElementById('kpi-tasks-bar').style.width = `${tPct}%`;
 
-        // Sample banner visibility
-        const banner = document.getElementById('sample-banner');
-        banner.classList.toggle('hidden', !state.isSample || state.sampleDismissed);
+        document.getElementById('demo-banner').classList.toggle('hidden', !state.isDemo || state.demoDismissed);
       }
 
-      // Interactive SVG Donut + Platform Horizontal Progress Bars
       function renderPlatformPerformance() {
         const m = computeMetrics();
         const svg = document.getElementById('donut-svg');
@@ -2882,15 +3396,15 @@
         const radius = 78;
         const circ = 2 * Math.PI * radius;
 
-        // Build Donut SVG
         let svgHTML = `<circle cx="110" cy="110" r="${radius}" fill="none" stroke="var(--bg-pill)" stroke-width="24" />`;
         if (m.totalIncome > 0) {
           let offset = 0;
+          const activeCount = m.platformStats.filter((x) => x.earned > 0).length;
           m.platformStats.forEach((p) => {
             if (p.earned <= 0) return;
             const share = p.earned / m.totalIncome;
             const segLen = share * circ;
-            const gap = m.platformStats.filter((x) => x.earned > 0).length > 1 ? 3 : 0;
+            const gap = activeCount > 1 ? 3 : 0;
             const dash = `${Math.max(segLen - gap, 1)} ${circ}`;
             const isHi = hoveredPlatformId === p.id ? 'highlighted' : '';
             svgHTML += `<circle class="donut-segment ${isHi}" data-plat-hover="${escapeHTML(p.id)}" cx="110" cy="110" r="${radius}" stroke="${escapeHTML(p.color)}" stroke-dasharray="${dash}" stroke-dashoffset="${-offset}" transform="rotate(-90 110 110)" />`;
@@ -2900,10 +3414,10 @@
         svg.innerHTML = svgHTML;
         updateDonutCenter(m);
 
-        // Build Horizontal Progress Bars
         barsEl.innerHTML = m.platformStats
           .map((p) => {
-            const pct = p.goal > 0 ? Math.min(Math.round((p.earned / p.goal) * 100), 100) : 0;
+            const goalPct = p.goal > 0 ? Math.min(Math.round((p.earned / p.goal) * 100), 100) : 0;
+            const hrsPct = m.maxHours > 0 ? Math.min(Math.round((p.hours / m.maxHours) * 100), 100) : 0;
             const sharePct = m.totalIncome > 0 ? Math.round((p.earned / m.totalIncome) * 100) : 0;
             const isHi = hoveredPlatformId === p.id ? 'highlighted' : '';
             return `
@@ -2914,14 +3428,29 @@
                     <span>${escapeHTML(p.name)}</span>
                     <span class="badge" style="background:var(--bg-pill);color:var(--text-muted);font-family:'JetBrains Mono',monospace">${sharePct}%</span>
                   </div>
-                  <div class="plat-stats">
-                    <span><strong>$${p.earned.toFixed(0)}</strong> / $${p.goal}</span>
-                    <span>${p.hours.toFixed(1)}h</span>
-                    <span class="rate-tag">$${p.effectiveRate.toFixed(1)}/h</span>
+                  <div class="plat-right">
+                    <div class="plat-stats">
+                      <span><strong>$${p.earned.toFixed(0)}</strong> / $${p.goal}</span>
+                      <span>${p.hours.toFixed(1)}h</span>
+                      <span class="rate-tag">$${(p.effectiveRate || p.rate).toFixed(1)}/h</span>
+                    </div>
+                    <div style="display:flex;gap:3px">
+                      <button type="button" class="icon-btn-sm" data-edit-plat="${escapeHTML(p.id)}" title="تعديل المنصة">✎</button>
+                      ${state.platforms.length > 1 ? `<button type="button" class="icon-btn-sm icon-btn-del" data-del-plat="${escapeHTML(p.id)}" title="حذف المنصة">✕</button>` : ''}
+                    </div>
                   </div>
                 </div>
-                <div class="progress-track">
-                  <div class="progress-fill" style="width:${pct}%;background:${escapeHTML(p.color)}"></div>
+                <div class="plat-dual-bars">
+                  <div class="bar-caption-row">
+                    <span>التقدم نحو الهدف (${goalPct}%)</span>
+                    <span class="font-mono" dir="ltr">${p.hours.toFixed(1)}h</span>
+                  </div>
+                  <div class="progress-track">
+                    <div class="progress-fill" style="width:${goalPct}%;background:${escapeHTML(p.color)}"></div>
+                  </div>
+                  <div class="progress-track" style="height:4px;opacity:0.75">
+                    <div class="progress-fill" style="width:${hrsPct}%;background:var(--accent-sky)"></div>
+                  </div>
                 </div>
               </div>
             `;
@@ -2941,7 +3470,7 @@
             const share = m.totalIncome > 0 ? Math.round((p.earned / m.totalIncome) * 100) : 0;
             labelEl.textContent = p.name;
             valEl.textContent = `$${p.earned.toFixed(0)}`;
-            pctEl.textContent = `${share}% • $${p.effectiveRate.toFixed(1)}/h`;
+            pctEl.textContent = `${share}% • ${p.hours.toFixed(1)}h`;
             return;
           }
         }
@@ -2956,7 +3485,7 @@
         const labels = {
           high: { txt: 'عالية', cls: 'prio-high' },
           medium: { txt: 'متوسطة', cls: 'prio-medium' },
-          low: { txt: 'عادية', cls: 'prio-low' },
+          low: { txt: 'منخفضة', cls: 'prio-low' },
         };
 
         const items = [...state.tasks]
@@ -2980,7 +3509,8 @@
         listEl.innerHTML = items
           .map((t) => {
             const pr = labels[t.priority] || labels.medium;
-            const plat = t.platformId === 'general' ? null : getPlatform(t.platformId);
+            const cat = t.category || 'عام / إدارة';
+            const catColor = CATEGORY_COLORS[cat] || '#64748b';
             return `
               <div class="task-item ${t.completed ? 'done' : ''}">
                 <button type="button" class="task-check" data-toggle-task="${escapeHTML(t.id)}" aria-label="إكمال المهمة">
@@ -2991,12 +3521,12 @@
                   <div class="task-meta">
                     <span class="badge ${pr.cls}">${pr.txt}</span>
                     <span class="badge" style="background:var(--bg-pill);color:var(--text-secondary)">
-                      <span class="plat-dot" style="width:6px;height:6px;background:${plat ? escapeHTML(plat.color) : '#64748b'}"></span>
-                      ${plat ? escapeHTML(plat.name) : 'عام'}
+                      <span class="plat-dot" style="width:6px;height:6px;background:${catColor}"></span>
+                      ${escapeHTML(cat)}
                     </span>
                   </div>
                 </div>
-                <button type="button" class="icon-btn-del" data-del-task="${escapeHTML(t.id)}" title="حذف المهمة">✕</button>
+                <button type="button" class="icon-btn-sm icon-btn-del" data-del-task="${escapeHTML(t.id)}" title="حذف المهمة">✕</button>
               </div>
             `;
           })
@@ -3007,6 +3537,7 @@
         const tbody = document.getElementById('entries-tbody');
         const fp = document.getElementById('log-filter-platform').value;
         const fm = document.getElementById('log-filter-payout').value;
+        const egpRate = Math.max(Number(state.egpRate) || 49.5, 1);
 
         const rows = [...state.entries]
           .filter((e) => (fp === 'all' ? true : e.platformId === fp))
@@ -3014,7 +3545,7 @@
           .sort((a, b) => (b.date || '').localeCompare(a.date || ''));
 
         if (rows.length === 0) {
-          tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;padding:26px;color:var(--text-muted)">لا توجد سجلات مطابقة حتى الآن.</td></tr>`;
+          tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;padding:26px;color:var(--text-muted)">لا توجد جلسات أو دفعات مسجلة حتى الآن.</td></tr>`;
           return;
         }
 
@@ -3029,6 +3560,7 @@
           .map((e) => {
             const p = getPlatform(e.platformId);
             const rate = e.hours > 0 ? e.amount / e.hours : 0;
+            const egpVal = Math.round((Number(e.amount) || 0) * egpRate).toLocaleString('en-US');
             return `
               <tr>
                 <td class="font-mono" style="font-size:0.74rem;color:var(--text-muted);white-space:nowrap" dir="ltr">${escapeHTML(e.date)}</td>
@@ -3040,11 +3572,14 @@
                   ${e.note ? `<div style="font-size:0.72rem;color:var(--text-muted);margin-top:2px">${escapeHTML(e.note)}</div>` : ''}
                 </td>
                 <td class="font-mono" style="font-weight:700;white-space:nowrap" dir="ltr">${Number(e.hours).toFixed(2)}h</td>
-                <td class="font-mono" style="font-weight:800;color:var(--accent-emerald);white-space:nowrap" dir="ltr">${fmtUSD(e.amount)}</td>
+                <td class="font-mono" style="white-space:nowrap" dir="ltr">
+                  <div style="font-weight:800;color:var(--accent-emerald)">${fmtUSD(e.amount)}</div>
+                  <div style="font-size:0.68rem;color:var(--text-muted)">≈ ${egpVal} EGP</div>
+                </td>
                 <td class="font-mono" style="color:var(--text-secondary);white-space:nowrap" dir="ltr">$${rate.toFixed(1)}/h</td>
                 <td><span class="badge ${payoutCls[e.payout] || 'icon-indigo'}">${escapeHTML(e.payout)}</span></td>
                 <td style="text-align:center">
-                  <button type="button" class="icon-btn-del" data-del-entry="${escapeHTML(e.id)}" title="حذف السجل">✕</button>
+                  <button type="button" class="icon-btn-sm icon-btn-del" data-del-entry="${escapeHTML(e.id)}" title="حذف">✕</button>
                 </td>
               </tr>
             `;
@@ -3061,10 +3596,10 @@
         renderFocusTimer();
       }
 
-      // ==================== FOCUS & SHIFT TIMER ENGINE ====================
-      const RING_C = 2 * Math.PI * 88; // 552.92
+      // ==================== FOCUS & SHIFT TIMER ====================
+      const RING_C = 2 * Math.PI * 88;
       const focusTimer = {
-        mode: 'pomo', // 'pomo' | 'shift'
+        mode: 'pomo',
         presetMins: 25,
         totalSec: 25 * 60,
         remSec: 25 * 60,
@@ -3150,7 +3685,6 @@
         renderFocusTimer();
       }
 
-      // 1-Click Direct Session Logging
       function logFocusSessionDirectly() {
         if (focusTimer.running) toggleFocusTimer();
         let trackedSec = focusTimer.mode === 'pomo'
@@ -3181,7 +3715,6 @@
           payout: 'معلّق',
           note: focusTimer.mode === 'pomo' ? `جلسة تركيز (${Math.round(trackedSec / 60)} دقيقة)` : 'شفت عمل مسجل من التايمر',
         });
-        state.isSample = false;
         saveState();
         resetFocusTimer();
         renderDashboard();
@@ -3189,273 +3722,269 @@
       }
 
       // ========================================================================
-      // TAB 2 DATA: AMERICAN ACCENT COACH (SCRIPTS & PHONETIC DRILLS)
+      // SECTION 2: C1 AMERICAN ACCENT TRAINER DATA & LOGIC
       // ========================================================================
       const SCRIPT_LIBRARY = {
         cold: {
-          title: 'Cold Calling & Sales Opener',
           sentences: [
             {
               plain: "Hi David, this is Essam calling about the property over on Oakwood Drive — got a quick minute?",
               tokens: [
                 { t: "Hi David, " },
-                { t: "this", c: "th", r: "dhis /ð/", tip: "الـ TH هنا منطوقة (Voiced /ð/) بطرف اللسان بين الأسنان." },
+                { t: "this", c: "th", r: "dhis /ð/", tip: "TH منطوقة (/ð/) بلمس طرف اللسان للأسنان العلوية مع اهتزاز صوتي." },
                 { t: " is Essam calling " },
-                { t: "about", c: "schwa", r: "uh-BOWT", tip: "ابدأ بـ Schwa خفيفة /ə/ مش 'أ' واضحة." },
+                { t: "about", c: "schwa", r: "ə-BOWT", tip: "ابدأ بـ Schwa سريعة وخفيفة /ə/ مش أ مشددة." },
                 { t: " the " },
-                { t: "property", c: "pb", r: "PRAH-per-dee", tip: "انطق الـ P بنفخة هواء واضحة (Aspiration) عشان متطلعش B." },
+                { t: "property", c: "pb", r: "PʰRAH-per-dee", tip: "انطق P بنفخة هواء واضحة (Aspiration) + Flap T في النهاية." },
                 { t: " over on Oakwood Drive — " },
-                { t: "got a", c: "conn", r: "GAH-da", tip: "ادمج got + a مع Flap T سريعة لتطلع طبيعية جداً." },
+                { t: "got a", c: "conn", r: "GAH-da", tip: "ادمج got + a مع Flap T خفيفة لتبدو أمريكية طبيعية." },
                 { t: " quick minute?" },
               ],
-              ar: "افتح المكالمة بنبرة هادية وواثقة؛ دمج got a إلى GAH-da بيخلي البداية أمريكية طبيعية ومش روبوتية.",
+              ar: "افتح المكالمة بنبرة هادية وواثقة؛ دمج got a إلى GAH-da يعطي انسيابية طبيعية فوراً.",
             },
             {
               plain: "I wanted to reach out because we just helped a homeowner in your neighborhood get a better cash offer.",
               tokens: [
                 { t: "I " },
-                { t: "wanted to", c: "conn", r: "WAH-nuh-duh", tip: "في الكلام السريع الأمريكي، الـ t بعد n بتخفف جداً (wanted to → WAH-nuh-duh)." },
+                { t: "wanted to", c: "conn", r: "WAH-nə-də", tip: "تخفيف الـ t بعد n في الكلام الأمريكي الطبيعي." },
                 { t: " reach out because we just " },
-                { t: "helped", c: "ed", r: "helpt /t/", tip: "نهاية -ed بعد p تُنطق /t/ حادة بدون مقطع إضافي (مش help-ed)." },
+                { t: "helped", c: "ed", r: "helpt /t/", tip: "نهاية -ed بعد p تُنطق /t/ حادة بدون مقطع زائد." },
                 { t: " a homeowner in your neighborhood get a " },
-                { t: "better", c: "flap", r: "BE-der", tip: "Flap T: الـ tt بين حرفين متحركين تُنطق زي 'د' سريعة وخفيفة." },
+                { t: "better", c: "flap", r: "BE-der", tip: "Flap T سريعة وخفيفة بين المتحركين." },
                 { t: " cash offer." },
               ],
-              ar: "ركز على نطق helped كمقطع واحد (helpt) مع خفة الـ Flap T في كلمة better.",
+              ar: "انطق helped كمقطع واحد (helpt) وحافظ على خفة الـ Flap T في كلمة better.",
             },
             {
               plain: "Would you be open to a quick ten-minute call later today to see if it makes sense for you?",
               tokens: [
-                { t: "Would you", c: "conn", r: "WOO-juh", tip: "ادمج d + y إلى صوت /dʒ/ الخفيف: WOO-juh." },
+                { t: "Would you", c: "conn", r: "WOO-juh", tip: "دمج d + y بسلاسة لصوت /dʒ/: WOO-juh." },
                 { t: " be " },
-                { t: "open", c: "pb", r: "OH-pən", tip: "P واضحة بنفخة هواء خفيفة + Schwa في آخر المقطع." },
+                { t: "open", c: "pb", r: "OH-pən", tip: "P واضحة بنفخة خفيفة + Schwa في المقطع الأخير." },
                 { t: " to a quick ten-minute call " },
-                { t: "later", c: "flap", r: "LAY-der", tip: "Flap T سريعة في كلمة later → LAY-der." },
+                { t: "later", c: "flap", r: "LAY-der", tip: "Flap T ناعمة في كلمة later." },
                 { t: " " },
-                { t: "today", c: "schwa", r: "tə-DAY", tip: "المقطع الأول غير مشدد فيُختصر لـ Schwa /ə/." },
+                { t: "today", c: "schwa", r: "tə-DAY", tip: "المقطع الأول غير مشدد فيتحول إلى Schwa /ə/." },
                 { t: " to see if it makes sense for you?" },
               ],
-              ar: "ارفع نبرة صوتك سنة بسيطة في آخر السؤال (Rising Intonation) مع دمج Would you إلى WOO-juh.",
+              ar: "ارفع نغمة الصوت قليلاً في نهاية السؤال مع ربط Would you كوحدة واحدة.",
             },
           ],
         },
         objections: {
-          title: 'Objection Handling & Booking',
           sentences: [
             {
               plain: "Totally understand you're busy right now — I can send that email over in thirty seconds.",
               tokens: [
-                { t: "Totally", c: "flap", r: "TOH-də-lee", tip: "Flap T خفيفة مع Schwa في المنتصف." },
+                { t: "Totally", c: "flap", r: "TOH-də-lee", tip: "Flap T سريعة مع Schwa في المنتصف." },
                 { t: " understand you're busy right now — I can send " },
-                { t: "that", c: "th", r: "dhaet /ð/", tip: "طرف اللسان يلمس الأسنان العلوية بخفة لنطق /ð/." },
+                { t: "that", c: "th", r: "dhaet /ð/", tip: "TH منطوقة /ð/ سريعة." },
                 { t: " email over in " },
-                { t: "thirty", c: "th", r: "THER-dee", tip: "ابدأ بـ /θ/ بهواء واضح (مش s أو t) مع Flap T في المنتصف." },
+                { t: "thirty", c: "th", r: "THER-dee", tip: "ابدأ بـ /θ/ بهواء واضح + Flap T في المنتصف." },
                 { t: " seconds." },
               ],
-              ar: "لما العميل يقولك ابعتلي إيميل، اتفق معاه الأول بسرعة عشان تقلل المقاومة وبعدين اسأل سؤال يثبّت الموعد.",
+              ar: "امتص اعتراض العميل بالموافقة السريعة أولاً ثم وجّهه للخطوة التالية.",
             },
             {
               plain: "Before I send it over, what's the one thing you'd want to see so it's actually worth your time?",
               tokens: [
                 { t: "Before I send " },
-                { t: "it over", c: "flap", r: "i-DOH-ver", tip: "الـ t في آخر it بتتحول لـ Flap T لما بعدها حرف متحرك (over)." },
+                { t: "it over", c: "flap", r: "i-DOH-ver", tip: "تحول t في آخر it لـ Flap T لأن الكلمة التالية تبدأ بمتحرك." },
                 { t: ", what's the one " },
-                { t: "thing", c: "th", r: "thing /θ/", tip: "TH مهموسة /θ/ بهواء خارج من طرف اللسان." },
+                { t: "thing", c: "th", r: "thing /θ/", tip: "TH مهموسة بهواء خارج من طرف اللسان." },
                 { t: " you'd " },
-                { t: "want to", c: "conn", r: "WAH-nuh", tip: "Connected Speech طبيعي جداً في المبيعات: want to → wanna." },
+                { t: "want to", c: "conn", r: "WAH-nə (wanna)", tip: "Connected Speech طبيعي جداً في محادثات المبيعات." },
                 { t: " see so it's actually " },
-                { t: "worth", c: "th", r: "werth /θ/", tip: "اقفل الكلمة بـ /θ/ واضحة بدون تحويلها لـ s." },
+                { t: "worth", c: "th", r: "werth /θ/", tip: "اختم بـ /θ/ واضحة بدون تحويلها لـ s." },
                 { t: " your time?" },
               ],
-              ar: "دمج it over (i-DOH-ver) و want to (wanna) بيخليك تسمع زي متحدث أمريكي محترف.",
+              ar: "ربط it over واختصار want to يجعلان السؤال طبيعياً وغير مفتعل.",
             },
             {
               plain: "Perfect, I've booked you for Thursday at two PM Eastern, which is twelve PM Arizona time.",
               tokens: [
-                { t: "Perfect", c: "pb", r: "PER-fikt", tip: "P انفجارية واضحة بهواء في بداية الكلمة." },
+                { t: "Perfect", c: "pb", r: "PʰER-fikt", tip: "P انفجارية واضحة في بداية الكلمة." },
                 { t: ", I've " },
-                { t: "booked", c: "ed", r: "bookt /t/", tip: "بعد صوت /k/، نهاية -ed تُنطق /t/ مباشرة: bookt." },
+                { t: "booked", c: "ed", r: "bookt /t/", tip: "بعد /k/ تُنطق -ed مباشرة كصوت /t/." },
                 { t: " you for " },
-                { t: "Thursday", c: "th", r: "THERZ-day", tip: "ابدأ بـ /θ/ واضحة متبوعة بـ American R." },
+                { t: "Thursday", c: "th", r: "THERZ-day", tip: "ابدأ بـ /θ/ واضحة ثم American R." },
                 { t: " at two PM Eastern, which is twelve PM " },
-                { t: "Arizona", c: "schwa", r: "air-ə-ZOH-nə", tip: "انتبه لصوت الـ Schwa /ə/ في المقطعين الثاني والأخير." },
+                { t: "Arizona", c: "schwa", r: "air-ə-ZOH-nə", tip: "انتبه لصوت الـ Schwa في المقطعين غير المشددين." },
                 { t: " time." },
               ],
-              ar: "ممتازة لتأكيد فروق التوقيت في أمريكا! خلي بالك من نطق booked → bookt مش book-ed.",
+              ar: "ممتازة لتأكيد المواعيد بين مناطق التوقيت الأمريكية المختلفة.",
             },
           ],
         },
         va: {
-          title: 'Customer Support & VA Follow-up',
           sentences: [
             {
               plain: "Hi there, I'm calling on behalf of my client to check on a UPS package that was scheduled for delivery yesterday.",
               tokens: [
                 { t: "Hi " },
-                { t: "there", c: "th", r: "dher /ð/", tip: "TH منطوقة /ð/ مع سحب اللسان للخلف لصوت R." },
+                { t: "there", c: "th", r: "dher /ð/", tip: "TH منطوقة /ð/ مع سحب اللسان للخلف للـ R." },
                 { t: ", I'm calling on behalf of my client to check on a UPS " },
-                { t: "package", c: "pb", r: "PAE-kidj", tip: "P قوية بنفخة هواء (تفرقها عن baggage)." },
+                { t: "package", c: "pb", r: "PʰAE-kidj", tip: "P بنفخة هواء قوية تفرّقها عن baggage." },
                 { t: " that was " },
-                { t: "scheduled", c: "ed", r: "SKED-juld /d/", tip: "نهاية -ed بعد /l/ تُنطق /d/ ناعمة بدون مقطع زائد." },
+                { t: "scheduled", c: "ed", r: "SKED-juld /d/", tip: "نهاية -ed بعد /l/ تُنطق /d/ ناعمة." },
                 { t: " for " },
-                { t: "delivery", c: "schwa", r: "də-LI-və-ree", tip: "ابدأ بـ Schwa سريعة də بدل de المشددة." },
+                { t: "delivery", c: "schwa", r: "də-LI-və-ree", tip: "ابدأ بـ Schwa سريعة də." },
                 { t: " yesterday." },
               ],
-              ar: "جملة أساسية في شغل الـ VA ومتابعة شحنات UPS. ركز على الفرق الواضح في P في كلمة package.",
+              ar: "جملة أساسية لمتابعة شحنات UPS والعملاء؛ وضوح الـ P في package مهم جداً.",
             },
             {
               plain: "Could you please confirm if the updated insurance policy has been processed on your end?",
               tokens: [
-                { t: "Could you", c: "conn", r: "KOO-juh", tip: "ادمج d + y بسلاسة: KOO-juh." },
+                { t: "Could you", c: "conn", r: "KOO-juh", tip: "دمج d + y لصوت /dʒ/ السلس." },
                 { t: " " },
-                { t: "please", c: "pb", r: "pleez", tip: "P بهواء واضح قبل حرف L." },
+                { t: "please", c: "pb", r: "pʰleez", tip: "P بهواء واضح قبل L." },
                 { t: " " },
-                { t: "confirm", c: "schwa", r: "kən-FERM", tip: "المقطع الأول Schwa خفيفة /kən/ مش كون." },
+                { t: "confirm", c: "schwa", r: "kən-FERM", tip: "خفف المقطع الأول لـ kən بدل كون." },
                 { t: " if the " },
-                { t: "updated", c: "ed", r: "up-DAY-did /ɪd/", tip: "لأن الفعل ينتهي بـ t، تُنطق -ed كمقطع كامل /ɪd/ مع Flap T." },
+                { t: "updated", c: "ed", r: "up-DAY-did /ɪd/", tip: "بعد t تُنطق -ed كمقطع كامل /ɪd/ مع Flap T." },
                 { t: " insurance " },
-                { t: "policy", c: "pb", r: "PAH-lə-see", tip: "P واضحة في البداية وSchwa في المنتصف." },
+                { t: "policy", c: "pb", r: "PʰAH-lə-see", tip: "P واضحة في البداية مع Schwa في المنتصف." },
                 { t: " has been " },
-                { t: "processed", c: "ed", r: "PRAH-sest /t/", tip: "نهاية -ed بعد /s/ تُنطق /t/ حادة: PRAH-sest." },
+                { t: "processed", c: "ed", r: "PRAH-sest /t/", tip: "بعد /s/ تُنطق -ed كصوت /t/ مباشر." },
                 { t: " on your end?" },
               ],
-              ar: "الجملة دي فيها مقارنتين ممتازتين لـ -ed: كلمة updated (مقطع /ɪd/) وكلمة processed (صوت /t/ مباشر).",
+              ar: "مقارنة عملية في جملة واحدة بين نهايتي updated (/ɪd/) و processed (/t/).",
             },
             {
               plain: "I'd appreciate it if you could email a confirmation number once the appointment is confirmed.",
               tokens: [
                 { t: "I'd " },
-                { t: "appreciate it", c: "flap", r: "ə-PREE-shee-ay-did", tip: "ادمج نهاية appreciate مع it بـ Flap T سريعة." },
+                { t: "appreciate it", c: "flap", r: "ə-PREE-shee-ay-did", tip: "ادمج نهاية appreciate مع it بـ Flap T سلسة." },
                 { t: " if you could email a " },
-                { t: "confirmation", c: "schwa", r: "kahn-fer-MAY-shən", tip: "نهاية -tion تُنطق دائماً shən مع Schwa." },
+                { t: "confirmation", c: "schwa", r: "kahn-fer-MAY-shən", tip: "نهاية -tion دائماً shən مع Schwa." },
                 { t: " number once the " },
-                { t: "appointment", c: "pb", r: "ə-POYNT-mənt", tip: "ابدأ بـ Schwa ثم P واضحة بنفخة هواء." },
+                { t: "appointment", c: "pb", r: "ə-PʰOYNT-mənt", tip: "Schwa في الأول ثم P واضحة بنفخة هواء." },
                 { t: " is " },
-                { t: "confirmed", c: "ed", r: "kən-FERMD /d/", tip: "نهاية -ed بعد m تُنطق /d/ ناعمة." },
+                { t: "confirmed", c: "ed", r: "kən-FERMD /d/", tip: "بعد /m/ تُنطق -ed كصوت /d/ بدون فصل." },
                 { t: "." },
               ],
-              ar: "لما تربط appreciate it مع بعضها، الجملة بتطلع احترافية وسلسة جداً في مكالمات العملاء والعيادات.",
+              ar: "ربط appreciate it يعطي الجملة طابعاً احترافياً سلساً جداً في مكالمات المتابعة.",
             },
           ],
         },
         medical: {
-          title: 'Medical Interpreting (VRI / OPI)',
           sentences: [
             {
               plain: "Hello, my name is Essam, your Arabic interpreter. Everything said today will remain strictly confidential.",
               tokens: [
                 { t: "Hello, my name is Essam, your Arabic " },
-                { t: "interpreter", c: "flap", r: "in-TER-prə-der", tip: "الـ t الثانية بين متحركين تُنطق Flap T خفيفة + P واضحة." },
+                { t: "interpreter", c: "flap", r: "in-TER-prə-der", tip: "P واضحة مع Flap T في نهاية الكلمة." },
                 { t: ". " },
-                { t: "Everything", c: "th", r: "EV-ree-thing /θ/", tip: "حافظ على /θ/ واضحة في آخر كلمة Everything." },
+                { t: "Everything", c: "th", r: "EV-ree-thing /θ/", tip: "حافظ على /θ/ واضحة في آخر الكلمة." },
                 { t: " said " },
-                { t: "today", c: "schwa", r: "tə-DAY", tip: "Schwa خفيفة في بداية today." },
+                { t: "today", c: "schwa", r: "tə-DAY", tip: "Schwa خفيفة في المقطع الأول." },
                 { t: " will remain strictly " },
-                { t: "confidential", c: "schwa", r: "kahn-fə-DEN-shəl", tip: "شدد على المقطع DEN وخفف ما قبله وبعده بالـ Schwa." },
+                { t: "confidential", c: "schwa", r: "kahn-fə-DEN-shəl", tip: "الشدة على DEN وتخفيف ما قبلها وبعدها بالـ Schwa." },
               ],
-              ar: "الجملة الافتتاحية الأساسية في مكالمات Curalingo / Lingotec. نطق interpreter بوضوح بيدي انطباع احترافي من أول ثانية.",
+              ar: "الافتتاحية الاحترافية القياسية في جلسات الترجمة الطبية VRI و OPI.",
             },
             {
               plain: "Please speak directly to each other in short sentences, and pause so I can interpret accurately.",
               tokens: [
-                { t: "Please", c: "pb", r: "pleez", tip: "P واضحة بنفخة هواء." },
+                { t: "Please", c: "pb", r: "pʰleez", tip: "P واضحة بنفخة هواء." },
                 { t: " speak directly to each " },
-                { t: "other", c: "th", r: "UH-dher /ð/", tip: "TH منطوقة /ð/ مع R أمريكية ناعمة." },
+                { t: "other", c: "th", r: "UH-dher /ð/", tip: "TH منطوقة /ð/ مع American R." },
                 { t: " in short sentences, and " },
-                { t: "pause", c: "pb", r: "pawz", tip: "P قوية في بداية الكلمة (مش b)." },
+                { t: "pause", c: "pb", r: "pʰawz", tip: "P انفجارية في البداية (تجنب نطقها b)." },
                 { t: " so I can " },
-                { t: "interpret", c: "pb", r: "in-TER-prit", tip: "P واضحة وتوقف خفيف عند t الأخيرة." },
+                { t: "interpret", c: "pb", r: "in-TER-pʰrit", tip: "P واضحة مع Stop T خفيفة في النهاية." },
                 { t: " accurately." },
               ],
-              ar: "توجيه مهم قبل بداية الجلسة الطبية لضمان عدم تداخل الكلام وسهولة الترجمة بدقة.",
+              ar: "توجيه مهم قبل بداية المكالمة لضبط إيقاع الحديث وضمان دقة الترجمة.",
             },
             {
               plain: "The patient reported a sharp pain in his upper chest that started about two hours ago.",
               tokens: [
                 { t: "The " },
-                { t: "patient", c: "pb", r: "PAY-shənt", tip: "P واضحة جداً في البداية + Schwa قبل nt." },
+                { t: "patient", c: "pb", r: "PʰAY-shənt", tip: "P واضحة جداً في البداية + Schwa قبل nt." },
                 { t: " " },
                 { t: "reported", c: "ed", r: "ri-POR-did /ɪd/", tip: "تنتهي بـ t، فتُنطق -ed كمقطع /ɪd/ مع Flap T." },
                 { t: " a sharp " },
-                { t: "pain", c: "pb", r: "payn", tip: "تأكد من نفخة الهواء في P حتى لا تُسمع مثل bane." },
+                { t: "pain", c: "pb", r: "pʰayn", tip: "نفخة هواء واضحة في P لعدم الخلط مع bane." },
                 { t: " in his upper chest " },
-                { t: "that", c: "th", r: "dhaet /ð/", tip: "TH منطوقة /ð/ سريعة." },
+                { t: "that", c: "th", r: "dhaet /ð/", tip: "TH منطوقة /ð/." },
                 { t: " " },
-                { t: "started", c: "ed", r: "STAR-did /ɪd/", tip: "مقطع /ɪd/ كامل + Flap T في المنتصف: STAR-did." },
+                { t: "started", c: "ed", r: "STAR-did /ɪd/", tip: "مقطع /ɪd/ كامل مع Flap T." },
                 { t: " " },
-                { t: "about", c: "schwa", r: "ə-BOWT", tip: "ابدأ بـ Schwa /ə/ خفيفة." },
+                { t: "about", c: "schwa", r: "ə-BOWT", tip: "ابدأ بـ Schwa /ə/." },
                 { t: " two hours ago." },
               ],
-              ar: "تدريب ممتاز على الدقة الطبية: لاحظ نطق reported (ri-POR-did) و started (STAR-did) مع وضوح P في patient و pain.",
+              ar: "تمرين دقيق لمصطلحات الأعراض: ركّز على الـ P في patient و pain وعلى مقاطع -ed في reported و started.",
             },
           ],
         },
       };
 
+      // 48 Interactive Sound Drill Cards (8 per category x 6 categories)
       const DRILLS_LIBRARY = {
         flap: [
-          { word: "better", speak: "better", ph: "BE-der", tip: "الـ tt بين متحركين تتحول لصوت د سريعة وخفيفة (Flap T)." },
-          { word: "water", speak: "water", ph: "WAW-der", tip: "لسانك يلمس سقف الحلق لمسة خاطفة بدون ضغط هواء." },
-          { word: "later", speak: "later", ph: "LAY-der", tip: "مهمة جداً في مكالمات تحديد المواعيد: call you LAY-der." },
-          { word: "meeting", speak: "meeting", ph: "MEE-ding", tip: "الـ t هنا بين متحركين فتُنطق خفيفة جداً مثل d." },
+          { word: "better", speak: "better", ph: "BE-der", tip: "الـ tt بين متحركين تتحول لصوت د سريعة وخفيفة." },
+          { word: "water", speak: "water", ph: "WAW-der", tip: "لمسة خاطفة من طرف اللسان لسقف الحلق." },
+          { word: "later", speak: "later", ph: "LAY-der", tip: "مهمة جداً في حجز المواعيد: call you LAY-der." },
+          { word: "meeting", speak: "meeting", ph: "MEE-ding", tip: "الـ t بين متحركين تُنطق خفيفة جداً مثل d." },
           { word: "matter", speak: "matter", ph: "MAE-der", tip: "تُستخدم كثيراً في: as a MAE-der of fact." },
           { word: "computer", speak: "computer", ph: "kəm-PYOO-der", tip: "Schwa في الأول + Flap T قبل er." },
-          { word: "get it", speak: "get it", ph: "GE-dit", tip: "Flap T تحصل أيضاً بين كلمتين لما تنتهي الأولى بـ t وتبدأ الثانية بمتحرك." },
-          { word: "about it", speak: "about it", ph: "ə-BOW-dit", tip: "ادمج الكلمتين معاً بـ Flap T سلسة." },
+          { word: "get it", speak: "get it", ph: "GE-dit", tip: "Flap T بين كلمتين عند انتهاء الأولى بـ t وبداية الثانية بمتحرك." },
+          { word: "about it", speak: "about it", ph: "ə-BOW-dit", tip: "ادمج الكلمتين بـ Flap T سريعة وسلسة." },
         ],
         schwa: [
-          { word: "about", speak: "about", ph: "ə-BOWT", tip: "أشهر صوت في الإنجليزية الأمريكية؛ افتح فمك بسيط جداً وارتخِ في ə." },
-          { word: "support", speak: "support", ph: "sə-PORT", tip: "المقطع الأول سريع وخفيف جداً، والشدة كلها على PORT." },
-          { word: "confirm", speak: "confirm", ph: "kən-FERM", tip: "لا تقل كون-فيرم؛ خفف المقطع الأول لـ kən." },
-          { word: "today", speak: "today", ph: "tə-DAY", tip: "اختصر to إلى tə سريعة جداً." },
-          { word: "problem", speak: "problem", ph: "PRAH-bləm", tip: "المقطع الثاني lem يُنطق ləm مسترخي." },
+          { word: "about", speak: "about", ph: "ə-BOWT", tip: "أشهر صوت أمريكي؛ فم مسترخٍ ومقطع قصير جداً." },
+          { word: "support", speak: "support", ph: "sə-PORT", tip: "خفف المقطع الأول وركز الشدة على PORT." },
+          { word: "confirm", speak: "confirm", ph: "kən-FERM", tip: "تجنب نطقها كون-فيرم؛ المقطع الأول kən خفيف." },
+          { word: "today", speak: "today", ph: "tə-DAY", tip: "اختصر to إلى tə سريعة." },
+          { word: "problem", speak: "problem", ph: "PRAH-bləm", tip: "المقطع الثاني مسترخٍ تماماً: ləm." },
           { word: "medical", speak: "medical", ph: "ME-də-kəl", tip: "صوتا Schwa متتاليان بعد المقطع المشدد ME." },
-          { word: "appointment", speak: "appointment", ph: "ə-POYNT-mənt", tip: "ابدأ بـ ə خفيفة واقفل بـ mənt خفيفة." },
+          { word: "appointment", speak: "appointment", ph: "ə-POYNT-mənt", tip: "ابدأ بـ ə واختم بـ mənt خفيفة." },
           { word: "customer", speak: "customer", ph: "KUS-tə-mer", tip: "حرف o هنا يُنطق Schwa /ə/ مش أو." },
         ],
         ed: [
-          { word: "booked", speak: "booked", ph: "bookt  /t/", tip: "بعد صوت مهموس (k, p, s, sh, ch, f) تُنطق -ed كصوت /t/ بدون مقطع زائد." },
-          { word: "helped", speak: "helped", ph: "helpt  /t/", tip: "مقطع واحد فقط: helpt (تجنب نطقها help-ed)." },
-          { word: "processed", speak: "processed", ph: "PRAH-sest  /t/", tip: "بعد /s/ تُنطق /t/ مباشرة." },
-          { word: "scheduled", speak: "scheduled", ph: "SKED-juld  /d/", tip: "بعد صوت منطوق (l, n, r, m, v, g) تُنطق -ed كصوت /d/ ناعم." },
-          { word: "confirmed", speak: "confirmed", ph: "kən-FERMD  /d/", tip: "لا تضف حركة قبل الـ d؛ انطق m ثم d مباشرة." },
-          { word: "delivered", speak: "delivered", ph: "də-LI-verd  /d/", tip: "مهمة لمتابعة الشحنات: دمج مباشر لـ r مع d." },
-          { word: "updated", speak: "updated", ph: "up-DAY-did  /ɪd/", tip: "فقط بعد t أو d نضيف مقطع /ɪd/ كامل." },
-          { word: "reported", speak: "reported", ph: "ri-POR-did  /ɪd/", tip: "تنتهي بـ t فتنطق كمقطع /ɪd/ مع Flap T." },
+          { word: "booked", speak: "booked", ph: "bookt /t/", tip: "بعد الصوت المهموس /k/ تُنطق /t/ مباشرة بدون مقطع زائد." },
+          { word: "helped", speak: "helped", ph: "helpt /t/", tip: "مقطع واحد فقط: helpt." },
+          { word: "processed", speak: "processed", ph: "PRAH-sest /t/", tip: "بعد /s/ تُنطق /t/ حادة." },
+          { word: "scheduled", speak: "scheduled", ph: "SKED-juld /d/", tip: "بعد الصوت المنطوق /l/ تُنطق /d/ ناعمة." },
+          { word: "confirmed", speak: "confirmed", ph: "kən-FERMD /d/", tip: "انطق m ثم d مباشرة بدون حركة فاصلة." },
+          { word: "delivered", speak: "delivered", ph: "də-LI-verd /d/", tip: "ربط مباشر بين r و d في متابعة الشحنات." },
+          { word: "updated", speak: "updated", ph: "up-DAY-did /ɪd/", tip: "فقط بعد t أو d نضيف مقطع /ɪd/ كامل." },
+          { word: "reported", speak: "reported", ph: "ri-POR-did /ɪd/", tip: "تنتهي بـ t فتُنطق كمقطع /ɪd/ مع Flap T." },
         ],
         th: [
-          { word: "think vs sink", speak: "think, sink", ph: "/θɪŋk/ vs /sɪŋk/", tip: "في think أخرج طرف اللسان بخفة بين الأسنان؛ في sink اللسان بالداخل." },
-          { word: "Thursday", speak: "Thursday", ph: "THERZ-day  /θ/", tip: "ابدأ بهواء ناعم من طرف اللسان /θ/." },
-          { word: "thirty-three", speak: "thirty-three", ph: "THER-dee three  /θ/", tip: "تمرين ذهبي للـ /θ/ المتكرر + Flap T." },
-          { word: "month / health", speak: "month, health", ph: "munth, helth  /θ/", tip: "اقفل الكلمة بلسانك بين الأسنان حتى يظهر صوت /θ/ بوضوح." },
-          { word: "this / that", speak: "this, that", ph: "dhis, dhaet  /ð/", tip: "TH منطوقة (تُحدث اهتزازاً في الحنجرة) وليست z أو d." },
-          { word: "there / they", speak: "there, they", ph: "dher, dhay  /ð/", tip: "طرف اللسان يلمس الأسنان العلوية مع اهتزاز صوتي." },
-          { word: "other / mother", speak: "other, mother", ph: "UH-dher, MUH-dher  /ð/", tip: "تأكد من عدم تحويلها لـ ز." },
-          { word: "with the", speak: "with the", ph: "with-dhə", tip: "ادمج صوتي الـ TH بسلاسة بدون فصل الكلمتين." },
+          { word: "think vs sink", speak: "think, sink", ph: "/θɪŋk/ vs /sɪŋk/", tip: "في think أخرج طرف اللسان بخفة بين الأسنان." },
+          { word: "Thursday", speak: "Thursday", ph: "THERZ-day /θ/", tip: "ابدأ بهواء ناعم من طرف اللسان /θ/." },
+          { word: "thirty-three", speak: "thirty-three", ph: "THER-dee three", tip: "تمرين ممتاز للـ /θ/ المتكرر + Flap T." },
+          { word: "month / health", speak: "month, health", ph: "munth, helth /θ/", tip: "اختم بلسانك بين الأسنان بوضوح." },
+          { word: "this / that", speak: "this, that", ph: "dhis, dhaet /ð/", tip: "TH منطوقة باهتزاز في الحنجرة وليست z أو d." },
+          { word: "there / they", speak: "there, they", ph: "dher, dhay /ð/", tip: "طرف اللسان يلمس الأسنان العلوية مع صوت." },
+          { word: "other / mother", speak: "other, mother", ph: "UH-dher, MUH-dher", tip: "انتبه لعدم تحويلها إلى ز." },
+          { word: "with the", speak: "with the", ph: "with-dhə", tip: "ادمج صوتي الـ TH بسلاسة بدون توقف." },
         ],
         pb: [
-          { word: "pack vs back", speak: "pack, back", ph: "/pʰæk/ vs /bæk/", tip: "ضع يدك أمام فمك: مع pack لازم تحس بهواء قوي؛ مع back لا هواء." },
-          { word: "pay vs bay", speak: "pay, bay", ph: "/pʰeɪ/ vs /beɪ/", tip: "اضغط الشفتين واطلق هواءً قوياً في pay." },
-          { word: "pain vs bane", speak: "pain, bane", ph: "/pʰeɪn/ vs /beɪn/", tip: "أساسية جداً في الترجمة الطبية لتفادي اللبس." },
-          { word: "price vs brace", speak: "price, brace", ph: "/pʰraɪs/ vs /breɪs/", tip: "حافظ على نفخة الـ P حتى مع وجود R بعدها." },
-          { word: "package vs baggage", speak: "package, baggage", ph: "PAE-kidj vs BAE-gidj", tip: "فرق جوهري في مكالمات الشحن والدعم الفني." },
-          { word: "policy", speak: "policy", ph: "PʰAH-lə-see", tip: "P انفجارية واضحة في بداية كلمة policy." },
-          { word: "patient", speak: "patient", ph: "PʰAY-shənt", tip: "تأكد أن أول حرف يخرج بنفس واضح مش b." },
-          { word: "appointment", speak: "appointment", ph: "ə-PʰOYNT-mənt", tip: "حتى في وسط الكلمة، الـ P المشددة تحتاج نفخة هواء." },
+          { word: "pack vs back", speak: "pack, back", ph: "/pʰæk/ vs /bæk/", tip: "مع pack ستشعر بنفخة هواء قوية على يدك؛ مع back لا هواء." },
+          { word: "pay vs bay", speak: "pay, bay", ph: "/pʰeɪ/ vs /beɪ/", tip: "اضغط الشفتين وأطلق هواءً واضحاً في pay." },
+          { word: "pain vs bane", speak: "pain, bane", ph: "/pʰeɪn/ vs /beɪn/", tip: "أساسية جداً في الترجمة الطبية." },
+          { word: "price vs brace", speak: "price, brace", ph: "/pʰraɪs/ vs /breɪs/", tip: "حافظ على نفخة الـ P حتى قبل R." },
+          { word: "package vs baggage", speak: "package, baggage", ph: "PʰAE-kidj vs BAE-gidj", tip: "فرق حاسم في مكالمات الشحن والدعم." },
+          { word: "policy", speak: "policy", ph: "PʰAH-lə-see", tip: "P انفجارية واضحة في البداية." },
+          { word: "patient", speak: "patient", ph: "PʰAY-shənt", tip: "تأكد من خروج هواء مع أول حرف." },
+          { word: "appointment", speak: "appointment", ph: "ə-PʰOYNT-mənt", tip: "الـ P المشددة وسط الكلمة تحتاج نفخة هواء أيضاً." },
         ],
         conn: [
-          { word: "want to", speak: "want to", ph: "WAH-nuh (wanna)", tip: "الأمريكان نادراً ما يفصلون want عن to في الكلام الطبيعي." },
-          { word: "going to", speak: "going to", ph: "GUH-nuh (gonna)", tip: "استخدمها في المكالمات الودية: I'm gonna send it right over." },
+          { word: "want to", speak: "want to", ph: "WAH-nə (wanna)", tip: "الأمريكان نادراً ما يفصلون want عن to في الكلام الطبيعي." },
+          { word: "going to", speak: "going to", ph: "GUH-nə (gonna)", tip: "طبيعية جداً في المكالمات الودية واليومية." },
           { word: "got a", speak: "got a", ph: "GAH-da", tip: "دمج سريع مع Flap T: Got a quick minute?" },
-          { word: "could you", speak: "could you", ph: "KOO-juh", tip: "حرف d + y يندمجان لصوت /dʒ/ الخفيف." },
-          { word: "would you", speak: "would you", ph: "WOO-juh", tip: "تُستخدم يومياً في المبيعات: Would you be open to..." },
-          { word: "let me", speak: "let me", ph: "LEH-mee (lemme)", tip: "تخفيف الـ t قبل m يجعل الكلام أسرع وأكثر سلاسة." },
-          { word: "kind of", speak: "kind of", ph: "KAIN-də (kinda)", tip: "اختصار شائع جداً في الشرح والمحادثات اليومية." },
-          { word: "check on it", speak: "check on it", ph: "che-KAH-nit", tip: "ربط الحرف الساكن الأخير بالمتحرك في الكلمة التالية (Linking)." },
+          { word: "could you", speak: "could you", ph: "KOO-juh", tip: "اندماج d + y لصوت /dʒ/ الخفيف." },
+          { word: "would you", speak: "would you", ph: "WOO-juh", tip: "متكررة يومياً في المبيعات وحجز المواعيد." },
+          { word: "let me", speak: "let me", ph: "LEH-mee (lemme)", tip: "تخفيف الـ t قبل m يزيد السلاسة والسرعة." },
+          { word: "kind of", speak: "kind of", ph: "KAIN-də (kinda)", tip: "اختصار طبيعي جداً في المحادثات." },
+          { word: "check on it", speak: "check on it", ph: "che-KAH-nit", tip: "ربط الحرف الساكن الأخير بالمتحرك التالي (Linking)." },
         ],
       };
 
-      // ==================== COACH: SPEECH SYNTHESIS ====================
       let availableVoices = [];
       let speechQueueCancel = false;
 
@@ -3473,14 +4002,11 @@
           return;
         }
 
-        // Sort preferring natural American voices
         const preferred = ['Google US English', 'Aria', 'Jenny', 'Guy', 'Andrew', 'Samantha', 'Alex', 'Zira', 'David'];
         availableVoices.sort((a, b) => {
           const ia = preferred.findIndex((k) => a.name.includes(k));
           const ib = preferred.findIndex((k) => b.name.includes(k));
-          const sa = ia === -1 ? 99 : ia;
-          const sb = ib === -1 ? 99 : ib;
-          return sa - sb;
+          return (ia === -1 ? 99 : ia) - (ib === -1 ? 99 : ib);
         });
 
         availableVoices.forEach((v) => {
@@ -3500,17 +4026,15 @@
 
       function stopAllSpeech() {
         speechQueueCancel = true;
-        if ('speechSynthesis' in window) {
-          window.speechSynthesis.cancel();
-        }
+        if ('speechSynthesis' in window) window.speechSynthesis.cancel();
         document.querySelectorAll('.sentence-card.speaking, .drill-card.playing').forEach((el) => {
           el.classList.remove('speaking', 'playing');
         });
       }
 
-      function speakText(text, onEnd, onStart) {
+      function speakText(text, onEnd) {
         if (!('speechSynthesis' in window)) {
-          showToast('المتصفح الحالي لا يدعم النطق الصوتي (SpeechSynthesis).', 'error');
+          showToast('المتصفح الحالي لا يدعم النطق الصوتي.', 'error');
           return;
         }
         window.speechSynthesis.cancel();
@@ -3519,9 +4043,10 @@
         utter.rate = Number(state.coach.speechRate) || 1.0;
         const chosen = availableVoices.find((v) => v.name === state.coach.voiceName);
         if (chosen) utter.voice = chosen;
-        if (onStart) utter.onstart = onStart;
-        if (onEnd) utter.onend = onEnd;
-        utter.onerror = () => { if (onEnd) onEnd(); };
+        if (onEnd) {
+          utter.onend = onEnd;
+          utter.onerror = onEnd;
+        }
         window.speechSynthesis.speak(utter);
       }
 
@@ -3546,7 +4071,6 @@
         next(0);
       }
 
-      // ==================== COACH: RENDERING & TOOLTIPS ====================
       const CAT_LABELS = {
         flap: 'Flap T',
         schwa: 'Schwa /ə/',
@@ -3563,6 +4087,8 @@
 
         container.innerHTML = script.sentences
           .map((s, idx) => {
+            const key = `${activeScriptCat}_${idx}`;
+            const isPracticed = Boolean(state.coach.practicedScripts && state.coach.practicedScripts[key]);
             const richEn = s.tokens
               .map((tok) => {
                 if (!tok.c) return escapeHTML(tok.t);
@@ -3571,11 +4097,16 @@
               .join('');
 
             return `
-              <div class="sentence-card" data-sidx="${idx}">
+              <div class="sentence-card ${isPracticed ? 'practiced' : ''}" data-sidx="${idx}">
                 <div class="sentence-en">${richEn}</div>
                 <div class="sentence-footer">
                   <div class="sentence-ar-tip">💡 ${escapeHTML(s.ar)}</div>
-                  <button type="button" class="btn btn-sm btn-soft-indigo" data-speak-script="${idx}">🔊 استمع</button>
+                  <div style="display:flex;gap:6px;flex-wrap:wrap">
+                    <button type="button" class="btn btn-sm btn-soft-indigo" data-speak-script="${idx}">🔊 استمع</button>
+                    <button type="button" class="btn btn-sm ${isPracticed ? 'btn-soft-emerald' : 'btn-secondary'}" data-practice-script="${idx}">
+                      ${isPracticed ? '✓ تم التدريب' : 'تحديد كمُتدرَّب'}
+                    </button>
+                  </div>
                 </div>
               </div>
             `;
@@ -3614,26 +4145,24 @@
           const yesterday = getDateStr(-1);
           state.coach.streak = state.coach.lastPracticeDate === yesterday ? (state.coach.streak + 1) : 1;
           state.coach.drillsToday = 0;
+          state.coach.practicedScripts = {};
           state.coach.lastPracticeDate = today;
         }
         if (state.coach.streak === 0) state.coach.streak = 1;
         state.coach.drillsToday += 1;
         saveState();
         renderCoachStats();
-        if (showMsg) showToast('عاش! تم تسجيل تقدمك في تدريب النطق لليوم.', 'success');
+        if (showMsg) showToast('أحسنت! تم تسجيل تقدمك ومزامنته سحابياً.', 'success');
       }
 
-      // Floating Tooltip Positioning
+      // Phonetic Tooltip
       const tooltipEl = document.getElementById('phonetic-tooltip');
       function showTooltipFor(target) {
         const respell = target.dataset.respell;
-        const tip = target.dataset.tip;
-        const cat = target.dataset.cat;
         if (!respell) return;
-
         document.getElementById('tt-respell').textContent = respell;
-        document.getElementById('tt-cat').textContent = CAT_LABELS[cat] || cat;
-        document.getElementById('tt-tip').textContent = tip;
+        document.getElementById('tt-cat').textContent = CAT_LABELS[target.dataset.cat] || target.dataset.cat;
+        document.getElementById('tt-tip').textContent = target.dataset.tip;
 
         tooltipEl.classList.add('visible');
         tooltipEl.setAttribute('aria-hidden', 'false');
@@ -3654,7 +4183,7 @@
         tooltipEl.setAttribute('aria-hidden', 'true');
       }
 
-      // ==================== COACH: 10-MINUTE PRACTICE TIMER ====================
+      // 10-Minute Coach Timer
       const coachTimer = { remSec: 600, running: false, id: null, lastTs: null };
       function renderCoachTimer() {
         document.getElementById('coach-timer-digits').textContent = fmtClock(coachTimer.remSec);
@@ -3686,7 +4215,7 @@
         renderCoachTimer();
       }
 
-      // ==================== COACH: VOICE RECORDER (MediaRecorder) ====================
+      // MediaRecorder Voice Recorder
       let mediaRecorder = null;
       let audioChunks = [];
       let recInterval = null;
@@ -3698,7 +4227,7 @@
         errBox.style.display = 'none';
 
         if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || typeof MediaRecorder === 'undefined') {
-          errBox.textContent = 'الميكروفون غير مدعوم في هذا المتصفح أو محجوب داخل إطار المعاينة. افتح الملف مباشرة في Chrome لتفعيل التسجيل.';
+          errBox.textContent = 'الميكروفون غير مدعوم في هذا المتصفح أو محجوب داخل إطار المعاينة.';
           errBox.style.display = 'block';
           return;
         }
@@ -3720,7 +4249,7 @@
             const player = document.getElementById('rec-playback');
             player.src = currentAudioURL;
             player.style.display = 'block';
-            document.getElementById('rec-status-text').textContent = 'تم التسجيل! اضغط تشغيل للاستماع ومقارنة نطقك.';
+            document.getElementById('rec-status-text').textContent = 'تم التسجيل! اضغط تشغيل لمقارنة نطقك.';
           };
 
           mediaRecorder.start();
@@ -3736,8 +4265,8 @@
             recSeconds += 1;
             document.getElementById('rec-timer').textContent = fmtClock(recSeconds);
           }, 1000);
-        } catch (err) {
-          errBox.textContent = 'لم يتم منح إذن الميكروفون (أو الإطار المدمج يمنع الوصول للميكروفون). افتح الصفحة في نافذة متصفح مستقلة واسمح بالميكروفون.';
+        } catch (_) {
+          errBox.textContent = 'يرجى السماح بإذن الميكروفون في المتصفح لتفعيل التسجيل.';
           errBox.style.display = 'block';
         }
       }
@@ -3748,18 +4277,12 @@
         document.getElementById('rec-timer').style.display = 'none';
         document.getElementById('btn-rec-start').style.display = 'inline-flex';
         document.getElementById('btn-rec-stop').style.display = 'none';
-        if (mediaRecorder && mediaRecorder.state !== 'inactive') {
-          mediaRecorder.stop();
-        }
+        if (mediaRecorder && mediaRecorder.state !== 'inactive') mediaRecorder.stop();
       }
 
-      // ==================== MODALS & COLOR SWATCHES ====================
-      function openModal(id) {
-        document.getElementById(id).classList.add('open');
-      }
-      function closeModal(id) {
-        document.getElementById(id).classList.remove('open');
-      }
+      // ==================== MODALS & SWATCHES ====================
+      function openModal(id) { document.getElementById(id).classList.add('open'); }
+      function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 
       function buildSwatches(selected) {
         document.getElementById('plat-color').value = selected;
@@ -3768,9 +4291,18 @@
         `).join('');
       }
 
+      function performZeroReset() {
+        state.entries = [];
+        state.tasks = [];
+        state.isDemo = false;
+        saveState();
+        renderDashboard();
+        showToast('تم تصفير البيانات للبدء الفعلي' + (syncUrl ? ' ومزامنتها سحابياً' : ''), 'success');
+      }
+
       // ==================== EVENT BINDINGS ====================
       function bindEvents() {
-        // Main Tab Switching
+        // Main Navigation Tabs
         document.querySelectorAll('[data-main-tab]').forEach((btn) => {
           btn.addEventListener('click', () => {
             const target = btn.dataset.mainTab;
@@ -3784,18 +4316,102 @@
         // Theme Toggle
         document.getElementById('btn-theme').addEventListener('click', () => {
           state.theme = state.theme === 'dark' ? 'light' : 'dark';
-          saveState();
+          saveState({ markUserChange: !state.isDemo, push: !state.isDemo });
           applyTheme();
         });
 
-        // Export JSON
+        // Cloud Sync Modal Controls
+        document.getElementById('btn-sync-open').addEventListener('click', () => {
+          document.getElementById('sync-url-input').value = syncUrl;
+          openModal('modal-sync');
+        });
+
+        document.getElementById('btn-sync-save').addEventListener('click', async () => {
+          const val = document.getElementById('sync-url-input').value.trim();
+          if (!val || !val.startsWith('http')) {
+            showToast('أدخل رابط Google Apps Script صحيح يبدأ بـ https://', 'warn');
+            return;
+          }
+          setSavedSyncUrl(val);
+          await smartSyncFromCloud(true, false);
+        });
+
+        document.getElementById('btn-sync-now').addEventListener('click', () => {
+          if (!syncUrl) {
+            showToast('الصق رابط Apps Script واضغط "حفظ وربط" أولاً.', 'warn');
+            return;
+          }
+          smartSyncFromCloud(true, false);
+        });
+
+        document.getElementById('btn-sync-pull').addEventListener('click', () => {
+          if (!syncUrl) {
+            showToast('الصق رابط Apps Script واضغط "حفظ وربط" أولاً.', 'warn');
+            return;
+          }
+          smartSyncFromCloud(true, true);
+        });
+
+        document.getElementById('btn-sync-push').addEventListener('click', () => {
+          if (!syncUrl) {
+            showToast('الصق رابط Apps Script واضغط "حفظ وربط" أولاً.', 'warn');
+            return;
+          }
+          state.updatedAt = Date.now();
+          persistLocalOnly();
+          pushToCloud(true, true);
+        });
+
+        document.getElementById('btn-copy-phone-link').addEventListener('click', () => {
+          if (!syncUrl) {
+            showToast('احفظ رابط المزامنة أولاً ثم انسخ رابط الموبايل.', 'warn');
+            return;
+          }
+          const base = window.location.origin + window.location.pathname;
+          const phoneUrl = `${base}#sync=${encodeURIComponent(syncUrl)}`;
+          if (copyToClipboard(phoneUrl)) {
+            showToast('تم نسخ رابط الموبايل! افتحه على موبايلك للربط الفوري.', 'success');
+          } else {
+            showToast('تعذر النسخ التلقائي.', 'error');
+          }
+        });
+
+        document.getElementById('btn-sync-disconnect').addEventListener('click', () => {
+          clearTimeout(pushDebounceId);
+          setSavedSyncUrl('');
+          lastSyncTime = null;
+          document.getElementById('sync-url-input').value = '';
+          updateSyncUI('local');
+          showToast('تم فصل المزامنة السحابية (العمل محلياً الآن).', 'info');
+        });
+
+        document.getElementById('btn-copy-apps-script').addEventListener('click', () => {
+          if (copyToClipboard(APPS_SCRIPT_SNIPPET)) {
+            showToast('تم نسخ كود Google Apps Script بنجاح!', 'success');
+          }
+        });
+
+        // Auto-pull when browser tab regains focus + periodic 60s background sync
+        document.addEventListener('visibilitychange', () => {
+          if (document.visibilityState === 'visible' && syncUrl) {
+            smartSyncFromCloud(false, false);
+          }
+        });
+
+        setInterval(() => {
+          if (syncUrl && document.visibilityState === 'visible') {
+            smartSyncFromCloud(false, false);
+          }
+        }, 60 * 1000);
+
+        // Export & Import JSON
         document.getElementById('btn-export').addEventListener('click', () => {
           try {
             const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `workspace-backup-${getDateStr(0)}.json`;
+            a.download = `hub-backup-${getDateStr(0)}.json`;
             document.body.appendChild(a);
             a.click();
             a.remove();
@@ -3806,7 +4422,6 @@
           }
         });
 
-        // Import JSON
         document.getElementById('input-import').addEventListener('change', (e) => {
           const file = e.target.files?.[0];
           if (!file) return;
@@ -3815,12 +4430,13 @@
             try {
               const data = JSON.parse(ev.target.result);
               if (!data || !Array.isArray(data.platforms)) throw new Error('bad');
-              state = { ...buildStarterState(), ...data };
+              state = normalizeState(data);
               saveState();
               applyTheme();
               renderDashboard();
               renderCoachStats();
-              showToast('تم استيراد النسخة الاحتياطية بنجاح', 'success');
+              renderScriptSentences();
+              showToast('تم استيراد البيانات ومزامنتها بنجاح', 'success');
             } catch (_) {
               showToast('ملف JSON غير صالح', 'error');
             }
@@ -3829,52 +4445,64 @@
           reader.readAsText(file);
         });
 
-        // Reset Modal & Sample Banner Actions
+        // Reset & Demo Banner Controls
         document.getElementById('btn-reset-open').addEventListener('click', () => openModal('modal-reset'));
-        document.getElementById('btn-dismiss-sample').addEventListener('click', () => {
-          state.sampleDismissed = true;
-          saveState();
+        document.getElementById('btn-dismiss-demo').addEventListener('click', () => {
+          state.demoDismissed = true;
+          persistLocalOnly();
           renderKPIs();
         });
-        document.getElementById('btn-quick-zero').addEventListener('click', () => {
-          state.entries = [];
-          state.tasks = [];
-          state.isSample = false;
-          saveState();
-          renderDashboard();
-          showToast('تم تصفير البيانات التجريبية. جاهز للبدء بأرقامك الفعلية!', 'success');
-        });
+        document.getElementById('btn-quick-zero').addEventListener('click', performZeroReset);
         document.getElementById('btn-do-zero').addEventListener('click', () => {
-          state.entries = [];
-          state.tasks = [];
-          state.isSample = false;
-          saveState();
-          renderDashboard();
+          performZeroReset();
           closeModal('modal-reset');
-          showToast('تم التصفير بنجاح', 'success');
         });
         document.getElementById('btn-do-demo').addEventListener('click', () => {
-          const theme = state.theme;
+          const keepTheme = state.theme;
+          const keepRate = state.egpRate;
+          const keepRateTs = state.egpRateUpdatedAt;
           state = buildStarterState();
-          state.theme = theme;
-          saveState();
+          state.theme = keepTheme;
+          state.egpRate = keepRate;
+          state.egpRateUpdatedAt = keepRateTs;
+          saveState({ markUserChange: false, push: true });
           renderDashboard();
           renderCoachStats();
+          renderScriptSentences();
           closeModal('modal-reset');
           showToast('تمت استعادة البيانات التجريبية', 'info');
         });
 
-        // Inline Monthly Goal & USD/EGP Rate
+        // Inline Monthly Goal & USD/EGP Rate + Live Refresh + Auto Mode Switch
         document.getElementById('inline-goal').addEventListener('input', (e) => {
           const v = parseFloat(e.target.value);
-          if (v > 0) { state.monthlyGoal = v; saveState(); renderKPIs(); }
+          if (v > 0) {
+            state.monthlyGoal = v;
+            saveState();
+            renderKPIs();
+          }
         });
         document.getElementById('inline-rate').addEventListener('input', (e) => {
           const v = parseFloat(e.target.value);
-          if (v > 0) { state.egpRate = v; saveState(); renderKPIs(); }
+          if (v > 0) {
+            state.egpRate = v;
+            state.egpRateManual = true;
+            state.egpRateUpdatedAt = Date.now();
+            saveState();
+            renderKPIs();
+            renderEntries();
+          }
+        });
+        document.getElementById('btn-fx-refresh').addEventListener('click', () => {
+          state.egpRateManual = false;
+          fetchLiveExchangeRate(true);
+        });
+        document.getElementById('btn-fx-auto').addEventListener('click', () => {
+          state.egpRateManual = false;
+          fetchLiveExchangeRate(true);
         });
 
-        // Focus Timer Events
+        // Focus Timer Controls
         document.getElementById('timer-mode-pomo').addEventListener('click', () => {
           focusTimer.mode = 'pomo';
           document.getElementById('timer-mode-pomo').classList.add('active');
@@ -3905,7 +4533,7 @@
         document.getElementById('btn-timer-reset').addEventListener('click', resetFocusTimer);
         document.getElementById('btn-timer-log').addEventListener('click', logFocusSessionDirectly);
 
-        // Tasks Events
+        // Daily Priority Tasks
         document.getElementById('form-task').addEventListener('submit', (e) => {
           e.preventDefault();
           const inp = document.getElementById('task-input');
@@ -3915,11 +4543,10 @@
             id: 't_' + Date.now(),
             title,
             priority: document.getElementById('task-priority').value,
-            platformId: document.getElementById('task-platform').value,
+            category: document.getElementById('task-category').value,
             completed: false,
             createdAt: Date.now(),
           });
-          state.isSample = false;
           saveState();
           inp.value = '';
           renderKPIs();
@@ -3939,7 +4566,12 @@
           const tog = e.target.closest('[data-toggle-task]');
           if (tog) {
             const t = state.tasks.find((x) => x.id === tog.dataset.toggleTask);
-            if (t) { t.completed = !t.completed; saveState(); renderKPIs(); renderTasks(); }
+            if (t) {
+              t.completed = !t.completed;
+              saveState();
+              renderKPIs();
+              renderTasks();
+            }
             return;
           }
           const del = e.target.closest('[data-del-task]');
@@ -3962,11 +4594,9 @@
           }
         });
 
-        // Donut & Platform Bars Synchronized Hover
+        // Platform Hover / Tap, Add, Edit, Delete
         const perfSection = document.querySelector('.perf-layout');
-        perfSection.addEventListener('mouseover', (e) => {
-          const el = e.target.closest('[data-plat-hover]');
-          const pid = el ? el.dataset.platHover : null;
+        const setHoveredPlat = (pid) => {
           if (pid !== hoveredPlatformId) {
             hoveredPlatformId = pid;
             document.querySelectorAll('[data-plat-hover]').forEach((node) => {
@@ -3974,41 +4604,79 @@
             });
             updateDonutCenter();
           }
+        };
+        perfSection.addEventListener('mouseover', (e) => {
+          const el = e.target.closest('[data-plat-hover]');
+          setHoveredPlat(el ? el.dataset.platHover : null);
         });
-        perfSection.addEventListener('mouseleave', () => {
-          hoveredPlatformId = null;
-          document.querySelectorAll('[data-plat-hover]').forEach((n) => n.classList.remove('highlighted'));
-          updateDonutCenter();
+        perfSection.addEventListener('mouseleave', () => setHoveredPlat(null));
+        perfSection.addEventListener('click', (e) => {
+          const seg = e.target.closest('.donut-segment');
+          if (seg) setHoveredPlat(seg.dataset.platHover === hoveredPlatformId ? null : seg.dataset.platHover);
         });
 
-        // Add Custom Platform
+        document.getElementById('platform-bars').addEventListener('click', (e) => {
+          const editBtn = e.target.closest('[data-edit-plat]');
+          if (editBtn) {
+            const p = getPlatform(editBtn.dataset.editPlat);
+            if (!p) return;
+            document.getElementById('modal-plat-title').textContent = 'تعديل المنصة';
+            document.getElementById('plat-edit-id').value = p.id;
+            document.getElementById('plat-name').value = p.name;
+            document.getElementById('plat-goal').value = p.goal;
+            document.getElementById('plat-rate').value = p.rate;
+            buildSwatches(p.color || SWATCH_COLORS[0]);
+            openModal('modal-platform');
+            return;
+          }
+          const delBtn = e.target.closest('[data-del-plat]');
+          if (delBtn && state.platforms.length > 1) {
+            const pid = delBtn.dataset.delPlat;
+            state.platforms = state.platforms.filter((p) => p.id !== pid);
+            saveState();
+            renderDashboard();
+            showToast('تم حذف المنصة', 'info');
+          }
+        });
+
         document.getElementById('btn-add-platform').addEventListener('click', () => {
+          document.getElementById('modal-plat-title').textContent = 'إضافة منصة عمل جديدة';
+          document.getElementById('plat-edit-id').value = '';
           document.getElementById('plat-name').value = '';
+          document.getElementById('plat-goal').value = 300;
+          document.getElementById('plat-rate').value = 10;
           buildSwatches(SWATCH_COLORS[state.platforms.length % SWATCH_COLORS.length]);
           openModal('modal-platform');
         });
+
         document.getElementById('plat-swatches').addEventListener('click', (e) => {
           const btn = e.target.closest('[data-swatch]');
           if (btn) buildSwatches(btn.dataset.swatch);
         });
+
         document.getElementById('form-platform').addEventListener('submit', (e) => {
           e.preventDefault();
+          const editId = document.getElementById('plat-edit-id').value;
           const name = document.getElementById('plat-name').value.trim();
+          const goal = parseFloat(document.getElementById('plat-goal').value) || 0;
+          const rate = parseFloat(document.getElementById('plat-rate').value) || 0;
+          const color = document.getElementById('plat-color').value || '#06b6d4';
           if (!name) return;
-          state.platforms.push({
-            id: 'p_' + Date.now(),
-            name,
-            goal: parseFloat(document.getElementById('plat-goal').value) || 300,
-            rate: parseFloat(document.getElementById('plat-rate').value) || 10,
-            color: document.getElementById('plat-color').value || '#06b6d4',
-          });
+
+          if (editId) {
+            const p = getPlatform(editId);
+            if (p) { p.name = name; p.goal = goal; p.rate = rate; p.color = color; }
+            showToast(`تم تحديث منصة "${name}"`, 'success');
+          } else {
+            state.platforms.push({ id: 'p_' + Date.now(), name, goal, rate, color });
+            showToast(`تمت إضافة منصة "${name}"`, 'success');
+          }
           saveState();
           renderDashboard();
           closeModal('modal-platform');
-          showToast(`تمت إضافة منصة "${name}"`, 'success');
         });
 
-        // Manual Income Entry Form & Table Filters
+        // Work & Income Log Table
         document.getElementById('form-entry').addEventListener('submit', (e) => {
           e.preventDefault();
           const hours = parseFloat(document.getElementById('entry-hours').value);
@@ -4023,13 +4691,12 @@
             payout: document.getElementById('entry-payout').value,
             note: document.getElementById('entry-note').value.trim(),
           });
-          state.isSample = false;
           saveState();
           document.getElementById('entry-hours').value = '';
           document.getElementById('entry-amount').value = '';
           document.getElementById('entry-note').value = '';
           renderDashboard();
-          showToast('تم حفظ السجل في الجدول', 'success');
+          showToast('تم حفظ الجلسة في السجل', 'success');
         });
 
         document.getElementById('log-filter-platform').addEventListener('change', renderEntries);
@@ -4051,7 +4718,7 @@
           bd.addEventListener('click', (e) => { if (e.target === bd) bd.classList.remove('open'); });
         });
 
-        // ==================== COACH EVENTS ====================
+        // Coach Events
         document.getElementById('btn-coach-timer-toggle').addEventListener('click', toggleCoachTimer);
         document.getElementById('btn-coach-timer-reset').addEventListener('click', () => {
           coachTimer.running = false;
@@ -4061,7 +4728,6 @@
         });
         document.getElementById('btn-mark-practiced').addEventListener('click', () => recordPracticePoint(true));
 
-        // Speech Speed & Voice
         document.getElementById('speed-selector').addEventListener('click', (e) => {
           const btn = e.target.closest('.speed-btn');
           if (!btn) return;
@@ -4074,16 +4740,13 @@
           saveState();
         });
 
-        // Legend Highlight Toggles
         document.getElementById('phonetic-legend').addEventListener('click', (e) => {
           const chip = e.target.closest('.legend-chip');
           if (!chip) return;
-          const hl = chip.dataset.hl;
           const isOff = chip.classList.toggle('off');
-          document.getElementById('coach-content').classList.toggle(`hide-${hl}`, isOff);
+          document.getElementById('coach-content').classList.toggle(`hide-${chip.dataset.hl}`, isOff);
         });
 
-        // Coach Sub-Tabs
         document.getElementById('coach-subtabs').addEventListener('click', (e) => {
           const btn = e.target.closest('.subtab-btn');
           if (!btn) return;
@@ -4093,7 +4756,6 @@
           hideTooltip();
         });
 
-        // Shadowing Categories & Play Controls
         document.getElementById('script-categories').addEventListener('click', (e) => {
           const btn = e.target.closest('.cat-pill');
           if (!btn) return;
@@ -4118,6 +4780,22 @@
             speakText(script.sentences[idx].plain, () => card.classList.remove('speaking'));
             return;
           }
+          const prac = e.target.closest('[data-practice-script]');
+          if (prac) {
+            const idx = parseInt(prac.dataset.practiceScript, 10);
+            const key = `${activeScriptCat}_${idx}`;
+            if (!state.coach.practicedScripts) state.coach.practicedScripts = {};
+            const wasDone = Boolean(state.coach.practicedScripts[key]);
+            if (!wasDone) {
+              state.coach.practicedScripts[key] = true;
+              recordPracticePoint(true);
+            } else {
+              delete state.coach.practicedScripts[key];
+              saveState();
+            }
+            renderScriptSentences();
+            return;
+          }
           const ph = e.target.closest('.ph-word');
           if (ph) {
             showTooltipFor(ph);
@@ -4125,7 +4803,6 @@
           }
         });
 
-        // Tooltip hover & touch support
         document.getElementById('coach-content').addEventListener('mouseover', (e) => {
           const ph = e.target.closest('.ph-word');
           if (ph) showTooltipFor(ph);
@@ -4137,7 +4814,6 @@
           if (!e.target.closest('.ph-word')) hideTooltip();
         });
 
-        // Sound Drills Filters & Click-to-Play
         document.getElementById('drill-filters').addEventListener('click', (e) => {
           const btn = e.target.closest('.cat-pill');
           if (!btn) return;
@@ -4158,7 +4834,6 @@
           recordPracticePoint(false);
         });
 
-        // Custom Practice Textarea
         document.getElementById('btn-custom-sample').addEventListener('click', () => {
           document.getElementById('custom-textarea').value =
             "Hi there! I saw your post about needing a reliable virtual assistant for customer support and order tracking. I've helped clients manage Shopify orders, follow up on UPS shipments, and handle inbound calls smoothly. Would you be open to a quick ten-minute chat later today to see if we're a good fit?";
@@ -4183,7 +4858,7 @@
               <div class="sentence-card">
                 <div class="sentence-en">${escapeHTML(sent)}</div>
                 <div class="sentence-footer">
-                  <span class="sentence-ar-tip">جملة #${i + 1} — استمع وردد بعدها بنفس الإيقاع</span>
+                  <span class="sentence-ar-tip">جملة #${i + 1} — استمع وردد بنفس الإيقاع</span>
                   <button type="button" class="btn btn-sm btn-soft-indigo" data-speak-custom="${i}">🔊 استمع</button>
                 </div>
               </div>
@@ -4201,7 +4876,6 @@
           };
         });
 
-        // Voice Recorder Controls
         document.getElementById('btn-rec-start').addEventListener('click', startRecording);
         document.getElementById('btn-rec-stop').addEventListener('click', stopRecording);
       }
@@ -4209,6 +4883,8 @@
       // ==================== INIT ====================
       function init() {
         document.getElementById('entry-date').value = getDateStr(0);
+        document.getElementById('apps-script-code').textContent = APPS_SCRIPT_SNIPPET;
+
         applyTheme();
         bindEvents();
         renderDashboard();
@@ -4219,6 +4895,13 @@
 
         updateClocks();
         setInterval(updateClocks, 1000);
+
+        // Fetch Live USD-to-EGP Rate on load + every 30 mins
+        fetchLiveExchangeRate(false);
+        setInterval(() => fetchLiveExchangeRate(false), 30 * 60 * 1000);
+
+        // Startup Cloud Sync Check (supports #sync=... hash for instant phone setup)
+        handleStartupSyncParam();
 
         loadVoices();
         if ('speechSynthesis' in window) {
