@@ -1,1122 +1,369 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr" class="dark">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Freelance &amp; Income Command Center</title>
+<!-- ... existing code ... -->
+  <meta name="application-name" content="Work Hub" />
+  <title>Work &amp; Income Hub</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=Cairo:wght@400;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link id="app-favicon" rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%236366f1'/%3E%3Cstop offset='55%25' stop-color='%237c3aed'/%3E%3Cstop offset='100%25' stop-color='%2310b981'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='512' height='512' rx='118' fill='url(%23g)'/%3E%3Cpath d='M92 276h74l42-104 68 188 54-126 38 42h52' fill='none' stroke='%23ffffff' stroke-width='38' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='420' cy='276' r='22' fill='%23a7f3d0'/%3E%3C/svg%3E" />
+  <link id="apple-touch-icon" rel="apple-touch-icon" href="" />
+  <link id="app-manifest" rel="manifest" href="" />
 
-  <style>
-    :root {
-      --font-sans: 'Inter', 'Cairo', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      --font-display: 'Plus Jakarta Sans', 'Inter', 'Cairo', sans-serif;
-      --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
-      --bg-body: #070b14;
-      --bg-surface: #0e1525;
-      --bg-card: #121b2e;
-      --bg-card-hover: #17223a;
-      --bg-input: #0b111e;
-      --bg-pill: #182338;
-      --text-primary: #f1f5f9;
-      --text-secondary: #94a3b8;
-      --text-muted: #64748b;
-      --border-subtle: rgba(148, 163, 184, 0.13);
-      --border-strong: rgba(148, 163, 184, 0.25);
-      --accent-indigo: #818cf8;
-      --accent-indigo-solid: #6366f1;
-      --accent-indigo-soft: rgba(99, 102, 241, 0.15);
-      --accent-emerald: #34d399;
-      --accent-emerald-soft: rgba(16, 185, 129, 0.14);
-      --accent-sky: #38bdf8;
-      --accent-sky-soft: rgba(56, 189, 248, 0.14);
-      --accent-amber: #fbbf24;
-      --accent-amber-soft: rgba(245, 158, 11, 0.14);
-      --accent-rose: #fb7185;
-      --accent-rose-soft: rgba(244, 63, 94, 0.14);
-      --radius-lg: 16px;
-      --radius-md: 12px;
-      --radius-sm: 8px;
-      --radius-pill: 9999px;
-      --shadow-card: 0 10px 25px -10px rgba(0, 0, 0, 0.55);
-    }
+  <script>
+    (function setupAppIconAndManifest() {
+      try {
+        var canvas = document.createElement('canvas');
+        canvas.width = 512;
+        canvas.height = 512;
+        var ctx = canvas.getContext('2d');
+        if (ctx) {
+          var grad = ctx.createLinearGradient(0, 0, 512, 512);
+          grad.addColorStop(0, '#6366f1');
+          grad.addColorStop(0.55, '#7c3aed');
+          grad.addColorStop(1, '#10b981');
+          ctx.fillStyle = grad;
+          ctx.fillRect(0, 0, 512, 512);
 
-    html:not(.dark) {
-      --bg-body: #f1f5f9;
-      --bg-surface: #ffffff;
-      --bg-card: #ffffff;
-      --bg-card-hover: #f8fafc;
-      --bg-input: #f8fafc;
-      --bg-pill: #eef2ff;
-      --text-primary: #0f172a;
-      --text-secondary: #475569;
-      --text-muted: #64748b;
-      --border-subtle: rgba(15, 23, 42, 0.09);
-      --border-strong: rgba(15, 23, 42, 0.18);
-      --accent-indigo: #4f46e5;
-      --accent-indigo-solid: #4f46e5;
-      --accent-indigo-soft: rgba(79, 70, 229, 0.1);
-      --accent-emerald: #059669;
-      --accent-emerald-soft: rgba(5, 150, 105, 0.1);
-      --accent-sky: #0284c7;
-      --accent-sky-soft: rgba(2, 132, 199, 0.1);
-      --accent-amber: #d97706;
-      --accent-amber-soft: rgba(217, 119, 6, 0.1);
-      --accent-rose: #e11d48;
-      --accent-rose-soft: rgba(225, 29, 72, 0.1);
-      --shadow-card: 0 8px 20px -12px rgba(15, 23, 42, 0.12);
-    }
+          ctx.fillStyle = 'rgba(255,255,255,0.12)';
+          ctx.beginPath();
+          ctx.arc(410, 102, 130, 0, Math.PI * 2);
+          ctx.fill();
 
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+          ctx.strokeStyle = '#ffffff';
+          ctx.lineWidth = 38;
+          ctx.lineCap = 'round';
+          ctx.lineJoin = 'round';
+          ctx.beginPath();
+          ctx.moveTo(92, 276);
+          ctx.lineTo(166, 276);
+          ctx.lineTo(208, 172);
+          ctx.lineTo(276, 360);
+          ctx.lineTo(330, 234);
+          ctx.lineTo(368, 276);
+          ctx.lineTo(420, 276);
+          ctx.stroke();
 
-    body {
-      font-family: var(--font-sans);
-      background-color: var(--bg-body);
-      color: var(--text-primary);
-      line-height: 1.58;
-      letter-spacing: -0.01em;
-      min-height: 100vh;
-      transition: background-color 0.25s ease, color 0.25s ease;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      overflow-x: hidden;
-    }
+          ctx.fillStyle = '#a7f3d0';
+          ctx.beginPath();
+          ctx.arc(420, 276, 22, 0, Math.PI * 2);
+          ctx.fill();
 
-    h1, h2, h3, .card-title, .kpi-value, .nav-tab-btn, .skill-title {
-      font-family: var(--font-display);
-      letter-spacing: -0.02em;
-    }
+          var pngUrl = canvas.toDataURL('image/png');
+          var appleLink = document.getElementById('apple-touch-icon');
+          if (appleLink) appleLink.href = pngUrl;
+          var favLink = document.getElementById('app-favicon');
+          if (favLink) {
+            favLink.type = 'image/png';
+            favLink.href = pngUrl;
+          }
 
-    .font-mono {
-      font-family: var(--font-mono);
-      font-variant-numeric: tabular-nums;
-      letter-spacing: -0.01em;
-    }
+          var manifestObj = {
+            name: 'Work & Income Hub',
+            short_name: 'Work Hub',
+            start_url: window.location.href,
+            display: 'standalone',
+            background_color: '#070b14',
+            theme_color: '#0e1525',
+            icons: [
+              { src: pngUrl, sizes: '192x192', type: 'image/png', purpose: 'any maskable' },
+              { src: pngUrl, sizes: '512x512', type: 'image/png', purpose: 'any maskable' }
+            ]
+          };
+          var manifestBlob = new Blob([JSON.stringify(manifestObj)], { type: 'application/manifest+json' });
+          var manifestLink = document.getElementById('app-manifest');
+          if (manifestLink) manifestLink.href = URL.createObjectURL(manifestBlob);
+        }
+      } catch (e) {}
+    })();
+  </script>
+<!-- ... existing code ... -->
+    .drill-card:hover { border-color: var(--accent-indigo); }
 
-    button, input, select, textarea {
-      font-family: inherit;
-      color: inherit;
-    }
-
-    button {
-      cursor: pointer;
-      border: none;
-      background: transparent;
-    }
-
-    .hidden { display: none !important; }
-
-    .app-shell {
-      max-width: 1380px;
-      margin: 0 auto;
-      padding: 16px 18px 44px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    /* Top Header */
-    .top-header {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-lg);
-      padding: 10px 14px;
-      box-shadow: var(--shadow-card);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .nav-switcher {
-      display: inline-flex;
-      align-items: center;
-      background: var(--bg-input);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-pill);
-      padding: 4px;
-      gap: 4px;
-    }
-
-    .nav-tab-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      padding: 7px 14px;
-      border-radius: var(--radius-pill);
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: var(--text-secondary);
-      transition: all 0.18s ease;
-      white-space: nowrap;
-    }
-
-    .nav-tab-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
-
-    .nav-tab-btn.active {
-      background: linear-gradient(135deg, #6366f1, #7c3aed);
-      color: #ffffff;
-      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
-    }
-
-    .clocks-strip {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .clock-card {
-      background: var(--bg-input);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      padding: 7px 11px;
-      min-width: 146px;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .clock-cairo-card {
-      border-color: rgba(16, 185, 129, 0.35);
-      background: linear-gradient(180deg, rgba(16, 185, 129, 0.07), var(--bg-input));
-    }
-
-    .clock-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 6px;
-    }
-
-    .clock-city-wrap {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .clock-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-
-    .dot-cairo { background: #10b981; box-shadow: 0 0 8px #10b981; }
-    .dot-et { background: #6366f1; box-shadow: 0 0 8px #6366f1; }
-    .dot-mst { background: #f59e0b; box-shadow: 0 0 8px #f59e0b; }
-
-    .clock-city {
-      font-size: 0.71rem;
-      font-weight: 700;
-      color: var(--text-secondary);
-      white-space: nowrap;
-    }
-
-    .clock-offset {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.64rem;
-      font-weight: 700;
-      padding: 1px 6px;
-      border-radius: var(--radius-pill);
-      background: var(--bg-pill);
-      color: var(--text-secondary);
-      white-space: nowrap;
-    }
-
-    .clock-time {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.9rem;
-      font-weight: 700;
-      color: var(--text-primary);
-      white-space: nowrap;
-      line-height: 1.25;
-    }
-
-    .clock-date {
-      font-size: 0.64rem;
-      font-weight: 600;
-      color: var(--text-muted);
-      white-space: nowrap;
-      line-height: 1.1;
-    }
-
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-
-    .action-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 7px 11px;
-      border-radius: var(--radius-md);
-      background: var(--bg-input);
-      border: 1px solid var(--border-subtle);
-      font-size: 0.76rem;
-      font-weight: 700;
-      color: var(--text-secondary);
-      transition: all 0.16s ease;
-      white-space: nowrap;
-    }
-
-    .action-btn:hover {
-      border-color: var(--border-strong);
-      color: var(--text-primary);
-      background: var(--bg-card-hover);
-    }
-
-    .action-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
-
-    .action-btn.danger {
-      color: var(--accent-rose);
-      border-color: rgba(244, 63, 94, 0.25);
-      background: var(--accent-rose-soft);
-    }
-
-    .sync-pill-btn {
-      border-color: rgba(99, 102, 241, 0.35);
-      background: var(--accent-indigo-soft);
-      color: var(--text-primary);
-    }
-
-    .sync-status-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-
-    .sync-dot-local { background: #94a3b8; }
-    .sync-dot-syncing { background: #38bdf8; animation: pulseDot 1s infinite; }
-    .sync-dot-synced { background: #10b981; box-shadow: 0 0 8px rgba(16, 185, 129, 0.7); }
-    .sync-dot-error { background: #f43f5e; }
-
-    .sync-badge-tag {
-      font-size: 0.65rem;
-      font-weight: 800;
-      padding: 2px 7px;
-      border-radius: var(--radius-pill);
-      background: rgba(148, 163, 184, 0.18);
-      color: var(--text-secondary);
-    }
-
-    .sync-badge-tag.synced {
-      background: var(--accent-emerald-soft);
-      color: var(--accent-emerald);
-    }
-
-    .sync-badge-tag.syncing {
-      background: var(--accent-sky-soft);
-      color: var(--accent-sky);
-    }
-
-    .sync-badge-tag.error {
-      background: var(--accent-rose-soft);
-      color: var(--accent-rose);
-    }
-
-    @keyframes pulseDot {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.35); opacity: 0.6; }
-    }
-
-    /* Panels & Grids */
-    .tab-panel { display: none; flex-direction: column; gap: 16px; }
-    .tab-panel.active { display: flex; }
-
-    .demo-banner {
-      background: linear-gradient(90deg, rgba(99, 102, 241, 0.14), rgba(16, 185, 129, 0.12));
-      border: 1px solid rgba(99, 102, 241, 0.3);
-      border-radius: var(--radius-md);
-      padding: 10px 14px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      flex-wrap: wrap;
-      font-size: 0.78rem;
-      color: var(--text-secondary);
-    }
-
-    .kpi-grid {
+    /* Habit Tracker Styles */
+    .habit-kpi-grid {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 14px;
     }
 
-    .card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-lg);
-      padding: 16px;
-      box-shadow: var(--shadow-card);
-    }
-
-    .kpi-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-lg);
-      padding: 15px;
-      box-shadow: var(--shadow-card);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 10px;
-    }
-
-    .kpi-top {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 10px;
-    }
-
-    .kpi-label {
-      font-size: 0.76rem;
-      font-weight: 700;
-      color: var(--text-secondary);
-    }
-
-    .kpi-value-row {
-      display: flex;
-      align-items: baseline;
-      gap: 8px;
-      margin-top: 4px;
-      flex-wrap: wrap;
-    }
-
-    .kpi-value {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 1.55rem;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-    }
-
-    .kpi-sub-egp {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: var(--accent-emerald);
-      margin-top: 2px;
-    }
-
-    .card-icon {
-      width: 38px;
-      height: 38px;
-      border-radius: var(--radius-md);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .card-icon svg { width: 19px; height: 19px; }
-
-    .icon-indigo { background: var(--accent-indigo-soft); color: var(--accent-indigo); }
-    .icon-emerald { background: var(--accent-emerald-soft); color: var(--accent-emerald); }
-    .icon-sky { background: var(--accent-sky-soft); color: var(--accent-sky); }
-    .icon-amber { background: var(--accent-amber-soft); color: var(--accent-amber); }
-
-    .progress-track {
-      width: 100%;
-      height: 7px;
-      border-radius: var(--radius-pill);
-      background: var(--bg-input);
-      overflow: hidden;
-      border: 1px solid var(--border-subtle);
-    }
-
-    .progress-fill {
-      height: 100%;
-      border-radius: var(--radius-pill);
-      transition: width 0.35s ease;
-    }
-
-    .kpi-inline-controls {
-      display: grid;
-      grid-template-columns: 1fr 1.25fr;
-      gap: 8px;
-    }
-
-    .mini-edit-box {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      background: var(--bg-input);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-sm);
-      padding: 4px 8px;
-      font-size: 0.7rem;
-      color: var(--text-muted);
-    }
-
-    .mini-edit-box input {
-      width: 100%;
-      min-width: 0;
-      background: transparent;
-      border: none;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.76rem;
-      font-weight: 700;
-      color: var(--text-primary);
-      outline: none;
-    }
-
-    .fx-widget {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      padding-top: 8px;
-      border-top: 1px dashed var(--border-subtle);
-    }
-
-    .fx-meta-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 6px;
-      font-size: 0.67rem;
-      color: var(--text-muted);
-      flex-wrap: wrap;
-    }
-
-    .fx-status-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      padding: 2px 7px;
-      border-radius: var(--radius-pill);
-      font-size: 0.65rem;
-      font-weight: 800;
-    }
-
-    .fx-live { background: var(--accent-emerald-soft); color: var(--accent-emerald); }
-    .fx-manual { background: var(--accent-amber-soft); color: var(--accent-amber); }
-
-    .fx-pulse-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: currentColor;
-    }
-
-    .fx-refresh-btn, .fx-auto-btn {
-      padding: 2px 6px;
-      border-radius: 6px;
-      font-size: 0.66rem;
-      font-weight: 700;
-      background: var(--bg-pill);
-      color: var(--text-secondary);
-      border: 1px solid var(--border-subtle);
-    }
-
-    .fx-refresh-btn:hover, .fx-auto-btn:hover { color: var(--text-primary); }
-
-    .kpi-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      font-size: 0.74rem;
-      color: var(--text-secondary);
-      padding-top: 8px;
-      border-top: 1px dashed var(--border-subtle);
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: 2px 8px;
-      border-radius: var(--radius-pill);
-      font-size: 0.7rem;
-      font-weight: 700;
-      white-space: nowrap;
-    }
-
-    .split-grid {
-      display: grid;
-      grid-template-columns: repeat(12, minmax(0, 1fr));
-      gap: 14px;
-    }
-
-    .col-5 { grid-column: span 5; }
-    .col-7 { grid-column: span 7; }
-    .col-6 { grid-column: span 6; }
-    .col-12 { grid-column: span 12; }
-
-    .card-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 14px;
-      flex-wrap: wrap;
-    }
-
-    .card-title-group {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .card-title { font-size: 0.96rem; font-weight: 800; }
-    .card-subtitle { font-size: 0.73rem; color: var(--text-secondary); }
-
-    .field-label {
-      display: block;
-      font-size: 0.72rem;
-      font-weight: 700;
-      color: var(--text-secondary);
-      margin-bottom: 5px;
-    }
-
-    .input, .select, .textarea {
-      width: 100%;
-      background: var(--bg-input);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      padding: 9px 11px;
-      font-size: 0.8rem;
-      color: var(--text-primary);
-      outline: none;
-      transition: border-color 0.16s ease;
-    }
-
-    .input:focus, .select:focus, .textarea:focus {
-      border-color: var(--accent-indigo-solid);
-    }
-
-    .textarea { resize: vertical; min-height: 76px; }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      padding: 9px 14px;
-      border-radius: var(--radius-md);
-      font-size: 0.8rem;
-      font-weight: 700;
-      transition: all 0.16s ease;
-      white-space: nowrap;
-    }
-
-    .btn-sm { padding: 6px 10px; font-size: 0.73rem; border-radius: var(--radius-sm); }
-
-    .btn-primary {
-      background: linear-gradient(135deg, #6366f1, #7c3aed);
-      color: #ffffff;
-      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);
-    }
-
-    .btn-primary:hover { filter: brightness(1.08); }
-
-    .btn-secondary {
-      background: var(--bg-pill);
-      color: var(--text-primary);
-      border: 1px solid var(--border-subtle);
-    }
-
-    .btn-secondary:hover { border-color: var(--border-strong); }
-
-    .btn-soft-emerald {
-      background: var(--accent-emerald-soft);
-      color: var(--accent-emerald);
-      border: 1px solid rgba(16, 185, 129, 0.28);
-    }
-
-    .btn-soft-indigo {
-      background: var(--accent-indigo-soft);
-      color: var(--accent-indigo);
-      border: 1px solid rgba(99, 102, 241, 0.28);
-    }
-
-    .btn-soft-rose {
-      background: var(--accent-rose-soft);
-      color: var(--accent-rose);
-      border: 1px solid rgba(244, 63, 94, 0.28);
-    }
-
-    /* Timer */
-    .mode-switch {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6px;
-      background: var(--bg-input);
-      padding: 4px;
-      border-radius: var(--radius-md);
-      border: 1px solid var(--border-subtle);
-      margin-bottom: 10px;
-    }
-
-    .mode-btn {
-      padding: 7px;
-      border-radius: var(--radius-sm);
-      font-size: 0.76rem;
-      font-weight: 700;
-      color: var(--text-secondary);
-    }
-
-    .mode-btn.active {
-      background: var(--bg-card);
-      color: var(--text-primary);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-    }
-
-    .preset-row {
-      display: flex;
-      justify-content: center;
-      gap: 7px;
-      margin-bottom: 10px;
-    }
-
-    .preset-pill {
-      padding: 4px 12px;
-      border-radius: var(--radius-pill);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.72rem;
-      font-weight: 700;
-      background: var(--bg-input);
-      border: 1px solid var(--border-subtle);
-      color: var(--text-secondary);
-    }
-
-    .preset-pill.active {
-      background: var(--accent-indigo-soft);
-      border-color: var(--accent-indigo);
-      color: var(--accent-indigo);
-    }
-
-    .timer-ring-box {
+    .habit-ring-wrap {
       position: relative;
-      width: 174px;
-      height: 174px;
-      margin: 4px auto 12px;
+      width: 56px;
+      height: 56px;
+      flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    .timer-ring-svg { width: 100%; height: 100%; transform: rotate(-90deg); }
-    .timer-ring-bg { fill: none; stroke: var(--bg-input); stroke-width: 10; }
-    .timer-ring-fg {
+    .habit-ring-wrap svg {
+      width: 100%;
+      height: 100%;
+      transform: rotate(-90deg);
+    }
+
+    .habit-ring-bg { fill: none; stroke: var(--bg-input); stroke-width: 6; }
+    .habit-ring-fg {
       fill: none;
-      stroke: url(#timerGrad);
-      stroke-width: 10;
+      stroke: #10b981;
+      stroke-width: 6;
       stroke-linecap: round;
       transition: stroke-dashoffset 0.35s ease;
     }
 
-    .timer-center {
-      position: inset 0;
+    .habit-ring-pct {
       position: absolute;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
-
-    .timer-phase { font-size: 0.67rem; font-weight: 700; color: var(--text-muted); }
-    .timer-digits { font-family: 'JetBrains Mono', monospace; font-size: 1.7rem; font-weight: 800; line-height: 1.15; }
-    .timer-est-pill {
-      margin-top: 4px;
-      padding: 2px 8px;
-      border-radius: var(--radius-pill);
-      background: var(--accent-emerald-soft);
-      color: var(--accent-emerald);
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.7rem;
-      font-weight: 700;
-    }
-
-    .timer-inputs-row {
-      display: grid;
-      grid-template-columns: 1.4fr 1fr;
-      gap: 8px;
-      margin-bottom: 10px;
-    }
-
-    .timer-controls-row {
-      display: grid;
-      grid-template-columns: 1.6fr 1fr;
-      gap: 8px;
-      margin-bottom: 8px;
-    }
-
-    /* Tasks */
-    .task-form { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
-    .task-form-row { display: grid; grid-template-columns: 1fr 1.2fr auto; gap: 8px; }
-
-    .filter-pills { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
-
-    .filter-pill {
-      padding: 5px 11px;
-      border-radius: var(--radius-pill);
       font-size: 0.72rem;
-      font-weight: 700;
-      background: var(--bg-input);
-      border: 1px solid var(--border-subtle);
-      color: var(--text-secondary);
+      font-weight: 800;
+      color: var(--accent-emerald);
     }
 
-    .filter-pill.active {
-      background: var(--accent-indigo-solid);
-      border-color: var(--accent-indigo-solid);
-      color: #ffffff;
-    }
-
-    .task-list {
+    .heatmap-wrapper {
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      max-height: 360px;
-      overflow-y: auto;
-      padding-right: 2px;
-    }
-
-    .task-item {
-      background: var(--bg-input);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      padding: 10px 12px;
-      display: flex;
-      align-items: flex-start;
       gap: 10px;
     }
 
-    .task-item.done .task-text { text-decoration: line-through; opacity: 0.55; }
+    .heatmap-grid {
+      display: grid;
+      grid-template-columns: repeat(15, minmax(0, 1fr));
+      gap: 6px;
+    }
 
-    .task-check {
-      width: 19px;
-      height: 19px;
-      border-radius: 6px;
-      border: 2px solid var(--border-strong);
+    .hm-cell {
+      aspect-ratio: 1 / 1;
+      min-height: 28px;
+      border-radius: 7px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-input);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      transition: transform 0.14s ease, border-color 0.14s ease;
+      position: relative;
+    }
+
+    .hm-cell:hover { transform: translateY(-2px); border-color: var(--border-strong); }
+    .hm-cell.selected { outline: 2px solid var(--accent-indigo); outline-offset: 1px; color: var(--text-primary); }
+    .hm-lvl-1 { background: rgba(16, 185, 129, 0.18); border-color: rgba(16, 185, 129, 0.35); color: var(--text-primary); }
+    .hm-lvl-2 { background: rgba(16, 185, 129, 0.38); border-color: rgba(16, 185, 129, 0.55); color: #ffffff; }
+    .hm-lvl-3 { background: rgba(16, 185, 129, 0.65); border-color: rgba(16, 185, 129, 0.85); color: #ffffff; }
+    .hm-lvl-4 { background: #10b981; border-color: #34d399; color: #042f2e; font-weight: 800; }
+
+    .hm-legend {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 0.72rem;
+      color: var(--text-secondary);
+    }
+
+    .hm-scale {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .hm-swatch {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .habits-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .habit-card {
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: border-color 0.16s ease;
+    }
+
+    .habit-card.completed-day {
+      border-color: rgba(16, 185, 129, 0.42);
+      background: linear-gradient(180deg, rgba(16, 185, 129, 0.06), var(--bg-input));
+    }
+
+    .habit-card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .habit-identity {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .habit-emoji-box {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      font-size: 1.15rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
       flex-shrink: 0;
-      margin-top: 2px;
-      font-size: 0.72rem;
-      font-weight: 800;
     }
 
-    .task-item.done .task-check {
+    .habit-name {
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      word-break: break-word;
+    }
+
+    .habit-badges {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+
+    .habit-action-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 8px 10px;
+      flex-wrap: wrap;
+    }
+
+    .habit-stepper {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .step-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 7px;
+      background: var(--bg-pill);
+      border: 1px solid var(--border-subtle);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .step-btn:hover { border-color: var(--accent-indigo); }
+
+    .habit-check-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-input);
+      color: var(--text-secondary);
+      transition: all 0.16s ease;
+    }
+
+    .habit-check-btn.done {
       background: var(--accent-emerald);
       border-color: var(--accent-emerald);
       color: #052e16;
     }
 
-    .task-body { flex: 1; min-width: 0; }
-    .task-text { font-size: 0.82rem; font-weight: 600; word-break: break-word; }
-    .task-meta { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-top: 5px; }
+    .habit-days-row {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 5px;
+    }
 
-    .prio-high { background: var(--accent-rose-soft); color: var(--accent-rose); }
-    .prio-medium { background: var(--accent-amber-soft); color: var(--accent-amber); }
-    .prio-low { background: var(--accent-sky-soft); color: var(--accent-sky); }
-
-    .icon-btn-sm {
-      width: 26px;
-      height: 26px;
-      border-radius: 7px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: var(--text-muted);
+    .day-pill-btn {
+      padding: 5px 2px;
+      border-radius: 8px;
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
-      flex-shrink: 0;
-    }
-
-    .icon-btn-del:hover { color: var(--accent-rose); border-color: rgba(244, 63, 94, 0.4); }
-
-    /* Quick Notes & Skills Tracker */
-    .notes-pills { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
-
-    .note-scope-pill {
-      padding: 5px 11px;
-      border-radius: var(--radius-pill);
-      font-size: 0.72rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      font-size: 0.64rem;
       font-weight: 700;
-      background: var(--bg-pill);
-      color: var(--text-secondary);
-      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
     }
 
-    .note-scope-pill.active {
-      background: var(--accent-indigo-soft);
-      color: var(--accent-indigo);
+    .day-pill-btn.active-date {
       border-color: var(--accent-indigo);
     }
 
-    .notes-textarea { min-height: 132px; font-size: 0.8rem; line-height: 1.55; }
+    .day-pill-btn.day-done {
+      background: var(--accent-emerald-soft);
+      border-color: rgba(16, 185, 129, 0.45);
+      color: var(--accent-emerald);
+    }
 
-    .notes-meta-foot {
+    .day-pill-btn.day-partial {
+      background: var(--accent-amber-soft);
+      border-color: rgba(245, 158, 11, 0.45);
+      color: var(--accent-amber);
+    }
+
+    .habit-stats-foot {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 8px;
-      margin-top: 8px;
-      font-size: 0.7rem;
-      color: var(--text-muted);
-      flex-wrap: wrap;
-    }
-
-    .skill-add-bar {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr auto;
-      gap: 8px;
-      background: var(--bg-input);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      padding: 11px;
-      margin-bottom: 13px;
-    }
-
-    .skills-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 11px; }
-
-    .skill-card {
-      background: var(--bg-input);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      padding: 13px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .skill-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
-    .skill-title { font-size: 0.85rem; font-weight: 800; }
-    .skill-pct { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; font-weight: 800; color: var(--accent-emerald); }
-    .skill-sub { display: flex; justify-content: space-between; gap: 8px; font-size: 0.71rem; color: var(--text-secondary); flex-wrap: wrap; }
-
-    .skill-actions {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 6px;
+      font-size: 0.71rem;
+      color: var(--text-secondary);
       padding-top: 6px;
       border-top: 1px dashed var(--border-subtle);
       flex-wrap: wrap;
     }
 
-    /* Platforms & Charts */
-    .plat-list { display: flex; flex-direction: column; gap: 9px; margin-bottom: 12px; }
-
-    .plat-row {
-      background: var(--bg-input);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      padding: 10px 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 7px;
-    }
-
-    .plat-row-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-    .plat-name-wrap { display: flex; align-items: center; gap: 8px; font-size: 0.81rem; font-weight: 700; }
-    .plat-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
-    .plat-nums { font-size: 0.72rem; color: var(--text-secondary); display: flex; justify-content: space-between; gap: 8px; }
-
-    .chart-legend { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; font-size: 0.72rem; color: var(--text-secondary); }
-    .chart-legend-item { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
-
-    /* Ledger */
-    .entry-form-grid {
-      display: grid;
-      grid-template-columns: repeat(6, minmax(0, 1fr));
-      gap: 8px;
-      background: var(--bg-input);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      padding: 12px;
-      margin-bottom: 12px;
-    }
-
-    .span-2 { grid-column: span 2; }
-    .span-4 { grid-column: span 4; }
-
-    .table-wrap { overflow-x: auto; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); }
-    table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.79rem; }
-    thead th {
-      background: var(--bg-input);
-      padding: 9px 12px;
-      font-size: 0.71rem;
-      font-weight: 700;
-      color: var(--text-secondary);
-      border-bottom: 1px solid var(--border-subtle);
-      white-space: nowrap;
-    }
-    tbody td { padding: 9px 12px; border-bottom: 1px solid var(--border-subtle); white-space: nowrap; }
-    tbody tr:last-child td { border-bottom: none; }
-
-    /* Accent Coach */
-    .coach-top-row { display: grid; grid-template-columns: 1.4fr 1fr; gap: 14px; }
-    .coach-stats-mini { display: flex; gap: 10px; flex-wrap: wrap; }
-    .mini-stat {
-      background: var(--bg-input);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      padding: 8px 12px;
-      min-width: 96px;
-    }
-    .mini-stat-val { font-family: 'JetBrains Mono', monospace; font-size: 1.05rem; font-weight: 800; color: var(--accent-indigo); }
-    .mini-stat-lbl { font-size: 0.68rem; color: var(--text-muted); font-weight: 700; }
-
-    .phonetic-legend { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
-    .p-chip {
-      padding: 4px 9px;
-      border-radius: var(--radius-pill);
-      font-size: 0.7rem;
-      font-weight: 700;
-      border: 1px solid var(--border-subtle);
-      opacity: 0.55;
-    }
-    .p-chip.active { opacity: 1; border-color: currentColor; }
-    .chip-flap { color: #38bdf8; background: rgba(56, 189, 248, 0.12); }
-    .chip-schwa { color: #c084fc; background: rgba(192, 132, 252, 0.12); }
-    .chip-ed { color: #34d399; background: rgba(52, 211, 153, 0.12); }
-    .chip-th { color: #fbbf24; background: rgba(251, 191, 36, 0.12); }
-    .chip-pb { color: #fb7185; background: rgba(251, 113, 133, 0.12); }
-    .chip-link { color: #818cf8; background: rgba(129, 140, 248, 0.12); }
-
-    .ph-token {
-      padding: 1px 4px;
-      border-radius: 5px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-    .ph-flap { background: rgba(56, 189, 248, 0.2); color: #7dd3fc; border-bottom: 2px solid #38bdf8; }
-    .ph-schwa { background: rgba(192, 132, 252, 0.2); color: #d8b4fe; border-bottom: 2px solid #c084fc; }
-    .ph-ed { background: rgba(52, 211, 153, 0.2); color: #6ee7b7; border-bottom: 2px solid #34d399; }
-    .ph-th { background: rgba(251, 191, 36, 0.2); color: #fde68a; border-bottom: 2px solid #fbbf24; }
-    .ph-pb { background: rgba(251, 113, 133, 0.2); color: #fda4af; border-bottom: 2px solid #fb7185; }
-    .ph-link { background: rgba(129, 140, 248, 0.2); color: #a5b4fc; border-bottom: 2px dashed #818cf8; }
-
-    .script-box {
-      background: var(--bg-input);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      padding: 14px;
-      font-size: 0.92rem;
-      line-height: 1.85;
-      margin: 10px 0;
-    }
-
-    .drills-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
-    .drill-card {
-      background: var(--bg-input);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      padding: 12px;
-      text-align: left;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-    .drill-card:hover { border-color: var(--accent-indigo); }
-
     /* Tooltip & Modals & Toasts */
-    #phonetic-tooltip {
-      position: fixed;
-      z-index: 95;
-      max-width: 280px;
-      background: var(--bg-surface);
-      border: 1px solid var(--border-strong);
-      border-radius: var(--radius-md);
-      padding: 10px 12px;
-      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.45);
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.14s ease;
-    }
-    #phonetic-tooltip.visible { opacity: 1; }
-    .tt-top { display: flex; justify-content: space-between; gap: 8px; margin-bottom: 4px; }
-    .tt-respell { font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; font-weight: 800; color: var(--accent-sky); }
-    .tt-cat { font-size: 0.66rem; font-weight: 700; color: var(--accent-indigo); }
-    .tt-tip { font-size: 0.74rem; color: var(--text-secondary); }
-
-    .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      z-index: 80;
-      background: rgba(2, 6, 23, 0.72);
-      backdrop-filter: blur(4px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
-    }
-    .modal-backdrop.open { display: flex; }
-    .modal-card {
-      width: 100%;
-      max-width: 620px;
-      max-height: 90vh;
-      overflow-y: auto;
-      background: var(--bg-card);
-      border: 1px solid var(--border-strong);
-      border-radius: var(--radius-lg);
-      padding: 18px;
-      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.6);
-    }
-
-    #toast-container {
-      position: fixed;
-      bottom: 16px;
-      right: 16px;
-      z-index: 90;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      max-width: 340px;
-      width: calc(100% - 32px);
-      pointer-events: none;
-    }
-
-    .toast {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-strong);
-      border-left: 4px solid var(--accent-indigo-solid);
-      border-radius: var(--radius-md);
-      padding: 10px 12px;
-      font-size: 0.78rem;
-      font-weight: 700;
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
-    }
-    .toast.success { border-left-color: #10b981; }
-    .toast.warn { border-left-color: #f59e0b; }
-    .toast.error { border-left-color: #f43f5e; }
-
+<!-- ... existing code ... -->
     @media (max-width: 1080px) {
-      .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .kpi-grid, .habit-kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .col-5, .col-7, .col-6 { grid-column: span 12; }
       .coach-top-row { grid-template-columns: 1fr; }
+      .heatmap-grid { grid-template-columns: repeat(10, minmax(0, 1fr)); }
     }
 
     @media (max-width: 760px) {
       .skill-add-bar { grid-template-columns: 1fr 1fr; }
       .skill-add-bar button { grid-column: span 2; }
-      .skills-grid, .drills-grid { grid-template-columns: 1fr; }
+      .skills-grid, .drills-grid, .habits-cards-grid { grid-template-columns: 1fr; }
       .entry-form-grid { grid-template-columns: 1fr; }
       .span-2, .span-4 { grid-column: span 1; }
+      .heatmap-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
     }
 
     @media (max-width: 560px) {
-      .kpi-grid { grid-template-columns: 1fr; }
+      .kpi-grid, .habit-kpi-grid { grid-template-columns: 1fr; }
       .task-form-row { grid-template-columns: 1fr; }
       .skill-add-bar { grid-template-columns: 1fr; }
       .skill-add-bar button { grid-column: span 1; }
@@ -1125,155 +372,43 @@
   </style>
 </head>
 <body>
-
-  <div id="phonetic-tooltip" role="tooltip" aria-hidden="true">
-    <div class="tt-top">
-      <span id="tt-respell" class="tt-respell"></span>
-      <span id="tt-cat" class="tt-cat"></span>
-    </div>
-    <div id="tt-tip" class="tt-tip"></div>
-  </div>
-
-  <div id="toast-container"></div>
-
-  <div class="app-shell">
-    <!-- Top Header -->
-    <header class="top-header">
-      <nav class="nav-switcher" aria-label="Primary Navigation">
+<!-- ... existing code ... -->
         <button id="tab-btn-dashboard" type="button" class="nav-tab-btn active" data-main-tab="dashboard">
           <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
           </svg>
           <span>Work &amp; Income Hub</span>
         </button>
-        <button id="tab-btn-coach" type="button" class="nav-tab-btn" data-main-tab="coach">
+        <button id="tab-btn-habits" type="button" class="nav-tab-btn" data-main-tab="habits">
           <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
-          <span>US Accent Coach</span>
+          <span>Habit Tracker</span>
         </button>
       </nav>
+<!-- ... existing code ... -->
+    </main>
 
-      <div class="clocks-strip" aria-label="Live Timezone Clocks">
-        <div class="clock-card clock-cairo-card">
-          <div class="clock-top">
-            <div class="clock-city-wrap">
-              <span class="clock-dot dot-cairo"></span>
-              <span class="clock-city">Cairo (EET)</span>
-            </div>
-          </div>
-          <div id="clock-cairo" class="clock-time">--:--:-- --</div>
-          <div id="date-cairo" class="clock-date">---</div>
-        </div>
-
-        <div class="clock-card">
-          <div class="clock-top">
-            <div class="clock-city-wrap">
-              <span class="clock-dot dot-et"></span>
-              <span class="clock-city">US Eastern (ET)</span>
-            </div>
-            <span id="offset-et" class="clock-offset">-7h</span>
-          </div>
-          <div id="clock-et" class="clock-time">--:--:-- --</div>
-          <div id="date-et" class="clock-date">---</div>
-        </div>
-
-        <div class="clock-card">
-          <div class="clock-top">
-            <div class="clock-city-wrap">
-              <span class="clock-dot dot-mst"></span>
-              <span class="clock-city">Arizona (MST)</span>
-            </div>
-            <span id="offset-mst" class="clock-offset">-9h</span>
-          </div>
-          <div id="clock-mst" class="clock-time">--:--:-- --</div>
-          <div id="date-mst" class="clock-date">---</div>
-        </div>
-      </div>
-
-      <div class="header-actions">
-        <button id="btn-sync-open" type="button" class="action-btn sync-pill-btn" title="Cloud Sync Settings">
-          <span id="header-sync-dot" class="sync-status-dot sync-dot-local"></span>
-          <span class="hide-xs">Sync</span>
-          <span id="header-sync-badge" class="sync-badge-tag">Local</span>
-        </button>
-
-        <button id="btn-theme" type="button" class="action-btn" title="Toggle Theme">
-          <span id="theme-icon">☀</span>
-          <span class="hide-xs">Theme</span>
-        </button>
-
-        <button id="btn-export" type="button" class="action-btn" title="Export JSON Backup">
-          <span>↓</span>
-          <span class="hide-xs">Backup</span>
-        </button>
-
-        <label class="action-btn" title="Import JSON Backup" style="cursor:pointer">
-          <span>↑</span>
-          <span class="hide-xs">Import</span>
-          <input id="input-import" type="file" accept="application/json" style="display:none" />
-        </label>
-
-        <button id="btn-reset-open" type="button" class="action-btn danger" title="Reset Data">
-          <span>↻</span>
-          <span class="hide-xs">Reset</span>
-        </button>
-      </div>
-    </header>
-
-    <!-- SECTION 1: WORK & INCOME HUB -->
-    <main id="panel-dashboard" class="tab-panel active">
-      <div id="demo-banner" class="demo-banner hidden">
-        <span>Preview sample data is loaded. Reset to zero to start tracking live metrics and sync with Google Sheets.</span>
-        <div style="display:flex;gap:8px;align-items:center">
-          <button id="btn-quick-zero" type="button" class="btn btn-sm btn-soft-rose">Zero &amp; Go Live</button>
-          <button id="btn-dismiss-demo" type="button" class="btn btn-sm btn-secondary">Dismiss</button>
-        </div>
-      </div>
-
-      <!-- 4 KPI Cards -->
-      <section class="kpi-grid" aria-label="Key Performance Metrics">
+    <!-- SECTION 2: HABIT TRACKER -->
+    <section id="panel-habits" class="tab-panel">
+      <!-- Habit KPIs -->
+      <div class="habit-kpi-grid" aria-label="Habit Consistency Metrics">
         <div class="kpi-card">
-          <div>
-            <div class="kpi-top">
-              <div>
-                <div class="kpi-label">Monthly Income</div>
-                <div class="kpi-value-row">
-                  <span id="kpi-usd" class="kpi-value">$0.00</span>
-                  <span id="kpi-pct" class="badge icon-indigo font-mono">0%</span>
-                </div>
-                <div id="kpi-egp" class="kpi-sub-egp">≈ 0 EGP</div>
+          <div class="kpi-top">
+            <div>
+              <div class="kpi-label" id="habit-date-kpi-lbl">Today's Progress</div>
+              <div class="kpi-value-row">
+                <span id="habit-kpi-done" class="kpi-value">0</span>
+                <span style="font-size:0.82rem;color:var(--text-secondary)">/ <strong id="habit-kpi-total" class="font-mono">0</strong> habits</span>
               </div>
-              <div class="card-icon icon-indigo">$</div>
+              <div id="habit-kpi-subdate" class="kpi-sub-egp" style="color:var(--accent-sky)">Today</div>
             </div>
-            <div style="margin-top:9px">
-              <div class="progress-track">
-                <div id="kpi-goal-bar" class="progress-fill" style="width:0%;background:linear-gradient(90deg,#6366f1,#a855f7)"></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="fx-widget">
-            <div class="kpi-inline-controls">
-              <div class="mini-edit-box">
-                <label for="inline-goal">Goal $</label>
-                <input id="inline-goal" type="number" min="1" step="50" />
-              </div>
-              <div class="mini-edit-box">
-                <label for="inline-rate">EGP</label>
-                <input id="inline-rate" type="number" min="1" step="0.01" />
-                <button id="btn-fx-refresh" type="button" class="fx-refresh-btn" title="Refresh Live USD/EGP Rate">↻</button>
-              </div>
-            </div>
-            <div class="fx-meta-row">
-              <div style="display:flex;align-items:center;gap:5px">
-                <span id="fx-badge" class="fx-status-pill fx-live">
-                  <span class="fx-pulse-dot"></span>
-                  <span id="fx-badge-text">Live</span>
-                </span>
-                <button id="btn-fx-auto" type="button" class="fx-auto-btn" title="Use Automatic Live Rate">Auto</button>
-              </div>
-              <span id="fx-updated-text">Syncing FX...</span>
+            <div class="habit-ring-wrap">
+              <svg viewBox="0 0 64 64">
+                <circle class="habit-ring-bg" cx="32" cy="32" r="26" />
+                <circle id="habit-ring-fg" class="habit-ring-fg" cx="32" cy="32" r="26" stroke-dasharray="163.36" stroke-dashoffset="163.36" />
+              </svg>
+              <span id="habit-ring-pct" class="habit-ring-pct">0%</span>
             </div>
           </div>
         </div>
@@ -1281,558 +416,195 @@
         <div class="kpi-card">
           <div class="kpi-top">
             <div>
-              <div class="kpi-label">Total Hours (Month)</div>
+              <div class="kpi-label">Best Active Streak</div>
               <div class="kpi-value-row">
-                <span id="kpi-hours" class="kpi-value">0.0</span>
-                <span style="font-size:0.82rem;font-weight:700;color:var(--text-secondary)">hrs</span>
+                <span id="habit-kpi-streak" class="kpi-value">0</span>
+                <span style="font-size:0.82rem;font-weight:700;color:var(--text-secondary)">days</span>
               </div>
             </div>
-            <div class="card-icon icon-sky">⏱</div>
+            <div class="card-icon icon-amber">🔥</div>
           </div>
           <div class="kpi-footer">
-            <span>Daily Average</span>
-            <strong id="kpi-daily-avg" class="font-mono" style="color:var(--accent-sky)">0.0 hrs/day</strong>
+            <span>Top Habit</span>
+            <strong id="habit-kpi-top-streak" style="color:var(--accent-amber);max-width:165px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">—</strong>
           </div>
         </div>
 
         <div class="kpi-card">
           <div class="kpi-top">
             <div>
-              <div class="kpi-label">Avg. Hourly Rate</div>
+              <div class="kpi-label">7-Day Consistency</div>
               <div class="kpi-value-row">
-                <span id="kpi-hourly" class="kpi-value">$0.00</span>
-                <span class="font-mono" style="font-size:0.78rem;color:var(--text-muted)">/ hr</span>
+                <span id="habit-kpi-weekly" class="kpi-value">0%</span>
               </div>
             </div>
             <div class="card-icon icon-emerald">📈</div>
           </div>
-          <div class="kpi-footer">
-            <span>Top Platform</span>
-            <span id="kpi-top-plat" class="badge icon-emerald" style="max-width:165px;overflow:hidden;text-overflow:ellipsis">None</span>
+          <div>
+            <div class="progress-track">
+              <div id="habit-kpi-weekly-bar" class="progress-fill" style="width:0%;background:linear-gradient(90deg,#10b981,#38bdf8)"></div>
+            </div>
           </div>
         </div>
 
         <div class="kpi-card">
           <div class="kpi-top">
             <div>
-              <div class="kpi-label">Today's Tasks</div>
+              <div class="kpi-label">30-Day Mastery</div>
               <div class="kpi-value-row">
-                <span id="kpi-tasks-done" class="kpi-value">0</span>
-                <span style="font-size:0.8rem;color:var(--text-secondary)">of <strong id="kpi-tasks-total" class="font-mono">0</strong> done</span>
+                <span id="habit-kpi-monthly" class="kpi-value">0%</span>
               </div>
             </div>
-            <div class="card-icon icon-amber">✓</div>
+            <div class="card-icon icon-indigo">🏆</div>
           </div>
-          <div>
-            <div style="display:flex;justify-content:space-between;font-size:0.72rem;color:var(--text-muted);margin-bottom:6px">
-              <span>Completion</span>
-              <strong id="kpi-tasks-pct" class="font-mono">0%</strong>
-            </div>
-            <div class="progress-track">
-              <div id="kpi-tasks-bar" class="progress-fill" style="width:0%;background:linear-gradient(90deg,#f59e0b,#10b981)"></div>
-            </div>
+          <div class="kpi-footer">
+            <span>Perfect Days (30d)</span>
+            <strong id="habit-kpi-perfect-days" class="font-mono" style="color:var(--accent-indigo)">0 days</strong>
           </div>
         </div>
-      </section>
+      </div>
 
-      <!-- Timer + Daily Tasks -->
-      <section class="split-grid">
-        <div class="card col-5">
-          <div class="card-header">
-            <div class="card-title-group">
-              <div class="card-icon icon-indigo">⏳</div>
-              <div>
-                <h2 class="card-title">Focus &amp; Shift Timer</h2>
-                <p class="card-subtitle">Pomodoro or open shift with live earnings estimate</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="mode-switch">
-            <button id="timer-mode-pomo" type="button" class="mode-btn active">Pomodoro</button>
-            <button id="timer-mode-shift" type="button" class="mode-btn">Open Shift</button>
-          </div>
-
-          <div id="timer-presets-row" class="preset-row">
-            <button type="button" class="preset-pill active" data-mins="25">25m</button>
-            <button type="button" class="preset-pill" data-mins="50">50m</button>
-            <button type="button" class="preset-pill" data-mins="90">90m</button>
-          </div>
-
-          <div class="timer-ring-box">
-            <svg class="timer-ring-svg" viewBox="0 0 200 200">
-              <defs>
-                <linearGradient id="timerGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stop-color="#6366f1" />
-                  <stop offset="100%" stop-color="#10b981" />
-                </linearGradient>
-              </defs>
-              <circle class="timer-ring-bg" cx="100" cy="100" r="88" />
-              <circle id="timer-ring-fg" class="timer-ring-fg" cx="100" cy="100" r="88" stroke-dasharray="552.92" stroke-dashoffset="0" />
-            </svg>
-            <div class="timer-center">
-              <span id="timer-phase-lbl" class="timer-phase">Pomodoro (25m)</span>
-              <div id="timer-digits" class="timer-digits">25:00</div>
-              <div id="timer-est" class="timer-est-pill">Est: $0.00</div>
-            </div>
-          </div>
-
-          <div class="timer-inputs-row">
-            <div>
-              <label for="timer-platform" class="field-label">Platform</label>
-              <select id="timer-platform" class="select"></select>
-            </div>
-            <div>
-              <label for="timer-rate" class="field-label">Rate ($/hr)</label>
-              <input id="timer-rate" type="number" min="0" step="0.5" class="input font-mono" />
-            </div>
-          </div>
-
-          <div class="timer-controls-row">
-            <button id="btn-timer-toggle" type="button" class="btn btn-primary">Start Session</button>
-            <button id="btn-timer-reset" type="button" class="btn btn-secondary">Reset</button>
-          </div>
-
-          <button id="btn-timer-log" type="button" class="btn btn-soft-emerald" style="width:100%">
-            + Log Session to Ledger
-          </button>
-        </div>
-
-        <div class="card col-7">
-          <div class="card-header">
-            <div class="card-title-group">
-              <div class="card-icon icon-amber">📋</div>
-              <div>
-                <h2 class="card-title">Daily Priority Tasks</h2>
-                <p class="card-subtitle">Auto-saved, synced, and linkable to target skills</p>
-              </div>
-            </div>
-            <button id="btn-clear-done-tasks" type="button" class="btn btn-sm btn-soft-rose">Clear Done</button>
-          </div>
-
-          <form id="form-task" class="task-form">
-            <input id="task-input" type="text" class="input" required placeholder="Add a task (e.g., Follow up UPS shipments, VRI shift, Outlier rubric task)..." />
-            <div class="task-form-row">
-              <select id="task-priority" class="select">
-                <option value="high">High Priority</option>
-                <option value="medium" selected>Medium Priority</option>
-                <option value="low">Low Priority</option>
-              </select>
-              <select id="task-category" class="select">
-                <option value="Translation / VRI">Translation / VRI</option>
-                <option value="Freelance / VA">Freelance / VA</option>
-                <option value="Sales / Calls">Sales / Calls</option>
-                <option value="AI Platforms">AI Platforms</option>
-                <option value="General / Admin" selected>General / Admin</option>
-              </select>
-              <button type="submit" class="btn btn-primary">Add Task</button>
-            </div>
-            <div style="display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center">
-              <select id="task-skill-link" class="select" style="padding:7px 10px;font-size:0.76rem">
-                <option value="">Link to Skill (Optional)</option>
-              </select>
-              <span style="font-size:0.7rem;color:var(--text-muted)">Completing linked tasks advances skill progress</span>
-            </div>
-          </form>
-
-          <div class="filter-pills" id="task-filters">
-            <button type="button" class="filter-pill active" data-tfilter="all">All</button>
-            <button type="button" class="filter-pill" data-tfilter="high">High</button>
-            <button type="button" class="filter-pill" data-tfilter="active">Active</button>
-            <button type="button" class="filter-pill" data-tfilter="completed">Completed</button>
-          </div>
-
-          <div id="task-list" class="task-list"></div>
-        </div>
-      </section>
-
-      <!-- Platform Quick Notes + Skills & Task-Linked Progress -->
-      <section class="split-grid">
-        <div class="card col-5">
-          <div class="card-header">
-            <div class="card-title-group">
-              <div class="card-icon icon-sky">📝</div>
-              <div>
-                <h2 class="card-title">Platform Quick Notes</h2>
-                <p class="card-subtitle">Scratchpad per platform, synced automatically</p>
-              </div>
-            </div>
-            <button id="btn-copy-note" type="button" class="btn btn-sm btn-secondary">Copy</button>
-          </div>
-
-          <div id="note-scope-pills" class="notes-pills">
-            <button type="button" class="note-scope-pill active" data-note-scope="outlier">Outlier</button>
-            <button type="button" class="note-scope-pill" data-note-scope="maven">Maven</button>
-            <button type="button" class="note-scope-pill" data-note-scope="upwork">Upwork</button>
-            <button type="button" class="note-scope-pill" data-note-scope="sales_trans">Translation &amp; Sales</button>
-            <button type="button" class="note-scope-pill" data-note-scope="general">General</button>
-          </div>
-
-          <textarea id="platform-note-input" class="textarea notes-textarea" placeholder="Write quick guidelines, project notes, tracking IDs, or call reminders..."></textarea>
-
-          <div class="notes-meta-foot">
-            <span id="note-save-status">Auto-saved</span>
-            <span id="note-char-count" class="font-mono">0 chars</span>
-          </div>
-        </div>
-
-        <div class="card col-7">
-          <div class="card-header">
-            <div class="card-title-group">
-              <div class="card-icon icon-emerald">🎯</div>
-              <div>
-                <h2 class="card-title">Skills &amp; Task-Linked Progress</h2>
-                <p class="card-subtitle">Track skill mastery from linked tasks and logged practice hours</p>
-              </div>
-            </div>
-          </div>
-
-          <form id="form-skill" class="skill-add-bar">
-            <input id="skill-name-input" type="text" class="input" required placeholder="New skill (e.g., US Cold Calls, Medical VRI, Prompt QA)..." />
-            <input id="skill-target-hrs" type="number" min="1" max="5000" step="1" class="input font-mono" value="30" title="Target Hours" required />
-            <input id="skill-target-tasks" type="number" min="1" max="1000" step="1" class="input font-mono" value="20" title="Target Tasks" required />
-            <button type="submit" class="btn btn-primary">+ Skill</button>
-          </form>
-
-          <div id="skills-grid" class="skills-grid"></div>
-        </div>
-      </section>
-
-      <!-- Platforms & Charts -->
-      <section class="split-grid">
-        <div class="card col-5">
-          <div class="card-header">
-            <div class="card-title-group">
-              <div class="card-icon icon-indigo">⚡</div>
-              <div>
-                <h2 class="card-title">Platforms &amp; Monthly Goals</h2>
-                <p class="card-subtitle">Manage income streams and hourly benchmarks</p>
-              </div>
-            </div>
-            <button id="btn-open-add-platform" type="button" class="btn btn-sm btn-primary">+ Platform</button>
-          </div>
-          <div id="platforms-list" class="plat-list"></div>
-        </div>
-
-        <div class="card col-7">
-          <div class="card-header">
-            <div class="card-title-group">
-              <div class="card-icon icon-sky">📊</div>
-              <div>
-                <h2 class="card-title">Earnings &amp; Hours Breakdown</h2>
-                <p class="card-subtitle">Hover segments or legend items to inspect details</p>
-              </div>
-            </div>
-          </div>
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;align-items:center">
-            <div>
-              <div style="font-size:0.74rem;font-weight:700;color:var(--text-secondary);margin-bottom:6px">Earnings by Platform ($)</div>
-              <canvas id="chart-earnings" height="190"></canvas>
-            </div>
-            <div>
-              <div style="font-size:0.74rem;font-weight:700;color:var(--text-secondary);margin-bottom:6px">Hours by Platform (hrs)</div>
-              <canvas id="chart-hours" height="190"></canvas>
-            </div>
-          </div>
-          <div id="chart-legend" class="chart-legend"></div>
-        </div>
-      </section>
-
-      <!-- Sessions & Earnings Ledger -->
-      <section class="card">
+      <!-- 30-Day Activity Heatmap & Selected Day Control -->
+      <div class="card">
         <div class="card-header">
           <div class="card-title-group">
-            <div class="card-icon icon-emerald">💳</div>
+            <div class="card-icon icon-emerald">📅</div>
             <div>
-              <h2 class="card-title">Sessions &amp; Earnings Ledger</h2>
-              <p class="card-subtitle">Log shifts, payouts, and notes</p>
+              <h2 class="card-title">30-Day Consistency Heatmap</h2>
+              <p class="card-subtitle">Click any day square to inspect or backfill habits for that date</p>
             </div>
           </div>
-          <div style="display:flex;gap:8px;flex-wrap:wrap">
-            <select id="log-filter-platform" class="select" style="width:auto;padding:6px 10px;font-size:0.74rem"></select>
-            <select id="log-filter-payout" class="select" style="width:auto;padding:6px 10px;font-size:0.74rem">
-              <option value="all">All Payouts</option>
-              <option value="PayPal">PayPal</option>
-              <option value="Airtm">Airtm</option>
-              <option value="Bank Transfer">Bank Transfer</option>
-              <option value="Pending">Pending</option>
-            </select>
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+            <button id="btn-habit-prev-day" type="button" class="btn btn-sm btn-secondary">← Prev Day</button>
+            <input id="habit-selected-date" type="date" class="input font-mono" style="width:auto;padding:6px 10px;font-size:0.76rem" />
+            <button id="btn-habit-today" type="button" class="btn btn-sm btn-soft-indigo">Today</button>
           </div>
         </div>
 
-        <form id="form-entry" class="entry-form-grid">
-          <div>
-            <label for="entry-date" class="field-label">Date</label>
-            <input id="entry-date" type="date" class="input font-mono" required />
-          </div>
-          <div class="span-2">
-            <label for="entry-platform" class="field-label">Platform</label>
-            <select id="entry-platform" class="select"></select>
-          </div>
-          <div>
-            <label for="entry-hours" class="field-label">Hours</label>
-            <input id="entry-hours" type="number" min="0" max="24" step="0.1" class="input font-mono" placeholder="0.0" required />
-          </div>
-          <div>
-            <label for="entry-amount" class="field-label">Amount ($)</label>
-            <input id="entry-amount" type="number" min="0" step="0.01" class="input font-mono" placeholder="0.00" required />
-          </div>
-          <div>
-            <label for="entry-payout" class="field-label">Payout</label>
-            <select id="entry-payout" class="select">
-              <option value="PayPal">PayPal</option>
-              <option value="Airtm">Airtm</option>
-              <option value="Bank Transfer">Bank Transfer</option>
-              <option value="Pending">Pending</option>
-            </select>
-          </div>
-          <div class="span-4">
-            <label for="entry-note" class="field-label">Session Note</label>
-            <input id="entry-note" type="text" class="input" placeholder="Optional details (client, project, task ID)..." />
-          </div>
-          <div class="span-2" style="display:flex;align-items:flex-end">
-            <button type="submit" class="btn btn-primary" style="width:100%">+ Add Entry</button>
-          </div>
-        </form>
-
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Platform</th>
-                <th>Hours</th>
-                <th>Amount ($)</th>
-                <th>Effective $/hr</th>
-                <th>Payout</th>
-                <th>Note</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody id="entries-tbody"></tbody>
-          </table>
-        </div>
-      </section>
-    </main>
-
-    <!-- SECTION 2: US ACCENT COACH -->
-    <section id="panel-coach" class="tab-panel">
-      <div class="card coach-top-row">
-        <div>
-          <h2 class="card-title">US Accent &amp; Call Shadowing Coach</h2>
-          <p class="card-subtitle">Practice American cadence, flap T, schwa, and connected speech on real work scripts</p>
-          <div class="filter-pills" style="margin-top:10px" id="script-cat-pills">
-            <button type="button" class="filter-pill active" data-scat="cold">Cold Calling</button>
-            <button type="button" class="filter-pill" data-scat="objections">Objections &amp; Booking</button>
-            <button type="button" class="filter-pill" data-scat="va">VA &amp; Support</button>
-            <button type="button" class="filter-pill" data-scat="medical">Medical VRI</button>
-          </div>
-        </div>
-        <div class="coach-stats-mini">
-          <div class="mini-stat">
-            <div id="coach-streak" class="mini-stat-val">1d</div>
-            <div class="mini-stat-lbl">Streak</div>
-          </div>
-          <div class="mini-stat">
-            <div id="coach-today" class="mini-stat-val">0</div>
-            <div class="mini-stat-lbl">Drills Today</div>
-          </div>
-          <div class="mini-stat">
-            <label for="coach-rate" class="mini-stat-lbl" style="display:block">Speed</label>
-            <select id="coach-rate" class="select" style="padding:3px 6px;font-size:0.74rem;margin-top:2px">
-              <option value="0.75">0.75x</option>
-              <option value="1" selected>1.00x</option>
-              <option value="1.15">1.15x</option>
-            </select>
+        <div class="heatmap-wrapper">
+          <div id="habit-heatmap-grid" class="heatmap-grid"></div>
+          <div class="hm-legend">
+            <span id="hm-selected-summary">Showing selected date progress</span>
+            <div class="hm-scale">
+              <span>Less</span>
+              <span class="hm-swatch" style="background:var(--bg-input)"></span>
+              <span class="hm-swatch hm-lvl-1"></span>
+              <span class="hm-swatch hm-lvl-2"></span>
+              <span class="hm-swatch hm-lvl-3"></span>
+              <span class="hm-swatch hm-lvl-4"></span>
+              <span>100%</span>
+            </div>
           </div>
         </div>
       </div>
 
+      <!-- Habit Filters + Add Habit + Habit Cards -->
       <div class="card">
-        <div class="phonetic-legend" id="phonetic-legend">
-          <span class="p-chip chip-flap active" data-pcat="flap">Flap T</span>
-          <span class="p-chip chip-schwa active" data-pcat="schwa">Schwa /ə/</span>
-          <span class="p-chip chip-ed active" data-pcat="ed">-ed Ending</span>
-          <span class="p-chip chip-th active" data-pcat="th">TH Sound</span>
-          <span class="p-chip chip-pb active" data-pcat="pb">P vs B</span>
-          <span class="p-chip chip-link active" data-pcat="link">Connected</span>
+        <div class="card-header">
+          <div class="card-title-group">
+            <div class="card-icon icon-indigo">✨</div>
+            <div>
+              <h2 class="card-title">Daily Habits &amp; Routines</h2>
+              <p class="card-subtitle">Check off routines, increment numeric goals, and track streaks across every area of life</p>
+            </div>
+          </div>
+          <button id="btn-open-add-habit" type="button" class="btn btn-primary">+ New Habit</button>
         </div>
 
-        <div id="coach-script-box" class="script-box"></div>
-
-        <div style="display:flex;gap:8px;flex-wrap:wrap">
-          <button id="btn-coach-speak" type="button" class="btn btn-primary">▶ Listen (US)</button>
-          <button id="btn-coach-stop" type="button" class="btn btn-secondary">■ Stop</button>
-          <button id="btn-coach-next" type="button" class="btn btn-secondary">Next Script →</button>
-          <button id="btn-coach-done" type="button" class="btn btn-soft-emerald">✓ Mark Practiced</button>
+        <div class="filter-pills" id="habit-cat-filters">
+          <button type="button" class="filter-pill active" data-hcat="all">All Habits</button>
+          <button type="button" class="filter-pill" data-hcat="Spiritual">Spiritual &amp; Quran</button>
+          <button type="button" class="filter-pill" data-hcat="Health">Health &amp; Fitness</button>
+          <button type="button" class="filter-pill" data-hcat="Work">Work &amp; Focus</button>
+          <button type="button" class="filter-pill" data-hcat="Learning">Learning</button>
+          <button type="button" class="filter-pill" data-hcat="Personal">Personal</button>
         </div>
+
+        <div id="habits-cards-grid" class="habits-cards-grid"></div>
       </div>
 
+      <!-- Daily Reflection / Habit Journal -->
       <div class="card">
-        <h3 class="card-title" style="margin-bottom:10px">Quick Phonetic Drills (Click to Hear)</h3>
-        <div class="filter-pills" id="drill-cat-pills">
-          <button type="button" class="filter-pill active" data-dcat="flap">Flap T</button>
-          <button type="button" class="filter-pill" data-dcat="schwa">Schwa</button>
-          <button type="button" class="filter-pill" data-dcat="ed">-ed Sounds</button>
-          <button type="button" class="filter-pill" data-dcat="th">TH Sounds</button>
+        <div class="card-header">
+          <div class="card-title-group">
+            <div class="card-icon icon-sky">📓</div>
+            <div>
+              <h2 class="card-title">Daily Reflection &amp; Wins Note</h2>
+              <p class="card-subtitle">Saved per selected date and synced automatically to Google Sheets</p>
+            </div>
+          </div>
+          <span id="habit-journal-date-badge" class="badge icon-indigo font-mono">Today</span>
         </div>
-        <div id="drills-grid" class="drills-grid"></div>
+        <textarea id="habit-reflection-input" class="textarea" placeholder="Write a quick reflection, Quran reflection/ayah note, energy level, or tomorrow's priority..."></textarea>
+        <div class="notes-meta-foot">
+          <span id="habit-reflection-status">Auto-saved</span>
+          <span id="habit-reflection-chars" class="font-mono">0 chars</span>
+        </div>
       </div>
     </section>
   </div>
-
-  <!-- MODAL: CLOUD SYNC -->
-  <div id="modal-sync" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-sync-title">
+<!-- ... existing code ... -->
+  <!-- MODAL: ADD / EDIT HABIT -->
+  <div id="modal-habit" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-habit-title">
     <div class="modal-card">
       <div class="card-header">
-        <h3 id="modal-sync-title" class="card-title">Cloud Sync (Google Sheets)</h3>
-        <button type="button" class="icon-btn-sm" data-close-modal="modal-sync">✕</button>
+        <h3 id="modal-habit-title" class="card-title">New Habit</h3>
+        <button type="button" class="icon-btn-sm" data-close-modal="modal-habit">✕</button>
       </div>
-
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;background:var(--bg-input);padding:10px 12px;border-radius:12px;border:1px solid var(--border-subtle);margin-bottom:12px">
-        <div style="display:flex;align-items:center;gap:8px">
-          <span id="modal-sync-dot" class="sync-status-dot sync-dot-local"></span>
-          <strong id="modal-sync-status" style="font-size:0.8rem">Local Only</strong>
+      <form id="form-habit" style="display:flex;flex-direction:column;gap:10px">
+        <input id="habit-form-id" type="hidden" />
+        <div style="display:grid;grid-template-columns:84px 1fr;gap:8px">
+          <div>
+            <label for="habit-form-icon" class="field-label">Icon</label>
+            <input id="habit-form-icon" type="text" class="input" style="text-align:center;font-size:1.1rem" value="✨" maxlength="4" required />
+          </div>
+          <div>
+            <label for="habit-form-name" class="field-label">Habit Name</label>
+            <input id="habit-form-name" type="text" class="input" required placeholder="e.g., Daily Quran Wird, Morning Walk, Deep Work" />
+          </div>
         </div>
-        <span id="modal-sync-last" style="font-size:0.72rem;color:var(--text-muted)">Not synced yet</span>
-      </div>
 
-      <label for="sync-url-input" class="field-label">Apps Script Web App URL</label>
-      <div style="display:flex;gap:8px;margin-bottom:12px">
-        <input id="sync-url-input" type="url" class="input font-mono" placeholder="https://script.google.com/macros/s/.../exec" />
-        <button id="btn-sync-save" type="button" class="btn btn-primary">Save &amp; Link</button>
-      </div>
-
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px">
-        <button id="btn-sync-push" type="button" class="btn btn-sm btn-soft-emerald">↑ Push Now</button>
-        <button id="btn-sync-pull" type="button" class="btn btn-sm btn-soft-indigo">↓ Pull Cloud</button>
-        <button id="btn-sync-unlink" type="button" class="btn btn-sm btn-soft-rose">Unlink</button>
-      </div>
-
-      <button id="btn-copy-phone-link" type="button" class="btn btn-secondary" style="width:100%">
-        Copy Phone Auto-Sync URL
-      </button>
-    </div>
-  </div>
-
-  <!-- MODAL: ADD PLATFORM -->
-  <div id="modal-platform" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-plat-title">
-    <div class="modal-card">
-      <div class="card-header">
-        <h3 id="modal-plat-title" class="card-title">Add Platform</h3>
-        <button type="button" class="icon-btn-sm" data-close-modal="modal-platform">✕</button>
-      </div>
-      <form id="form-platform" style="display:flex;flex-direction:column;gap:10px">
-        <div>
-          <label for="plat-name" class="field-label">Platform Name</label>
-          <input id="plat-name" type="text" class="input" required placeholder="e.g., Propio, Shopify VA, Outlier" />
-        </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
           <div>
-            <label for="plat-goal" class="field-label">Monthly Goal ($)</label>
-            <input id="plat-goal" type="number" min="0" step="10" class="input font-mono" value="300" required />
+            <label for="habit-form-cat" class="field-label">Category</label>
+            <select id="habit-form-cat" class="select">
+              <option value="Spiritual">Spiritual &amp; Quran</option>
+              <option value="Health">Health &amp; Fitness</option>
+              <option value="Work">Work &amp; Focus</option>
+              <option value="Learning">Learning</option>
+              <option value="Personal">Personal</option>
+            </select>
           </div>
           <div>
-            <label for="plat-rate" class="field-label">Default Rate ($/hr)</label>
-            <input id="plat-rate" type="number" min="0" step="0.5" class="input font-mono" value="12" required />
+            <label for="habit-form-type" class="field-label">Tracking Type</label>
+            <select id="habit-form-type" class="select">
+              <option value="check">Checkmark (Done / Not Done)</option>
+              <option value="number">Numeric Target (Pages, Mins, Reps...)</option>
+            </select>
           </div>
         </div>
-        <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:6px">
-          <button type="button" class="btn btn-secondary" data-close-modal="modal-platform">Cancel</button>
-          <button type="submit" class="btn btn-primary">Save Platform</button>
-        </div>
-      </form>
-    </div>
-  </div>
 
-  <!-- MODAL: EDIT PLATFORM -->
-  <div id="modal-edit-platform" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-edit-plat-title">
-    <div class="modal-card">
-      <div class="card-header">
-        <h3 id="modal-edit-plat-title" class="card-title">Edit Platform</h3>
-        <button type="button" class="icon-btn-sm" data-close-modal="modal-edit-platform">✕</button>
-      </div>
-      <form id="form-edit-platform" style="display:flex;flex-direction:column;gap:10px">
-        <input id="edit-plat-id" type="hidden" />
-        <div>
-          <label for="edit-plat-name" class="field-label">Platform Name</label>
-          <input id="edit-plat-name" type="text" class="input" required />
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <div id="habit-numeric-fields" style="display:none;grid-template-columns:1fr 1fr;gap:8px">
           <div>
-            <label for="edit-plat-goal" class="field-label">Monthly Goal ($)</label>
-            <input id="edit-plat-goal" type="number" min="0" step="10" class="input font-mono" required />
+            <label for="habit-form-target" class="field-label">Daily Target</label>
+            <input id="habit-form-target" type="number" min="1" step="1" class="input font-mono" value="4" />
           </div>
           <div>
-            <label for="edit-plat-rate" class="field-label">Default Rate ($/hr)</label>
-            <input id="edit-plat-rate" type="number" min="0" step="0.5" class="input font-mono" required />
+            <label for="habit-form-unit" class="field-label">Unit</label>
+            <input id="habit-form-unit" type="text" class="input" value="pages" placeholder="pages, mins, liters, reps" />
           </div>
         </div>
-        <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:6px">
-          <button type="button" class="btn btn-secondary" data-close-modal="modal-edit-platform">Cancel</button>
-          <button type="submit" class="btn btn-primary">Update Platform</button>
-        </div>
-      </form>
-    </div>
-  </div>
 
-  <!-- MODAL: EDIT SKILL -->
-  <div id="modal-edit-skill" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-edit-skill-title">
-    <div class="modal-card">
-      <div class="card-header">
-        <h3 id="modal-edit-skill-title" class="card-title">Edit Skill</h3>
-        <button type="button" class="icon-btn-sm" data-close-modal="modal-edit-skill">✕</button>
-      </div>
-      <form id="form-edit-skill" style="display:flex;flex-direction:column;gap:10px">
-        <input id="edit-skill-id" type="hidden" />
-        <div>
-          <label for="edit-skill-name" class="field-label">Skill Name</label>
-          <input id="edit-skill-name" type="text" class="input" required />
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-          <div>
-            <label for="edit-skill-hrs" class="field-label">Target Hours</label>
-            <input id="edit-skill-hrs" type="number" min="1" step="1" class="input font-mono" required />
-          </div>
-          <div>
-            <label for="edit-skill-tasks" class="field-label">Target Tasks</label>
-            <input id="edit-skill-tasks" type="number" min="1" step="1" class="input font-mono" required />
-          </div>
-        </div>
         <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:6px">
-          <button type="button" class="btn btn-secondary" data-close-modal="modal-edit-skill">Cancel</button>
-          <button type="submit" class="btn btn-primary">Update Skill</button>
+          <button type="button" class="btn btn-secondary" data-close-modal="modal-habit">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Habit</button>
         </div>
       </form>
     </div>
   </div>
 
   <!-- MODAL: RESET DATA -->
-  <div id="modal-reset" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-reset-title">
-    <div class="modal-card">
-      <div class="card-header">
-        <h3 id="modal-reset-title" class="card-title">Reset &amp; Manage Data</h3>
-        <button type="button" class="icon-btn-sm" data-close-modal="modal-reset">✕</button>
-      </div>
-      <p style="font-size:0.8rem;color:var(--text-secondary);margin-bottom:12px">
-        Export a JSON backup first if you want to keep your current progress.
-      </p>
-      <div style="display:flex;flex-direction:column;gap:8px">
-        <button id="btn-reset-zero" type="button" class="btn btn-soft-rose">Zero All Metrics (Keep Platforms &amp; Skills)</button>
-        <button id="btn-reset-demo" type="button" class="btn btn-secondary">Load Sample Preview Data</button>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    (() => {
-      'use strict';
-
-      const STORAGE_KEY = 'essam_hub_state_v1';
-      const SYNC_URL_KEY = 'essam_hub_sync_url';
-      const FX_CACHE_KEY = 'essam_hub_fx_cache_v1';
-      const SWATCH_COLORS = ['#3b82f6', '#10b981', '#8b5cf6', '#f59e0b', '#ec4899', '#06b6d4', '#ef4444', '#6366f1'];
-
+<!-- ... existing code ... -->
       const CATEGORY_COLORS = {
         'Translation / VRI': '#3b82f6',
         'Freelance / VA': '#10b981',
@@ -1841,103 +613,12 @@
         'General / Admin': '#64748b',
       };
 
-      const SCRIPTS_BY_CAT = {
-        cold: [
-          {
-            title: 'Appointment Setting Intro',
-            plain: 'Hi Sarah, this is Essam calling from the operations team. I noticed you get a lot of inbound leads and wanted to see if we can help book qualified calls for your calendar.',
-            tokens: [
-              { text: 'Hi Sarah, this is Essam calling from the operations team. I noticed you get a lot of ', type: '' },
-              { text: 'inbound', type: 'link', respell: 'in-bound', tip: 'Link consonant to vowel smoothly.' },
-              { text: ' leads and ', type: '' },
-              { text: 'wanted', type: 'flap', respell: 'wan-nerd', tip: 'Flap T between vowels sounds like a quick D.' },
-              { text: ' to see if we can help book qualified calls for your calendar.', type: '' },
-            ],
-          },
-          {
-            title: 'Value & Quick Follow-Up',
-            plain: 'I kept it brief because I know your afternoon is packed. Would Tuesday at ten or Thursday at two work better for a quick ten-minute chat?',
-            tokens: [
-              { text: 'I kept it brief because I know your ', type: '' },
-              { text: 'afternoon', type: 'schwa', respell: 'af-ter-NOON', tip: 'Keep unstressed vowels light and clear.' },
-              { text: ' is packed. Would Tuesday at ', type: '' },
-              { text: 'ten', type: 'pb', respell: 'ten', tip: 'Crisp voiceless T at start of stressed word.' },
-              { text: ' or Thursday at two work ', type: '' },
-              { text: 'better', type: 'flap', respell: 'bed-der', tip: 'Flap T in "better".' },
-              { text: ' for a quick ten-minute chat?', type: '' },
-            ],
-          },
-        ],
-        objections: [
-          {
-            title: 'Handling "Send Me Info"',
-            plain: 'Totally fair. I can send a short summary over, and if it looks relevant we can confirm a time—what email should I use?',
-            tokens: [
-              { text: 'Totally fair. I can send a short summary over, and if it looks relevant we can ', type: '' },
-              { text: 'confirm', type: 'schwa', respell: 'kuhn-FIRM', tip: 'Reduce unstressed first syllable.' },
-              { text: ' a time—what email should I use?', type: '' },
-            ],
-          },
-        ],
-        va: [
-          {
-            title: 'Shipment & Order Update',
-            plain: 'Hi team, I tracked the UPS shipment and confirmed it cleared customs today. I updated the sheet and flagged two delayed orders.',
-            tokens: [
-              { text: 'Hi team, I tracked the UPS shipment and confirmed it ', type: '' },
-              { text: 'cleared', type: 'ed', respell: 'kleerd', tip: '-ed after voiced /r/ sounds like /d/.' },
-              { text: ' customs today. I ', type: '' },
-              { text: 'updated', type: 'flap', respell: 'up-day-ded', tip: 'Flap T inside "updated".' },
-              { text: ' the sheet and flagged two delayed orders.', type: '' },
-            ],
-          },
-        ],
-        medical: [
-          {
-            title: 'Medical Interpreter Opening',
-            plain: 'Good morning, this is the medical interpreter joining the call. Everything you say will be interpreted accurately and confidentially.',
-            tokens: [
-              { text: 'Good morning, this is the medical interpreter joining the call. Everything you say will be interpreted ', type: '' },
-              { text: 'accurately', type: 'schwa', respell: 'AK-yuh-ruht-lee', tip: 'Light schwa vowels in unstressed syllables.' },
-              { text: ' and confidentially.', type: '' },
-            ],
-          },
-        ],
-      };
-
-      const DRILLS_BY_CAT = {
-        flap: [
-          { word: 'water', respell: 'wah-der', tip: 'Quick flap T between vowels' },
-          { word: 'better', respell: 'bed-der', tip: 'Soft D-like flap in middle' },
-          { word: 'get a call', respell: 'geh-duh call', tip: 'Flap T linking "get" and "a"' },
-          { word: 'thirty', respell: 'ther-dee', tip: 'Flap T after R-colored vowel' },
-          { word: 'out of town', respell: 'ow-duh town', tip: 'Flap T in "out of"' },
-          { word: 'schedule it', respell: 'sked-joo-lid', tip: 'Smooth link into "it"' },
-        ],
-        schwa: [
-          { word: 'support', respell: 'suh-PORT', tip: 'Light unstressed first syllable' },
-          { word: 'confirm', respell: 'kuhn-FIRM', tip: 'Relaxed schwa before stress' },
-          { word: 'available', respell: 'uh-VAY-luh-buhl', tip: 'Multiple reduced syllables' },
-          { word: 'company', respell: 'KUM-puh-nee', tip: 'Short schwa in middle' },
-          { word: 'assistant', respell: 'uh-SIS-tuhnt', tip: 'Light schwa at start and end' },
-          { word: 'priority', respell: 'pry-OR-uh-tee', tip: 'Reduced middle vowel' },
-        ],
-        ed: [
-          { word: 'booked', respell: 'bookt', tip: 'Voiceless /k/ -> /t/' },
-          { word: 'scheduled', respell: 'sked-joold', tip: 'Voiced /l/ -> /d/' },
-          { word: 'updated', respell: 'up-day-did', tip: 'Ends in /t/ or /d/ -> /id/' },
-          { word: 'confirmed', respell: 'kuhn-fermd', tip: 'Voiced /m/ -> /d/' },
-          { word: 'checked', respell: 'chekt', tip: 'Voiceless /k/ -> /t/' },
-          { word: 'followed', respell: 'fah-lohd', tip: 'Voiced vowel -> /d/' },
-        ],
-        th: [
-          { word: 'this / that', respell: 'ðɪs / ðæt', tip: 'Voiced TH with gentle tongue tip' },
-          { word: 'three / think', respell: 'θriː / θɪŋk', tip: 'Voiceless TH airflow without voice' },
-          { word: 'the team', respell: 'ðuh teem', tip: 'Voiced TH before consonant' },
-          { word: 'with them', respell: 'wið ðem', tip: 'Continuous TH transition' },
-          { word: 'Thursday', respell: 'THURZ-day', tip: 'Voiceless TH + strong R' },
-          { word: 'both of us', respell: 'bohth uhv us', tip: 'Voiceless TH at word end' },
-        ],
+      const HABIT_CAT_META = {
+        Spiritual: { label: 'Spiritual & Quran', color: '#10b981', badgeCls: 'icon-emerald' },
+        Health: { label: 'Health & Fitness', color: '#38bdf8', badgeCls: 'icon-sky' },
+        Work: { label: 'Work & Focus', color: '#818cf8', badgeCls: 'icon-indigo' },
+        Learning: { label: 'Learning', color: '#fbbf24', badgeCls: 'icon-amber' },
+        Personal: { label: 'Personal', color: '#ec4899', badgeCls: 'prio-high' },
       };
 
       function getDateStr(offsetDays = 0) {
@@ -1945,85 +626,82 @@
         return d.toISOString().slice(0, 10);
       }
 
-      function escapeHTML(str) {
-        return String(str ?? '')
-          .replace(/&/g, '&amp;')
-          .replace(/</g, '&lt;')
-          .replace(/>/g, '&gt;')
-          .replace(/"/g, '&quot;')
-          .replace(/'/g, '&#39;');
+      function shiftDateStr(dateStr, deltaDays) {
+        const parts = (dateStr || getDateStr(0)).split('-').map(Number);
+        const dt = new Date(Date.UTC(parts[0], (parts[1] || 1) - 1, parts[2] || 1));
+        dt.setUTCDate(dt.getUTCDate() + deltaDays);
+        return dt.toISOString().slice(0, 10);
       }
 
-      function fmtMoney(num) {
-        const n = Number(num) || 0;
-        return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      function formatShortDateLabel(dateStr) {
+        const today = getDateStr(0);
+        const yesterday = getDateStr(-1);
+        if (dateStr === today) return 'Today';
+        if (dateStr === yesterday) return 'Yesterday';
+        const parts = dateStr.split('-').map(Number);
+        const dt = new Date(Date.UTC(parts[0], (parts[1] || 1) - 1, parts[2] || 1));
+        return dt.toLocaleDateString('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric' });
       }
-
-      function fmtEGP(num) {
-        const n = Math.round(Number(num) || 0);
-        return '≈ ' + n.toLocaleString('en-US') + ' EGP';
-      }
-
-      function fmtTime12(dateObj) {
-        return dateObj.toLocaleTimeString('en-US', {
-          hour: '2-digit',
-          minute: '2-digit',
-          second: '2-digit',
-          hour12: true,
-        });
-      }
-
-      function showToast(msg, type = 'info') {
-        const wrap = document.getElementById('toast-container');
-        if (!wrap) return;
-        const el = document.createElement('div');
-        el.className = `toast ${type}`;
-        el.textContent = msg;
-        wrap.appendChild(el);
-        setTimeout(() => {
-          el.style.opacity = '0';
-          el.style.transition = 'opacity 0.25s ease';
-          setTimeout(() => el.remove(), 260);
-        }, 2600);
-      }
-
-      function copyToClipboard(text) {
-        try {
-          const ta = document.createElement('textarea');
-          ta.value = text;
-          ta.setAttribute('readonly', '');
-          ta.style.position = 'fixed';
-          ta.style.opacity = '0';
-          document.body.appendChild(ta);
-          ta.select();
-          const ok = document.execCommand('copy');
-          document.body.removeChild(ta);
-          return ok;
-        } catch (err) {
-          return false;
-        }
-      }
-
-      function loadCachedFX() {
-        try {
-          const raw = localStorage.getItem(FX_CACHE_KEY);
-          if (!raw) return null;
-          const parsed = JSON.parse(raw);
-          if (parsed && Number(parsed.rate) > 1) {
-            return { rate: Number(parsed.rate), updatedAt: parsed.updatedAt || null };
-          }
-        } catch (err) {}
-        return null;
-      }
-
-      function saveCachedFX(rate, updatedAt) {
-        try {
-          localStorage.setItem(FX_CACHE_KEY, JSON.stringify({ rate, updatedAt }));
-        } catch (err) {}
+<!-- ... existing code ... -->
+      function buildDefaultHabits() {
+        const today = getDateStr(0);
+        const yest = getDateStr(-1);
+        const twoAgo = getDateStr(-2);
+        return [
+          {
+            id: 'hb_quran',
+            icon: '📖',
+            name: 'Daily Quran Wird',
+            category: 'Spiritual',
+            type: 'number',
+            target: 4,
+            unit: 'pages',
+            logs: { [twoAgo]: 4, [yest]: 4, [today]: 0 },
+          },
+          {
+            id: 'hb_walk',
+            icon: '🚶',
+            name: '30-Min Daily Walk',
+            category: 'Health',
+            type: 'number',
+            target: 30,
+            unit: 'mins',
+            logs: { [twoAgo]: 30, [yest]: 20, [today]: 0 },
+          },
+          {
+            id: 'hb_workout',
+            icon: '💪',
+            name: 'Home Workout (Push-ups & Planks)',
+            category: 'Health',
+            type: 'check',
+            target: 1,
+            unit: 'done',
+            logs: { [yest]: 1, [today]: 0 },
+          },
+          {
+            id: 'hb_deepwork',
+            icon: '🎯',
+            name: 'Deep Work Focus Block',
+            category: 'Work',
+            type: 'number',
+            target: 3,
+            unit: 'sessions',
+            logs: { [twoAgo]: 3, [yest]: 2, [today]: 0 },
+          },
+          {
+            id: 'hb_sleep',
+            icon: '🌙',
+            name: '7+ Hours Quality Sleep',
+            category: 'Personal',
+            type: 'check',
+            target: 1,
+            unit: 'done',
+            logs: { [twoAgo]: 1, [yest]: 1, [today]: 0 },
+          },
+        ];
       }
 
       function buildStarterState() {
-        const today = getDateStr(0);
         const cachedFx = loadCachedFX();
         return {
           version: 1,
@@ -2032,6 +710,7 @@
           demoDismissed: false,
           theme: 'dark',
           monthlyGoal: 1700,
+          monthlyGoalManual: false,
           egpRate: cachedFx ? cachedFx.rate : 50.0,
           egpRateManual: false,
           egpRateUpdatedAt: cachedFx ? cachedFx.updatedAt : null,
@@ -2051,13 +730,13 @@
           tasks: [
             { id: 't1', title: 'Track UPS shipments and update client sheet', priority: 'high', category: 'Freelance / VA', skillId: 'sk_va', completed: false, createdAt: Date.now() - 3000 },
             { id: 't2', title: 'Review open job applications and follow up', priority: 'high', category: 'General / Admin', skillId: '', completed: true, createdAt: Date.now() - 2000 },
-            { id: 't3', title: '10-min American accent shadowing drill', priority: 'medium', category: 'Sales / Calls', skillId: 'sk_accent', completed: false, createdAt: Date.now() - 1000 },
+            { id: 't3', title: 'Complete 3 focused work blocks before evening', priority: 'medium', category: 'Sales / Calls', skillId: 'sk_accent', completed: false, createdAt: Date.now() - 1000 },
           ],
           notes: {
             outlier: 'Check project rubrics carefully before submitting tasks; keep notes on active projects.',
             maven: 'Track active projects, task caps, and payout schedule.',
             upwork: 'Follow up open proposals within 24h; keep shipment & SOP notes organized.',
-            sales_trans: 'ET is -7h from Cairo; Arizona MST is -9h. Practice medical & sales phrasing daily.',
+            sales_trans: 'ET is -7h from Cairo; Arizona MST is -9h. Keep call scripts and medical glossaries handy.',
             general: 'Weekly check: confirm cloud sync status and export JSON backup.',
           },
           skills: [
@@ -2065,13 +744,8 @@
             { id: 'sk_vri', name: 'Medical VRI / Interpretation', targetHours: 50, loggedHours: 12.0, targetTasks: 25, manualBoost: 1, color: '#3b82f6' },
             { id: 'sk_va', name: 'Client Ops & Shipment Tracking', targetHours: 40, loggedHours: 10.0, targetTasks: 20, manualBoost: 1, color: '#10b981' },
           ],
-          coach: {
-            lastPracticeDate: today,
-            drillsToday: 0,
-            streak: 1,
-            speechRate: 1.0,
-            practicedScripts: {},
-          },
+          habits: buildDefaultHabits(),
+          habitReflections: {},
         };
       }
 
@@ -2081,9 +755,8 @@
         if (typeof (parsed && parsed.isDemo) === 'undefined' && typeof (parsed && parsed.isSample) === 'boolean') {
           merged.isDemo = parsed.isSample;
         }
-        merged.coach = { ...base.coach, ...((parsed && parsed.coach) || {}) };
-        if (!merged.coach.practicedScripts || typeof merged.coach.practicedScripts !== 'object') {
-          merged.coach.practicedScripts = {};
+        if (typeof (parsed && parsed.monthlyGoalManual) !== 'boolean') {
+          merged.monthlyGoalManual = false;
         }
         if (!Array.isArray(merged.platforms) || merged.platforms.length === 0) merged.platforms = base.platforms;
         if (!Array.isArray(merged.entries)) merged.entries = [];
@@ -2111,47 +784,28 @@
           }));
         }
 
-        const today = getDateStr(0);
-        if (merged.coach.lastPracticeDate && merged.coach.lastPracticeDate !== today) {
-          const yesterday = getDateStr(-1);
-          if (merged.coach.lastPracticeDate !== yesterday) {
-            merged.coach.streak = 0;
-          }
-          merged.coach.drillsToday = 0;
-          merged.coach.practicedScripts = {};
+        if (!Array.isArray(merged.habits) || merged.habits.length === 0) {
+          merged.habits = buildDefaultHabits();
+        } else {
+          merged.habits = merged.habits.map((hb) => ({
+            id: hb.id || ('hb_' + Math.random().toString(36).slice(2, 7)),
+            icon: String(hb.icon || '✨'),
+            name: String(hb.name || 'Habit'),
+            category: HABIT_CAT_META[hb.category] ? hb.category : 'Personal',
+            type: hb.type === 'number' ? 'number' : 'check',
+            target: Math.max(1, Number(hb.target) || 1),
+            unit: String(hb.unit || (hb.type === 'number' ? 'units' : 'done')),
+            logs: hb.logs && typeof hb.logs === 'object' ? { ...hb.logs } : {},
+          }));
         }
+
+        if (!merged.habitReflections || typeof merged.habitReflections !== 'object') {
+          merged.habitReflections = {};
+        }
+
         return merged;
       }
-
-      function loadLocalState() {
-        try {
-          const raw = localStorage.getItem(STORAGE_KEY);
-          if (!raw) return buildStarterState();
-          return normalizeState(JSON.parse(raw));
-        } catch (err) {
-          return buildStarterState();
-        }
-      }
-
-      function getSyncUrlFromHashOrStorage() {
-        try {
-          const hash = window.location.hash || '';
-          const match = hash.match(/sync=([^&]+)/);
-          if (match && match[1]) {
-            const decoded = decodeURIComponent(match[1]).trim();
-            if (/^https?:\/\//i.test(decoded)) {
-              localStorage.setItem(SYNC_URL_KEY, decoded);
-              return decoded;
-            }
-          }
-        } catch (err) {}
-        try {
-          return (localStorage.getItem(SYNC_URL_KEY) || '').trim();
-        } catch (err) {
-          return '';
-        }
-      }
-
+<!-- ... existing code ... -->
       let state = loadLocalState();
       let syncUrl = getSyncUrlFromHashOrStorage();
       let syncStatus = syncUrl ? 'synced' : 'local';
@@ -2159,99 +813,12 @@
       let syncPushTimer = null;
       let isSyncingNow = false;
       let taskFilter = 'all';
-      let activeScriptCat = 'cold';
-      let activeScriptIdx = 0;
-      let activeDrillCat = 'flap';
       let activeNoteScope = 'outlier';
       let noteDebounceId = null;
-
-      function persistLocalOnly() {
-        try {
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-        } catch (err) {}
-      }
-
-      function updateSyncUI(status, customMsg) {
-        syncStatus = status;
-        const hDot = document.getElementById('header-sync-dot');
-        const hBadge = document.getElementById('header-sync-badge');
-        const mDot = document.getElementById('modal-sync-dot');
-        const mStatus = document.getElementById('modal-sync-status');
-        const mLast = document.getElementById('modal-sync-last');
-
-        const dotClassMap = {
-          local: 'sync-status-dot sync-dot-local',
-          syncing: 'sync-status-dot sync-dot-syncing',
-          synced: 'sync-status-dot sync-dot-synced',
-          error: 'sync-status-dot sync-dot-error',
-        };
-        const badgeTextMap = {
-          local: 'Local',
-          syncing: 'Syncing...',
-          synced: 'Synced',
-          error: 'Error',
-        };
-        const badgeClassMap = {
-          local: 'sync-badge-tag',
-          syncing: 'sync-badge-tag syncing',
-          synced: 'sync-badge-tag synced',
-          error: 'sync-badge-tag error',
-        };
-        const modalTextMap = {
-          local: 'Local Only (Not Linked)',
-          syncing: 'Syncing with Google Sheets...',
-          synced: 'Synced with Google Sheets ✓',
-          error: customMsg || 'Sync connection error',
-        };
-
-        if (hDot) hDot.className = dotClassMap[status] || dotClassMap.local;
-        if (hBadge) {
-          hBadge.textContent = badgeTextMap[status] || badgeTextMap.local;
-          hBadge.className = badgeClassMap[status] || badgeClassMap.local;
-        }
-        if (mDot) mDot.className = dotClassMap[status] || dotClassMap.local;
-        if (mStatus) mStatus.textContent = modalTextMap[status] || modalTextMap.local;
-        if (mLast) mLast.textContent = lastSyncTime ? `Last sync: ${fmtTime12(lastSyncTime)}` : 'Not synced yet';
-      }
-
-      async function pushToCloud(force = false, silent = false) {
-        if (!syncUrl) return false;
-        if (isSyncingNow && !force) return false;
-        isSyncingNow = true;
-        updateSyncUI('syncing');
-        try {
-          const payload = {
-            updatedAt: Number(state.updatedAt) || Date.now(),
-            force: Boolean(force),
-            state: state,
-          };
-          await fetch(syncUrl, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-            body: JSON.stringify(payload),
-          });
-          lastSyncTime = new Date();
-          updateSyncUI('synced');
-          if (!silent) showToast('Synced to Google Sheets', 'success');
-          return true;
-        } catch (err) {
-          updateSyncUI('error', 'Failed to push to cloud');
-          if (!silent) showToast('Cloud sync failed', 'error');
-          return false;
-        } finally {
-          isSyncingNow = false;
-        }
-      }
-
-      async function pullFromCloud(silent = false) {
-        if (!syncUrl) return false;
-        isSyncingNow = true;
-        updateSyncUI('syncing');
-        try {
-          const sep = syncUrl.includes('?') ? '&' : '?';
-          const res = await fetch(`${syncUrl}${sep}t=${Date.now()}`, { method: 'GET', cache: 'no-store' });
-          const data = await res.json();
+      let habitCatFilter = 'all';
+      let selectedHabitDate = getDateStr(0);
+      let reflectionDebounceId = null;
+<!-- ... existing code ... -->
           if (data && data.ok && data.state && typeof data.state === 'object') {
             const cloudTime = Number(data.updatedAt || data.state.updatedAt || 0);
             const localTime = Number(state.updatedAt || 0);
@@ -2260,719 +827,272 @@
               applyTheme(state.theme);
               persistLocalOnly();
               renderDashboard();
-              renderCoach();
+              renderHabitsPage();
             }
             lastSyncTime = new Date();
             updateSyncUI('synced');
             if (!silent) showToast('Pulled latest cloud data', 'success');
             return true;
           }
-          lastSyncTime = new Date();
-          updateSyncUI('synced');
-          return false;
-        } catch (err) {
-          updateSyncUI('error', 'Could not reach Google Sheets');
-          if (!silent) showToast('Could not pull cloud data', 'warn');
-          return false;
-        } finally {
-          isSyncingNow = false;
-        }
+<!-- ... existing code ... -->
+      // ==================== HABIT TRACKER ====================
+      function getHabitValueForDate(habit, dateStr) {
+        return Math.max(0, Number((habit.logs && habit.logs[dateStr]) || 0));
       }
 
-      function scheduleCloudPush(delayMs = 700) {
-        if (!syncUrl) return;
-        clearTimeout(syncPushTimer);
-        syncPushTimer = setTimeout(() => {
-          pushToCloud(false, true);
-        }, delayMs);
+      function isHabitDoneOnDate(habit, dateStr) {
+        const val = getHabitValueForDate(habit, dateStr);
+        const target = habit.type === 'number' ? Math.max(1, Number(habit.target) || 1) : 1;
+        return val >= target;
       }
 
-      function saveState(options = {}) {
-        const { sync = true, immediateSync = false } = options;
-        if (!state.isDemo) {
-          state.updatedAt = Date.now();
+      function computeHabitStreaks(habit) {
+        const today = getDateStr(0);
+        const yesterday = getDateStr(-1);
+        let current = 0;
+        let cursor = isHabitDoneOnDate(habit, today) ? today : (isHabitDoneOnDate(habit, yesterday) ? yesterday : null);
+        while (cursor && isHabitDoneOnDate(habit, cursor)) {
+          current += 1;
+          cursor = shiftDateStr(cursor, -1);
         }
-        persistLocalOnly();
-        if (sync && syncUrl) {
-          if (immediateSync) {
-            pushToCloud(true, true);
+
+        let best = 0;
+        let run = 0;
+        for (let i = 89; i >= 0; i--) {
+          const d = getDateStr(-i);
+          if (isHabitDoneOnDate(habit, d)) {
+            run += 1;
+            if (run > best) best = run;
           } else {
-            scheduleCloudPush(650);
+            run = 0;
           }
         }
+        best = Math.max(best, current);
+
+        let done30 = 0;
+        for (let i = 0; i < 30; i++) {
+          if (isHabitDoneOnDate(habit, getDateStr(-i))) done30 += 1;
+        }
+        const rate30 = Math.round((done30 / 30) * 100);
+        return { current, best, rate30 };
       }
 
-      function applyTheme(theme) {
-        const isDark = theme !== 'light';
-        document.documentElement.classList.toggle('dark', isDark);
-        const iconEl = document.getElementById('theme-icon');
-        if (iconEl) iconEl.textContent = isDark ? '☀' : '☾';
-      }
-
-      // ==================== LIVE USD/EGP RATE ====================
-      function renderFXMeta() {
-        const badge = document.getElementById('fx-badge');
-        const badgeText = document.getElementById('fx-badge-text');
-        const autoBtn = document.getElementById('btn-fx-auto');
-        const updatedEl = document.getElementById('fx-updated-text');
-        const rateInput = document.getElementById('inline-rate');
-
-        if (rateInput && document.activeElement !== rateInput) {
-          rateInput.value = Number(state.egpRate || 50).toFixed(2);
-        }
-
-        if (state.egpRateManual) {
-          badge.className = 'fx-status-pill fx-manual';
-          badgeText.textContent = 'Manual';
-          if (autoBtn) autoBtn.style.display = 'inline-block';
-          updatedEl.textContent = 'Custom EGP rate';
-        } else {
-          badge.className = 'fx-status-pill fx-live';
-          badgeText.textContent = 'Live';
-          if (autoBtn) autoBtn.style.display = 'none';
-          if (state.egpRateUpdatedAt) {
-            const d = new Date(state.egpRateUpdatedAt);
-            updatedEl.textContent = `Updated ${d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })}`;
-          } else {
-            updatedEl.textContent = 'Auto USD/EGP';
-          }
-        }
-      }
-
-      async function fetchLiveUSDtoEGP(forceToast = false) {
-        if (state.egpRateManual && !forceToast) {
-          renderFXMeta();
-          return;
-        }
-        const endpoints = [
-          'https://open.er-api.com/v6/latest/USD',
-          'https://api.frankfurter.app/latest?from=USD&to=EGP',
-        ];
-        for (const url of endpoints) {
-          try {
-            const res = await fetch(url, { cache: 'no-store' });
-            if (!res.ok) continue;
-            const data = await res.json();
-            const rate = Number(data && data.rates && data.rates.EGP);
-            if (rate && rate > 10 && rate < 500) {
-              const rounded = Number(rate.toFixed(2));
-              const nowIso = new Date().toISOString();
-              state.egpRate = rounded;
-              state.egpRateManual = false;
-              state.egpRateUpdatedAt = nowIso;
-              saveCachedFX(rounded, nowIso);
-              persistLocalOnly();
-              renderKPIs();
-              renderFXMeta();
-              if (forceToast) showToast(`Live USD/EGP: ${rounded.toFixed(2)}`, 'success');
-              return;
-            }
-          } catch (err) {}
-        }
-        renderFXMeta();
-        if (forceToast) showToast('Using cached USD/EGP rate', 'warn');
-      }
-
-      // ==================== CLOCKS ====================
-      function updateClocks() {
-        const now = new Date();
-        const zones = [
-          { idTime: 'clock-cairo', idDate: 'date-cairo', tz: 'Africa/Cairo' },
-          { idTime: 'clock-et', idDate: 'date-et', tz: 'America/New_York' },
-          { idTime: 'clock-mst', idDate: 'date-mst', tz: 'America/Phoenix' },
-        ];
-        zones.forEach(({ idTime, idDate, tz }) => {
-          const tEl = document.getElementById(idTime);
-          const dEl = document.getElementById(idDate);
-          if (tEl) {
-            tEl.textContent = now.toLocaleTimeString('en-US', {
-              timeZone: tz,
-              hour: '2-digit',
-              minute: '2-digit',
-              second: '2-digit',
-              hour12: true,
-            });
-          }
-          if (dEl) {
-            dEl.textContent = now.toLocaleDateString('en-US', {
-              timeZone: tz,
-              weekday: 'short',
-              month: 'short',
-              day: 'numeric',
-            });
-          }
+      function getDayCompletionRatio(dateStr) {
+        if (!state.habits || state.habits.length === 0) return { done: 0, total: 0, pct: 0 };
+        const total = state.habits.length;
+        let scoreSum = 0;
+        let doneCount = 0;
+        state.habits.forEach((hb) => {
+          const val = getHabitValueForDate(hb, dateStr);
+          const target = hb.type === 'number' ? Math.max(1, Number(hb.target) || 1) : 1;
+          const ratio = Math.min(1, val / target);
+          scoreSum += ratio;
+          if (ratio >= 1) doneCount += 1;
         });
-      }
-
-      // ==================== DASHBOARD RENDERERS ====================
-      function getPlatform(id) {
-        return state.platforms.find((p) => p.id === id) || null;
-      }
-
-      function populateSelects() {
-        ['timer-platform', 'entry-platform', 'log-filter-platform'].forEach((id, idx) => {
-          const el = document.getElementById(id);
-          if (!el) return;
-          const prev = el.value;
-          el.innerHTML = '';
-          if (idx === 2) {
-            el.insertAdjacentHTML('beforeend', '<option value="all">All Platforms</option>');
-          }
-          state.platforms.forEach((p) => {
-            const opt = document.createElement('option');
-            opt.value = p.id;
-            opt.textContent = p.name;
-            el.appendChild(opt);
-          });
-          if (prev && Array.from(el.options).some((o) => o.value === prev)) {
-            el.value = prev;
-          }
-        });
-
-        const skillSel = document.getElementById('task-skill-link');
-        if (skillSel) {
-          const prevSkill = skillSel.value;
-          skillSel.innerHTML = '<option value="">Link to Skill (Optional)</option>';
-          state.skills.forEach((sk) => {
-            const opt = document.createElement('option');
-            opt.value = sk.id;
-            opt.textContent = `Skill: ${sk.name}`;
-            skillSel.appendChild(opt);
-          });
-          if (prevSkill && Array.from(skillSel.options).some((o) => o.value === prevSkill)) {
-            skillSel.value = prevSkill;
-          }
-        }
-
-        const rateEl = document.getElementById('timer-rate');
-        const pSel = document.getElementById('timer-platform');
-        if (rateEl && pSel && !rateEl.value) {
-          const p = getPlatform(pSel.value);
-          if (p) rateEl.value = p.rate;
-        }
-      }
-
-      function renderKPIs() {
-        const totalUsd = state.entries.reduce((s, e) => s + (Number(e.amount) || 0), 0);
-        const totalHours = state.entries.reduce((s, e) => s + (Number(e.hours) || 0), 0);
-        const goal = Math.max(1, Number(state.monthlyGoal) || 1700);
-        const pct = Math.min(100, Math.round((totalUsd / goal) * 100));
-        const egpRate = Number(state.egpRate) || 50;
-
-        document.getElementById('kpi-usd').textContent = fmtMoney(totalUsd);
-        document.getElementById('kpi-pct').textContent = `${pct}%`;
-        document.getElementById('kpi-egp').textContent = fmtEGP(totalUsd * egpRate);
-        document.getElementById('kpi-goal-bar').style.width = `${pct}%`;
-
-        const goalInp = document.getElementById('inline-goal');
-        if (goalInp && document.activeElement !== goalInp) goalInp.value = goal;
-
-        document.getElementById('kpi-hours').textContent = totalHours.toFixed(1);
-        const uniqueDays = new Set(state.entries.filter((e) => Number(e.hours) > 0).map((e) => e.date)).size || 1;
-        document.getElementById('kpi-daily-avg').textContent = `${(totalHours / uniqueDays).toFixed(1)} hrs/day`;
-
-        const avgRate = totalHours > 0 ? totalUsd / totalHours : 0;
-        document.getElementById('kpi-hourly').textContent = fmtMoney(avgRate);
-
-        const byPlat = {};
-        state.entries.forEach((e) => {
-          byPlat[e.platformId] = (byPlat[e.platformId] || 0) + (Number(e.amount) || 0);
-        });
-        let topName = 'None';
-        let topAmt = 0;
-        Object.entries(byPlat).forEach(([pid, amt]) => {
-          if (amt > topAmt) {
-            topAmt = amt;
-            const p = getPlatform(pid);
-            if (p) topName = p.name;
-          }
-        });
-        document.getElementById('kpi-top-plat').textContent = topAmt > 0 ? `${topName} (${fmtMoney(topAmt)})` : 'None';
-
-        const totalTasks = state.tasks.length;
-        const doneTasks = state.tasks.filter((t) => t.completed).length;
-        const taskPct = totalTasks > 0 ? Math.round((doneTasks / totalTasks) * 100) : 0;
-        document.getElementById('kpi-tasks-done').textContent = String(doneTasks);
-        document.getElementById('kpi-tasks-total').textContent = String(totalTasks);
-        document.getElementById('kpi-tasks-pct').textContent = `${taskPct}%`;
-        document.getElementById('kpi-tasks-bar').style.width = `${taskPct}%`;
-
-        const banner = document.getElementById('demo-banner');
-        if (banner) {
-          banner.classList.toggle('hidden', !(state.isDemo && !state.demoDismissed));
-        }
-
-        renderFXMeta();
-      }
-
-      function renderPlatformsAndCharts() {
-        const listEl = document.getElementById('platforms-list');
-        const stats = state.platforms.map((p) => {
-          const pEntries = state.entries.filter((e) => e.platformId === p.id);
-          const earned = pEntries.reduce((s, e) => s + (Number(e.amount) || 0), 0);
-          const hours = pEntries.reduce((s, e) => s + (Number(e.hours) || 0), 0);
-          const g = Math.max(1, Number(p.goal) || 100);
-          const pct = Math.min(100, Math.round((earned / g) * 100));
-          return { ...p, earned, hours, pct };
-        });
-
-        listEl.innerHTML = stats
-          .map(
-            (s) => `
-          <div class="plat-row">
-            <div class="plat-row-top">
-              <div class="plat-name-wrap">
-                <span class="plat-dot" style="background:${escapeHTML(s.color)}"></span>
-                <span>${escapeHTML(s.name)}</span>
-              </div>
-              <div style="display:flex;align-items:center;gap:5px">
-                <button type="button" class="icon-btn-sm" data-edit-plat="${escapeHTML(s.id)}" title="Edit platform">✎</button>
-                <button type="button" class="icon-btn-sm icon-btn-del" data-del-plat="${escapeHTML(s.id)}" title="Delete platform">✕</button>
-              </div>
-            </div>
-            <div class="plat-nums font-mono">
-              <span>${fmtMoney(s.earned)} / ${fmtMoney(s.goal)} (${s.pct}%)</span>
-              <span>${s.hours.toFixed(1)}h · $${Number(s.rate || 0).toFixed(1)}/h</span>
-            </div>
-            <div class="progress-track">
-              <div class="progress-fill" style="width:${s.pct}%;background:${escapeHTML(s.color)}"></div>
-            </div>
-          </div>
-        `
-          )
-          .join('');
-
-        drawBarChart('chart-earnings', stats.map((s) => s.earned), stats.map((s) => s.color), '$');
-        drawBarChart('chart-hours', stats.map((s) => s.hours), stats.map((s) => s.color), 'h');
-
-        const legendEl = document.getElementById('chart-legend');
-        legendEl.innerHTML = stats
-          .map(
-            (s) => `
-          <span class="chart-legend-item">
-            <span class="plat-dot" style="background:${escapeHTML(s.color)}"></span>
-            <span>${escapeHTML(s.name)}</span>
-          </span>
-        `
-          )
-          .join('');
-      }
-
-      function drawBarChart(canvasId, values, colors, prefixOrSuffix) {
-        const canvas = document.getElementById(canvasId);
-        if (!canvas) return;
-        const dpr = window.devicePixelRatio || 1;
-        const rect = canvas.getBoundingClientRect();
-        const w = Math.max(200, rect.width || 260);
-        const h = Number(canvas.getAttribute('height')) || 190;
-        canvas.width = w * dpr;
-        canvas.height = h * dpr;
-
-        const ctx = canvas.getContext('2d');
-        ctx.scale(dpr, dpr);
-        ctx.clearRect(0, 0, w, h);
-
-        const maxVal = Math.max(1, ...values);
-        const padBottom = 26;
-        const padTop = 22;
-        const chartH = h - padBottom - padTop;
-        const gap = 10;
-        const barW = Math.max(18, (w - gap * (values.length + 1)) / Math.max(1, values.length));
-
-        values.forEach((v, i) => {
-          const x = gap + i * (barW + gap);
-          const barH = Math.max(3, (v / maxVal) * chartH);
-          const y = padTop + (chartH - barH);
-
-          ctx.fillStyle = colors[i] || '#6366f1';
-          ctx.beginPath();
-          ctx.roundRect(x, y, barW, barH, 6);
-          ctx.fill();
-
-          ctx.fillStyle = '#94a3b8';
-          ctx.font = '600 10px "JetBrains Mono", monospace';
-          ctx.textAlign = 'center';
-          const lbl = prefixOrSuffix === '$' ? `$${v.toFixed(0)}` : `${v.toFixed(1)}h`;
-          ctx.fillText(lbl, x + barW / 2, y - 5);
-        });
-      }
-
-      function renderTasks() {
-        const listEl = document.getElementById('task-list');
-        const rank = { high: 1, medium: 2, low: 3 };
-        const labels = {
-          high: { txt: 'High', cls: 'prio-high' },
-          medium: { txt: 'Medium', cls: 'prio-medium' },
-          low: { txt: 'Low', cls: 'prio-low' },
-        };
-
-        const items = [...state.tasks]
-          .filter((t) => {
-            if (taskFilter === 'high') return t.priority === 'high' && !t.completed;
-            if (taskFilter === 'active') return !t.completed;
-            if (taskFilter === 'completed') return t.completed;
-            return true;
-          })
-          .sort((a, b) => {
-            if (a.completed !== b.completed) return a.completed ? 1 : -1;
-            const d = (rank[a.priority] || 3) - (rank[b.priority] || 3);
-            return d !== 0 ? d : (b.createdAt || 0) - (a.createdAt || 0);
-          });
-
-        if (items.length === 0) {
-          listEl.innerHTML = `<div style="text-align:center;padding:24px 12px;font-size:0.78rem;color:var(--text-muted);border:1px dashed var(--border-subtle);border-radius:12px">No tasks in this filter.</div>`;
-          return;
-        }
-
-        listEl.innerHTML = items
-          .map((t) => {
-            const pr = labels[t.priority] || labels.medium;
-            const cat = t.category || 'General / Admin';
-            const catColor = CATEGORY_COLORS[cat] || '#64748b';
-            const linkedSkill = t.skillId ? state.skills.find((s) => s.id === t.skillId) : null;
-            return `
-              <div class="task-item ${t.completed ? 'done' : ''}">
-                <button type="button" class="task-check" data-toggle-task="${escapeHTML(t.id)}" aria-label="Toggle task">
-                  ${t.completed ? '✓' : ''}
-                </button>
-                <div class="task-body">
-                  <div class="task-text">${escapeHTML(t.title)}</div>
-                  <div class="task-meta">
-                    <span class="badge ${pr.cls}">${pr.txt}</span>
-                    <span class="badge" style="background:var(--bg-pill);color:var(--text-secondary)">
-                      <span class="plat-dot" style="width:6px;height:6px;background:${catColor}"></span>
-                      ${escapeHTML(cat)}
-                    </span>
-                    ${linkedSkill ? `<span class="badge icon-emerald">🎯 ${escapeHTML(linkedSkill.name)}</span>` : ''}
-                  </div>
-                </div>
-                <button type="button" class="icon-btn-sm icon-btn-del" data-del-task="${escapeHTML(t.id)}" title="Delete task">✕</button>
-              </div>
-            `;
-          })
-          .join('');
-      }
-
-      function renderNotesPanel() {
-        const txtEl = document.getElementById('platform-note-input');
-        const cntEl = document.getElementById('note-char-count');
-        const val = (state.notes && state.notes[activeNoteScope]) || '';
-        if (txtEl && document.activeElement !== txtEl) {
-          txtEl.value = val;
-        }
-        if (cntEl) cntEl.textContent = `${val.length} chars`;
-      }
-
-      function computeSkillProgress(skill) {
-        const linkedTasks = state.tasks.filter((t) => t.skillId === skill.id);
-        const completedLinked = linkedTasks.filter((t) => t.completed).length;
-        const completedTaskUnits = completedLinked + (Number(skill.manualBoost) || 0);
-        const targetTasks = Math.max(1, Number(skill.targetTasks) || 10);
-        const targetHours = Math.max(1, Number(skill.targetHours) || 20);
-        const loggedHours = Math.max(0, Number(skill.loggedHours) || 0);
-
-        const taskRatio = Math.min(1, completedTaskUnits / targetTasks);
-        const hourRatio = Math.min(1, loggedHours / targetHours);
-        const pct = Math.min(100, Math.round(((taskRatio + hourRatio) / 2) * 100));
-
         return {
-          pct,
-          completedTaskUnits,
-          linkedTotal: linkedTasks.length,
-          completedLinked,
-          remTasks: Math.max(0, targetTasks - completedTaskUnits),
-          remHours: Math.max(0, Number((targetHours - loggedHours).toFixed(1))),
-          loggedHours,
-          targetHours,
-          targetTasks,
+          done: doneCount,
+          total,
+          pct: Math.round((scoreSum / total) * 100),
         };
       }
 
-      function renderSkillsPanel() {
-        const grid = document.getElementById('skills-grid');
-        if (!grid) return;
-        if (!state.skills || state.skills.length === 0) {
-          grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:22px;font-size:0.78rem;color:var(--text-muted);border:1px dashed var(--border-subtle);border-radius:12px">No skills added yet. Add a skill above and link tasks to it.</div>`;
-          return;
+      function renderHabitsPage() {
+        const dateInput = document.getElementById('habit-selected-date');
+        if (dateInput && dateInput.value !== selectedHabitDate) {
+          dateInput.value = selectedHabitDate;
         }
 
-        grid.innerHTML = state.skills
-          .map((sk) => {
-            const p = computeSkillProgress(sk);
-            return `
-              <div class="skill-card">
-                <div class="skill-head">
-                  <div>
-                    <div class="skill-title">${escapeHTML(sk.name)}</div>
-                    <div class="skill-sub" style="margin-top:2px">
-                      <span class="font-mono">Hrs: ${p.loggedHours.toFixed(1)} / ${p.targetHours}h</span>
-                      <span class="font-mono">Tasks: ${p.completedTaskUnits} / ${p.targetTasks}</span>
+        const dayStats = getDayCompletionRatio(selectedHabitDate);
+        const labelShort = formatShortDateLabel(selectedHabitDate);
+        document.getElementById('habit-date-kpi-lbl').textContent = `${labelShort}'s Progress`;
+        document.getElementById('habit-kpi-done').textContent = String(dayStats.done);
+        document.getElementById('habit-kpi-total').textContent = String(dayStats.total);
+        document.getElementById('habit-kpi-subdate').textContent = selectedHabitDate;
+        document.getElementById('habit-ring-pct').textContent = `${dayStats.pct}%`;
+
+        const ringCirc = 2 * Math.PI * 26;
+        document.getElementById('habit-ring-fg').style.strokeDashoffset = String(ringCirc * (1 - dayStats.pct / 100));
+
+        // Streaks & Weekly / 30d Mastery
+        let bestStreak = 0;
+        let topHabitName = '—';
+        state.habits.forEach((hb) => {
+          const st = computeHabitStreaks(hb);
+          if (st.current > bestStreak || (st.current === bestStreak && bestStreak === 0 && topHabitName === '—')) {
+            bestStreak = st.current;
+            topHabitName = hb.name;
+          }
+        });
+        document.getElementById('habit-kpi-streak').textContent = String(bestStreak);
+        document.getElementById('habit-kpi-top-streak').textContent = bestStreak > 0 ? `${topHabitName}` : 'Start today';
+
+        let weekSum = 0;
+        for (let i = 0; i < 7; i++) {
+          weekSum += getDayCompletionRatio(getDateStr(-i)).pct;
+        }
+        const weekAvg = Math.round(weekSum / 7);
+        document.getElementById('habit-kpi-weekly').textContent = `${weekAvg}%`;
+        document.getElementById('habit-kpi-weekly-bar').style.width = `${weekAvg}%`;
+
+        let monthSum = 0;
+        let perfectDays = 0;
+        for (let i = 0; i < 30; i++) {
+          const r = getDayCompletionRatio(getDateStr(-i));
+          monthSum += r.pct;
+          if (r.total > 0 && r.done === r.total) perfectDays += 1;
+        }
+        document.getElementById('habit-kpi-monthly').textContent = `${Math.round(monthSum / 30)}%`;
+        document.getElementById('habit-kpi-perfect-days').textContent = `${perfectDays} days`;
+
+        // 30-Day Heatmap
+        const hmGrid = document.getElementById('habit-heatmap-grid');
+        const cellsHtml = [];
+        for (let i = 29; i >= 0; i--) {
+          const dStr = getDateStr(-i);
+          const r = getDayCompletionRatio(dStr);
+          let lvlCls = '';
+          if (r.pct >= 100) lvlCls = 'hm-lvl-4';
+          else if (r.pct >= 70) lvlCls = 'hm-lvl-3';
+          else if (r.pct >= 40) lvlCls = 'hm-lvl-2';
+          else if (r.pct > 0) lvlCls = 'hm-lvl-1';
+          const selCls = dStr === selectedHabitDate ? 'selected' : '';
+          const dayNum = dStr.slice(8, 10);
+          cellsHtml.push(`
+            <button type="button" class="hm-cell ${lvlCls} ${selCls}" data-hm-date="${dStr}" title="${dStr}: ${r.done}/${r.total} (${r.pct}%)">
+              <span>${dayNum}</span>
+            </button>
+          `);
+        }
+        hmGrid.innerHTML = cellsHtml.join('');
+        document.getElementById('hm-selected-summary').textContent = `${labelShort} (${selectedHabitDate}): ${dayStats.done} of ${dayStats.total} habits completed (${dayStats.pct}%)`;
+
+        // Habit Cards
+        const cardsGrid = document.getElementById('habits-cards-grid');
+        const filtered = state.habits.filter((hb) => habitCatFilter === 'all' || hb.category === habitCatFilter);
+
+        if (filtered.length === 0) {
+          cardsGrid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:24px;font-size:0.8rem;color:var(--text-muted);border:1px dashed var(--border-subtle);border-radius:12px">No habits in this category yet. Click "+ New Habit" to add one.</div>`;
+        } else {
+          const last7Dates = [];
+          for (let i = 6; i >= 0; i--) last7Dates.push(getDateStr(-i));
+
+          cardsGrid.innerHTML = filtered
+            .map((hb) => {
+              const catInfo = HABIT_CAT_META[hb.category] || HABIT_CAT_META.Personal;
+              const curVal = getHabitValueForDate(hb, selectedHabitDate);
+              const target = hb.type === 'number' ? Math.max(1, Number(hb.target) || 1) : 1;
+              const doneSel = curVal >= target;
+              const pctSel = Math.min(100, Math.round((curVal / target) * 100));
+              const streaks = computeHabitStreaks(hb);
+
+              const daysPillsHtml = last7Dates
+                .map((d) => {
+                  const v = getHabitValueForDate(hb, d);
+                  const isDone = v >= target;
+                  const isPartial = !isDone && v > 0;
+                  const parts = d.split('-').map(Number);
+                  const dt = new Date(Date.UTC(parts[0], parts[1] - 1, parts[2]));
+                  const wd = dt.toLocaleDateString('en-US', { timeZone: 'UTC', weekday: 'narrow' });
+                  const dn = d.slice(8, 10);
+                  return `
+                    <button type="button" class="day-pill-btn ${d === selectedHabitDate ? 'active-date' : ''} ${isDone ? 'day-done' : (isPartial ? 'day-partial' : '')}" data-habit-day="${escapeHTML(hb.id)}" data-date="${d}" title="Toggle ${d}">
+                      <span>${wd}</span>
+                      <span class="font-mono">${dn}</span>
+                    </button>
+                  `;
+                })
+                .join('');
+
+              const controlHtml =
+                hb.type === 'number'
+                  ? `
+                    <div class="habit-stepper">
+                      <button type="button" class="step-btn" data-habit-step="${escapeHTML(hb.id)}" data-delta="-1" aria-label="Decrease">−</button>
+                      <span class="font-mono" style="font-size:0.8rem;font-weight:800;min-width:74px;text-align:center">${curVal} / ${target} ${escapeHTML(hb.unit)}</span>
+                      <button type="button" class="step-btn" data-habit-step="${escapeHTML(hb.id)}" data-delta="1" aria-label="Increase">+</button>
+                    </div>
+                    <button type="button" class="habit-check-btn ${doneSel ? 'done' : ''}" data-habit-complete="${escapeHTML(hb.id)}">
+                      ${doneSel ? '✓ Completed' : 'Complete'}
+                    </button>
+                  `
+                  : `
+                    <span style="font-size:0.75rem;color:var(--text-secondary)">${labelShort} Status</span>
+                    <button type="button" class="habit-check-btn ${doneSel ? 'done' : ''}" data-habit-complete="${escapeHTML(hb.id)}">
+                      ${doneSel ? '✓ Done' : 'Mark Done'}
+                    </button>
+                  `;
+
+              return `
+                <div class="habit-card ${doneSel ? 'completed-day' : ''}">
+                  <div class="habit-card-top">
+                    <div class="habit-identity">
+                      <div class="habit-emoji-box">${escapeHTML(hb.icon)}</div>
+                      <div>
+                        <div class="habit-name">${escapeHTML(hb.name)}</div>
+                        <div class="habit-badges">
+                          <span class="badge ${catInfo.badgeCls}">${escapeHTML(catInfo.label)}</span>
+                          ${hb.type === 'number' ? `<span class="badge" style="background:var(--bg-card);color:var(--text-secondary)">Goal: ${target} ${escapeHTML(hb.unit)}</span>` : ''}
+                        </div>
+                      </div>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:5px">
+                      <button type="button" class="icon-btn-sm" data-edit-habit="${escapeHTML(hb.id)}" title="Edit habit">✎</button>
+                      <button type="button" class="icon-btn-sm icon-btn-del" data-del-habit="${escapeHTML(hb.id)}" title="Delete habit">✕</button>
                     </div>
                   </div>
-                  <div style="display:flex;align-items:center;gap:6px">
-                    <span class="skill-pct">${p.pct}%</span>
-                    <button type="button" class="icon-btn-sm" data-edit-skill="${escapeHTML(sk.id)}" title="Edit skill">✎</button>
-                    <button type="button" class="icon-btn-sm icon-btn-del" data-del-skill="${escapeHTML(sk.id)}" title="Remove skill">✕</button>
+
+                  ${
+                    hb.type === 'number'
+                      ? `<div class="progress-track"><div class="progress-fill" style="width:${pctSel}%;background:${catInfo.color}"></div></div>`
+                      : ''
+                  }
+
+                  <div class="habit-action-box">${controlHtml}</div>
+
+                  <div class="habit-days-row">${daysPillsHtml}</div>
+
+                  <div class="habit-stats-foot">
+                    <span>🔥 Streak: <strong class="font-mono">${streaks.current}d</strong></span>
+                    <span>🏆 Best: <strong class="font-mono">${streaks.best}d</strong></span>
+                    <span>30d Rate: <strong class="font-mono">${streaks.rate30}%</strong></span>
                   </div>
                 </div>
-                <div class="progress-track">
-                  <div class="progress-fill" style="width:${p.pct}%;background:${escapeHTML(sk.color || '#10b981')}"></div>
-                </div>
-                <div class="skill-sub">
-                  <span>Rem: <strong class="font-mono">${p.remHours}h</strong> &amp; <strong class="font-mono">${p.remTasks}</strong> tasks</span>
-                  <span>Linked: <strong class="font-mono">${p.completedLinked}/${p.linkedTotal}</strong></span>
-                </div>
-                <div class="skill-actions">
-                  <button type="button" class="btn btn-sm btn-soft-emerald" data-boost-task="${escapeHTML(sk.id)}">+1 Task Done</button>
-                  <button type="button" class="btn btn-sm btn-soft-indigo" data-boost-hour="${escapeHTML(sk.id)}">+1h Logged</button>
-                </div>
-              </div>
-            `;
-          })
-          .join('');
-      }
-
-      function renderEntries() {
-        const tbody = document.getElementById('entries-tbody');
-        const fPlat = document.getElementById('log-filter-platform').value;
-        const fPay = document.getElementById('log-filter-payout').value;
-
-        const rows = state.entries.filter((e) => {
-          if (fPlat && fPlat !== 'all' && e.platformId !== fPlat) return false;
-          if (fPay && fPay !== 'all' && e.payout !== fPay) return false;
-          return true;
-        });
-
-        if (rows.length === 0) {
-          tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;padding:22px;color:var(--text-muted)">No entries match the current filter.</td></tr>`;
-          return;
-        }
-
-        tbody.innerHTML = rows
-          .map((e) => {
-            const plat = getPlatform(e.platformId);
-            const hrs = Number(e.hours) || 0;
-            const amt = Number(e.amount) || 0;
-            const eff = hrs > 0 ? fmtMoney(amt / hrs) : '—';
-            return `
-              <tr>
-                <td class="font-mono">${escapeHTML(e.date)}</td>
-                <td>
-                  <span style="display:inline-flex;align-items:center;gap:6px;font-weight:700">
-                    <span class="plat-dot" style="background:${escapeHTML((plat && plat.color) || '#6366f1')}"></span>
-                    ${escapeHTML(plat ? plat.name : 'Platform')}
-                  </span>
-                </td>
-                <td class="font-mono">${hrs.toFixed(1)}h</td>
-                <td class="font-mono" style="font-weight:700;color:var(--accent-emerald)">${fmtMoney(amt)}</td>
-                <td class="font-mono">${eff}</td>
-                <td><span class="badge icon-indigo">${escapeHTML(e.payout || 'Pending')}</span></td>
-                <td style="max-width:220px;overflow:hidden;text-overflow:ellipsis">${escapeHTML(e.note || '')}</td>
-                <td><button type="button" class="icon-btn-sm icon-btn-del" data-del-entry="${escapeHTML(e.id)}" title="Delete entry">✕</button></td>
-              </tr>
-            `;
-          })
-          .join('');
-      }
-
-      // ==================== TIMER ====================
-      const RING_CIRC = 2 * Math.PI * 88;
-      let timerMode = 'pomo';
-      let pomoMinutes = 25;
-      let secondsLeft = 25 * 60;
-      let elapsedSeconds = 0;
-      let timerRunning = false;
-      let timerInterval = null;
-
-      function getCurrentTimerSeconds() {
-        return timerMode === 'pomo' ? Math.max(0, pomoMinutes * 60 - secondsLeft) : elapsedSeconds;
-      }
-
-      function renderTimer() {
-        const totalPomoSec = pomoMinutes * 60;
-        const sec = timerMode === 'pomo' ? secondsLeft : elapsedSeconds;
-        const mins = Math.floor(sec / 60);
-        const rem = sec % 60;
-        document.getElementById('timer-digits').textContent = `${String(mins).padStart(2, '0')}:${String(rem).padStart(2, '0')}`;
-        document.getElementById('timer-phase-lbl').textContent = timerMode === 'pomo' ? `Pomodoro (${pomoMinutes}m)` : 'Open Shift';
-
-        const rate = Number(document.getElementById('timer-rate').value) || 0;
-        const est = (getCurrentTimerSeconds() / 3600) * rate;
-        document.getElementById('timer-est').textContent = `Est: ${fmtMoney(est)}`;
-
-        const ratio = timerMode === 'pomo' ? Math.max(0, Math.min(1, secondsLeft / totalPomoSec)) : 1;
-        document.getElementById('timer-ring-fg').style.strokeDashoffset = String(RING_CIRC * (1 - ratio));
-        document.getElementById('btn-timer-toggle').textContent = timerRunning ? 'Pause' : 'Start Session';
-      }
-
-      function toggleTimer() {
-        if (timerRunning) {
-          timerRunning = false;
-          clearInterval(timerInterval);
-          renderTimer();
-          return;
-        }
-        timerRunning = true;
-        renderTimer();
-        timerInterval = setInterval(() => {
-          if (timerMode === 'pomo') {
-            if (secondsLeft > 0) {
-              secondsLeft -= 1;
-              renderTimer();
-            } else {
-              timerRunning = false;
-              clearInterval(timerInterval);
-              renderTimer();
-              showToast('Pomodoro completed!', 'success');
-            }
-          } else {
-            elapsedSeconds += 1;
-            renderTimer();
-          }
-        }, 1000);
-      }
-
-      function resetTimer() {
-        timerRunning = false;
-        clearInterval(timerInterval);
-        secondsLeft = pomoMinutes * 60;
-        elapsedSeconds = 0;
-        renderTimer();
-      }
-
-      function logTimerSession() {
-        const sec = getCurrentTimerSeconds();
-        const hours = Number((sec / 3600).toFixed(2));
-        if (hours <= 0) {
-          showToast('Run the timer first before logging', 'warn');
-          return;
-        }
-        const platformId = document.getElementById('timer-platform').value || (state.platforms[0] && state.platforms[0].id);
-        const rate = Number(document.getElementById('timer-rate').value) || 0;
-        const amount = Number((hours * rate).toFixed(2));
-        state.isDemo = false;
-        state.entries.unshift({
-          id: 'e_' + Date.now(),
-          date: getDateStr(0),
-          platformId,
-          hours,
-          amount,
-          payout: 'Pending',
-          note: `Timer session (${timerMode === 'pomo' ? 'Pomodoro' : 'Shift'})`,
-        });
-        saveState({ immediateSync: true });
-        resetTimer();
-        renderKPIs();
-        renderPlatformsAndCharts();
-        renderEntries();
-        showToast(`Logged ${hours.toFixed(2)}h (${fmtMoney(amount)})`, 'success');
-      }
-
-      // ==================== US ACCENT COACH ====================
-      function renderCoach() {
-        document.getElementById('coach-streak').textContent = `${state.coach.streak || 0}d`;
-        document.getElementById('coach-today').textContent = String(state.coach.drillsToday || 0);
-        document.getElementById('coach-rate').value = String(state.coach.speechRate || 1.0);
-
-        const list = SCRIPTS_BY_CAT[activeScriptCat] || SCRIPTS_BY_CAT.cold;
-        const item = list[activeScriptIdx % list.length];
-        const activeCats = new Set(
-          Array.from(document.querySelectorAll('#phonetic-legend .p-chip.active')).map((el) => el.dataset.pcat)
-        );
-
-        const box = document.getElementById('coach-script-box');
-        box.innerHTML =
-          `<div style="font-size:0.74rem;font-weight:800;color:var(--accent-indigo);margin-bottom:4px">${escapeHTML(item.title)}</div>` +
-          item.tokens
-            .map((tok) => {
-              if (tok.type && activeCats.has(tok.type)) {
-                return `<span class="ph-token ph-${tok.type}" data-respell="${escapeHTML(tok.respell)}" data-cat="${escapeHTML(tok.type.toUpperCase())}" data-tip="${escapeHTML(tok.tip)}">${escapeHTML(tok.text)}</span>`;
-              }
-              return escapeHTML(tok.text);
+              `;
             })
             .join('');
+        }
 
-        const drills = DRILLS_BY_CAT[activeDrillCat] || DRILLS_BY_CAT.flap;
-        document.getElementById('drills-grid').innerHTML = drills
-          .map(
-            (d) => `
-          <button type="button" class="drill-card" data-speak-word="${escapeHTML(d.word)}">
-            <strong style="font-size:0.86rem;color:var(--text-primary)">${escapeHTML(d.word)}</strong>
-            <span class="font-mono" style="font-size:0.74rem;color:var(--accent-sky)">${escapeHTML(d.respell)}</span>
-            <span style="font-size:0.7rem;color:var(--text-secondary)">${escapeHTML(d.tip)}</span>
-          </button>
-        `
-          )
-          .join('');
-      }
-
-      function speakText(text) {
-        if (!('speechSynthesis' in window)) return;
-        try {
-          window.speechSynthesis.cancel();
-          const u = new SpeechSynthesisUtterance(text);
-          u.lang = 'en-US';
-          u.rate = Number(state.coach.speechRate) || 1.0;
-          const voices = window.speechSynthesis.getVoices() || [];
-          const usVoice = voices.find((v) => /en-US/i.test(v.lang)) || voices.find((v) => /^en/i.test(v.lang));
-          if (usVoice) u.voice = usVoice;
-          window.speechSynthesis.speak(u);
-        } catch (err) {}
+        // Daily Reflection
+        document.getElementById('habit-journal-date-badge').textContent = `${labelShort} (${selectedHabitDate})`;
+        const refInput = document.getElementById('habit-reflection-input');
+        const refVal = (state.habitReflections && state.habitReflections[selectedHabitDate]) || '';
+        if (refInput && document.activeElement !== refInput) {
+          refInput.value = refVal;
+        }
+        document.getElementById('habit-reflection-chars').textContent = `${refVal.length} chars`;
       }
 
       function renderDashboard() {
-        populateSelects();
-        renderKPIs();
-        renderPlatformsAndCharts();
-        renderTasks();
-        renderNotesPanel();
-        renderSkillsPanel();
-        renderEntries();
-        renderTimer();
-      }
-
-      // ==================== EVENTS ====================
+<!-- ... existing code ... -->
       function bindEvents() {
         document.querySelectorAll('[data-main-tab]').forEach((btn) => {
           btn.addEventListener('click', () => {
             const tab = btn.dataset.mainTab;
             document.querySelectorAll('[data-main-tab]').forEach((b) => b.classList.toggle('active', b === btn));
             document.getElementById('panel-dashboard').classList.toggle('active', tab === 'dashboard');
-            document.getElementById('panel-coach').classList.toggle('active', tab === 'coach');
+            document.getElementById('panel-habits').classList.toggle('active', tab === 'habits');
             if (tab === 'dashboard') renderPlatformsAndCharts();
+            if (tab === 'habits') renderHabitsPage();
           });
         });
-
-        document.getElementById('btn-theme').addEventListener('click', () => {
-          state.theme = state.theme === 'dark' ? 'light' : 'dark';
-          applyTheme(state.theme);
-          saveState();
-          renderPlatformsAndCharts();
-        });
-
-        document.getElementById('btn-export').addEventListener('click', () => {
-          const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
-          const url = URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = `freelance-hub-backup-${getDateStr(0)}.json`;
-          a.click();
-          URL.revokeObjectURL(url);
-          showToast('Backup JSON exported', 'success');
-        });
-
-        document.getElementById('input-import').addEventListener('change', (e) => {
-          const file = e.target.files && e.target.files[0];
-          if (!file) return;
-          const reader = new FileReader();
-          reader.onload = () => {
+<!-- ... existing code ... -->
             try {
               const parsed = JSON.parse(String(reader.result || '{}'));
               state = normalizeState({ ...parsed, isDemo: false, updatedAt: Date.now() });
               applyTheme(state.theme);
               saveState({ immediateSync: true });
               renderDashboard();
-              renderCoach();
+              renderHabitsPage();
               showToast('Backup imported', 'success');
             } catch (err) {
               showToast('Invalid JSON file', 'error');
@@ -2981,571 +1101,191 @@
           reader.readAsText(file);
           e.target.value = '';
         });
-
-        // Modals
-        document.querySelectorAll('[data-close-modal]').forEach((btn) => {
-          btn.addEventListener('click', () => {
-            document.getElementById(btn.dataset.closeModal).classList.remove('open');
-          });
-        });
-
-        document.querySelectorAll('.modal-backdrop').forEach((m) => {
-          m.addEventListener('click', (e) => {
-            if (e.target === m) m.classList.remove('open');
-          });
-        });
-
-        // Cloud Sync Modal
-        document.getElementById('btn-sync-open').addEventListener('click', () => {
-          document.getElementById('sync-url-input').value = syncUrl;
-          updateSyncUI(syncStatus);
-          document.getElementById('modal-sync').classList.add('open');
-        });
-
-        document.getElementById('btn-sync-save').addEventListener('click', async () => {
-          const val = document.getElementById('sync-url-input').value.trim();
-          if (val && !/^https?:\/\//i.test(val)) {
-            showToast('Enter a valid https:// URL', 'warn');
-            return;
-          }
-          syncUrl = val;
-          try {
-            if (val) localStorage.setItem(SYNC_URL_KEY, val);
-            else localStorage.removeItem(SYNC_URL_KEY);
-          } catch (err) {}
-          if (!syncUrl) {
-            updateSyncUI('local');
-            showToast('Cloud sync unlinked', 'info');
-            return;
-          }
-          const pulled = await pullFromCloud(true);
-          if (!pulled) {
-            if (!state.updatedAt) state.updatedAt = Date.now();
-            persistLocalOnly();
-            await pushToCloud(true, false);
-          }
-        });
-
-        document.getElementById('btn-sync-push').addEventListener('click', () => {
-          if (!syncUrl) return showToast('Save Web App URL first', 'warn');
-          if (!state.updatedAt) state.updatedAt = Date.now();
-          persistLocalOnly();
-          pushToCloud(true, false);
-        });
-
-        document.getElementById('btn-sync-pull').addEventListener('click', () => {
-          if (!syncUrl) return showToast('Save Web App URL first', 'warn');
-          pullFromCloud(false);
-        });
-
-        document.getElementById('btn-sync-unlink').addEventListener('click', () => {
-          syncUrl = '';
-          try { localStorage.removeItem(SYNC_URL_KEY); } catch (err) {}
-          document.getElementById('sync-url-input').value = '';
-          updateSyncUI('local');
-          showToast('Unlinked cloud sync', 'info');
-        });
-
-        document.getElementById('btn-copy-phone-link').addEventListener('click', () => {
-          const val = document.getElementById('sync-url-input').value.trim() || syncUrl;
-          if (!val) return showToast('Save Web App URL first', 'warn');
-          const base = `${window.location.origin}${window.location.pathname}`;
-          const full = `${base}#sync=${encodeURIComponent(val)}`;
-          if (copyToClipboard(full)) showToast('Phone sync link copied', 'success');
-        });
-
-        // Reset Modal & Demo Banner
-        document.getElementById('btn-reset-open').addEventListener('click', () => {
-          document.getElementById('modal-reset').classList.add('open');
-        });
-
-        const zeroOutMetrics = () => {
-          state.entries = [];
-          state.tasks = [];
-          state.isDemo = false;
-          state.demoDismissed = true;
-          state.updatedAt = Date.now();
-          saveState({ immediateSync: true });
-          renderDashboard();
-          document.getElementById('modal-reset').classList.remove('open');
-          showToast('Reset to zero', 'success');
-        };
-
-        document.getElementById('btn-reset-zero').addEventListener('click', zeroOutMetrics);
-        document.getElementById('btn-quick-zero').addEventListener('click', zeroOutMetrics);
-        document.getElementById('btn-dismiss-demo').addEventListener('click', () => {
-          state.demoDismissed = true;
-          saveState({ sync: false });
-          renderKPIs();
-        });
-
+<!-- ... existing code ... -->
         document.getElementById('btn-reset-demo').addEventListener('click', () => {
           const fresh = buildStarterState();
           state = { ...fresh, isDemo: true, demoDismissed: false, updatedAt: Date.now() };
           saveState({ immediateSync: true });
           renderDashboard();
-          renderCoach();
+          renderHabitsPage();
           document.getElementById('modal-reset').classList.remove('open');
           showToast('Loaded sample data', 'info');
         });
-
-        // KPI Goal & FX
-        document.getElementById('inline-goal').addEventListener('change', (e) => {
-          const g = Math.max(1, Number(e.target.value) || 1700);
-          state.monthlyGoal = g;
-          state.isDemo = false;
-          saveState();
-          renderKPIs();
-        });
-
-        document.getElementById('inline-rate').addEventListener('change', (e) => {
-          const r = Number(e.target.value);
-          if (r > 0) {
-            state.egpRate = Number(r.toFixed(2));
-            state.egpRateManual = true;
-            state.isDemo = false;
-            saveState();
-            renderKPIs();
-          }
-        });
-
-        document.getElementById('btn-fx-refresh').addEventListener('click', () => {
-          state.egpRateManual = false;
-          fetchLiveUSDtoEGP(true);
-        });
-
-        document.getElementById('btn-fx-auto').addEventListener('click', () => {
-          state.egpRateManual = false;
-          fetchLiveUSDtoEGP(true);
-        });
-
-        // Timer events
-        document.getElementById('timer-mode-pomo').addEventListener('click', () => {
-          timerMode = 'pomo';
-          document.getElementById('timer-mode-pomo').classList.add('active');
-          document.getElementById('timer-mode-shift').classList.remove('active');
-          document.getElementById('timer-presets-row').style.display = 'flex';
-          resetTimer();
-        });
-
-        document.getElementById('timer-mode-shift').addEventListener('click', () => {
-          timerMode = 'shift';
-          document.getElementById('timer-mode-shift').classList.add('active');
-          document.getElementById('timer-mode-pomo').classList.remove('active');
-          document.getElementById('timer-presets-row').style.display = 'none';
-          resetTimer();
-        });
-
-        document.querySelectorAll('.preset-pill').forEach((pill) => {
-          pill.addEventListener('click', () => {
-            pomoMinutes = Number(pill.dataset.mins) || 25;
-            document.querySelectorAll('.preset-pill').forEach((b) => b.classList.toggle('active', b === pill));
-            resetTimer();
-          });
-        });
-
-        document.getElementById('timer-platform').addEventListener('change', (e) => {
-          const p = getPlatform(e.target.value);
-          if (p) document.getElementById('timer-rate').value = p.rate;
-          renderTimer();
-        });
-
-        document.getElementById('timer-rate').addEventListener('input', renderTimer);
-        document.getElementById('btn-timer-toggle').addEventListener('click', toggleTimer);
-        document.getElementById('btn-timer-reset').addEventListener('click', resetTimer);
-        document.getElementById('btn-timer-log').addEventListener('click', logTimerSession);
-
-        // Task events
-        document.getElementById('form-task').addEventListener('submit', (e) => {
-          e.preventDefault();
-          const inp = document.getElementById('task-input');
-          const title = inp.value.trim();
-          if (!title) return;
-          const skillId = document.getElementById('task-skill-link').value || '';
-          state.isDemo = false;
-          state.tasks.unshift({
-            id: 't_' + Date.now(),
-            title,
-            priority: document.getElementById('task-priority').value,
-            category: document.getElementById('task-category').value,
-            skillId,
-            completed: false,
-            createdAt: Date.now(),
-          });
-          saveState();
-          inp.value = '';
-          renderKPIs();
-          renderTasks();
-          renderSkillsPanel();
-          showToast('Task added', 'success');
-        });
-
-        document.getElementById('task-filters').addEventListener('click', (e) => {
-          const pill = e.target.closest('[data-tfilter]');
-          if (!pill) return;
-          taskFilter = pill.dataset.tfilter;
-          document.querySelectorAll('#task-filters .filter-pill').forEach((b) => b.classList.toggle('active', b === pill));
-          renderTasks();
-        });
-
-        document.getElementById('task-list').addEventListener('click', (e) => {
-          const tog = e.target.closest('[data-toggle-task]');
-          if (tog) {
-            const t = state.tasks.find((x) => x.id === tog.dataset.toggleTask);
-            if (t) {
-              t.completed = !t.completed;
-              state.isDemo = false;
-              saveState();
-              renderKPIs();
-              renderTasks();
-              if (t.skillId) renderSkillsPanel();
-            }
-            return;
-          }
-          const del = e.target.closest('[data-del-task]');
-          if (del) {
-            const removed = state.tasks.find((x) => x.id === del.dataset.delTask);
-            state.tasks = state.tasks.filter((x) => x.id !== del.dataset.delTask);
-            state.isDemo = false;
-            saveState();
-            renderKPIs();
-            renderTasks();
-            if (removed && removed.skillId) renderSkillsPanel();
-          }
-        });
-
-        document.getElementById('btn-clear-done-tasks').addEventListener('click', () => {
-          state.tasks = state.tasks.filter((t) => !t.completed);
-          state.isDemo = false;
-          saveState();
-          renderKPIs();
-          renderTasks();
-          renderSkillsPanel();
-          showToast('Cleared completed tasks', 'info');
-        });
-
-        // Platform Quick Notes events
-        document.getElementById('note-scope-pills').addEventListener('click', (e) => {
-          const pill = e.target.closest('[data-note-scope]');
-          if (!pill) return;
-          activeNoteScope = pill.dataset.noteScope;
-          document.querySelectorAll('#note-scope-pills .note-scope-pill').forEach((b) => b.classList.toggle('active', b === pill));
-          renderNotesPanel();
-        });
-
-        document.getElementById('platform-note-input').addEventListener('input', (e) => {
-          if (!state.notes) state.notes = {};
-          state.notes[activeNoteScope] = e.target.value;
-          state.isDemo = false;
-          document.getElementById('note-char-count').textContent = `${e.target.value.length} chars`;
-          document.getElementById('note-save-status').textContent = 'Saving...';
-          clearTimeout(noteDebounceId);
-          noteDebounceId = setTimeout(() => {
-            saveState();
-            document.getElementById('note-save-status').textContent = 'Saved & synced';
-          }, 450);
-        });
-
-        document.getElementById('btn-copy-note').addEventListener('click', () => {
-          const val = document.getElementById('platform-note-input').value;
-          if (!val) return showToast('Note is empty', 'warn');
-          if (copyToClipboard(val)) showToast('Note copied', 'success');
-        });
-
-        // Skills & Task-Linked Progress events
-        document.getElementById('form-skill').addEventListener('submit', (e) => {
-          e.preventDefault();
-          const nameInput = document.getElementById('skill-name-input');
-          const name = nameInput.value.trim();
-          const targetHours = Math.max(1, parseFloat(document.getElementById('skill-target-hrs').value) || 20);
-          const targetTasks = Math.max(1, parseInt(document.getElementById('skill-target-tasks').value, 10) || 10);
-          if (!name) return;
-          state.isDemo = false;
-          state.skills.push({
-            id: 'sk_' + Date.now(),
-            name,
-            targetHours,
-            loggedHours: 0,
-            targetTasks,
-            manualBoost: 0,
-            color: SWATCH_COLORS[state.skills.length % SWATCH_COLORS.length],
-          });
-          saveState();
-          nameInput.value = '';
-          populateSelects();
-          renderSkillsPanel();
-          showToast(`Added skill "${name}"`, 'success');
-        });
-
-        document.getElementById('skills-grid').addEventListener('click', (e) => {
-          const edSk = e.target.closest('[data-edit-skill]');
-          if (edSk) {
-            const sk = state.skills.find((x) => x.id === edSk.dataset.editSkill);
-            if (sk) {
-              document.getElementById('edit-skill-id').value = sk.id;
-              document.getElementById('edit-skill-name').value = sk.name;
-              document.getElementById('edit-skill-hrs').value = sk.targetHours;
-              document.getElementById('edit-skill-tasks').value = sk.targetTasks;
-              document.getElementById('modal-edit-skill').classList.add('open');
-            }
-            return;
-          }
-          const bTask = e.target.closest('[data-boost-task]');
-          if (bTask) {
-            const sk = state.skills.find((x) => x.id === bTask.dataset.boostTask);
-            if (sk) {
-              sk.manualBoost = (Number(sk.manualBoost) || 0) + 1;
-              state.isDemo = false;
-              saveState();
-              renderSkillsPanel();
-              showToast(`+1 task progress for ${sk.name}`, 'success');
-            }
-            return;
-          }
-          const bHour = e.target.closest('[data-boost-hour]');
-          if (bHour) {
-            const sk = state.skills.find((x) => x.id === bHour.dataset.boostHour);
-            if (sk) {
-              sk.loggedHours = Number(((Number(sk.loggedHours) || 0) + 1).toFixed(1));
-              state.isDemo = false;
-              saveState();
-              renderSkillsPanel();
-              showToast(`+1h logged for ${sk.name}`, 'success');
-            }
-            return;
-          }
-          const delSk = e.target.closest('[data-del-skill]');
-          if (delSk) {
-            const sid = delSk.dataset.delSkill;
-            state.skills = state.skills.filter((x) => x.id !== sid);
-            state.tasks.forEach((t) => {
-              if (t.skillId === sid) t.skillId = '';
-            });
-            state.isDemo = false;
-            saveState();
-            populateSelects();
-            renderTasks();
-            renderSkillsPanel();
-            showToast('Skill removed', 'info');
-          }
-        });
-
-        document.getElementById('form-edit-skill').addEventListener('submit', (e) => {
-          e.preventDefault();
-          const sid = document.getElementById('edit-skill-id').value;
-          const sk = state.skills.find((x) => x.id === sid);
-          if (!sk) return;
-          const name = document.getElementById('edit-skill-name').value.trim();
-          if (!name) return;
-          sk.name = name;
-          sk.targetHours = Math.max(1, parseFloat(document.getElementById('edit-skill-hrs').value) || 20);
-          sk.targetTasks = Math.max(1, parseInt(document.getElementById('edit-skill-tasks').value, 10) || 10);
-          state.isDemo = false;
-          saveState();
-          document.getElementById('modal-edit-skill').classList.remove('open');
-          populateSelects();
-          renderTasks();
-          renderSkillsPanel();
-          showToast('Skill updated', 'success');
-        });
-
-        // Platform modal & list
-        document.getElementById('btn-open-add-platform').addEventListener('click', () => {
-          document.getElementById('modal-platform').classList.add('open');
-        });
-
-        document.getElementById('form-platform').addEventListener('submit', (e) => {
-          e.preventDefault();
-          const name = document.getElementById('plat-name').value.trim();
-          const goal = Math.max(0, Number(document.getElementById('plat-goal').value) || 0);
-          const rate = Math.max(0, Number(document.getElementById('plat-rate').value) || 0);
-          if (!name) return;
-          state.isDemo = false;
-          state.platforms.push({
-            id: 'p_' + Date.now(),
-            name,
-            goal,
-            rate,
-            color: SWATCH_COLORS[state.platforms.length % SWATCH_COLORS.length],
-          });
-          saveState();
-          document.getElementById('plat-name').value = '';
-          document.getElementById('modal-platform').classList.remove('open');
-          populateSelects();
-          renderPlatformsAndCharts();
-          showToast('Platform added', 'success');
-        });
-
-        document.getElementById('platforms-list').addEventListener('click', (e) => {
-          const ed = e.target.closest('[data-edit-plat]');
-          if (ed) {
-            const p = state.platforms.find((x) => x.id === ed.dataset.editPlat);
-            if (p) {
-              document.getElementById('edit-plat-id').value = p.id;
-              document.getElementById('edit-plat-name').value = p.name;
-              document.getElementById('edit-plat-goal').value = p.goal;
-              document.getElementById('edit-plat-rate').value = p.rate;
-              document.getElementById('modal-edit-platform').classList.add('open');
-            }
-            return;
-          }
-          const del = e.target.closest('[data-del-plat]');
-          if (!del) return;
-          if (state.platforms.length <= 1) return showToast('Keep at least one platform', 'warn');
-          state.platforms = state.platforms.filter((p) => p.id !== del.dataset.delPlat);
-          state.isDemo = false;
-          saveState();
-          populateSelects();
-          renderPlatformsAndCharts();
-          renderEntries();
-        });
-
-        document.getElementById('form-edit-platform').addEventListener('submit', (e) => {
-          e.preventDefault();
-          const pid = document.getElementById('edit-plat-id').value;
-          const p = state.platforms.find((x) => x.id === pid);
-          if (!p) return;
-          const name = document.getElementById('edit-plat-name').value.trim();
-          if (!name) return;
-          p.name = name;
-          p.goal = Math.max(0, Number(document.getElementById('edit-plat-goal').value) || 0);
-          p.rate = Math.max(0, Number(document.getElementById('edit-plat-rate').value) || 0);
-          state.isDemo = false;
-          saveState();
-          document.getElementById('modal-edit-platform').classList.remove('open');
-          populateSelects();
-          renderKPIs();
-          renderPlatformsAndCharts();
-          renderEntries();
-          showToast('Platform updated', 'success');
-        });
-
-        // Ledger events
-        document.getElementById('form-entry').addEventListener('submit', (e) => {
-          e.preventDefault();
-          const date = document.getElementById('entry-date').value || getDateStr(0);
-          const platformId = document.getElementById('entry-platform').value;
-          const hours = Math.max(0, Number(document.getElementById('entry-hours').value) || 0);
-          const amount = Math.max(0, Number(document.getElementById('entry-amount').value) || 0);
-          const payout = document.getElementById('entry-payout').value;
-          const note = document.getElementById('entry-note').value.trim();
-          state.isDemo = false;
-          state.entries.unshift({
-            id: 'e_' + Date.now(),
-            date,
-            platformId,
-            hours,
-            amount,
-            payout,
-            note,
-          });
-          saveState({ immediateSync: true });
-          document.getElementById('entry-hours').value = '';
-          document.getElementById('entry-amount').value = '';
-          document.getElementById('entry-note').value = '';
-          renderKPIs();
-          renderPlatformsAndCharts();
-          renderEntries();
-          showToast('Entry added', 'success');
-        });
-
-        document.getElementById('entries-tbody').addEventListener('click', (e) => {
-          const del = e.target.closest('[data-del-entry]');
-          if (!del) return;
-          state.entries = state.entries.filter((x) => x.id !== del.dataset.delEntry);
-          state.isDemo = false;
-          saveState({ immediateSync: true });
-          renderKPIs();
-          renderPlatformsAndCharts();
-          renderEntries();
-          showToast('Entry deleted', 'info');
-        });
-
+<!-- ... existing code ... -->
         document.getElementById('log-filter-platform').addEventListener('change', renderEntries);
         document.getElementById('log-filter-payout').addEventListener('change', renderEntries);
 
-        // Accent Coach events
-        document.getElementById('script-cat-pills').addEventListener('click', (e) => {
-          const pill = e.target.closest('[data-scat]');
-          if (!pill) return;
-          activeScriptCat = pill.dataset.scat;
-          activeScriptIdx = 0;
-          document.querySelectorAll('#script-cat-pills .filter-pill').forEach((b) => b.classList.toggle('active', b === pill));
-          renderCoach();
-        });
-
-        document.getElementById('drill-cat-pills').addEventListener('click', (e) => {
-          const pill = e.target.closest('[data-dcat]');
-          if (!pill) return;
-          activeDrillCat = pill.dataset.dcat;
-          document.querySelectorAll('#drill-cat-pills .filter-pill').forEach((b) => b.classList.toggle('active', b === pill));
-          renderCoach();
-        });
-
-        document.getElementById('phonetic-legend').addEventListener('click', (e) => {
-          const chip = e.target.closest('.p-chip');
-          if (!chip) return;
-          chip.classList.toggle('active');
-          renderCoach();
-        });
-
-        document.getElementById('coach-rate').addEventListener('change', (e) => {
-          state.coach.speechRate = Number(e.target.value) || 1.0;
-          saveState({ sync: false });
-        });
-
-        document.getElementById('btn-coach-speak').addEventListener('click', () => {
-          const list = SCRIPTS_BY_CAT[activeScriptCat] || SCRIPTS_BY_CAT.cold;
-          const item = list[activeScriptIdx % list.length];
-          speakText(item.plain);
-        });
-
-        document.getElementById('btn-coach-stop').addEventListener('click', () => {
-          if ('speechSynthesis' in window) window.speechSynthesis.cancel();
-        });
-
-        document.getElementById('btn-coach-next').addEventListener('click', () => {
-          const list = SCRIPTS_BY_CAT[activeScriptCat] || SCRIPTS_BY_CAT.cold;
-          activeScriptIdx = (activeScriptIdx + 1) % list.length;
-          renderCoach();
-        });
-
-        document.getElementById('btn-coach-done').addEventListener('click', () => {
-          const today = getDateStr(0);
-          if (state.coach.lastPracticeDate !== today) {
-            state.coach.streak = (Number(state.coach.streak) || 0) + 1;
-            state.coach.lastPracticeDate = today;
+        // Habit Tracker events
+        document.getElementById('habit-selected-date').addEventListener('change', (e) => {
+          if (e.target.value) {
+            selectedHabitDate = e.target.value;
+            renderHabitsPage();
           }
-          state.coach.drillsToday = (Number(state.coach.drillsToday) || 0) + 1;
+        });
+
+        document.getElementById('btn-habit-prev-day').addEventListener('click', () => {
+          selectedHabitDate = shiftDateStr(selectedHabitDate, -1);
+          renderHabitsPage();
+        });
+
+        document.getElementById('btn-habit-today').addEventListener('click', () => {
+          selectedHabitDate = getDateStr(0);
+          renderHabitsPage();
+        });
+
+        document.getElementById('habit-heatmap-grid').addEventListener('click', (e) => {
+          const cell = e.target.closest('[data-hm-date]');
+          if (!cell) return;
+          selectedHabitDate = cell.dataset.hmDate;
+          renderHabitsPage();
+        });
+
+        document.getElementById('habit-cat-filters').addEventListener('click', (e) => {
+          const pill = e.target.closest('[data-hcat]');
+          if (!pill) return;
+          habitCatFilter = pill.dataset.hcat;
+          document.querySelectorAll('#habit-cat-filters .filter-pill').forEach((b) => b.classList.toggle('active', b === pill));
+          renderHabitsPage();
+        });
+
+        document.getElementById('btn-open-add-habit').addEventListener('click', () => {
+          document.getElementById('modal-habit-title').textContent = 'New Habit';
+          document.getElementById('habit-form-id').value = '';
+          document.getElementById('habit-form-icon').value = '✨';
+          document.getElementById('habit-form-name').value = '';
+          document.getElementById('habit-form-cat').value = 'Spiritual';
+          document.getElementById('habit-form-type').value = 'check';
+          document.getElementById('habit-form-target').value = '4';
+          document.getElementById('habit-form-unit').value = 'pages';
+          document.getElementById('habit-numeric-fields').style.display = 'none';
+          document.getElementById('modal-habit').classList.add('open');
+        });
+
+        document.getElementById('habit-form-type').addEventListener('change', (e) => {
+          document.getElementById('habit-numeric-fields').style.display = e.target.value === 'number' ? 'grid' : 'none';
+        });
+
+        document.getElementById('form-habit').addEventListener('submit', (e) => {
+          e.preventDefault();
+          const editId = document.getElementById('habit-form-id').value;
+          const icon = document.getElementById('habit-form-icon').value.trim() || '✨';
+          const name = document.getElementById('habit-form-name').value.trim();
+          const category = document.getElementById('habit-form-cat').value;
+          const type = document.getElementById('habit-form-type').value;
+          const target = type === 'number' ? Math.max(1, Number(document.getElementById('habit-form-target').value) || 1) : 1;
+          const unit = type === 'number' ? (document.getElementById('habit-form-unit').value.trim() || 'units') : 'done';
+          if (!name) return;
+
+          state.isDemo = false;
+          if (editId) {
+            const hb = state.habits.find((x) => x.id === editId);
+            if (hb) {
+              hb.icon = icon;
+              hb.name = name;
+              hb.category = category;
+              hb.type = type;
+              hb.target = target;
+              hb.unit = unit;
+            }
+            showToast('Habit updated', 'success');
+          } else {
+            state.habits.push({
+              id: 'hb_' + Date.now(),
+              icon,
+              name,
+              category,
+              type,
+              target,
+              unit,
+              logs: {},
+            });
+            showToast('Habit added', 'success');
+          }
           saveState();
-          renderCoach();
-          showToast('Practiced script logged', 'success');
+          document.getElementById('modal-habit').classList.remove('open');
+          renderHabitsPage();
         });
 
-        document.getElementById('drills-grid').addEventListener('click', (e) => {
-          const card = e.target.closest('[data-speak-word]');
-          if (!card) return;
-          speakText(card.dataset.speakWord);
-          state.coach.drillsToday = (Number(state.coach.drillsToday) || 0) + 1;
-          saveState({ sync: false });
-          renderCoach();
+        document.getElementById('habits-cards-grid').addEventListener('click', (e) => {
+          const stepBtn = e.target.closest('[data-habit-step]');
+          if (stepBtn) {
+            const hb = state.habits.find((x) => x.id === stepBtn.dataset.habitStep);
+            if (!hb) return;
+            const delta = Number(stepBtn.dataset.delta) || 0;
+            const cur = getHabitValueForDate(hb, selectedHabitDate);
+            hb.logs[selectedHabitDate] = Math.max(0, cur + delta);
+            state.isDemo = false;
+            saveState();
+            renderHabitsPage();
+            return;
+          }
+
+          const compBtn = e.target.closest('[data-habit-complete]');
+          if (compBtn) {
+            const hb = state.habits.find((x) => x.id === compBtn.dataset.habitComplete);
+            if (!hb) return;
+            const target = hb.type === 'number' ? Math.max(1, Number(hb.target) || 1) : 1;
+            const cur = getHabitValueForDate(hb, selectedHabitDate);
+            hb.logs[selectedHabitDate] = cur >= target ? 0 : target;
+            state.isDemo = false;
+            saveState();
+            renderHabitsPage();
+            return;
+          }
+
+          const dayBtn = e.target.closest('[data-habit-day]');
+          if (dayBtn) {
+            const hb = state.habits.find((x) => x.id === dayBtn.dataset.habitDay);
+            const dStr = dayBtn.dataset.date;
+            if (!hb || !dStr) return;
+            const target = hb.type === 'number' ? Math.max(1, Number(hb.target) || 1) : 1;
+            const cur = getHabitValueForDate(hb, dStr);
+            hb.logs[dStr] = cur >= target ? 0 : target;
+            selectedHabitDate = dStr;
+            state.isDemo = false;
+            saveState();
+            renderHabitsPage();
+            return;
+          }
+
+          const editBtn = e.target.closest('[data-edit-habit]');
+          if (editBtn) {
+            const hb = state.habits.find((x) => x.id === editBtn.dataset.editHabit);
+            if (!hb) return;
+            document.getElementById('modal-habit-title').textContent = 'Edit Habit';
+            document.getElementById('habit-form-id').value = hb.id;
+            document.getElementById('habit-form-icon').value = hb.icon;
+            document.getElementById('habit-form-name').value = hb.name;
+            document.getElementById('habit-form-cat').value = hb.category;
+            document.getElementById('habit-form-type').value = hb.type;
+            document.getElementById('habit-form-target').value = hb.target;
+            document.getElementById('habit-form-unit').value = hb.unit;
+            document.getElementById('habit-numeric-fields').style.display = hb.type === 'number' ? 'grid' : 'none';
+            document.getElementById('modal-habit').classList.add('open');
+            return;
+          }
+
+          const delBtn = e.target.closest('[data-del-habit]');
+          if (delBtn) {
+            state.habits = state.habits.filter((x) => x.id !== delBtn.dataset.delHabit);
+            state.isDemo = false;
+            saveState();
+            renderHabitsPage();
+            showToast('Habit removed', 'info');
+          }
         });
 
-        const tipEl = document.getElementById('phonetic-tooltip');
-        document.getElementById('coach-script-box').addEventListener('mouseover', (e) => {
-          const tok = e.target.closest('.ph-token');
-          if (!tok) return;
-          document.getElementById('tt-respell').textContent = tok.dataset.respell || '';
-          document.getElementById('tt-cat').textContent = tok.dataset.cat || '';
-          document.getElementById('tt-tip').textContent = tok.dataset.tip || '';
-          const r = tok.getBoundingClientRect();
-          tipEl.style.left = `${Math.min(window.innerWidth - 290, Math.max(12, r.left))}px`;
-          tipEl.style.top = `${Math.max(12, r.top - 78)}px`;
-          tipEl.classList.add('visible');
-        });
-
-        document.getElementById('coach-script-box').addEventListener('mouseleave', () => {
-          tipEl.classList.remove('visible');
+        document.getElementById('habit-reflection-input').addEventListener('input', (e) => {
+          if (!state.habitReflections) state.habitReflections = {};
+          state.habitReflections[selectedHabitDate] = e.target.value;
+          state.isDemo = false;
+          document.getElementById('habit-reflection-chars').textContent = `${e.target.value.length} chars`;
+          document.getElementById('habit-reflection-status').textContent = 'Saving...';
+          clearTimeout(reflectionDebounceId);
+          reflectionDebounceId = setTimeout(() => {
+            saveState();
+            document.getElementById('habit-reflection-status').textContent = 'Saved & synced';
+          }, 450);
         });
 
         window.addEventListener('resize', renderPlatformsAndCharts);
@@ -3554,9 +1294,10 @@
       // ==================== INIT ====================
       applyTheme(state.theme);
       document.getElementById('entry-date').value = getDateStr(0);
+      document.getElementById('habit-selected-date').value = selectedHabitDate;
       bindEvents();
       renderDashboard();
-      renderCoach();
+      renderHabitsPage();
       updateClocks();
       setInterval(updateClocks, 1000);
       fetchLiveUSDtoEGP(false);
