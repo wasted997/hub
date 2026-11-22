@@ -7,10 +7,13 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cairo:wght@400;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=Cairo:wght@400;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
 
   <style>
     :root {
+      --font-sans: 'Inter', 'Cairo', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-display: 'Plus Jakarta Sans', 'Inter', 'Cairo', sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
       --bg-body: #070b14;
       --bg-surface: #0e1525;
       --bg-card: #121b2e;
@@ -73,19 +76,27 @@
     }
 
     body {
-      font-family: 'Inter', 'Cairo', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-family: var(--font-sans);
       background-color: var(--bg-body);
       color: var(--text-primary);
-      line-height: 1.55;
+      line-height: 1.58;
+      letter-spacing: -0.01em;
       min-height: 100vh;
       transition: background-color 0.25s ease, color 0.25s ease;
       -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
       overflow-x: hidden;
     }
 
+    h1, h2, h3, .card-title, .kpi-value, .nav-tab-btn, .skill-title {
+      font-family: var(--font-display);
+      letter-spacing: -0.02em;
+    }
+
     .font-mono {
-      font-family: 'JetBrains Mono', monospace;
+      font-family: var(--font-mono);
       font-variant-numeric: tabular-nums;
+      letter-spacing: -0.01em;
     }
 
     button, input, select, textarea {
@@ -1734,6 +1745,68 @@
     </div>
   </div>
 
+  <!-- MODAL: EDIT PLATFORM -->
+  <div id="modal-edit-platform" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-edit-plat-title">
+    <div class="modal-card">
+      <div class="card-header">
+        <h3 id="modal-edit-plat-title" class="card-title">Edit Platform</h3>
+        <button type="button" class="icon-btn-sm" data-close-modal="modal-edit-platform">✕</button>
+      </div>
+      <form id="form-edit-platform" style="display:flex;flex-direction:column;gap:10px">
+        <input id="edit-plat-id" type="hidden" />
+        <div>
+          <label for="edit-plat-name" class="field-label">Platform Name</label>
+          <input id="edit-plat-name" type="text" class="input" required />
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <div>
+            <label for="edit-plat-goal" class="field-label">Monthly Goal ($)</label>
+            <input id="edit-plat-goal" type="number" min="0" step="10" class="input font-mono" required />
+          </div>
+          <div>
+            <label for="edit-plat-rate" class="field-label">Default Rate ($/hr)</label>
+            <input id="edit-plat-rate" type="number" min="0" step="0.5" class="input font-mono" required />
+          </div>
+        </div>
+        <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:6px">
+          <button type="button" class="btn btn-secondary" data-close-modal="modal-edit-platform">Cancel</button>
+          <button type="submit" class="btn btn-primary">Update Platform</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: EDIT SKILL -->
+  <div id="modal-edit-skill" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-edit-skill-title">
+    <div class="modal-card">
+      <div class="card-header">
+        <h3 id="modal-edit-skill-title" class="card-title">Edit Skill</h3>
+        <button type="button" class="icon-btn-sm" data-close-modal="modal-edit-skill">✕</button>
+      </div>
+      <form id="form-edit-skill" style="display:flex;flex-direction:column;gap:10px">
+        <input id="edit-skill-id" type="hidden" />
+        <div>
+          <label for="edit-skill-name" class="field-label">Skill Name</label>
+          <input id="edit-skill-name" type="text" class="input" required />
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <div>
+            <label for="edit-skill-hrs" class="field-label">Target Hours</label>
+            <input id="edit-skill-hrs" type="number" min="1" step="1" class="input font-mono" required />
+          </div>
+          <div>
+            <label for="edit-skill-tasks" class="field-label">Target Tasks</label>
+            <input id="edit-skill-tasks" type="number" min="1" step="1" class="input font-mono" required />
+          </div>
+        </div>
+        <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:6px">
+          <button type="button" class="btn btn-secondary" data-close-modal="modal-edit-skill">Cancel</button>
+          <button type="submit" class="btn btn-primary">Update Skill</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- MODAL: RESET DATA -->
   <div id="modal-reset" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-reset-title">
     <div class="modal-card">
@@ -2452,7 +2525,10 @@
                 <span class="plat-dot" style="background:${escapeHTML(s.color)}"></span>
                 <span>${escapeHTML(s.name)}</span>
               </div>
-              <button type="button" class="icon-btn-sm icon-btn-del" data-del-plat="${escapeHTML(s.id)}" title="Delete platform">✕</button>
+              <div style="display:flex;align-items:center;gap:5px">
+                <button type="button" class="icon-btn-sm" data-edit-plat="${escapeHTML(s.id)}" title="Edit platform">✎</button>
+                <button type="button" class="icon-btn-sm icon-btn-del" data-del-plat="${escapeHTML(s.id)}" title="Delete platform">✕</button>
+              </div>
             </div>
             <div class="plat-nums font-mono">
               <span>${fmtMoney(s.earned)} / ${fmtMoney(s.goal)} (${s.pct}%)</span>
@@ -2635,6 +2711,7 @@
                   </div>
                   <div style="display:flex;align-items:center;gap:6px">
                     <span class="skill-pct">${p.pct}%</span>
+                    <button type="button" class="icon-btn-sm" data-edit-skill="${escapeHTML(sk.id)}" title="Edit skill">✎</button>
                     <button type="button" class="icon-btn-sm icon-btn-del" data-del-skill="${escapeHTML(sk.id)}" title="Remove skill">✕</button>
                   </div>
                 </div>
@@ -3201,6 +3278,18 @@
         });
 
         document.getElementById('skills-grid').addEventListener('click', (e) => {
+          const edSk = e.target.closest('[data-edit-skill]');
+          if (edSk) {
+            const sk = state.skills.find((x) => x.id === edSk.dataset.editSkill);
+            if (sk) {
+              document.getElementById('edit-skill-id').value = sk.id;
+              document.getElementById('edit-skill-name').value = sk.name;
+              document.getElementById('edit-skill-hrs').value = sk.targetHours;
+              document.getElementById('edit-skill-tasks').value = sk.targetTasks;
+              document.getElementById('modal-edit-skill').classList.add('open');
+            }
+            return;
+          }
           const bTask = e.target.closest('[data-boost-task]');
           if (bTask) {
             const sk = state.skills.find((x) => x.id === bTask.dataset.boostTask);
@@ -3241,6 +3330,25 @@
           }
         });
 
+        document.getElementById('form-edit-skill').addEventListener('submit', (e) => {
+          e.preventDefault();
+          const sid = document.getElementById('edit-skill-id').value;
+          const sk = state.skills.find((x) => x.id === sid);
+          if (!sk) return;
+          const name = document.getElementById('edit-skill-name').value.trim();
+          if (!name) return;
+          sk.name = name;
+          sk.targetHours = Math.max(1, parseFloat(document.getElementById('edit-skill-hrs').value) || 20);
+          sk.targetTasks = Math.max(1, parseInt(document.getElementById('edit-skill-tasks').value, 10) || 10);
+          state.isDemo = false;
+          saveState();
+          document.getElementById('modal-edit-skill').classList.remove('open');
+          populateSelects();
+          renderTasks();
+          renderSkillsPanel();
+          showToast('Skill updated', 'success');
+        });
+
         // Platform modal & list
         document.getElementById('btn-open-add-platform').addEventListener('click', () => {
           document.getElementById('modal-platform').classList.add('open');
@@ -3269,6 +3377,18 @@
         });
 
         document.getElementById('platforms-list').addEventListener('click', (e) => {
+          const ed = e.target.closest('[data-edit-plat]');
+          if (ed) {
+            const p = state.platforms.find((x) => x.id === ed.dataset.editPlat);
+            if (p) {
+              document.getElementById('edit-plat-id').value = p.id;
+              document.getElementById('edit-plat-name').value = p.name;
+              document.getElementById('edit-plat-goal').value = p.goal;
+              document.getElementById('edit-plat-rate').value = p.rate;
+              document.getElementById('modal-edit-platform').classList.add('open');
+            }
+            return;
+          }
           const del = e.target.closest('[data-del-plat]');
           if (!del) return;
           if (state.platforms.length <= 1) return showToast('Keep at least one platform', 'warn');
@@ -3278,6 +3398,26 @@
           populateSelects();
           renderPlatformsAndCharts();
           renderEntries();
+        });
+
+        document.getElementById('form-edit-platform').addEventListener('submit', (e) => {
+          e.preventDefault();
+          const pid = document.getElementById('edit-plat-id').value;
+          const p = state.platforms.find((x) => x.id === pid);
+          if (!p) return;
+          const name = document.getElementById('edit-plat-name').value.trim();
+          if (!name) return;
+          p.name = name;
+          p.goal = Math.max(0, Number(document.getElementById('edit-plat-goal').value) || 0);
+          p.rate = Math.max(0, Number(document.getElementById('edit-plat-rate').value) || 0);
+          state.isDemo = false;
+          saveState();
+          document.getElementById('modal-edit-platform').classList.remove('open');
+          populateSelects();
+          renderKPIs();
+          renderPlatformsAndCharts();
+          renderEntries();
+          showToast('Platform updated', 'success');
         });
 
         // Ledger events
