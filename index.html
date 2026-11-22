@@ -1,124 +1,899 @@
-<meta name="application-name" content="Work Hub" />
-  <title>Work &amp; Income Hub</title>
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b0f19" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="application-name" content="Work Hub" />
+  <title>Work &amp; Habit Hub</title>
 
-  <link id="app-favicon" rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%236366f1'/%3E%3Cstop offset='55%25' stop-color='%237c3aed'/%3E%3Cstop offset='100%25' stop-color='%2310b981'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='512' height='512' rx='118' fill='url(%23g)'/%3E%3Cpath d='M92 276h74l42-104 68 188 54-126 38 42h52' fill='none' stroke='%23ffffff' stroke-width='38' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='420' cy='276' r='22' fill='%23a7f3d0'/%3E%3C/svg%3E" />
+  <!-- Google Fonts: Plus Jakarta Sans, Inter, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Dynamic App Icons & PWA Manifest -->
+  <link id="app-favicon" rel="icon" type="image/png" href="" />
   <link id="apple-touch-icon" rel="apple-touch-icon" href="" />
   <link id="app-manifest" rel="manifest" href="" />
 
   <script>
-    (function setupAppIconAndManifest() {
+    (function generateAppIconAndManifest() {
       try {
         var canvas = document.createElement('canvas');
         canvas.width = 512;
         canvas.height = 512;
         var ctx = canvas.getContext('2d');
-        if (ctx) {
-          var grad = ctx.createLinearGradient(0, 0, 512, 512);
-          grad.addColorStop(0, '#6366f1');
-          grad.addColorStop(0.55, '#7c3aed');
-          grad.addColorStop(1, '#10b981');
-          ctx.fillStyle = grad;
-          ctx.fillRect(0, 0, 512, 512);
+        if (!ctx) return;
 
-          ctx.fillStyle = 'rgba(255,255,255,0.12)';
+        // Rounded square gradient background (Indigo to Violet)
+        var r = 112;
+        ctx.beginPath();
+        ctx.moveTo(r, 0);
+        ctx.lineTo(512 - r, 0);
+        ctx.quadraticCurveTo(512, 0, 512, r);
+        ctx.lineTo(512, 512 - r);
+        ctx.quadraticCurveTo(512, 512, 512 - r, 512);
+        ctx.lineTo(r, 512);
+        ctx.quadraticCurveTo(0, 512, 0, 512 - r);
+        ctx.lineTo(0, r);
+        ctx.quadraticCurveTo(0, 0, r, 0);
+        ctx.closePath();
+
+        var bgGrad = ctx.createLinearGradient(0, 0, 512, 512);
+        bgGrad.addColorStop(0, '#4f46e5');
+        bgGrad.addColorStop(0.55, '#6366f1');
+        bgGrad.addColorStop(1, '#7c3aed');
+        ctx.fillStyle = bgGrad;
+        ctx.fill();
+
+        // Subtle inner glow highlight
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+        ctx.beginPath();
+        ctx.arc(395, 115, 145, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Gold ascending bars (Income / Growth)
+        ctx.fillStyle = '#f59e0b';
+        var bars = [
+          { x: 112, y: 295, w: 46, h: 95 },
+          { x: 178, y: 235, w: 46, h: 155 },
+          { x: 244, y: 175, w: 46, h: 215 }
+        ];
+        bars.forEach(function (b) {
           ctx.beginPath();
-          ctx.arc(410, 102, 130, 0, Math.PI * 2);
+          ctx.roundRect(b.x, b.y, b.w, b.h, 12);
           ctx.fill();
+        });
 
-          ctx.strokeStyle = '#ffffff';
-          ctx.lineWidth = 38;
-          ctx.lineCap = 'round';
-          ctx.lineJoin = 'round';
-          ctx.beginPath();
-          ctx.moveTo(92, 276);
-          ctx.lineTo(166, 276);
-          ctx.lineTo(208, 172);
-          ctx.lineTo(276, 360);
-          ctx.lineTo(330, 234);
-          ctx.lineTo(368, 276);
-          ctx.lineTo(420, 276);
-          ctx.stroke();
+        // Emerald completion circle & crisp white checkmark (Habits / Tasks)
+        ctx.fillStyle = '#10b981';
+        ctx.beginPath();
+        ctx.arc(356, 326, 76, 0, Math.PI * 2);
+        ctx.fill();
 
-          ctx.fillStyle = '#a7f3d0';
-          ctx.beginPath();
-          ctx.arc(420, 276, 22, 0, Math.PI * 2);
-          ctx.fill();
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = 22;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.beginPath();
+        ctx.moveTo(322, 327);
+        ctx.lineTo(346, 351);
+        ctx.lineTo(392, 302);
+        ctx.stroke();
 
-          var pngUrl = canvas.toDataURL('image/png');
-          var appleLink = document.getElementById('apple-touch-icon');
-          if (appleLink) appleLink.href = pngUrl;
-          var favLink = document.getElementById('app-favicon');
-          if (favLink) {
-            favLink.type = 'image/png';
-            favLink.href = pngUrl;
-          }
+        var pngDataUrl = canvas.toDataURL('image/png');
+        var fav = document.getElementById('app-favicon');
+        var apple = document.getElementById('apple-touch-icon');
+        if (fav) fav.href = pngDataUrl;
+        if (apple) apple.href = pngDataUrl;
 
-          var manifestObj = {
-            name: 'Work & Income Hub',
-            short_name: 'Work Hub',
-            start_url: window.location.href,
-            display: 'standalone',
-            background_color: '#070b14',
-            theme_color: '#0e1525',
-            icons: [
-              { src: pngUrl, sizes: '192x192', type: 'image/png', purpose: 'any maskable' },
-              { src: pngUrl, sizes: '512x512', type: 'image/png', purpose: 'any maskable' }
-            ]
-          };
-          var manifestBlob = new Blob([JSON.stringify(manifestObj)], { type: 'application/manifest+json' });
-          var manifestLink = document.getElementById('app-manifest');
-          if (manifestLink) manifestLink.href = URL.createObjectURL(manifestBlob);
-        }
-      } catch (e) {}
+        var manifest = {
+          name: 'Work & Habit Hub',
+          short_name: 'Work Hub',
+          start_url: window.location.href,
+          display: 'standalone',
+          background_color: '#0b0f19',
+          theme_color: '#0b0f19',
+          icons: [
+            { src: pngDataUrl, sizes: '192x192', type: 'image/png', purpose: 'any maskable' },
+            { src: pngDataUrl, sizes: '512x512', type: 'image/png', purpose: 'any maskable' }
+          ]
+        };
+        var manifestUri = 'data:application/manifest+json;charset=utf-8,' + encodeURIComponent(JSON.stringify(manifest));
+        var manifestEl = document.getElementById('app-manifest');
+        if (manifestEl) manifestEl.href = manifestUri;
+      } catch (err) {
+        // Fallback silently if canvas is restricted
+      }
     })();
   </script>
-<!-- ... existing code ... -->
-    .drill-card:hover { border-color: var(--accent-indigo); }
 
-    /* Habit Tracker Styles */
-    .habit-kpi-grid {
+  <style>
+    :root {
+      --bg-body: #0b0f19;
+      --bg-card: #111827;
+      --bg-input: #1a2234;
+      --bg-hover: #222d42;
+      --border-subtle: rgba(148, 163, 184, 0.14);
+      --border-strong: rgba(148, 163, 184, 0.28);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent-indigo: #6366f1;
+      --accent-indigo-soft: rgba(99, 102, 241, 0.16);
+      --accent-emerald: #10b981;
+      --accent-emerald-soft: rgba(16, 185, 129, 0.16);
+      --accent-amber: #f59e0b;
+      --accent-amber-soft: rgba(245, 158, 11, 0.16);
+      --accent-rose: #f43f5e;
+      --accent-rose-soft: rgba(244, 63, 94, 0.16);
+      --shadow-card: 0 10px 28px -10px rgba(0, 0, 0, 0.55);
+      --font-display: 'Plus Jakarta Sans', 'Inter', sans-serif;
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    html.light {
+      --bg-body: #f1f5f9;
+      --bg-card: #ffffff;
+      --bg-input: #f8fafc;
+      --bg-hover: #e2e8f0;
+      --border-subtle: rgba(15, 23, 42, 0.1);
+      --border-strong: rgba(15, 23, 42, 0.22);
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
+      --accent-indigo-soft: rgba(99, 102, 241, 0.12);
+      --accent-emerald-soft: rgba(16, 185, 129, 0.12);
+      --accent-amber-soft: rgba(245, 158, 11, 0.12);
+      --accent-rose-soft: rgba(244, 63, 94, 0.12);
+      --shadow-card: 0 8px 24px -10px rgba(15, 23, 42, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-body);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      line-height: 1.5;
+      min-height: 100vh;
+      overflow-x: hidden;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    button, input, select, textarea {
+      font-family: inherit;
+      color: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .app-shell {
+      max-width: 1380px;
+      margin: 0 auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Header & World Clocks */
+    .topbar {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 14px 16px;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .topbar-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .brand-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 12px 6px 8px;
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+    }
+
+    .brand-logo {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #4f46e5, #7c3aed);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 0.85rem;
+    }
+
+    .brand-title {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.96rem;
+      letter-spacing: -0.01em;
+    }
+
+    .main-tabs {
+      display: inline-flex;
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 4px;
+      gap: 4px;
+    }
+
+    .main-tab-btn {
+      border: none;
+      background: transparent;
+      color: var(--text-secondary);
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.84rem;
+      padding: 8px 14px;
+      border-radius: 9px;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      transition: all 0.18s ease;
+    }
+
+    .main-tab-btn:hover {
+      color: var(--text-primary);
+    }
+
+    .main-tab-btn.active {
+      background: var(--accent-indigo);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
+    }
+
+    .action-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .clocks-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .clock-pill {
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .clock-city {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .clock-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+    }
+
+    .clock-offset {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 6px;
+      background: var(--bg-card);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .clock-time {
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    /* Buttons, Inputs, Badges */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      border-radius: 10px;
+      padding: 8px 13px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-input);
+      color: var(--text-primary);
+      transition: all 0.16s ease;
+      white-space: nowrap;
+    }
+
+    .btn:hover {
+      background: var(--bg-hover);
+      border-color: var(--border-strong);
+    }
+
+    .btn-sm {
+      padding: 5px 10px;
+      font-size: 0.74rem;
+      border-radius: 8px;
+    }
+
+    .btn-primary {
+      background: var(--accent-indigo);
+      border-color: var(--accent-indigo);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background: #4f46e5;
+      border-color: #4f46e5;
+    }
+
+    .btn-emerald {
+      background: var(--accent-emerald);
+      border-color: var(--accent-emerald);
+      color: #042f2e;
+      font-weight: 700;
+    }
+
+    .btn-emerald:hover {
+      background: #059669;
+      color: #ffffff;
+    }
+
+    .btn-amber {
+      background: var(--accent-amber-soft);
+      border-color: rgba(245, 158, 11, 0.4);
+      color: var(--accent-amber);
+    }
+
+    .btn-rose {
+      background: var(--accent-rose-soft);
+      border-color: rgba(244, 63, 94, 0.35);
+      color: var(--accent-rose);
+    }
+
+    .btn-rose:hover {
+      background: var(--accent-rose);
+      color: #ffffff;
+    }
+
+    .sync-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+
+    .sync-synced {
+      background: var(--accent-emerald-soft);
+      color: var(--accent-emerald);
+    }
+
+    .sync-syncing {
+      background: var(--accent-amber-soft);
+      color: var(--accent-amber);
+    }
+
+    .sync-local {
+      background: var(--accent-indigo-soft);
+      color: var(--accent-indigo);
+    }
+
+    .sync-error {
+      background: var(--accent-rose-soft);
+      color: var(--accent-rose);
+    }
+
+    .input, .select, .textarea {
+      width: 100%;
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 8px 11px;
+      font-size: 0.82rem;
+      color: var(--text-primary);
+      outline: none;
+      transition: border-color 0.16s ease;
+    }
+
+    .input:focus, .select:focus, .textarea:focus {
+      border-color: var(--accent-indigo);
+    }
+
+    .textarea {
+      min-height: 118px;
+      resize: vertical;
+      line-height: 1.55;
+    }
+
+    .field-label {
+      display: block;
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 4px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+
+    .badge-indigo {
+      background: var(--accent-indigo-soft);
+      color: var(--accent-indigo);
+    }
+
+    .badge-emerald {
+      background: var(--accent-emerald-soft);
+      color: var(--accent-emerald);
+    }
+
+    .badge-amber {
+      background: var(--accent-amber-soft);
+      color: var(--accent-amber);
+    }
+
+    .badge-rose {
+      background: var(--accent-rose-soft);
+      color: var(--accent-rose);
+    }
+
+    .font-mono {
+      font-family: var(--font-mono);
+    }
+
+    /* Views & Layout Grid */
+    .view-section {
+      display: none;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .view-section.active {
+      display: flex;
+    }
+
+    .kpi-grid {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 14px;
     }
 
-    .habit-ring-wrap {
+    .two-col-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      align-items: start;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .card-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .card-title {
+      font-family: var(--font-display);
+      font-size: 0.96rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .card-subtitle {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+
+    .kpi-value {
+      font-family: var(--font-mono);
+      font-size: 1.55rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .kpi-sub {
+      font-size: 0.76rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 7px;
+      background: var(--bg-input);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent-indigo), var(--accent-emerald));
+      transition: width 0.3s ease;
+    }
+
+    .inline-controls {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .mini-input {
+      width: 78px;
+      padding: 4px 8px;
+      font-size: 0.76rem;
+      font-family: var(--font-mono);
+      font-weight: 600;
+    }
+
+    /* Tasks Section */
+    .task-form {
+      display: grid;
+      grid-template-columns: 1fr 145px 115px 145px auto;
+      gap: 8px;
+    }
+
+    .filter-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .pill-btn {
+      padding: 5px 11px;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      font-weight: 600;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-input);
+      color: var(--text-secondary);
+      transition: all 0.15s ease;
+    }
+
+    .pill-btn:hover {
+      color: var(--text-primary);
+    }
+
+    .pill-btn.active {
+      background: var(--accent-indigo);
+      border-color: var(--accent-indigo);
+      color: #ffffff;
+    }
+
+    .item-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 360px;
+      overflow-y: auto;
+      padding-right: 2px;
+    }
+
+    .task-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 12px;
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      transition: border-color 0.15s ease;
+    }
+
+    .task-item.done {
+      opacity: 0.65;
+    }
+
+    .task-item.done .task-text {
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+
+    .task-left {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .task-checkbox {
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      accent-color: var(--accent-emerald);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .task-text {
+      font-size: 0.84rem;
+      font-weight: 600;
+      word-break: break-word;
+    }
+
+    .task-meta {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+
+    /* Timer Section */
+    .timer-mode-switch {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      background: var(--bg-input);
+      padding: 4px;
+      border-radius: 12px;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .timer-presets {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .timer-display-box {
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 18px 14px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .timer-clock {
+      font-family: var(--font-mono);
+      font-size: 2.35rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      color: var(--text-primary);
+    }
+
+    .timer-est {
+      font-family: var(--font-mono);
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--accent-emerald);
+    }
+
+    .timer-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    /* Platforms & Skills Cards */
+    .sub-card {
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .sub-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .platform-name-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .color-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .sub-card-title {
+      font-family: var(--font-display);
+      font-size: 0.88rem;
+      font-weight: 700;
+      word-break: break-word;
+    }
+
+    .icon-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-card);
+      color: var(--text-secondary);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.78rem;
+      transition: all 0.15s ease;
+      flex-shrink: 0;
+    }
+
+    .icon-btn:hover {
+      border-color: var(--accent-indigo);
+      color: var(--text-primary);
+    }
+
+    .icon-btn.danger:hover {
+      border-color: var(--accent-rose);
+      color: var(--accent-rose);
+    }
+
+    .skill-form {
+      display: grid;
+      grid-template-columns: 1fr 140px 95px auto;
+      gap: 8px;
+    }
+
+    .entry-form {
+      display: grid;
+      grid-template-columns: 1fr 90px 100px 130px;
+      gap: 8px;
+    }
+
+    .entry-form-bottom {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 20px 12px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      border: 1px dashed var(--border-subtle);
+      border-radius: 12px;
+    }
+
+    /* Habit Tracker Styles */
+    .habit-ring-box {
       position: relative;
-      width: 56px;
-      height: 56px;
+      width: 58px;
+      height: 58px;
       flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    .habit-ring-wrap svg {
+    .habit-ring-box svg {
       width: 100%;
       height: 100%;
       transform: rotate(-90deg);
     }
 
-    .habit-ring-bg { fill: none; stroke: var(--bg-input); stroke-width: 6; }
-    .habit-ring-fg {
+    .ring-track {
       fill: none;
-      stroke: #10b981;
+      stroke: var(--bg-input);
+      stroke-width: 6;
+    }
+
+    .ring-progress {
+      fill: none;
+      stroke: var(--accent-emerald);
       stroke-width: 6;
       stroke-linecap: round;
       transition: stroke-dashoffset 0.35s ease;
     }
 
-    .habit-ring-pct {
+    .ring-label {
       position: absolute;
-      font-family: 'JetBrains Mono', monospace;
+      font-family: var(--font-mono);
       font-size: 0.72rem;
-      font-weight: 800;
+      font-weight: 700;
       color: var(--accent-emerald);
-    }
-
-    .heatmap-wrapper {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
     }
 
     .heatmap-grid {
@@ -127,55 +902,80 @@
       gap: 6px;
     }
 
-    .hm-cell {
+    .hm-day {
       aspect-ratio: 1 / 1;
-      min-height: 28px;
-      border-radius: 7px;
+      min-height: 30px;
+      border-radius: 8px;
       border: 1px solid var(--border-subtle);
       background: var(--bg-input);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.65rem;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
       font-weight: 700;
       color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       transition: transform 0.14s ease, border-color 0.14s ease;
-      position: relative;
     }
 
-    .hm-cell:hover { transform: translateY(-2px); border-color: var(--border-strong); }
-    .hm-cell.selected { outline: 2px solid var(--accent-indigo); outline-offset: 1px; color: var(--text-primary); }
-    .hm-lvl-1 { background: rgba(16, 185, 129, 0.18); border-color: rgba(16, 185, 129, 0.35); color: var(--text-primary); }
-    .hm-lvl-2 { background: rgba(16, 185, 129, 0.38); border-color: rgba(16, 185, 129, 0.55); color: #ffffff; }
-    .hm-lvl-3 { background: rgba(16, 185, 129, 0.65); border-color: rgba(16, 185, 129, 0.85); color: #ffffff; }
-    .hm-lvl-4 { background: #10b981; border-color: #34d399; color: #042f2e; font-weight: 800; }
+    .hm-day:hover {
+      transform: translateY(-2px);
+      border-color: var(--border-strong);
+    }
 
-    .hm-legend {
+    .hm-day.selected {
+      outline: 2px solid var(--accent-indigo);
+      outline-offset: 1px;
+    }
+
+    .hm-l1 {
+      background: rgba(16, 185, 129, 0.2);
+      border-color: rgba(16, 185, 129, 0.35);
+      color: var(--text-primary);
+    }
+
+    .hm-l2 {
+      background: rgba(16, 185, 129, 0.42);
+      border-color: rgba(16, 185, 129, 0.6);
+      color: #ffffff;
+    }
+
+    .hm-l3 {
+      background: rgba(16, 185, 129, 0.68);
+      border-color: rgba(16, 185, 129, 0.85);
+      color: #ffffff;
+    }
+
+    .hm-l4 {
+      background: var(--accent-emerald);
+      border-color: #34d399;
+      color: #042f2e;
+    }
+
+    .heatmap-legend {
       display: flex;
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 8px;
-      font-size: 0.72rem;
+      font-size: 0.74rem;
       color: var(--text-secondary);
     }
 
-    .hm-scale {
+    .legend-swatches {
       display: inline-flex;
       align-items: center;
       gap: 5px;
     }
 
-    .hm-swatch {
+    .legend-box {
       width: 12px;
       height: 12px;
       border-radius: 3px;
       border: 1px solid var(--border-subtle);
     }
 
-    .habits-cards-grid {
+    .habits-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 12px;
@@ -184,63 +984,32 @@
     .habit-card {
       background: var(--bg-input);
       border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
+      border-radius: 14px;
       padding: 14px;
       display: flex;
       flex-direction: column;
       gap: 10px;
-      transition: border-color 0.16s ease;
     }
 
-    .habit-card.completed-day {
-      border-color: rgba(16, 185, 129, 0.42);
-      background: linear-gradient(180deg, rgba(16, 185, 129, 0.06), var(--bg-input));
+    .habit-card.completed {
+      border-color: rgba(16, 185, 129, 0.45);
+      background: linear-gradient(180deg, rgba(16, 185, 129, 0.08), var(--bg-input));
     }
 
-    .habit-card-top {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 10px;
-    }
-
-    .habit-identity {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      min-width: 0;
-    }
-
-    .habit-emoji-box {
+    .habit-emoji {
       width: 38px;
       height: 38px;
       border-radius: 10px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
       display: inline-flex;
       align-items: center;
       justify-content: center;
       font-size: 1.15rem;
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
       flex-shrink: 0;
     }
 
-    .habit-name {
-      font-family: var(--font-display);
-      font-size: 0.9rem;
-      font-weight: 800;
-      color: var(--text-primary);
-      word-break: break-word;
-    }
-
-    .habit-badges {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-wrap: wrap;
-      margin-top: 4px;
-    }
-
-    .habit-action-box {
+    .habit-control-bar {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -252,56 +1021,19 @@
       flex-wrap: wrap;
     }
 
-    .habit-stepper {
+    .stepper-group {
       display: inline-flex;
       align-items: center;
       gap: 6px;
     }
 
-    .step-btn {
-      width: 28px;
-      height: 28px;
-      border-radius: 7px;
-      background: var(--bg-pill);
-      border: 1px solid var(--border-subtle);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.85rem;
-      font-weight: 800;
-      color: var(--text-primary);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .step-btn:hover { border-color: var(--accent-indigo); }
-
-    .habit-check-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 12px;
-      border-radius: 8px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      border: 1px solid var(--border-strong);
-      background: var(--bg-input);
-      color: var(--text-secondary);
-      transition: all 0.16s ease;
-    }
-
-    .habit-check-btn.done {
-      background: var(--accent-emerald);
-      border-color: var(--accent-emerald);
-      color: #052e16;
-    }
-
-    .habit-days-row {
+    .week-pills {
       display: grid;
       grid-template-columns: repeat(7, minmax(0, 1fr));
       gap: 5px;
     }
 
-    .day-pill-btn {
+    .week-pill {
       padding: 5px 2px;
       border-radius: 8px;
       background: var(--bg-card);
@@ -310,956 +1042,2540 @@
       flex-direction: column;
       align-items: center;
       gap: 2px;
-      font-size: 0.64rem;
+      font-size: 0.65rem;
       font-weight: 700;
       color: var(--text-muted);
     }
 
-    .day-pill-btn.active-date {
+    .week-pill.selected-day {
       border-color: var(--accent-indigo);
     }
 
-    .day-pill-btn.day-done {
+    .week-pill.done-day {
       background: var(--accent-emerald-soft);
       border-color: rgba(16, 185, 129, 0.45);
       color: var(--accent-emerald);
     }
 
-    .day-pill-btn.day-partial {
+    .week-pill.partial-day {
       background: var(--accent-amber-soft);
       border-color: rgba(245, 158, 11, 0.45);
       color: var(--accent-amber);
     }
 
-    .habit-stats-foot {
+    /* Modals & Toasts */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 6, 23, 0.72);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 50;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-box {
+      width: 100%;
+      max-width: 460px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-strong);
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .toast-stack {
+      position: fixed;
+      bottom: 18px;
+      right: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      z-index: 60;
+      pointer-events: none;
+    }
+
+    .toast-msg {
+      background: var(--bg-card);
+      border: 1px solid var(--border-strong);
+      color: var(--text-primary);
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      box-shadow: var(--shadow-card);
       display: flex;
       align-items: center;
-      justify-content: space-between;
       gap: 8px;
-      font-size: 0.71rem;
-      color: var(--text-secondary);
-      padding-top: 6px;
-      border-top: 1px dashed var(--border-subtle);
-      flex-wrap: wrap;
     }
 
-    /* Tooltip & Modals & Toasts */
-<!-- ... existing code ... -->
-    @media (max-width: 1080px) {
-      .kpi-grid, .habit-kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .col-5, .col-7, .col-6 { grid-column: span 12; }
-      .coach-top-row { grid-template-columns: 1fr; }
-      .heatmap-grid { grid-template-columns: repeat(10, minmax(0, 1fr)); }
+    /* Responsive Breakpoints */
+    @media (max-width: 1060px) {
+      .kpi-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .two-col-grid {
+        grid-template-columns: 1fr;
+      }
+      .heatmap-grid {
+        grid-template-columns: repeat(10, minmax(0, 1fr));
+      }
     }
 
-    @media (max-width: 760px) {
-      .skill-add-bar { grid-template-columns: 1fr 1fr; }
-      .skill-add-bar button { grid-column: span 2; }
-      .skills-grid, .drills-grid, .habits-cards-grid { grid-template-columns: 1fr; }
-      .entry-form-grid { grid-template-columns: 1fr; }
-      .span-2, .span-4 { grid-column: span 1; }
-      .heatmap-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+    @media (max-width: 720px) {
+      .clocks-strip {
+        grid-template-columns: 1fr;
+      }
+      .task-form {
+        grid-template-columns: 1fr 1fr;
+      }
+      .task-form input[type="text"] {
+        grid-column: span 2;
+      }
+      .task-form button {
+        grid-column: span 2;
+      }
+      .skill-form {
+        grid-template-columns: 1fr 1fr;
+      }
+      .skill-form input[type="text"] {
+        grid-column: span 2;
+      }
+      .skill-form button {
+        grid-column: span 2;
+      }
+      .entry-form {
+        grid-template-columns: 1fr 1fr;
+      }
+      .habits-grid {
+        grid-template-columns: 1fr;
+      }
+      .heatmap-grid {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+      }
     }
 
-    @media (max-width: 560px) {
-      .kpi-grid, .habit-kpi-grid { grid-template-columns: 1fr; }
-      .task-form-row { grid-template-columns: 1fr; }
-      .skill-add-bar { grid-template-columns: 1fr; }
-      .skill-add-bar button { grid-column: span 1; }
-      .hide-xs { display: none; }
+    @media (max-width: 480px) {
+      .kpi-grid {
+        grid-template-columns: 1fr;
+      }
+      .task-form, .skill-form, .entry-form, .entry-form-bottom {
+        grid-template-columns: 1fr;
+      }
+      .task-form input[type="text"],
+      .task-form button,
+      .skill-form input[type="text"],
+      .skill-form button {
+        grid-column: span 1;
+      }
     }
   </style>
 </head>
 <body>
-<!-- ... existing code ... -->
-        <button id="tab-btn-dashboard" type="button" class="nav-tab-btn active" data-main-tab="dashboard">
-          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
-          </svg>
-          <span>Work &amp; Income Hub</span>
-        </button>
-        <button id="tab-btn-habits" type="button" class="nav-tab-btn" data-main-tab="habits">
-          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-          <span>Habit Tracker</span>
-        </button>
-      </nav>
-<!-- ... existing code ... -->
+  <div class="app-shell">
+    <!-- TOP HEADER & WORLD CLOCKS -->
+    <header class="topbar">
+      <div class="topbar-row">
+        <div class="brand-group">
+          <div class="brand-badge">
+            <span class="brand-logo">WH</span>
+            <span class="brand-title">Work &amp; Habit Hub</span>
+          </div>
+
+          <nav class="main-tabs" aria-label="Main Views">
+            <button type="button" class="main-tab-btn active" data-tab="work">
+              <span>📊</span>
+              <span>Work &amp; Income Hub</span>
+            </button>
+            <button type="button" class="main-tab-btn" data-tab="habits">
+              <span>✅</span>
+              <span>Habit Tracker</span>
+            </button>
+          </nav>
+        </div>
+
+        <div class="action-bar">
+          <button id="btn-open-sync" type="button" class="btn">
+            <span>☁️ Sync</span>
+            <span id="sync-status-badge" class="sync-pill sync-local">Local</span>
+          </button>
+          <button id="btn-toggle-theme" type="button" class="btn">🌓 Theme</button>
+          <button id="btn-backup" type="button" class="btn">⬇️ Backup</button>
+          <button id="btn-import" type="button" class="btn">⬆️ Import</button>
+          <input id="file-import-input" type="file" accept=".json,application/json" style="display:none" />
+          <button id="btn-open-reset" type="button" class="btn btn-rose">↺ Reset</button>
+        </div>
+      </div>
+
+      <div class="clocks-strip" aria-label="World Clocks">
+        <div class="clock-pill">
+          <div class="clock-city">
+            <span class="clock-dot" style="background:#10b981"></span>
+            <span>Cairo (EET)</span>
+          </div>
+          <span id="clock-cairo" class="clock-time">--:--:--</span>
+        </div>
+
+        <div class="clock-pill">
+          <div class="clock-city">
+            <span class="clock-dot" style="background:#6366f1"></span>
+            <span>US Eastern (ET)</span>
+            <span class="clock-offset">-7h</span>
+          </div>
+          <span id="clock-et" class="clock-time">--:--:--</span>
+        </div>
+
+        <div class="clock-pill">
+          <div class="clock-city">
+            <span class="clock-dot" style="background:#f59e0b"></span>
+            <span>Arizona (MST)</span>
+            <span class="clock-offset">-9h</span>
+          </div>
+          <span id="clock-az" class="clock-time">--:--:--</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- TAB 1: WORK & INCOME HUB -->
+    <main id="view-work" class="view-section active">
+      <!-- 4 KPI Cards -->
+      <section class="kpi-grid" aria-label="Income and Productivity KPIs">
+        <!-- KPI 1: Monthly Income -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title-wrap">
+              <div class="card-icon badge-emerald">💵</div>
+              <div>
+                <div class="card-title">Monthly Income</div>
+                <div class="card-subtitle">Current month earnings</div>
+              </div>
+            </div>
+            <span id="kpi-goal-pct" class="badge badge-indigo font-mono">0%</span>
+          </div>
+
+          <div class="kpi-value" id="kpi-monthly-usd">$0.00</div>
+
+          <div class="kpi-sub">
+            <span>≈ <strong id="kpi-monthly-egp" class="font-mono" style="color:var(--accent-emerald)">0 EGP</strong></span>
+            <span class="inline-controls">
+              <span id="fx-status-badge" class="badge badge-emerald">Live</span>
+              <span id="fx-updated-time" class="font-mono" style="font-size:0.68rem">--:--</span>
+              <button id="btn-refresh-fx" type="button" class="icon-btn" title="Refresh USD/EGP Rate">↻</button>
+            </span>
+          </div>
+
+          <div class="progress-track">
+            <div id="kpi-goal-bar" class="progress-fill" style="width:0%"></div>
+          </div>
+
+          <div class="kpi-sub">
+            <label class="inline-controls">
+              <span>Goal $</span>
+              <input id="input-monthly-goal" type="number" min="1" step="10" class="input mini-input" />
+              <button id="btn-sum-goal" type="button" class="btn btn-sm btn-amber" style="display:none" title="Auto-sum platform goals">Sum</button>
+            </label>
+            <label class="inline-controls">
+              <span>USD</span>
+              <input id="input-egp-rate" type="number" min="1" step="0.01" class="input mini-input" />
+            </label>
+          </div>
+        </div>
+
+        <!-- KPI 2: Total Hours -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title-wrap">
+              <div class="card-icon badge-indigo">⏱️</div>
+              <div>
+                <div class="card-title">Total Hours</div>
+                <div class="card-subtitle">Logged this month</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="kpi-value"><span id="kpi-monthly-hours">0.0</span> <span style="font-size:0.9rem;color:var(--text-secondary)">hrs</span></div>
+
+          <div class="kpi-sub">
+            <span>Daily Average</span>
+            <strong id="kpi-daily-avg-hours" class="font-mono" style="color:var(--accent-indigo)">0.0 hrs/day</strong>
+          </div>
+        </div>
+
+        <!-- KPI 3: Effective Hourly Rate -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title-wrap">
+              <div class="card-icon badge-amber">📈</div>
+              <div>
+                <div class="card-title">Effective Hourly Rate</div>
+                <div class="card-subtitle">Average return per hour</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="kpi-value"><span id="kpi-avg-rate">$0.00</span> <span style="font-size:0.85rem;color:var(--text-secondary)">/ hr</span></div>
+
+          <div class="kpi-sub">
+            <span>Top Platform</span>
+            <span id="kpi-top-platform" class="badge badge-emerald">No data yet</span>
+          </div>
+        </div>
+
+        <!-- KPI 4: Today's Tasks -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title-wrap">
+              <div class="card-icon badge-rose">🎯</div>
+              <div>
+                <div class="card-title">Today's Tasks</div>
+                <div class="card-subtitle">Execution &amp; focus</div>
+              </div>
+            </div>
+            <span id="kpi-tasks-pct" class="badge badge-emerald font-mono">0%</span>
+          </div>
+
+          <div class="kpi-value"><span id="kpi-tasks-done">0</span> <span style="font-size:0.92rem;color:var(--text-secondary)">/ <span id="kpi-tasks-total">0</span> done</span></div>
+
+          <div class="progress-track">
+            <div id="kpi-tasks-bar" class="progress-fill" style="width:0%"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Row 1: Daily Priority Tasks & Focus Timer -->
+      <section class="two-col-grid">
+        <!-- Daily Priority Tasks -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title-wrap">
+              <div class="card-icon badge-indigo">☑️</div>
+              <div>
+                <h2 class="card-title">Daily Priority Tasks</h2>
+                <p class="card-subtitle">Checking a task auto-increments its linked skill progress</p>
+              </div>
+            </div>
+            <button id="btn-clear-completed" type="button" class="btn btn-sm btn-rose">Clear Completed</button>
+          </div>
+
+          <form id="form-add-task" class="task-form">
+            <input id="task-title-input" type="text" class="input" placeholder="New task (e.g., Track UPS shipments, Outlier rubric...)" required />
+            <select id="task-platform-select" class="select" aria-label="Platform"></select>
+            <select id="task-priority-select" class="select" aria-label="Priority">
+              <option value="High">High</option>
+              <option value="Medium" selected>Medium</option>
+              <option value="Low">Low</option>
+            </select>
+            <select id="task-skill-select" class="select" aria-label="Linked Skill"></select>
+            <button type="submit" class="btn btn-primary">Add</button>
+          </form>
+
+          <div class="filter-bar" id="task-filter-bar">
+            <button type="button" class="pill-btn active" data-task-filter="All">All</button>
+            <button type="button" class="pill-btn" data-task-filter="High">High</button>
+            <button type="button" class="pill-btn" data-task-filter="Pending">Pending</button>
+            <button type="button" class="pill-btn" data-task-filter="Completed">Completed</button>
+          </div>
+
+          <div id="task-list" class="item-list"></div>
+        </div>
+
+        <!-- Focus Timer & Shift Calculator -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title-wrap">
+              <div class="card-icon badge-amber">⏳</div>
+              <div>
+                <h2 class="card-title">Focus Timer &amp; Shift Calculator</h2>
+                <p class="card-subtitle">Track Pomodoro sessions or open shifts with live earnings</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="timer-mode-switch">
+            <button id="btn-mode-pomo" type="button" class="btn btn-primary">Pomodoro (Countdown)</button>
+            <button id="btn-mode-shift" type="button" class="btn">Open Shift (Count-Up)</button>
+          </div>
+
+          <div id="timer-presets-row" class="timer-presets">
+            <button type="button" class="pill-btn active" data-pomo-mins="25">25m</button>
+            <button type="button" class="pill-btn" data-pomo-mins="50">50m</button>
+            <button type="button" class="pill-btn" data-pomo-mins="90">90m</button>
+          </div>
+
+          <div>
+            <label for="timer-platform-select" class="field-label">Active Platform</label>
+            <select id="timer-platform-select" class="select"></select>
+          </div>
+
+          <div class="timer-display-box">
+            <div id="timer-display" class="timer-clock">25:00</div>
+            <div id="timer-est-earnings" class="timer-est">Estimated Shift Value: $0.00</div>
+          </div>
+
+          <div class="timer-controls">
+            <button id="btn-timer-start" type="button" class="btn btn-emerald">▶ Start</button>
+            <button id="btn-timer-pause" type="button" class="btn">⏸ Pause</button>
+            <button id="btn-timer-reset" type="button" class="btn">↺ Reset</button>
+            <button id="btn-timer-log" type="button" class="btn btn-primary">💾 Log Shift to Income</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Row 2: Platforms & Monthly Goals + Platform Quick Notes -->
+      <section class="two-col-grid">
+        <!-- Platforms & Monthly Goals -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title-wrap">
+              <div class="card-icon badge-emerald">⚡</div>
+              <div>
+                <h2 class="card-title">Platforms &amp; Monthly Goals</h2>
+                <p class="card-subtitle">Manage income streams, hourly rates, and monthly targets</p>
+              </div>
+            </div>
+            <button id="btn-open-add-platform" type="button" class="btn btn-primary btn-sm">+ Platform</button>
+          </div>
+
+          <div id="platforms-list" class="item-list" style="max-height:420px"></div>
+        </div>
+
+        <!-- Platform Quick Notes -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title-wrap">
+              <div class="card-icon badge-indigo">📝</div>
+              <div>
+                <h2 class="card-title">Platform Quick Notes</h2>
+                <p class="card-subtitle">Auto-saved scratchpad per workspace category</p>
+              </div>
+            </div>
+            <button id="btn-insert-timestamp" type="button" class="btn btn-sm">+ Insert Timestamp</button>
+          </div>
+
+          <div class="filter-bar" id="notes-tabs-bar">
+            <button type="button" class="pill-btn active" data-note-cat="Outlier AI">Outlier AI</button>
+            <button type="button" class="pill-btn" data-note-cat="Maven / CrowdGen">Maven / CrowdGen</button>
+            <button type="button" class="pill-btn" data-note-cat="Upwork & VA">Upwork &amp; VA</button>
+            <button type="button" class="pill-btn" data-note-cat="Translation / Medical">Translation / Medical</button>
+            <button type="button" class="pill-btn" data-note-cat="General">General</button>
+          </div>
+
+          <textarea id="quick-note-textarea" class="textarea" style="min-height:220px" placeholder="Write quick project instructions, rubric rules, client SOPs, or follow-up notes..."></textarea>
+
+          <div class="kpi-sub">
+            <span id="note-save-status">Auto-saved</span>
+            <span id="note-char-count" class="font-mono">0 chars</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Row 3: Skills & Task-Linked Progress + Manual Income Log & Recent Entries -->
+      <section class="two-col-grid">
+        <!-- Skills & Task-Linked Progress -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title-wrap">
+              <div class="card-icon badge-indigo">🚀</div>
+              <div>
+                <h2 class="card-title">Skills &amp; Task-Linked Progress</h2>
+                <p class="card-subtitle">Track skill mastery via linked tasks or manual +1 milestones</p>
+              </div>
+            </div>
+          </div>
+
+          <form id="form-add-skill" class="skill-form">
+            <input id="skill-name-input" type="text" class="input" placeholder="Skill name (e.g., Medical VRI, US Sales...)" required />
+            <select id="skill-cat-select" class="select">
+              <option value="Communication">Communication</option>
+              <option value="Freelance Ops">Freelance Ops</option>
+              <option value="AI & Data">AI &amp; Data</option>
+              <option value="Medical / VRI">Medical / VRI</option>
+              <option value="Content / Growth">Content / Growth</option>
+            </select>
+            <input id="skill-target-input" type="number" min="1" step="1" class="input font-mono" value="20" placeholder="Target" required />
+            <button type="submit" class="btn btn-primary">Add</button>
+          </form>
+
+          <div id="skills-list" class="item-list"></div>
+        </div>
+
+        <!-- Manual Income Log & Recent Entries -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title-wrap">
+              <div class="card-icon badge-emerald">💳</div>
+              <div>
+                <h2 class="card-title">Log Income / Shift &amp; Recent Entries</h2>
+                <p class="card-subtitle">Amount auto-calculates from platform hourly rate</p>
+              </div>
+            </div>
+          </div>
+
+          <form id="form-add-entry" style="display:flex;flex-direction:column;gap:8px">
+            <div class="entry-form">
+              <select id="entry-platform-select" class="select" aria-label="Platform"></select>
+              <input id="entry-hours-input" type="number" min="0" step="0.1" class="input font-mono" placeholder="Hours" required />
+              <input id="entry-amount-input" type="number" min="0" step="0.01" class="input font-mono" placeholder="Amount $" required />
+              <input id="entry-date-input" type="date" class="input font-mono" required />
+            </div>
+            <div class="entry-form-bottom">
+              <input id="entry-note-input" type="text" class="input" placeholder="Optional note (e.g., Morning shift, bonus, milestone...)" />
+              <button type="submit" class="btn btn-emerald">+ Log Entry</button>
+            </div>
+          </form>
+
+          <div id="entries-list" class="item-list" style="max-height:260px"></div>
+        </div>
+      </section>
     </main>
 
-    <!-- SECTION 2: HABIT TRACKER -->
-    <section id="panel-habits" class="tab-panel">
-      <!-- Habit KPIs -->
-      <div class="habit-kpi-grid" aria-label="Habit Consistency Metrics">
-        <div class="kpi-card">
-          <div class="kpi-top">
+    <!-- TAB 2: HABIT TRACKER -->
+    <section id="view-habits" class="view-section">
+      <!-- 4 Habit KPI Cards -->
+      <div class="kpi-grid" aria-label="Habit Metrics">
+        <!-- KPI 1: Today's Completion Ring -->
+        <div class="card">
+          <div class="card-header">
             <div>
-              <div class="kpi-label" id="habit-date-kpi-lbl">Today's Progress</div>
-              <div class="kpi-value-row">
-                <span id="habit-kpi-done" class="kpi-value">0</span>
-                <span style="font-size:0.82rem;color:var(--text-secondary)">/ <strong id="habit-kpi-total" class="font-mono">0</strong> habits</span>
-              </div>
-              <div id="habit-kpi-subdate" class="kpi-sub-egp" style="color:var(--accent-sky)">Today</div>
+              <div id="habit-ring-title" class="card-title">Today's Completion</div>
+              <div id="habit-selected-label" class="card-subtitle font-mono">Today</div>
             </div>
-            <div class="habit-ring-wrap">
+            <div class="habit-ring-box">
               <svg viewBox="0 0 64 64">
-                <circle class="habit-ring-bg" cx="32" cy="32" r="26" />
-                <circle id="habit-ring-fg" class="habit-ring-fg" cx="32" cy="32" r="26" stroke-dasharray="163.36" stroke-dashoffset="163.36" />
+                <circle class="ring-track" cx="32" cy="32" r="26" />
+                <circle id="habit-ring-circle" class="ring-progress" cx="32" cy="32" r="26" stroke-dasharray="163.36" stroke-dashoffset="163.36" />
               </svg>
-              <span id="habit-ring-pct" class="habit-ring-pct">0%</span>
+              <span id="habit-ring-pct" class="ring-label">0%</span>
             </div>
+          </div>
+          <div class="kpi-value"><span id="habit-kpi-done">0</span> <span style="font-size:0.9rem;color:var(--text-secondary)">/ <span id="habit-kpi-total">0</span> habits</span></div>
+        </div>
+
+        <!-- KPI 2: Best Active Streak -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title-wrap">
+              <div class="card-icon badge-amber">🔥</div>
+              <div>
+                <div class="card-title">Best Active Streak</div>
+                <div class="card-subtitle">Consecutive days</div>
+              </div>
+            </div>
+          </div>
+          <div class="kpi-value"><span id="habit-kpi-streak">0</span> <span style="font-size:0.9rem;color:var(--text-secondary)">days</span></div>
+          <div class="kpi-sub">
+            <span>Leader</span>
+            <strong id="habit-kpi-streak-name" style="color:var(--accent-amber)">Start today</strong>
           </div>
         </div>
 
-        <div class="kpi-card">
-          <div class="kpi-top">
-            <div>
-              <div class="kpi-label">Best Active Streak</div>
-              <div class="kpi-value-row">
-                <span id="habit-kpi-streak" class="kpi-value">0</span>
-                <span style="font-size:0.82rem;font-weight:700;color:var(--text-secondary)">days</span>
+        <!-- KPI 3: 7-Day Consistency -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title-wrap">
+              <div class="card-icon badge-emerald">📅</div>
+              <div>
+                <div class="card-title">7-Day Consistency</div>
+                <div class="card-subtitle">Rolling weekly average</div>
               </div>
             </div>
-            <div class="card-icon icon-amber">🔥</div>
           </div>
-          <div class="kpi-footer">
-            <span>Top Habit</span>
-            <strong id="habit-kpi-top-streak" style="color:var(--accent-amber);max-width:165px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">—</strong>
+          <div class="kpi-value" id="habit-kpi-7d">0%</div>
+          <div class="progress-track">
+            <div id="habit-kpi-7d-bar" class="progress-fill" style="width:0%"></div>
           </div>
         </div>
 
-        <div class="kpi-card">
-          <div class="kpi-top">
-            <div>
-              <div class="kpi-label">7-Day Consistency</div>
-              <div class="kpi-value-row">
-                <span id="habit-kpi-weekly" class="kpi-value">0%</span>
+        <!-- KPI 4: 30-Day Mastery -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title-wrap">
+              <div class="card-icon badge-indigo">🏆</div>
+              <div>
+                <div class="card-title">30-Day Mastery</div>
+                <div class="card-subtitle">Monthly consistency</div>
               </div>
             </div>
-            <div class="card-icon icon-emerald">📈</div>
           </div>
-          <div>
-            <div class="progress-track">
-              <div id="habit-kpi-weekly-bar" class="progress-fill" style="width:0%;background:linear-gradient(90deg,#10b981,#38bdf8)"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="kpi-card">
-          <div class="kpi-top">
-            <div>
-              <div class="kpi-label">30-Day Mastery</div>
-              <div class="kpi-value-row">
-                <span id="habit-kpi-monthly" class="kpi-value">0%</span>
-              </div>
-            </div>
-            <div class="card-icon icon-indigo">🏆</div>
-          </div>
-          <div class="kpi-footer">
-            <span>Perfect Days (30d)</span>
-            <strong id="habit-kpi-perfect-days" class="font-mono" style="color:var(--accent-indigo)">0 days</strong>
+          <div class="kpi-value" id="habit-kpi-30d">0%</div>
+          <div class="kpi-sub">
+            <span>Perfect Days (100%)</span>
+            <strong id="habit-kpi-perfect" class="font-mono" style="color:var(--accent-emerald)">0 days</strong>
           </div>
         </div>
       </div>
 
-      <!-- 30-Day Activity Heatmap & Selected Day Control -->
+      <!-- Interactive 30-Day Heatmap Calendar -->
       <div class="card">
         <div class="card-header">
-          <div class="card-title-group">
-            <div class="card-icon icon-emerald">📅</div>
+          <div class="card-title-wrap">
+            <div class="card-icon badge-emerald">🗓️</div>
             <div>
-              <h2 class="card-title">30-Day Consistency Heatmap</h2>
-              <p class="card-subtitle">Click any day square to inspect or backfill habits for that date</p>
+              <h2 class="card-title">30-Day Heatmap Calendar</h2>
+              <p class="card-subtitle">Click any day cell to inspect or log habits for that date</p>
             </div>
           </div>
-          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-            <button id="btn-habit-prev-day" type="button" class="btn btn-sm btn-secondary">← Prev Day</button>
-            <input id="habit-selected-date" type="date" class="input font-mono" style="width:auto;padding:6px 10px;font-size:0.76rem" />
-            <button id="btn-habit-today" type="button" class="btn btn-sm btn-soft-indigo">Today</button>
+          <div class="inline-controls">
+            <span id="habit-viewing-badge" class="badge badge-indigo font-mono">Viewing: Today</span>
+            <button id="btn-jump-today" type="button" class="btn btn-sm btn-primary" style="display:none">Jump to Today</button>
           </div>
         </div>
 
-        <div class="heatmap-wrapper">
-          <div id="habit-heatmap-grid" class="heatmap-grid"></div>
-          <div class="hm-legend">
-            <span id="hm-selected-summary">Showing selected date progress</span>
-            <div class="hm-scale">
-              <span>Less</span>
-              <span class="hm-swatch" style="background:var(--bg-input)"></span>
-              <span class="hm-swatch hm-lvl-1"></span>
-              <span class="hm-swatch hm-lvl-2"></span>
-              <span class="hm-swatch hm-lvl-3"></span>
-              <span class="hm-swatch hm-lvl-4"></span>
-              <span>100%</span>
-            </div>
+        <div id="habit-heatmap-grid" class="heatmap-grid"></div>
+
+        <div class="heatmap-legend">
+          <span id="heatmap-summary-text">0 of 0 habits completed on selected date</span>
+          <div class="legend-swatches">
+            <span>0%</span>
+            <span class="legend-box" style="background:var(--bg-input)"></span>
+            <span class="legend-box hm-l1"></span>
+            <span class="legend-box hm-l2"></span>
+            <span class="legend-box hm-l3"></span>
+            <span class="legend-box hm-l4"></span>
+            <span>100%</span>
           </div>
         </div>
       </div>
 
-      <!-- Habit Filters + Add Habit + Habit Cards -->
+      <!-- Habits Grid -->
       <div class="card">
         <div class="card-header">
-          <div class="card-title-group">
-            <div class="card-icon icon-indigo">✨</div>
+          <div class="card-title-wrap">
+            <div class="card-icon badge-indigo">✨</div>
             <div>
               <h2 class="card-title">Daily Habits &amp; Routines</h2>
-              <p class="card-subtitle">Check off routines, increment numeric goals, and track streaks across every area of life</p>
+              <p class="card-subtitle">Track numeric targets or daily checkmarks across all life areas</p>
             </div>
           </div>
-          <button id="btn-open-add-habit" type="button" class="btn btn-primary">+ New Habit</button>
+          <button id="btn-open-add-habit" type="button" class="btn btn-primary btn-sm">+ New Habit</button>
         </div>
 
-        <div class="filter-pills" id="habit-cat-filters">
-          <button type="button" class="filter-pill active" data-hcat="all">All Habits</button>
-          <button type="button" class="filter-pill" data-hcat="Spiritual">Spiritual &amp; Quran</button>
-          <button type="button" class="filter-pill" data-hcat="Health">Health &amp; Fitness</button>
-          <button type="button" class="filter-pill" data-hcat="Work">Work &amp; Focus</button>
-          <button type="button" class="filter-pill" data-hcat="Learning">Learning</button>
-          <button type="button" class="filter-pill" data-hcat="Personal">Personal</button>
+        <div class="filter-bar" id="habit-filter-bar">
+          <button type="button" class="pill-btn active" data-habit-cat="All">All</button>
+          <button type="button" class="pill-btn" data-habit-cat="Spiritual & Quran">Spiritual &amp; Quran</button>
+          <button type="button" class="pill-btn" data-habit-cat="Health & Fitness">Health &amp; Fitness</button>
+          <button type="button" class="pill-btn" data-habit-cat="Work & Focus">Work &amp; Focus</button>
+          <button type="button" class="pill-btn" data-habit-cat="Learning">Learning</button>
+          <button type="button" class="pill-btn" data-habit-cat="Personal">Personal</button>
         </div>
 
-        <div id="habits-cards-grid" class="habits-cards-grid"></div>
+        <div id="habits-grid" class="habits-grid"></div>
       </div>
 
-      <!-- Daily Reflection / Habit Journal -->
+      <!-- Daily Reflection & Wins -->
       <div class="card">
         <div class="card-header">
-          <div class="card-title-group">
-            <div class="card-icon icon-sky">📓</div>
+          <div class="card-title-wrap">
+            <div class="card-icon badge-amber">📓</div>
             <div>
-              <h2 class="card-title">Daily Reflection &amp; Wins Note</h2>
-              <p class="card-subtitle">Saved per selected date and synced automatically to Google Sheets</p>
+              <h2 class="card-title">Daily Reflection &amp; Wins</h2>
+              <p class="card-subtitle">Saved per selected date and synced to Google Sheets</p>
             </div>
           </div>
-          <span id="habit-journal-date-badge" class="badge icon-indigo font-mono">Today</span>
+          <span id="reflection-date-pill" class="badge badge-indigo font-mono">Today</span>
         </div>
-        <textarea id="habit-reflection-input" class="textarea" placeholder="Write a quick reflection, Quran reflection/ayah note, energy level, or tomorrow's priority..."></textarea>
-        <div class="notes-meta-foot">
-          <span id="habit-reflection-status">Auto-saved</span>
-          <span id="habit-reflection-chars" class="font-mono">0 chars</span>
+
+        <textarea id="habit-reflection-textarea" class="textarea" placeholder="Write today's wins, Quran reflection, energy notes, or improvements for tomorrow..."></textarea>
+
+        <div class="kpi-sub">
+          <span id="reflection-save-status">Auto-saved</span>
+          <span id="reflection-char-count" class="font-mono">0 chars</span>
         </div>
       </div>
     </section>
   </div>
-<!-- ... existing code ... -->
-  <!-- MODAL: ADD / EDIT HABIT -->
-  <div id="modal-habit" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-habit-title">
-    <div class="modal-card">
+
+  <!-- MODAL: GOOGLE SHEETS CLOUD SYNC -->
+  <div id="modal-sync" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-sync-title">
+    <div class="modal-box">
       <div class="card-header">
-        <h3 id="modal-habit-title" class="card-title">New Habit</h3>
-        <button type="button" class="icon-btn-sm" data-close-modal="modal-habit">✕</button>
+        <h3 id="modal-sync-title" class="card-title">☁️ Google Sheets Cloud Sync</h3>
+        <button type="button" class="icon-btn" data-close-modal="modal-sync">✕</button>
       </div>
-      <form id="form-habit" style="display:flex;flex-direction:column;gap:10px">
-        <input id="habit-form-id" type="hidden" />
-        <div style="display:grid;grid-template-columns:84px 1fr;gap:8px">
+
+      <p class="card-subtitle">Connect your Google Apps Script Web App URL to sync all work, tasks, skills, and habits across laptop &amp; mobile.</p>
+
+      <div>
+        <label for="sync-url-input" class="field-label">Apps Script Web App URL</label>
+        <input id="sync-url-input" type="url" class="input font-mono" placeholder="https://script.google.com/macros/s/.../exec" />
+      </div>
+
+      <div class="inline-controls">
+        <button id="btn-sync-save" type="button" class="btn btn-primary">Save &amp; Connect</button>
+        <button id="btn-sync-now" type="button" class="btn">Sync Now</button>
+        <button id="btn-sync-push" type="button" class="btn btn-emerald">Force Push to Cloud</button>
+      </div>
+
+      <div style="border-top:1px solid var(--border-subtle);padding-top:10px;display:flex;flex-direction:column;gap:6px">
+        <span class="field-label">Mobile Auto-Sync Link (Open once on phone)</span>
+        <button id="btn-copy-mobile-link" type="button" class="btn">📋 Copy Mobile Auto-Sync Link</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: ADD / EDIT PLATFORM -->
+  <div id="modal-platform" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-platform-title">
+    <div class="modal-box">
+      <div class="card-header">
+        <h3 id="modal-platform-title" class="card-title">Platform Settings</h3>
+        <button type="button" class="icon-btn" data-close-modal="modal-platform">✕</button>
+      </div>
+
+      <form id="form-platform" style="display:flex;flex-direction:column;gap:10px">
+        <input id="plat-id-input" type="hidden" />
+        <div>
+          <label for="plat-name-input" class="field-label">Platform Name</label>
+          <input id="plat-name-input" type="text" class="input" required placeholder="e.g., Outlier AI" />
+        </div>
+        <div class="two-col-grid" style="gap:8px">
           <div>
-            <label for="habit-form-icon" class="field-label">Icon</label>
-            <input id="habit-form-icon" type="text" class="input" style="text-align:center;font-size:1.1rem" value="✨" maxlength="4" required />
+            <label for="plat-goal-input" class="field-label">Monthly Goal ($)</label>
+            <input id="plat-goal-input" type="number" min="1" step="1" class="input font-mono" required />
           </div>
           <div>
-            <label for="habit-form-name" class="field-label">Habit Name</label>
-            <input id="habit-form-name" type="text" class="input" required placeholder="e.g., Daily Quran Wird, Morning Walk, Deep Work" />
+            <label for="plat-rate-input" class="field-label">Hourly Rate ($/hr)</label>
+            <input id="plat-rate-input" type="number" min="0" step="0.1" class="input font-mono" required />
+          </div>
+        </div>
+        <div>
+          <label for="plat-color-input" class="field-label">Accent Color</label>
+          <input id="plat-color-input" type="color" class="input" style="height:40px;padding:4px" value="#6366f1" />
+        </div>
+        <div class="inline-controls" style="justify-content:flex-end">
+          <button type="button" class="btn" data-close-modal="modal-platform">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Platform</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: EDIT SKILL -->
+  <div id="modal-skill" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-skill-title">
+    <div class="modal-box">
+      <div class="card-header">
+        <h3 id="modal-skill-title" class="card-title">Edit Skill</h3>
+        <button type="button" class="icon-btn" data-close-modal="modal-skill">✕</button>
+      </div>
+
+      <form id="form-edit-skill" style="display:flex;flex-direction:column;gap:10px">
+        <input id="edit-skill-id" type="hidden" />
+        <div>
+          <label for="edit-skill-name" class="field-label">Skill Name</label>
+          <input id="edit-skill-name" type="text" class="input" required />
+        </div>
+        <div class="two-col-grid" style="gap:8px">
+          <div>
+            <label for="edit-skill-cat" class="field-label">Category</label>
+            <select id="edit-skill-cat" class="select">
+              <option value="Communication">Communication</option>
+              <option value="Freelance Ops">Freelance Ops</option>
+              <option value="AI & Data">AI &amp; Data</option>
+              <option value="Medical / VRI">Medical / VRI</option>
+              <option value="Content / Growth">Content / Growth</option>
+            </select>
+          </div>
+          <div>
+            <label for="edit-skill-target" class="field-label">Target Tasks / Sessions</label>
+            <input id="edit-skill-target" type="number" min="1" step="1" class="input font-mono" required />
+          </div>
+        </div>
+        <div>
+          <label for="edit-skill-manual" class="field-label">Manual Bonus Progress</label>
+          <input id="edit-skill-manual" type="number" min="0" step="1" class="input font-mono" required />
+        </div>
+        <div class="inline-controls" style="justify-content:flex-end">
+          <button type="button" class="btn" data-close-modal="modal-skill">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Skill</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: ADD / EDIT HABIT -->
+  <div id="modal-habit" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-habit-title">
+    <div class="modal-box">
+      <div class="card-header">
+        <h3 id="modal-habit-title" class="card-title">Habit Settings</h3>
+        <button type="button" class="icon-btn" data-close-modal="modal-habit">✕</button>
+      </div>
+
+      <form id="form-habit" style="display:flex;flex-direction:column;gap:10px">
+        <input id="habit-id-input" type="hidden" />
+        <div style="display:grid;grid-template-columns:80px 1fr;gap:8px">
+          <div>
+            <label for="habit-emoji-input" class="field-label">Emoji</label>
+            <input id="habit-emoji-input" type="text" class="input" style="text-align:center;font-size:1.1rem" maxlength="4" value="✨" required />
+          </div>
+          <div>
+            <label for="habit-name-input" class="field-label">Habit Title</label>
+            <input id="habit-name-input" type="text" class="input" required placeholder="e.g., Daily Quran Wird" />
           </div>
         </div>
 
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <div class="two-col-grid" style="gap:8px">
           <div>
-            <label for="habit-form-cat" class="field-label">Category</label>
-            <select id="habit-form-cat" class="select">
-              <option value="Spiritual">Spiritual &amp; Quran</option>
-              <option value="Health">Health &amp; Fitness</option>
-              <option value="Work">Work &amp; Focus</option>
+            <label for="habit-cat-input" class="field-label">Category</label>
+            <select id="habit-cat-input" class="select">
+              <option value="Spiritual & Quran">Spiritual &amp; Quran</option>
+              <option value="Health & Fitness">Health &amp; Fitness</option>
+              <option value="Work & Focus">Work &amp; Focus</option>
               <option value="Learning">Learning</option>
               <option value="Personal">Personal</option>
             </select>
           </div>
           <div>
-            <label for="habit-form-type" class="field-label">Tracking Type</label>
-            <select id="habit-form-type" class="select">
+            <label for="habit-type-input" class="field-label">Tracking Type</label>
+            <select id="habit-type-input" class="select">
               <option value="check">Checkmark (Done / Not Done)</option>
-              <option value="number">Numeric Target (Pages, Mins, Reps...)</option>
+              <option value="number">Numeric Target (Pages, Mins...)</option>
             </select>
           </div>
         </div>
 
-        <div id="habit-numeric-fields" style="display:none;grid-template-columns:1fr 1fr;gap:8px">
+        <div id="habit-num-options" class="two-col-grid" style="gap:8px;display:none">
           <div>
-            <label for="habit-form-target" class="field-label">Daily Target</label>
-            <input id="habit-form-target" type="number" min="1" step="1" class="input font-mono" value="4" />
+            <label for="habit-target-input" class="field-label">Daily Target</label>
+            <input id="habit-target-input" type="number" min="1" step="1" class="input font-mono" value="4" />
           </div>
           <div>
-            <label for="habit-form-unit" class="field-label">Unit</label>
-            <input id="habit-form-unit" type="text" class="input" value="pages" placeholder="pages, mins, liters, reps" />
+            <label for="habit-unit-input" class="field-label">Unit</label>
+            <input id="habit-unit-input" type="text" class="input" value="pages" placeholder="pages, mins, blocks..." />
           </div>
         </div>
 
-        <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:6px">
-          <button type="button" class="btn btn-secondary" data-close-modal="modal-habit">Cancel</button>
+        <div class="inline-controls" style="justify-content:flex-end">
+          <button type="button" class="btn" data-close-modal="modal-habit">Cancel</button>
           <button type="submit" class="btn btn-primary">Save Habit</button>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- MODAL: RESET DATA -->
-<!-- ... existing code ... -->
-      const CATEGORY_COLORS = {
-        'Translation / VRI': '#3b82f6',
-        'Freelance / VA': '#10b981',
-        'Sales / Calls': '#ec4899',
-        'AI Platforms': '#8b5cf6',
-        'General / Admin': '#64748b',
+  <!-- MODAL: RESET CONFIRMATION (Custom dialog instead of window.confirm) -->
+  <div id="modal-reset" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-reset-title">
+    <div class="modal-box">
+      <div class="card-header">
+        <h3 id="modal-reset-title" class="card-title">↺ Reset Dashboard Data</h3>
+        <button type="button" class="icon-btn" data-close-modal="modal-reset">✕</button>
+      </div>
+      <p class="card-subtitle">Choose how you want to reset your workspace. Export a JSON backup first if you want to keep your current records.</p>
+      <div class="inline-controls" style="justify-content:flex-end">
+        <button type="button" class="btn" data-close-modal="modal-reset">Cancel</button>
+        <button id="btn-reset-zero" type="button" class="btn btn-rose">Zero Out Income &amp; Tasks</button>
+        <button id="btn-reset-defaults" type="button" class="btn btn-primary">Restore Default Setup</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-stack" class="toast-stack" aria-live="polite"></div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      const STORAGE_KEY = 'essam_hub_state_v1';
+      const SYNC_URL_KEY = 'essam_hub_sync_url';
+      const FX_CACHE_KEY = 'essam_hub_fx_cache_v1';
+
+      const NOTE_CATEGORIES = [
+        'Outlier AI',
+        'Maven / CrowdGen',
+        'Upwork & VA',
+        'Translation / Medical',
+        'General'
+      ];
+
+      const LEGACY_NOTE_MAP = {
+        outlier: 'Outlier AI',
+        maven: 'Maven / CrowdGen',
+        upwork: 'Upwork & VA',
+        sales_trans: 'Translation / Medical',
+        general: 'General'
       };
 
-      const HABIT_CAT_META = {
-        Spiritual: { label: 'Spiritual & Quran', color: '#10b981', badgeCls: 'icon-emerald' },
-        Health: { label: 'Health & Fitness', color: '#38bdf8', badgeCls: 'icon-sky' },
-        Work: { label: 'Work & Focus', color: '#818cf8', badgeCls: 'icon-indigo' },
-        Learning: { label: 'Learning', color: '#fbbf24', badgeCls: 'icon-amber' },
-        Personal: { label: 'Personal', color: '#ec4899', badgeCls: 'prio-high' },
-      };
+      const HABIT_CATEGORIES = [
+        'Spiritual & Quran',
+        'Health & Fitness',
+        'Work & Focus',
+        'Learning',
+        'Personal'
+      ];
 
-      function getDateStr(offsetDays = 0) {
+      function todayStr(offsetDays = 0) {
         const d = new Date(Date.now() + offsetDays * 86400000);
-        return d.toISOString().slice(0, 10);
+        const y = d.getFullYear();
+        const m = String(d.getMonth() + 1).padStart(2, '0');
+        const day = String(d.getDate()).padStart(2, '0');
+        return `${y}-${m}-${day}`;
       }
 
-      function shiftDateStr(dateStr, deltaDays) {
-        const parts = (dateStr || getDateStr(0)).split('-').map(Number);
-        const dt = new Date(Date.UTC(parts[0], (parts[1] || 1) - 1, parts[2] || 1));
-        dt.setUTCDate(dt.getUTCDate() + deltaDays);
-        return dt.toISOString().slice(0, 10);
-      }
-
-      function formatShortDateLabel(dateStr) {
-        const today = getDateStr(0);
-        const yesterday = getDateStr(-1);
-        if (dateStr === today) return 'Today';
-        if (dateStr === yesterday) return 'Yesterday';
+      function formatShortDate(dateStr) {
+        if (dateStr === todayStr(0)) return 'Today';
+        if (dateStr === todayStr(-1)) return 'Yesterday';
         const parts = dateStr.split('-').map(Number);
         const dt = new Date(Date.UTC(parts[0], (parts[1] || 1) - 1, parts[2] || 1));
         return dt.toLocaleDateString('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric' });
       }
-<!-- ... existing code ... -->
-      function buildDefaultHabits() {
-        const today = getDateStr(0);
-        const yest = getDateStr(-1);
-        const twoAgo = getDateStr(-2);
+
+      function escapeHtml(str) {
+        return String(str == null ? '' : str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      function showToast(message) {
+        const stack = document.getElementById('toast-stack');
+        if (!stack) return;
+        const el = document.createElement('div');
+        el.className = 'toast-msg';
+        el.textContent = message;
+        stack.appendChild(el);
+        setTimeout(() => {
+          el.remove();
+        }, 3000);
+      }
+
+      function defaultPlatforms() {
         return [
-          {
-            id: 'hb_quran',
-            icon: '📖',
-            name: 'Daily Quran Wird',
-            category: 'Spiritual',
-            type: 'number',
-            target: 4,
-            unit: 'pages',
-            logs: { [twoAgo]: 4, [yest]: 4, [today]: 0 },
-          },
-          {
-            id: 'hb_walk',
-            icon: '🚶',
-            name: '30-Min Daily Walk',
-            category: 'Health',
-            type: 'number',
-            target: 30,
-            unit: 'mins',
-            logs: { [twoAgo]: 30, [yest]: 20, [today]: 0 },
-          },
-          {
-            id: 'hb_workout',
-            icon: '💪',
-            name: 'Home Workout (Push-ups & Planks)',
-            category: 'Health',
-            type: 'check',
-            target: 1,
-            unit: 'done',
-            logs: { [yest]: 1, [today]: 0 },
-          },
-          {
-            id: 'hb_deepwork',
-            icon: '🎯',
-            name: 'Deep Work Focus Block',
-            category: 'Work',
-            type: 'number',
-            target: 3,
-            unit: 'sessions',
-            logs: { [twoAgo]: 3, [yest]: 2, [today]: 0 },
-          },
-          {
-            id: 'hb_sleep',
-            icon: '🌙',
-            name: '7+ Hours Quality Sleep',
-            category: 'Personal',
-            type: 'check',
-            target: 1,
-            unit: 'done',
-            logs: { [twoAgo]: 1, [yest]: 1, [today]: 0 },
-          },
+          { id: 'plat_curalingo', name: 'Curalingo / Lingotec', goal: 400, rate: 8.5, color: '#3b82f6' },
+          { id: 'plat_upwork', name: 'Upwork & VA', goal: 500, rate: 12.0, color: '#10b981' },
+          { id: 'plat_outlier', name: 'Outlier AI', goal: 300, rate: 15.0, color: '#8b5cf6' },
+          { id: 'plat_crowdgen', name: 'CrowdGen / OneForma', goal: 200, rate: 10.0, color: '#f59e0b' }
         ];
       }
 
-      function buildStarterState() {
-        const cachedFx = loadCachedFX();
-        return {
-          version: 1,
-          updatedAt: 0,
-          isDemo: true,
-          demoDismissed: false,
-          theme: 'dark',
-          monthlyGoal: 1700,
-          monthlyGoalManual: false,
-          egpRate: cachedFx ? cachedFx.rate : 50.0,
-          egpRateManual: false,
-          egpRateUpdatedAt: cachedFx ? cachedFx.updatedAt : null,
-          platforms: [
-            { id: 'p_vri', name: 'Medical VRI / Lingotec', goal: 400, rate: 8.5, color: '#3b82f6' },
-            { id: 'p_upwork', name: 'Upwork & VA', goal: 500, rate: 12, color: '#10b981' },
-            { id: 'p_outlier', name: 'Outlier AI', goal: 300, rate: 15, color: '#8b5cf6' },
-            { id: 'p_maven', name: 'Maven / Data AI', goal: 200, rate: 10, color: '#f59e0b' },
-            { id: 'p_sales', name: 'Remote Sales', goal: 300, rate: 14, color: '#ec4899' },
-          ],
-          entries: [
-            { id: 'e1', date: getDateStr(0), platformId: 'p_sales', hours: 4.0, amount: 56, payout: 'PayPal', note: 'US appointment setting calls' },
-            { id: 'e2', date: getDateStr(-1), platformId: 'p_vri', hours: 6.5, amount: 55.25, payout: 'Bank Transfer', note: 'Medical VRI interpretation shifts' },
-            { id: 'e3', date: getDateStr(-2), platformId: 'p_upwork', hours: 8.0, amount: 96, payout: 'PayPal', note: 'UPS shipment tracking & VA ops' },
-            { id: 'e4', date: getDateStr(-3), platformId: 'p_outlier', hours: 5.5, amount: 82.5, payout: 'Airtm', note: 'AI evaluation & rubric tasks' },
-          ],
-          tasks: [
-            { id: 't1', title: 'Track UPS shipments and update client sheet', priority: 'high', category: 'Freelance / VA', skillId: 'sk_va', completed: false, createdAt: Date.now() - 3000 },
-            { id: 't2', title: 'Review open job applications and follow up', priority: 'high', category: 'General / Admin', skillId: '', completed: true, createdAt: Date.now() - 2000 },
-            { id: 't3', title: 'Complete 3 focused work blocks before evening', priority: 'medium', category: 'Sales / Calls', skillId: 'sk_accent', completed: false, createdAt: Date.now() - 1000 },
-          ],
-          notes: {
-            outlier: 'Check project rubrics carefully before submitting tasks; keep notes on active projects.',
-            maven: 'Track active projects, task caps, and payout schedule.',
-            upwork: 'Follow up open proposals within 24h; keep shipment & SOP notes organized.',
-            sales_trans: 'ET is -7h from Cairo; Arizona MST is -9h. Keep call scripts and medical glossaries handy.',
-            general: 'Weekly check: confirm cloud sync status and export JSON backup.',
+      function defaultHabits() {
+        return [
+          {
+            id: 'hab_quran',
+            emoji: '📖',
+            name: 'Daily Quran Wird',
+            category: 'Spiritual & Quran',
+            type: 'number',
+            target: 4,
+            unit: 'pages',
+            logs: {}
           },
-          skills: [
-            { id: 'sk_accent', name: 'US Accent & Sales Calls', targetHours: 30, loggedHours: 6.0, targetTasks: 20, manualBoost: 1, color: '#6366f1' },
-            { id: 'sk_vri', name: 'Medical VRI / Interpretation', targetHours: 50, loggedHours: 12.0, targetTasks: 25, manualBoost: 1, color: '#3b82f6' },
-            { id: 'sk_va', name: 'Client Ops & Shipment Tracking', targetHours: 40, loggedHours: 10.0, targetTasks: 20, manualBoost: 1, color: '#10b981' },
-          ],
-          habits: buildDefaultHabits(),
-          habitReflections: {},
+          {
+            id: 'hab_walk',
+            emoji: '🚶',
+            name: 'Daily Walk',
+            category: 'Health & Fitness',
+            type: 'number',
+            target: 30,
+            unit: 'mins',
+            logs: {}
+          },
+          {
+            id: 'hab_workout',
+            emoji: '💪',
+            name: 'Home Workout',
+            category: 'Health & Fitness',
+            type: 'check',
+            target: 1,
+            unit: 'done',
+            logs: {}
+          },
+          {
+            id: 'hab_deepwork',
+            emoji: '🎯',
+            name: 'Deep Work Blocks',
+            category: 'Work & Focus',
+            type: 'number',
+            target: 3,
+            unit: 'blocks',
+            logs: {}
+          },
+          {
+            id: 'hab_sleep',
+            emoji: '😴',
+            name: '7+ Hours Sleep',
+            category: 'Health & Fitness',
+            type: 'check',
+            target: 1,
+            unit: 'done',
+            logs: {}
+          }
+        ];
+      }
+
+      function defaultSkills() {
+        return [
+          { id: 'skill_vri', name: 'Medical VRI & Terminology', category: 'Medical / VRI', target: 25, manualProgress: 0 },
+          { id: 'skill_ops', name: 'VA & Client Operations', category: 'Freelance Ops', target: 20, manualProgress: 0 },
+          { id: 'skill_ai', name: 'AI Rubric & Evaluation', category: 'AI & Data', target: 20, manualProgress: 0 }
+        ];
+      }
+
+      function buildInitialState() {
+        let cachedFx = null;
+        try {
+          cachedFx = JSON.parse(localStorage.getItem(FX_CACHE_KEY) || 'null');
+        } catch (e) {
+          cachedFx = null;
+        }
+        const plats = defaultPlatforms();
+        const sumGoal = plats.reduce((acc, p) => acc + p.goal, 0);
+
+        return {
+          version: 2,
+          updatedAt: 0,
+          theme: 'dark',
+          monthlyGoal: sumGoal,
+          monthlyGoalManual: false,
+          egpRate: cachedFx && cachedFx.rate ? Number(cachedFx.rate) : 50.0,
+          egpRateUpdatedAt: cachedFx && cachedFx.updatedAt ? cachedFx.updatedAt : null,
+          platforms: plats,
+          entries: [],
+          tasks: [],
+          notes: {
+            'Outlier AI': '',
+            'Maven / CrowdGen': '',
+            'Upwork & VA': '',
+            'Translation / Medical': '',
+            'General': ''
+          },
+          skills: defaultSkills(),
+          habits: defaultHabits(),
+          habitReflections: {}
         };
       }
 
-      function normalizeState(parsed) {
-        const base = buildStarterState();
-        const merged = { ...base, ...(parsed || {}), version: 1 };
-        if (typeof (parsed && parsed.isDemo) === 'undefined' && typeof (parsed && parsed.isSample) === 'boolean') {
-          merged.isDemo = parsed.isSample;
-        }
-        if (typeof (parsed && parsed.monthlyGoalManual) !== 'boolean') {
-          merged.monthlyGoalManual = false;
-        }
-        if (!Array.isArray(merged.platforms) || merged.platforms.length === 0) merged.platforms = base.platforms;
-        if (!Array.isArray(merged.entries)) merged.entries = [];
-        if (!Array.isArray(merged.tasks)) merged.tasks = [];
+      function normalizeState(raw) {
+        const base = buildInitialState();
+        if (!raw || typeof raw !== 'object') return base;
 
-        if (!merged.notes || typeof merged.notes !== 'object') {
-          merged.notes = { ...base.notes };
+        const merged = {
+          ...base,
+          ...raw,
+          version: 2
+        };
+
+        merged.theme = raw.theme === 'light' ? 'light' : 'dark';
+        merged.updatedAt = Number(raw.updatedAt) || 0;
+        merged.monthlyGoalManual = Boolean(raw.monthlyGoalManual);
+        merged.egpRate = Number(raw.egpRate) > 0 ? Number(raw.egpRate) : base.egpRate;
+
+        // Normalize Platforms
+        if (Array.isArray(raw.platforms) && raw.platforms.length > 0) {
+          merged.platforms = raw.platforms.map((p, idx) => ({
+            id: p.id || ('plat_' + idx + '_' + Date.now()),
+            name: String(p.name || 'Platform'),
+            goal: Math.max(1, Number(p.goal) || 100),
+            rate: Math.max(0, Number(p.rate) || 0),
+            color: p.color || '#6366f1'
+          }));
         } else {
-          ['outlier', 'maven', 'upwork', 'sales_trans', 'general'].forEach((k) => {
-            if (typeof merged.notes[k] !== 'string') merged.notes[k] = '';
+          merged.platforms = defaultPlatforms();
+        }
+
+        const summedGoals = merged.platforms.reduce((s, p) => s + p.goal, 0);
+        if (!merged.monthlyGoalManual) {
+          merged.monthlyGoal = summedGoals;
+        } else {
+          merged.monthlyGoal = Math.max(1, Number(raw.monthlyGoal) || summedGoals);
+        }
+
+        // Normalize Entries
+        merged.entries = Array.isArray(raw.entries)
+          ? raw.entries.map((e, idx) => ({
+              id: e.id || ('ent_' + idx + '_' + Date.now()),
+              platformId: e.platformId || merged.platforms[0].id,
+              hours: Math.max(0, Number(e.hours) || 0),
+              amount: Math.max(0, Number(e.amount) || 0),
+              date: typeof e.date === 'string' && e.date.length >= 10 ? e.date.slice(0, 10) : todayStr(0),
+              note: String(e.note || '')
+            }))
+          : [];
+
+        // Normalize Skills (supports both legacy targetTasks/manualBoost and new target/manualProgress)
+        merged.skills = Array.isArray(raw.skills)
+          ? raw.skills.map((s, idx) => ({
+              id: s.id || ('skill_' + idx + '_' + Date.now()),
+              name: String(s.name || 'Skill'),
+              category: String(s.category || 'Freelance Ops'),
+              target: Math.max(1, Number(s.target || s.targetTasks) || 10),
+              manualProgress: Math.max(0, Number(s.manualProgress != null ? s.manualProgress : s.manualBoost) || 0)
+            }))
+          : defaultSkills();
+
+        // Normalize Tasks
+        merged.tasks = Array.isArray(raw.tasks)
+          ? raw.tasks.map((t, idx) => {
+              const rawPrio = String(t.priority || 'Medium');
+              const prio =
+                rawPrio.toLowerCase() === 'high'
+                  ? 'High'
+                  : rawPrio.toLowerCase() === 'low'
+                  ? 'Low'
+                  : 'Medium';
+              return {
+                id: t.id || ('task_' + idx + '_' + Date.now()),
+                title: String(t.title || ''),
+                platformId: t.platformId || (merged.platforms[0] ? merged.platforms[0].id : ''),
+                priority: prio,
+                skillId: t.skillId || '',
+                completed: Boolean(t.completed),
+                createdAt: Number(t.createdAt) || Date.now()
+              };
+            })
+          : [];
+
+        // Normalize Notes (preserve legacy keys if present)
+        const cleanNotes = { ...base.notes };
+        if (raw.notes && typeof raw.notes === 'object') {
+          Object.keys(raw.notes).forEach((k) => {
+            const mappedKey = LEGACY_NOTE_MAP[k] || k;
+            if (NOTE_CATEGORIES.includes(mappedKey) && typeof raw.notes[k] === 'string') {
+              cleanNotes[mappedKey] = raw.notes[k];
+            }
           });
         }
+        merged.notes = cleanNotes;
 
-        if (!Array.isArray(merged.skills)) {
-          merged.skills = [];
+        // Normalize Habits
+        if (Array.isArray(raw.habits) && raw.habits.length > 0) {
+          merged.habits = raw.habits.map((h, idx) => {
+            const cat = HABIT_CATEGORIES.includes(h.category)
+              ? h.category
+              : h.category === 'Spiritual'
+              ? 'Spiritual & Quran'
+              : h.category === 'Health'
+              ? 'Health & Fitness'
+              : h.category === 'Work'
+              ? 'Work & Focus'
+              : 'Personal';
+            return {
+              id: h.id || ('hab_' + idx + '_' + Date.now()),
+              emoji: String(h.emoji || h.icon || '✨'),
+              name: String(h.name || 'Habit'),
+              category: cat,
+              type: h.type === 'number' ? 'number' : 'check',
+              target: Math.max(1, Number(h.target) || 1),
+              unit: String(h.unit || (h.type === 'number' ? 'units' : 'done')),
+              logs: h.logs && typeof h.logs === 'object' ? { ...h.logs } : {}
+            };
+          });
         } else {
-          merged.skills = merged.skills.map((sk) => ({
-            id: sk.id || ('sk_' + Math.random().toString(36).slice(2, 7)),
-            name: String(sk.name || 'Skill'),
-            targetHours: Math.max(1, Number(sk.targetHours) || 20),
-            loggedHours: Math.max(0, Number(sk.loggedHours) || 0),
-            targetTasks: Math.max(1, Number(sk.targetTasks) || 10),
-            manualBoost: Math.max(0, Number(sk.manualBoost) || 0),
-            color: sk.color || '#10b981',
-          }));
+          merged.habits = defaultHabits();
         }
 
-        if (!Array.isArray(merged.habits) || merged.habits.length === 0) {
-          merged.habits = buildDefaultHabits();
-        } else {
-          merged.habits = merged.habits.map((hb) => ({
-            id: hb.id || ('hb_' + Math.random().toString(36).slice(2, 7)),
-            icon: String(hb.icon || '✨'),
-            name: String(hb.name || 'Habit'),
-            category: HABIT_CAT_META[hb.category] ? hb.category : 'Personal',
-            type: hb.type === 'number' ? 'number' : 'check',
-            target: Math.max(1, Number(hb.target) || 1),
-            unit: String(hb.unit || (hb.type === 'number' ? 'units' : 'done')),
-            logs: hb.logs && typeof hb.logs === 'object' ? { ...hb.logs } : {},
-          }));
-        }
-
-        if (!merged.habitReflections || typeof merged.habitReflections !== 'object') {
-          merged.habitReflections = {};
-        }
+        merged.habitReflections =
+          raw.habitReflections && typeof raw.habitReflections === 'object'
+            ? { ...raw.habitReflections }
+            : {};
 
         return merged;
       }
-<!-- ... existing code ... -->
-      let state = loadLocalState();
-      let syncUrl = getSyncUrlFromHashOrStorage();
-      let syncStatus = syncUrl ? 'synced' : 'local';
-      let lastSyncTime = null;
-      let syncPushTimer = null;
-      let isSyncingNow = false;
-      let taskFilter = 'all';
-      let activeNoteScope = 'outlier';
-      let noteDebounceId = null;
-      let habitCatFilter = 'all';
-      let selectedHabitDate = getDateStr(0);
-      let reflectionDebounceId = null;
-<!-- ... existing code ... -->
-          if (data && data.ok && data.state && typeof data.state === 'object') {
-            const cloudTime = Number(data.updatedAt || data.state.updatedAt || 0);
-            const localTime = Number(state.updatedAt || 0);
-            if (cloudTime > localTime || (!state.updatedAt && cloudTime > 0)) {
-              state = normalizeState({ ...data.state, updatedAt: cloudTime });
-              applyTheme(state.theme);
-              persistLocalOnly();
-              renderDashboard();
-              renderHabitsPage();
+
+      function loadSyncUrl() {
+        try {
+          const hash = window.location.hash || '';
+          const match = hash.match(/#sync=([^&]+)/);
+          if (match && match[1]) {
+            const decoded = decodeURIComponent(match[1]).trim();
+            if (decoded.startsWith('http')) {
+              localStorage.setItem(SYNC_URL_KEY, decoded);
+              if (window.history && window.history.replaceState) {
+                window.history.replaceState(null, '', window.location.pathname + window.location.search);
+              }
+              return decoded;
             }
-            lastSyncTime = new Date();
-            updateSyncUI('synced');
-            if (!silent) showToast('Pulled latest cloud data', 'success');
-            return true;
           }
-<!-- ... existing code ... -->
-      // ==================== HABIT TRACKER ====================
-      function getHabitValueForDate(habit, dateStr) {
-        return Math.max(0, Number((habit.logs && habit.logs[dateStr]) || 0));
+          return (localStorage.getItem(SYNC_URL_KEY) || '').trim();
+        } catch (e) {
+          return '';
+        }
       }
 
-      function isHabitDoneOnDate(habit, dateStr) {
-        const val = getHabitValueForDate(habit, dateStr);
-        const target = habit.type === 'number' ? Math.max(1, Number(habit.target) || 1) : 1;
-        return val >= target;
+      function loadStateFromStorage() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) return buildInitialState();
+          return normalizeState(JSON.parse(raw));
+        } catch (e) {
+          return buildInitialState();
+        }
       }
 
-      function computeHabitStreaks(habit) {
-        const today = getDateStr(0);
-        const yesterday = getDateStr(-1);
-        let current = 0;
-        let cursor = isHabitDoneOnDate(habit, today) ? today : (isHabitDoneOnDate(habit, yesterday) ? yesterday : null);
-        while (cursor && isHabitDoneOnDate(habit, cursor)) {
-          current += 1;
-          cursor = shiftDateStr(cursor, -1);
-        }
+      // Application State
+      let state = loadStateFromStorage();
+      let syncUrl = loadSyncUrl();
+      let pushDebounceTimer = null;
+      let taskFilter = 'All';
+      let activeNoteCategory = 'Outlier AI';
+      let habitCatFilter = 'All';
+      let selectedHabitDate = todayStr(0);
 
-        let best = 0;
-        let run = 0;
-        for (let i = 89; i >= 0; i--) {
-          const d = getDateStr(-i);
-          if (isHabitDoneOnDate(habit, d)) {
-            run += 1;
-            if (run > best) best = run;
-          } else {
-            run = 0;
-          }
-        }
-        best = Math.max(best, current);
+      // Focus Timer State
+      let timerMode = 'pomodoro'; // 'pomodoro' | 'shift'
+      let pomoMinutes = 25;
+      let timerSeconds = 25 * 60;
+      let timerRunning = false;
+      let timerInterval = null;
 
-        let done30 = 0;
-        for (let i = 0; i < 30; i++) {
-          if (isHabitDoneOnDate(habit, getDateStr(-i))) done30 += 1;
+      function persistLocal() {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        } catch (e) {
+          // Ignore storage quota errors
         }
-        const rate30 = Math.round((done30 / 30) * 100);
-        return { current, best, rate30 };
       }
 
-      function getDayCompletionRatio(dateStr) {
-        if (!state.habits || state.habits.length === 0) return { done: 0, total: 0, pct: 0 };
-        const total = state.habits.length;
-        let scoreSum = 0;
-        let doneCount = 0;
-        state.habits.forEach((hb) => {
-          const val = getHabitValueForDate(hb, dateStr);
-          const target = hb.type === 'number' ? Math.max(1, Number(hb.target) || 1) : 1;
-          const ratio = Math.min(1, val / target);
-          scoreSum += ratio;
-          if (ratio >= 1) doneCount += 1;
-        });
-        return {
-          done: doneCount,
-          total,
-          pct: Math.round((scoreSum / total) * 100),
-        };
+      function setSyncBadge(status, label) {
+        const badge = document.getElementById('sync-status-badge');
+        if (!badge) return;
+        badge.className = 'sync-pill ' + status;
+        badge.textContent = label;
       }
 
-      function renderHabitsPage() {
-        const dateInput = document.getElementById('habit-selected-date');
-        if (dateInput && dateInput.value !== selectedHabitDate) {
-          dateInput.value = selectedHabitDate;
+      function saveState(options = {}) {
+        state.updatedAt = Date.now();
+        persistLocal();
+        if (!syncUrl) {
+          setSyncBadge('sync-local', 'Local');
+          return;
         }
-
-        const dayStats = getDayCompletionRatio(selectedHabitDate);
-        const labelShort = formatShortDateLabel(selectedHabitDate);
-        document.getElementById('habit-date-kpi-lbl').textContent = `${labelShort}'s Progress`;
-        document.getElementById('habit-kpi-done').textContent = String(dayStats.done);
-        document.getElementById('habit-kpi-total').textContent = String(dayStats.total);
-        document.getElementById('habit-kpi-subdate').textContent = selectedHabitDate;
-        document.getElementById('habit-ring-pct').textContent = `${dayStats.pct}%`;
-
-        const ringCirc = 2 * Math.PI * 26;
-        document.getElementById('habit-ring-fg').style.strokeDashoffset = String(ringCirc * (1 - dayStats.pct / 100));
-
-        // Streaks & Weekly / 30d Mastery
-        let bestStreak = 0;
-        let topHabitName = '—';
-        state.habits.forEach((hb) => {
-          const st = computeHabitStreaks(hb);
-          if (st.current > bestStreak || (st.current === bestStreak && bestStreak === 0 && topHabitName === '—')) {
-            bestStreak = st.current;
-            topHabitName = hb.name;
-          }
-        });
-        document.getElementById('habit-kpi-streak').textContent = String(bestStreak);
-        document.getElementById('habit-kpi-top-streak').textContent = bestStreak > 0 ? `${topHabitName}` : 'Start today';
-
-        let weekSum = 0;
-        for (let i = 0; i < 7; i++) {
-          weekSum += getDayCompletionRatio(getDateStr(-i)).pct;
-        }
-        const weekAvg = Math.round(weekSum / 7);
-        document.getElementById('habit-kpi-weekly').textContent = `${weekAvg}%`;
-        document.getElementById('habit-kpi-weekly-bar').style.width = `${weekAvg}%`;
-
-        let monthSum = 0;
-        let perfectDays = 0;
-        for (let i = 0; i < 30; i++) {
-          const r = getDayCompletionRatio(getDateStr(-i));
-          monthSum += r.pct;
-          if (r.total > 0 && r.done === r.total) perfectDays += 1;
-        }
-        document.getElementById('habit-kpi-monthly').textContent = `${Math.round(monthSum / 30)}%`;
-        document.getElementById('habit-kpi-perfect-days').textContent = `${perfectDays} days`;
-
-        // 30-Day Heatmap
-        const hmGrid = document.getElementById('habit-heatmap-grid');
-        const cellsHtml = [];
-        for (let i = 29; i >= 0; i--) {
-          const dStr = getDateStr(-i);
-          const r = getDayCompletionRatio(dStr);
-          let lvlCls = '';
-          if (r.pct >= 100) lvlCls = 'hm-lvl-4';
-          else if (r.pct >= 70) lvlCls = 'hm-lvl-3';
-          else if (r.pct >= 40) lvlCls = 'hm-lvl-2';
-          else if (r.pct > 0) lvlCls = 'hm-lvl-1';
-          const selCls = dStr === selectedHabitDate ? 'selected' : '';
-          const dayNum = dStr.slice(8, 10);
-          cellsHtml.push(`
-            <button type="button" class="hm-cell ${lvlCls} ${selCls}" data-hm-date="${dStr}" title="${dStr}: ${r.done}/${r.total} (${r.pct}%)">
-              <span>${dayNum}</span>
-            </button>
-          `);
-        }
-        hmGrid.innerHTML = cellsHtml.join('');
-        document.getElementById('hm-selected-summary').textContent = `${labelShort} (${selectedHabitDate}): ${dayStats.done} of ${dayStats.total} habits completed (${dayStats.pct}%)`;
-
-        // Habit Cards
-        const cardsGrid = document.getElementById('habits-cards-grid');
-        const filtered = state.habits.filter((hb) => habitCatFilter === 'all' || hb.category === habitCatFilter);
-
-        if (filtered.length === 0) {
-          cardsGrid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:24px;font-size:0.8rem;color:var(--text-muted);border:1px dashed var(--border-subtle);border-radius:12px">No habits in this category yet. Click "+ New Habit" to add one.</div>`;
+        setSyncBadge('sync-syncing', 'Syncing...');
+        clearTimeout(pushDebounceTimer);
+        if (options.immediate) {
+          pushToCloud(Boolean(options.force));
         } else {
-          const last7Dates = [];
-          for (let i = 6; i >= 0; i--) last7Dates.push(getDateStr(-i));
+          pushDebounceTimer = setTimeout(() => {
+            pushToCloud(false);
+          }, 1500);
+        }
+      }
 
-          cardsGrid.innerHTML = filtered
-            .map((hb) => {
-              const catInfo = HABIT_CAT_META[hb.category] || HABIT_CAT_META.Personal;
-              const curVal = getHabitValueForDate(hb, selectedHabitDate);
-              const target = hb.type === 'number' ? Math.max(1, Number(hb.target) || 1) : 1;
-              const doneSel = curVal >= target;
-              const pctSel = Math.min(100, Math.round((curVal / target) * 100));
-              const streaks = computeHabitStreaks(hb);
+      async function pushToCloud(force = false) {
+        if (!syncUrl) {
+          setSyncBadge('sync-local', 'Local');
+          return;
+        }
+        setSyncBadge('sync-syncing', 'Syncing...');
+        try {
+          const res = await fetch(syncUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify({
+              updatedAt: state.updatedAt,
+              force: force,
+              state: state
+            })
+          });
+          const data = await res.json();
+          if (data && data.ok) {
+            setSyncBadge('sync-synced', 'Synced');
+            if (force) showToast('Force pushed to Google Sheets');
+          } else {
+            setSyncBadge('sync-error', 'Error');
+          }
+        } catch (err) {
+          setSyncBadge('sync-error', 'Offline');
+        }
+      }
 
-              const daysPillsHtml = last7Dates
-                .map((d) => {
-                  const v = getHabitValueForDate(hb, d);
-                  const isDone = v >= target;
-                  const isPartial = !isDone && v > 0;
-                  const parts = d.split('-').map(Number);
-                  const dt = new Date(Date.UTC(parts[0], parts[1] - 1, parts[2]));
-                  const wd = dt.toLocaleDateString('en-US', { timeZone: 'UTC', weekday: 'narrow' });
-                  const dn = d.slice(8, 10);
-                  return `
-                    <button type="button" class="day-pill-btn ${d === selectedHabitDate ? 'active-date' : ''} ${isDone ? 'day-done' : (isPartial ? 'day-partial' : '')}" data-habit-day="${escapeHTML(hb.id)}" data-date="${d}" title="Toggle ${d}">
-                      <span>${wd}</span>
-                      <span class="font-mono">${dn}</span>
-                    </button>
-                  `;
-                })
-                .join('');
+      async function pullFromCloud(silent = false) {
+        if (!syncUrl) {
+          setSyncBadge('sync-local', 'Local');
+          return;
+        }
+        setSyncBadge('sync-syncing', 'Syncing...');
+        try {
+          const sep = syncUrl.includes('?') ? '&' : '?';
+          const res = await fetch(`${syncUrl}${sep}t=${Date.now()}`);
+          const data = await res.json();
+          if (data && data.ok) {
+            const remoteUpdated = Number(data.updatedAt || (data.state && data.state.updatedAt) || 0);
+            if (data.state && remoteUpdated > state.updatedAt) {
+              state = normalizeState({ ...data.state, updatedAt: remoteUpdated });
+              applyTheme(state.theme);
+              persistLocal();
+              renderAll();
+              if (!silent) showToast('Pulled latest cloud data');
+            } else if (state.updatedAt > remoteUpdated && state.updatedAt > 0) {
+              await pushToCloud(false);
+              if (!silent) showToast('Synced local changes to cloud');
+            } else if (!silent) {
+              showToast('Already up to date');
+            }
+            setSyncBadge('sync-synced', 'Synced');
+          } else {
+            setSyncBadge('sync-error', 'Error');
+          }
+        } catch (err) {
+          setSyncBadge('sync-error', 'Offline');
+          if (!silent) showToast('Could not reach cloud sync URL');
+        }
+      }
 
-              const controlHtml =
-                hb.type === 'number'
-                  ? `
-                    <div class="habit-stepper">
-                      <button type="button" class="step-btn" data-habit-step="${escapeHTML(hb.id)}" data-delta="-1" aria-label="Decrease">−</button>
-                      <span class="font-mono" style="font-size:0.8rem;font-weight:800;min-width:74px;text-align:center">${curVal} / ${target} ${escapeHTML(hb.unit)}</span>
-                      <button type="button" class="step-btn" data-habit-step="${escapeHTML(hb.id)}" data-delta="1" aria-label="Increase">+</button>
-                    </div>
-                    <button type="button" class="habit-check-btn ${doneSel ? 'done' : ''}" data-habit-complete="${escapeHTML(hb.id)}">
-                      ${doneSel ? '✓ Completed' : 'Complete'}
-                    </button>
-                  `
-                  : `
-                    <span style="font-size:0.75rem;color:var(--text-secondary)">${labelShort} Status</span>
-                    <button type="button" class="habit-check-btn ${doneSel ? 'done' : ''}" data-habit-complete="${escapeHTML(hb.id)}">
-                      ${doneSel ? '✓ Done' : 'Mark Done'}
-                    </button>
-                  `;
+      // Live USD/EGP Exchange Rate
+      async function fetchLiveExchangeRate(manualTrigger = false) {
+        const statusEl = document.getElementById('fx-status-badge');
+        const timeEl = document.getElementById('fx-updated-time');
+        if (statusEl) statusEl.textContent = 'Updating...';
 
+        const endpoints = [
+          async () => {
+            const r = await fetch('https://open.er-api.com/v6/latest/USD');
+            const j = await r.json();
+            return j && j.rates && j.rates.EGP ? Number(j.rates.EGP) : null;
+          },
+          async () => {
+            const r = await fetch('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json');
+            const j = await r.json();
+            return j && j.usd && j.usd.egp ? Number(j.usd.egp) : null;
+          }
+        ];
+
+        let fetchedRate = null;
+        for (const fn of endpoints) {
+          try {
+            fetchedRate = await fn();
+            if (fetchedRate && fetchedRate > 1) break;
+          } catch (e) {
+            // Try fallback endpoint
+          }
+        }
+
+        if (fetchedRate && fetchedRate > 1) {
+          state.egpRate = Number(fetchedRate.toFixed(2));
+          const nowStr = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+          state.egpRateUpdatedAt = nowStr;
+          try {
+            localStorage.setItem(FX_CACHE_KEY, JSON.stringify({ rate: state.egpRate, updatedAt: nowStr }));
+          } catch (e) {}
+          persistLocal();
+          if (statusEl) statusEl.textContent = 'Live';
+          if (timeEl) timeEl.textContent = nowStr;
+          renderKpisAndPlatforms();
+          if (manualTrigger) showToast(`USD/EGP updated: ${state.egpRate}`);
+        } else {
+          if (statusEl) statusEl.textContent = 'Cached';
+          if (timeEl && state.egpRateUpdatedAt) timeEl.textContent = state.egpRateUpdatedAt;
+          if (manualTrigger) showToast('Using cached USD/EGP rate');
+        }
+      }
+
+      // Theme & Clocks
+      function applyTheme(theme) {
+        const html = document.documentElement;
+        if (theme === 'light') {
+          html.classList.remove('dark');
+          html.classList.add('light');
+        } else {
+          html.classList.remove('light');
+          html.classList.add('dark');
+        }
+      }
+
+      function updateWorldClocks() {
+        const now = new Date();
+        const opts = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+        try {
+          document.getElementById('clock-cairo').textContent = now.toLocaleTimeString('en-US', { ...opts, timeZone: 'Africa/Cairo' });
+          document.getElementById('clock-et').textContent = now.toLocaleTimeString('en-US', { ...opts, timeZone: 'America/New_York' });
+          document.getElementById('clock-az').textContent = now.toLocaleTimeString('en-US', { ...opts, timeZone: 'America/Phoenix' });
+        } catch (e) {
+          // Fallback if timezone Intl unavailable
+        }
+      }
+
+      // Helpers for Work & Income
+      function getPlatformById(id) {
+        return state.platforms.find((p) => p.id === id) || state.platforms[0] || { id: '', name: 'General', goal: 100, rate: 0, color: '#6366f1' };
+      }
+
+      function getCurrentMonthPrefix() {
+        return todayStr(0).slice(0, 7); // YYYY-MM
+      }
+
+      function getSkillCompletedCount(skill) {
+        const linkedCompleted = state.tasks.filter((t) => t.completed && t.skillId === skill.id).length;
+        return linkedCompleted + (Number(skill.manualProgress) || 0);
+      }
+
+      function populateDropdowns() {
+        const platSelectIds = [
+          'task-platform-select',
+          'timer-platform-select',
+          'entry-platform-select'
+        ];
+        platSelectIds.forEach((selId) => {
+          const sel = document.getElementById(selId);
+          if (!sel) return;
+          const prev = sel.value;
+          sel.innerHTML = state.platforms
+            .map((p) => `<option value="${escapeHtml(p.id)}">${escapeHtml(p.name)} ($${p.rate}/hr)</option>`)
+            .join('');
+          if (prev && state.platforms.some((p) => p.id === prev)) {
+            sel.value = prev;
+          }
+        });
+
+        const skillSel = document.getElementById('task-skill-select');
+        if (skillSel) {
+          const prevSkill = skillSel.value;
+          skillSel.innerHTML =
+            `<option value="">No Linked Skill</option>` +
+            state.skills.map((s) => `<option value="${escapeHtml(s.id)}">Skill: ${escapeHtml(s.name)}</option>`).join('');
+          if (prevSkill && state.skills.some((s) => s.id === prevSkill)) {
+            skillSel.value = prevSkill;
+          }
+        }
+      }
+
+      function renderKpisAndPlatforms() {
+        const monthPrefix = getCurrentMonthPrefix();
+        const monthEntries = state.entries.filter((e) => (e.date || '').startsWith(monthPrefix));
+
+        const totalUsd = monthEntries.reduce((sum, e) => sum + (Number(e.amount) || 0), 0);
+        const totalHours = monthEntries.reduce((sum, e) => sum + (Number(e.hours) || 0), 0);
+        const totalEgp = Math.round(totalUsd * (Number(state.egpRate) || 50));
+
+        const summedPlatformGoals = state.platforms.reduce((sum, p) => sum + (Number(p.goal) || 0), 0);
+        if (!state.monthlyGoalManual) {
+          state.monthlyGoal = summedPlatformGoals;
+        }
+        const activeGoal = Math.max(1, Number(state.monthlyGoal) || summedPlatformGoals || 1);
+        const goalPct = Math.min(100, Math.round((totalUsd / activeGoal) * 100));
+
+        document.getElementById('kpi-monthly-usd').textContent = `$${totalUsd.toFixed(2)}`;
+        document.getElementById('kpi-monthly-egp').textContent = `${totalEgp.toLocaleString()} EGP`;
+        document.getElementById('kpi-goal-pct').textContent = `${goalPct}%`;
+        document.getElementById('kpi-goal-bar').style.width = `${goalPct}%`;
+
+        const goalInput = document.getElementById('input-monthly-goal');
+        if (document.activeElement !== goalInput) goalInput.value = activeGoal;
+        const rateInput = document.getElementById('input-egp-rate');
+        if (document.activeElement !== rateInput) rateInput.value = state.egpRate;
+
+        const sumBtn = document.getElementById('btn-sum-goal');
+        if (sumBtn) {
+          sumBtn.style.display = state.monthlyGoalManual && activeGoal !== summedPlatformGoals ? 'inline-flex' : 'none';
+        }
+
+        // Total Hours & Daily Avg
+        const dayOfMonth = Math.max(1, new Date().getDate());
+        const avgHoursPerDay = totalHours / dayOfMonth;
+        document.getElementById('kpi-monthly-hours').textContent = totalHours.toFixed(1);
+        document.getElementById('kpi-daily-avg-hours').textContent = `${avgHoursPerDay.toFixed(1)} hrs/day`;
+
+        // Effective Hourly Rate & Top Platform
+        const effRate = totalHours > 0 ? totalUsd / totalHours : 0;
+        document.getElementById('kpi-avg-rate').textContent = `$${effRate.toFixed(2)}`;
+
+        const earningsByPlat = {};
+        const hoursByPlat = {};
+        monthEntries.forEach((e) => {
+          earningsByPlat[e.platformId] = (earningsByPlat[e.platformId] || 0) + e.amount;
+          hoursByPlat[e.platformId] = (hoursByPlat[e.platformId] || 0) + e.hours;
+        });
+
+        let topPlatName = 'No data yet';
+        let topPlatAmt = 0;
+        state.platforms.forEach((p) => {
+          const amt = earningsByPlat[p.id] || 0;
+          if (amt > topPlatAmt) {
+            topPlatAmt = amt;
+            topPlatName = `${p.name} ($${amt.toFixed(0)})`;
+          }
+        });
+        document.getElementById('kpi-top-platform').textContent = topPlatName;
+
+        // Today's Tasks KPI
+        const totalTasks = state.tasks.length;
+        const doneTasks = state.tasks.filter((t) => t.completed).length;
+        const taskPct = totalTasks > 0 ? Math.round((doneTasks / totalTasks) * 100) : 0;
+        document.getElementById('kpi-tasks-done').textContent = String(doneTasks);
+        document.getElementById('kpi-tasks-total').textContent = String(totalTasks);
+        document.getElementById('kpi-tasks-pct').textContent = `${taskPct}%`;
+        document.getElementById('kpi-tasks-bar').style.width = `${taskPct}%`;
+
+        // Render Platforms List
+        const platContainer = document.getElementById('platforms-list');
+        if (state.platforms.length === 0) {
+          platContainer.innerHTML = `<div class="empty-state">No platforms added yet. Click "+ Platform" to add one.</div>`;
+        } else {
+          platContainer.innerHTML = state.platforms
+            .map((p) => {
+              const earned = earningsByPlat[p.id] || 0;
+              const hrs = hoursByPlat[p.id] || 0;
+              const pct = p.goal > 0 ? Math.min(100, Math.round((earned / p.goal) * 100)) : 0;
               return `
-                <div class="habit-card ${doneSel ? 'completed-day' : ''}">
-                  <div class="habit-card-top">
-                    <div class="habit-identity">
-                      <div class="habit-emoji-box">${escapeHTML(hb.icon)}</div>
-                      <div>
-                        <div class="habit-name">${escapeHTML(hb.name)}</div>
-                        <div class="habit-badges">
-                          <span class="badge ${catInfo.badgeCls}">${escapeHTML(catInfo.label)}</span>
-                          ${hb.type === 'number' ? `<span class="badge" style="background:var(--bg-card);color:var(--text-secondary)">Goal: ${target} ${escapeHTML(hb.unit)}</span>` : ''}
-                        </div>
-                      </div>
+                <div class="sub-card">
+                  <div class="sub-card-top">
+                    <div class="platform-name-wrap">
+                      <span class="color-dot" style="background:${escapeHtml(p.color)}"></span>
+                      <span class="sub-card-title">${escapeHtml(p.name)}</span>
                     </div>
-                    <div style="display:flex;align-items:center;gap:5px">
-                      <button type="button" class="icon-btn-sm" data-edit-habit="${escapeHTML(hb.id)}" title="Edit habit">✎</button>
-                      <button type="button" class="icon-btn-sm icon-btn-del" data-del-habit="${escapeHTML(hb.id)}" title="Delete habit">✕</button>
+                    <div class="inline-controls">
+                      <button type="button" class="icon-btn" data-edit-platform="${escapeHtml(p.id)}" title="Edit Platform">✎</button>
+                      <button type="button" class="icon-btn danger" data-del-platform="${escapeHtml(p.id)}" title="Delete Platform">✕</button>
                     </div>
                   </div>
-
-                  ${
-                    hb.type === 'number'
-                      ? `<div class="progress-track"><div class="progress-fill" style="width:${pctSel}%;background:${catInfo.color}"></div></div>`
-                      : ''
-                  }
-
-                  <div class="habit-action-box">${controlHtml}</div>
-
-                  <div class="habit-days-row">${daysPillsHtml}</div>
-
-                  <div class="habit-stats-foot">
-                    <span>🔥 Streak: <strong class="font-mono">${streaks.current}d</strong></span>
-                    <span>🏆 Best: <strong class="font-mono">${streaks.best}d</strong></span>
-                    <span>30d Rate: <strong class="font-mono">${streaks.rate30}%</strong></span>
+                  <div class="kpi-sub">
+                    <span class="font-mono">$${earned.toFixed(2)} / $${Number(p.goal).toFixed(2)} (${pct}%)</span>
+                    <span class="font-mono">${hrs.toFixed(1)}h · $${Number(p.rate).toFixed(1)}/h</span>
+                  </div>
+                  <div class="progress-track">
+                    <div class="progress-fill" style="width:${pct}%;background:${escapeHtml(p.color)}"></div>
                   </div>
                 </div>
               `;
             })
             .join('');
         }
-
-        // Daily Reflection
-        document.getElementById('habit-journal-date-badge').textContent = `${labelShort} (${selectedHabitDate})`;
-        const refInput = document.getElementById('habit-reflection-input');
-        const refVal = (state.habitReflections && state.habitReflections[selectedHabitDate]) || '';
-        if (refInput && document.activeElement !== refInput) {
-          refInput.value = refVal;
-        }
-        document.getElementById('habit-reflection-chars').textContent = `${refVal.length} chars`;
       }
 
-      function renderDashboard() {
-<!-- ... existing code ... -->
+      function renderTasks() {
+        const list = document.getElementById('task-list');
+        const filtered = state.tasks.filter((t) => {
+          if (taskFilter === 'High') return t.priority === 'High';
+          if (taskFilter === 'Pending') return !t.completed;
+          if (taskFilter === 'Completed') return t.completed;
+          return true;
+        });
+
+        if (filtered.length === 0) {
+          list.innerHTML = `<div class="empty-state">No tasks in "${escapeHtml(taskFilter)}" view.</div>`;
+          return;
+        }
+
+        list.innerHTML = filtered
+          .map((t) => {
+            const plat = getPlatformById(t.platformId);
+            const skill = t.skillId ? state.skills.find((s) => s.id === t.skillId) : null;
+            const prioClass =
+              t.priority === 'High' ? 'badge-rose' : t.priority === 'Low' ? 'badge-emerald' : 'badge-amber';
+
+            return `
+              <div class="task-item ${t.completed ? 'done' : ''}">
+                <div class="task-left">
+                  <input type="checkbox" class="task-checkbox" data-toggle-task="${escapeHtml(t.id)}" ${t.completed ? 'checked' : ''} />
+                  <div style="min-width:0">
+                    <div class="task-text">${escapeHtml(t.title)}</div>
+                    <div class="task-meta">
+                      <span class="badge ${prioClass}">${escapeHtml(t.priority)}</span>
+                      <span class="badge badge-indigo">${escapeHtml(plat.name)}</span>
+                      ${skill ? `<span class="badge badge-emerald">🚀 ${escapeHtml(skill.name)}</span>` : ''}
+                    </div>
+                  </div>
+                </div>
+                <button type="button" class="icon-btn danger" data-del-task="${escapeHtml(t.id)}" title="Delete Task">✕</button>
+              </div>
+            `;
+          })
+          .join('');
+      }
+
+      function renderSkills() {
+        const list = document.getElementById('skills-list');
+        if (state.skills.length === 0) {
+          list.innerHTML = `<div class="empty-state">No skills added yet. Add a skill above and link tasks to it.</div>`;
+          return;
+        }
+
+        list.innerHTML = state.skills
+          .map((s) => {
+            const done = getSkillCompletedCount(s);
+            const target = Math.max(1, Number(s.target) || 10);
+            const pct = Math.min(100, Math.round((done / target) * 100));
+            return `
+              <div class="sub-card">
+                <div class="sub-card-top">
+                  <div>
+                    <div class="sub-card-title">${escapeHtml(s.name)}</div>
+                    <span class="badge badge-indigo" style="margin-top:4px">${escapeHtml(s.category)}</span>
+                  </div>
+                  <div class="inline-controls">
+                    <button type="button" class="btn btn-sm btn-emerald" data-inc-skill="${escapeHtml(s.id)}">+1</button>
+                    <button type="button" class="icon-btn" data-edit-skill="${escapeHtml(s.id)}" title="Edit Skill">✎</button>
+                    <button type="button" class="icon-btn danger" data-del-skill="${escapeHtml(s.id)}" title="Delete Skill">✕</button>
+                  </div>
+                </div>
+                <div class="kpi-sub">
+                  <span class="font-mono">${done} / ${target} milestones</span>
+                  <span class="font-mono" style="color:var(--accent-emerald)">${pct}%</span>
+                </div>
+                <div class="progress-track">
+                  <div class="progress-fill" style="width:${pct}%"></div>
+                </div>
+              </div>
+            `;
+          })
+          .join('');
+      }
+
+      function renderEntries() {
+        const list = document.getElementById('entries-list');
+        if (state.entries.length === 0) {
+          list.innerHTML = `<div class="empty-state">No income entries logged yet. Log a shift or use the Focus Timer.</div>`;
+          return;
+        }
+
+        const sorted = [...state.entries].sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+        list.innerHTML = sorted
+          .slice(0, 25)
+          .map((e) => {
+            const plat = getPlatformById(e.platformId);
+            return `
+              <div class="task-item">
+                <div style="min-width:0">
+                  <div class="task-text">
+                    <span style="color:var(--accent-emerald)" class="font-mono">$${Number(e.amount).toFixed(2)}</span>
+                    · ${escapeHtml(plat.name)}
+                    <span class="font-mono" style="color:var(--text-secondary);font-size:0.78rem">(${Number(e.hours).toFixed(1)}h)</span>
+                  </div>
+                  <div class="task-meta">
+                    <span class="badge badge-indigo font-mono">${escapeHtml(e.date)}</span>
+                    ${e.note ? `<span style="font-size:0.74rem;color:var(--text-secondary)">${escapeHtml(e.note)}</span>` : ''}
+                  </div>
+                </div>
+                <button type="button" class="icon-btn danger" data-del-entry="${escapeHtml(e.id)}" title="Delete Entry">✕</button>
+              </div>
+            `;
+          })
+          .join('');
+      }
+
+      function renderNotes() {
+        const textarea = document.getElementById('quick-note-textarea');
+        const content = state.notes[activeNoteCategory] || '';
+        if (document.activeElement !== textarea) {
+          textarea.value = content;
+        }
+        document.getElementById('note-char-count').textContent = `${content.length} chars`;
+      }
+
+      // Focus Timer Helpers
+      function updateTimerUI() {
+        const mins = Math.floor(timerSeconds / 60);
+        const secs = timerSeconds % 60;
+        document.getElementById('timer-display').textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+
+        const elapsedSecs =
+          timerMode === 'pomodoro' ? Math.max(0, pomoMinutes * 60 - timerSeconds) : timerSeconds;
+        const elapsedHours = elapsedSecs / 3600;
+        const platId = document.getElementById('timer-platform-select').value;
+        const plat = getPlatformById(platId);
+        const estUsd = elapsedHours * (Number(plat.rate) || 0);
+        document.getElementById('timer-est-earnings').textContent = `Estimated Shift Value: $${estUsd.toFixed(2)} (${elapsedHours.toFixed(2)}h)`;
+      }
+
+      function resetTimer() {
+        clearInterval(timerInterval);
+        timerRunning = false;
+        timerSeconds = timerMode === 'pomodoro' ? pomoMinutes * 60 : 0;
+        updateTimerUI();
+      }
+
+      // Habit Tracker Calculations & Rendering
+      function getHabitLogVal(habit, dateStr) {
+        return Math.max(0, Number((habit.logs && habit.logs[dateStr]) || 0));
+      }
+
+      function isHabitCompleted(habit, dateStr) {
+        const target = habit.type === 'number' ? Math.max(1, Number(habit.target) || 1) : 1;
+        return getHabitLogVal(habit, dateStr) >= target;
+      }
+
+      function getHabitStreak(habit) {
+        let streak = 0;
+        let offset = isHabitCompleted(habit, todayStr(0)) ? 0 : -1;
+        while (isHabitCompleted(habit, todayStr(offset))) {
+          streak += 1;
+          offset -= 1;
+        }
+        return streak;
+      }
+
+      function getDateHabitStats(dateStr) {
+        const total = state.habits.length;
+        if (total === 0) return { done: 0, total: 0, pct: 0 };
+        let done = 0;
+        let ratioSum = 0;
+        state.habits.forEach((h) => {
+          const target = h.type === 'number' ? Math.max(1, Number(h.target) || 1) : 1;
+          const val = getHabitLogVal(h, dateStr);
+          const ratio = Math.min(1, val / target);
+          ratioSum += ratio;
+          if (ratio >= 1) done += 1;
+        });
+        return {
+          done,
+          total,
+          pct: Math.round((ratioSum / total) * 100)
+        };
+      }
+
+      function renderHabitsView() {
+        const stats = getDateHabitStats(selectedHabitDate);
+        const dateLabel = formatShortDate(selectedHabitDate);
+
+        document.getElementById('habit-ring-title').textContent = `${dateLabel}'s Completion`;
+        document.getElementById('habit-selected-label').textContent = selectedHabitDate;
+        document.getElementById('habit-ring-pct').textContent = `${stats.pct}%`;
+        document.getElementById('habit-kpi-done').textContent = String(stats.done);
+        document.getElementById('habit-kpi-total').textContent = String(stats.total);
+
+        const circumference = 2 * Math.PI * 26;
+        document.getElementById('habit-ring-circle').style.strokeDashoffset = String(
+          circumference * (1 - stats.pct / 100)
+        );
+
+        // Best Active Streak
+        let bestStreak = 0;
+        let bestName = 'Start today';
+        state.habits.forEach((h) => {
+          const st = getHabitStreak(h);
+          if (st > bestStreak) {
+            bestStreak = st;
+            bestName = h.name;
+          }
+        });
+        document.getElementById('habit-kpi-streak').textContent = String(bestStreak);
+        document.getElementById('habit-kpi-streak-name').textContent = bestName;
+
+        // 7-Day Consistency
+        let sum7 = 0;
+        for (let i = 0; i < 7; i++) sum7 += getDateHabitStats(todayStr(-i)).pct;
+        const avg7 = Math.round(sum7 / 7);
+        document.getElementById('habit-kpi-7d').textContent = `${avg7}%`;
+        document.getElementById('habit-kpi-7d-bar').style.width = `${avg7}%`;
+
+        // 30-Day Mastery & Perfect Days
+        let sum30 = 0;
+        let perfectDays = 0;
+        for (let i = 0; i < 30; i++) {
+          const dStats = getDateHabitStats(todayStr(-i));
+          sum30 += dStats.pct;
+          if (dStats.total > 0 && dStats.done === dStats.total) perfectDays += 1;
+        }
+        document.getElementById('habit-kpi-30d').textContent = `${Math.round(sum30 / 30)}%`;
+        document.getElementById('habit-kpi-perfect').textContent = `${perfectDays} days`;
+
+        // Heatmap Calendar (30 days)
+        const hmGrid = document.getElementById('habit-heatmap-grid');
+        const cells = [];
+        for (let i = 29; i >= 0; i--) {
+          const dStr = todayStr(-i);
+          const dStats = getDateHabitStats(dStr);
+          let lvlClass = '';
+          if (dStats.pct >= 100) lvlClass = 'hm-l4';
+          else if (dStats.pct >= 80) lvlClass = 'hm-l3';
+          else if (dStats.pct >= 50) lvlClass = 'hm-l2';
+          else if (dStats.pct >= 1) lvlClass = 'hm-l1';
+          const selClass = dStr === selectedHabitDate ? 'selected' : '';
+          cells.push(`
+            <button type="button" class="hm-day ${lvlClass} ${selClass}" data-select-date="${dStr}" title="${dStr}: ${dStats.pct}%">
+              ${dStr.slice(8, 10)}
+            </button>
+          `);
+        }
+        hmGrid.innerHTML = cells.join('');
+
+        document.getElementById('habit-viewing-badge').textContent = `Viewing: ${dateLabel} (${selectedHabitDate})`;
+        document.getElementById('btn-jump-today').style.display =
+          selectedHabitDate !== todayStr(0) ? 'inline-flex' : 'none';
+        document.getElementById('heatmap-summary-text').textContent =
+          `${stats.done} of ${stats.total} habits completed (${stats.pct}%) on ${dateLabel}`;
+
+        // Habits Cards Grid
+        const grid = document.getElementById('habits-grid');
+        const visibleHabits = state.habits.filter(
+          (h) => habitCatFilter === 'All' || h.category === habitCatFilter
+        );
+
+        if (visibleHabits.length === 0) {
+          grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1">No habits in this category. Click "+ New Habit" to add one.</div>`;
+        } else {
+          const rolling7 = [];
+          for (let i = 6; i >= 0; i--) rolling7.push(todayStr(-i));
+
+          grid.innerHTML = visibleHabits
+            .map((h) => {
+              const target = h.type === 'number' ? Math.max(1, Number(h.target) || 1) : 1;
+              const curVal = getHabitLogVal(h, selectedHabitDate);
+              const done = curVal >= target;
+              const pct = Math.min(100, Math.round((curVal / target) * 100));
+              const streak = getHabitStreak(h);
+
+              const controlHtml =
+                h.type === 'number'
+                  ? `
+                    <div class="stepper-group">
+                      <button type="button" class="icon-btn" data-step-habit="${escapeHtml(h.id)}" data-step="-1">−</button>
+                      <span class="font-mono" style="font-size:0.8rem;font-weight:700;min-width:84px;text-align:center">${curVal} / ${target} ${escapeHtml(h.unit)}</span>
+                      <button type="button" class="icon-btn" data-step-habit="${escapeHtml(h.id)}" data-step="1">+</button>
+                    </div>
+                    <button type="button" class="btn btn-sm ${done ? 'btn-emerald' : ''}" data-toggle-habit="${escapeHtml(h.id)}">
+                      ${done ? '✓ Completed' : 'Complete'}
+                    </button>
+                  `
+                  : `
+                    <span style="font-size:0.76rem;color:var(--text-secondary)">${dateLabel}</span>
+                    <button type="button" class="btn btn-sm ${done ? 'btn-emerald' : ''}" data-toggle-habit="${escapeHtml(h.id)}">
+                      ${done ? '✓ Done' : 'Mark Done'}
+                    </button>
+                  `;
+
+              const pillsHtml = rolling7
+                .map((d) => {
+                  const v = getHabitLogVal(h, d);
+                  const isD = v >= target;
+                  const isP = !isD && v > 0;
+                  const parts = d.split('-').map(Number);
+                  const wd = new Date(Date.UTC(parts[0], parts[1] - 1, parts[2])).toLocaleDateString('en-US', {
+                    timeZone: 'UTC',
+                    weekday: 'narrow'
+                  });
+                  return `
+                    <button type="button" class="week-pill ${d === selectedHabitDate ? 'selected-day' : ''} ${isD ? 'done-day' : isP ? 'partial-day' : ''}" data-pill-habit="${escapeHtml(h.id)}" data-pill-date="${d}">
+                      <span>${wd}</span>
+                      <span class="font-mono">${d.slice(8, 10)}</span>
+                    </button>
+                  `;
+                })
+                .join('');
+
+              return `
+                <div class="habit-card ${done ? 'completed' : ''}">
+                  <div class="sub-card-top">
+                    <div class="platform-name-wrap">
+                      <span class="habit-emoji">${escapeHtml(h.emoji)}</span>
+                      <div>
+                        <div class="sub-card-title">${escapeHtml(h.name)}</div>
+                        <div class="inline-controls" style="margin-top:4px">
+                          <span class="badge badge-indigo">${escapeHtml(h.category)}</span>
+                          <span class="badge badge-amber font-mono">🔥 ${streak}d</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="inline-controls">
+                      <button type="button" class="icon-btn" data-edit-habit="${escapeHtml(h.id)}" title="Edit Habit">✎</button>
+                      <button type="button" class="icon-btn danger" data-del-habit="${escapeHtml(h.id)}" title="Delete Habit">✕</button>
+                    </div>
+                  </div>
+
+                  ${
+                    h.type === 'number'
+                      ? `<div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>`
+                      : ''
+                  }
+
+                  <div class="habit-control-bar">${controlHtml}</div>
+
+                  <div class="week-pills">${pillsHtml}</div>
+                </div>
+              `;
+            })
+            .join('');
+        }
+
+        // Reflection textarea
+        document.getElementById('reflection-date-pill').textContent = `${dateLabel} (${selectedHabitDate})`;
+        const refEl = document.getElementById('habit-reflection-textarea');
+        const refText = state.habitReflections[selectedHabitDate] || '';
+        if (document.activeElement !== refEl) refEl.value = refText;
+        document.getElementById('reflection-char-count').textContent = `${refText.length} chars`;
+      }
+
+      function renderAll() {
+        populateDropdowns();
+        renderKpisAndPlatforms();
+        renderTasks();
+        renderSkills();
+        renderEntries();
+        renderNotes();
+        updateTimerUI();
+        renderHabitsView();
+      }
+
+      // Auto-calculate Entry Amount from Platform Rate * Hours
+      function syncEntryAmountFromHours() {
+        const hrs = Number(document.getElementById('entry-hours-input').value);
+        if (hrs > 0) {
+          const plat = getPlatformById(document.getElementById('entry-platform-select').value);
+          document.getElementById('entry-amount-input').value = (hrs * (Number(plat.rate) || 0)).toFixed(2);
+        }
+      }
+
+      // Event Bindings
       function bindEvents() {
-        document.querySelectorAll('[data-main-tab]').forEach((btn) => {
+        // Main View Tabs
+        document.querySelectorAll('[data-tab]').forEach((btn) => {
           btn.addEventListener('click', () => {
-            const tab = btn.dataset.mainTab;
-            document.querySelectorAll('[data-main-tab]').forEach((b) => b.classList.toggle('active', b === btn));
-            document.getElementById('panel-dashboard').classList.toggle('active', tab === 'dashboard');
-            document.getElementById('panel-habits').classList.toggle('active', tab === 'habits');
-            if (tab === 'dashboard') renderPlatformsAndCharts();
-            if (tab === 'habits') renderHabitsPage();
+            const target = btn.dataset.tab;
+            document.querySelectorAll('[data-tab]').forEach((b) => b.classList.toggle('active', b === btn));
+            document.getElementById('view-work').classList.toggle('active', target === 'work');
+            document.getElementById('view-habits').classList.toggle('active', target === 'habits');
+            if (target === 'habits') renderHabitsView();
           });
         });
-<!-- ... existing code ... -->
+
+        // Theme Toggle
+        document.getElementById('btn-toggle-theme').addEventListener('click', () => {
+          state.theme = state.theme === 'dark' ? 'light' : 'dark';
+          applyTheme(state.theme);
+          saveState();
+        });
+
+        // Backup & Import
+        document.getElementById('btn-backup').addEventListener('click', () => {
+          const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `work-habit-hub-backup-${todayStr(0)}.json`;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          URL.revokeObjectURL(url);
+          showToast('JSON backup downloaded');
+        });
+
+        document.getElementById('btn-import').addEventListener('click', () => {
+          document.getElementById('file-import-input').click();
+        });
+
+        document.getElementById('file-import-input').addEventListener('change', (e) => {
+          const file = e.target.files && e.target.files[0];
+          if (!file) return;
+          const reader = new FileReader();
+          reader.onload = () => {
             try {
               const parsed = JSON.parse(String(reader.result || '{}'));
-              state = normalizeState({ ...parsed, isDemo: false, updatedAt: Date.now() });
+              state = normalizeState({ ...parsed, updatedAt: Date.now() });
               applyTheme(state.theme);
-              saveState({ immediateSync: true });
-              renderDashboard();
-              renderHabitsPage();
-              showToast('Backup imported', 'success');
+              saveState({ immediate: true });
+              renderAll();
+              showToast('Backup restored successfully');
             } catch (err) {
-              showToast('Invalid JSON file', 'error');
+              showToast('Invalid backup JSON file');
             }
           };
           reader.readAsText(file);
           e.target.value = '';
         });
-<!-- ... existing code ... -->
-        document.getElementById('btn-reset-demo').addEventListener('click', () => {
-          const fresh = buildStarterState();
-          state = { ...fresh, isDemo: true, demoDismissed: false, updatedAt: Date.now() };
-          saveState({ immediateSync: true });
-          renderDashboard();
-          renderHabitsPage();
-          document.getElementById('modal-reset').classList.remove('open');
-          showToast('Loaded sample data', 'info');
-        });
-<!-- ... existing code ... -->
-        document.getElementById('log-filter-platform').addEventListener('change', renderEntries);
-        document.getElementById('log-filter-payout').addEventListener('change', renderEntries);
 
-        // Habit Tracker events
-        document.getElementById('habit-selected-date').addEventListener('change', (e) => {
-          if (e.target.value) {
-            selectedHabitDate = e.target.value;
-            renderHabitsPage();
+        // Reset Modal
+        document.getElementById('btn-open-reset').addEventListener('click', () => {
+          document.getElementById('modal-reset').classList.add('open');
+        });
+
+        document.getElementById('btn-reset-zero').addEventListener('click', () => {
+          state.entries = [];
+          state.tasks = [];
+          state.skills.forEach((s) => {
+            s.manualProgress = 0;
+          });
+          saveState({ immediate: true });
+          renderAll();
+          document.getElementById('modal-reset').classList.remove('open');
+          showToast('Income entries & tasks cleared');
+        });
+
+        document.getElementById('btn-reset-defaults').addEventListener('click', () => {
+          const keepTheme = state.theme;
+          state = buildInitialState();
+          state.theme = keepTheme;
+          saveState({ immediate: true });
+          renderAll();
+          document.getElementById('modal-reset').classList.remove('open');
+          showToast('Restored default workspace');
+        });
+
+        // Sync Modal
+        document.getElementById('btn-open-sync').addEventListener('click', () => {
+          document.getElementById('sync-url-input').value = syncUrl;
+          document.getElementById('modal-sync').classList.add('open');
+        });
+
+        document.getElementById('btn-sync-save').addEventListener('click', () => {
+          const val = document.getElementById('sync-url-input').value.trim();
+          if (!val) {
+            syncUrl = '';
+            localStorage.removeItem(SYNC_URL_KEY);
+            setSyncBadge('sync-local', 'Local');
+            showToast('Disconnected cloud sync');
+            return;
+          }
+          syncUrl = val;
+          localStorage.setItem(SYNC_URL_KEY, syncUrl);
+          pullFromCloud(false);
+        });
+
+        document.getElementById('btn-sync-now').addEventListener('click', () => {
+          if (!syncUrl) {
+            showToast('Paste your Apps Script URL first');
+            return;
+          }
+          pullFromCloud(false);
+        });
+
+        document.getElementById('btn-sync-push').addEventListener('click', () => {
+          if (!syncUrl) {
+            showToast('Paste your Apps Script URL first');
+            return;
+          }
+          state.updatedAt = Date.now();
+          persistLocal();
+          pushToCloud(true);
+        });
+
+        document.getElementById('btn-copy-mobile-link').addEventListener('click', () => {
+          if (!syncUrl) {
+            showToast('Save your Sync URL first');
+            return;
+          }
+          const shareLink = `${window.location.origin}${window.location.pathname}#sync=${encodeURIComponent(syncUrl)}`;
+          const temp = document.createElement('textarea');
+          temp.value = shareLink;
+          document.body.appendChild(temp);
+          temp.select();
+          document.execCommand('copy');
+          temp.remove();
+          showToast('Mobile auto-sync link copied');
+        });
+
+        // Close Modals
+        document.querySelectorAll('[data-close-modal]').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const modal = document.getElementById(btn.dataset.closeModal);
+            if (modal) modal.classList.remove('open');
+          });
+        });
+
+        document.querySelectorAll('.modal-backdrop').forEach((backdrop) => {
+          backdrop.addEventListener('click', (e) => {
+            if (e.target === backdrop) backdrop.classList.remove('open');
+          });
+        });
+
+        // Monthly Goal & FX Rate Inputs
+        document.getElementById('input-monthly-goal').addEventListener('change', (e) => {
+          const val = Number(e.target.value);
+          if (val > 0) {
+            state.monthlyGoal = val;
+            state.monthlyGoalManual = true;
+            saveState();
+            renderKpisAndPlatforms();
           }
         });
 
-        document.getElementById('btn-habit-prev-day').addEventListener('click', () => {
-          selectedHabitDate = shiftDateStr(selectedHabitDate, -1);
-          renderHabitsPage();
+        document.getElementById('btn-sum-goal').addEventListener('click', () => {
+          state.monthlyGoalManual = false;
+          state.monthlyGoal = state.platforms.reduce((s, p) => s + (Number(p.goal) || 0), 0);
+          saveState();
+          renderKpisAndPlatforms();
+          showToast('Monthly goal synced to platform sum');
         });
 
-        document.getElementById('btn-habit-today').addEventListener('click', () => {
-          selectedHabitDate = getDateStr(0);
-          renderHabitsPage();
+        document.getElementById('input-egp-rate').addEventListener('change', (e) => {
+          const val = Number(e.target.value);
+          if (val > 0) {
+            state.egpRate = val;
+            document.getElementById('fx-status-badge').textContent = 'Manual';
+            saveState();
+            renderKpisAndPlatforms();
+          }
         });
 
+        document.getElementById('btn-refresh-fx').addEventListener('click', () => {
+          fetchLiveExchangeRate(true);
+        });
+
+        // Daily Tasks
+        document.getElementById('form-add-task').addEventListener('submit', (e) => {
+          e.preventDefault();
+          const titleInput = document.getElementById('task-title-input');
+          const title = titleInput.value.trim();
+          if (!title) return;
+          state.tasks.unshift({
+            id: 'task_' + Date.now(),
+            title,
+            platformId: document.getElementById('task-platform-select').value,
+            priority: document.getElementById('task-priority-select').value,
+            skillId: document.getElementById('task-skill-select').value,
+            completed: false,
+            createdAt: Date.now()
+          });
+          titleInput.value = '';
+          saveState();
+          renderTasks();
+          renderKpisAndPlatforms();
+        });
+
+        document.getElementById('task-filter-bar').addEventListener('click', (e) => {
+          const btn = e.target.closest('[data-task-filter]');
+          if (!btn) return;
+          taskFilter = btn.dataset.taskFilter;
+          document.querySelectorAll('#task-filter-bar .pill-btn').forEach((b) => b.classList.toggle('active', b === btn));
+          renderTasks();
+        });
+
+        document.getElementById('btn-clear-completed').addEventListener('click', () => {
+          state.tasks = state.tasks.filter((t) => !t.completed);
+          saveState();
+          renderTasks();
+          renderKpisAndPlatforms();
+          showToast('Completed tasks cleared');
+        });
+
+        document.getElementById('task-list').addEventListener('click', (e) => {
+          const toggle = e.target.closest('[data-toggle-task]');
+          if (toggle) {
+            const task = state.tasks.find((t) => t.id === toggle.dataset.toggleTask);
+            if (!task) return;
+            task.completed = !task.completed;
+            saveState();
+            renderTasks();
+            renderSkills();
+            renderKpisAndPlatforms();
+            return;
+          }
+          const del = e.target.closest('[data-del-task]');
+          if (del) {
+            state.tasks = state.tasks.filter((t) => t.id !== del.dataset.delTask);
+            saveState();
+            renderTasks();
+            renderSkills();
+            renderKpisAndPlatforms();
+          }
+        });
+
+        // Focus Timer
+        document.getElementById('btn-mode-pomo').addEventListener('click', () => {
+          timerMode = 'pomodoro';
+          document.getElementById('btn-mode-pomo').classList.add('btn-primary');
+          document.getElementById('btn-mode-shift').classList.remove('btn-primary');
+          document.getElementById('timer-presets-row').style.display = 'flex';
+          resetTimer();
+        });
+
+        document.getElementById('btn-mode-shift').addEventListener('click', () => {
+          timerMode = 'shift';
+          document.getElementById('btn-mode-shift').classList.add('btn-primary');
+          document.getElementById('btn-mode-pomo').classList.remove('btn-primary');
+          document.getElementById('timer-presets-row').style.display = 'none';
+          resetTimer();
+        });
+
+        document.getElementById('timer-presets-row').addEventListener('click', (e) => {
+          const btn = e.target.closest('[data-pomo-mins]');
+          if (!btn) return;
+          pomoMinutes = Number(btn.dataset.pomoMins) || 25;
+          document.querySelectorAll('#timer-presets-row .pill-btn').forEach((b) => b.classList.toggle('active', b === btn));
+          resetTimer();
+        });
+
+        document.getElementById('timer-platform-select').addEventListener('change', updateTimerUI);
+
+        document.getElementById('btn-timer-start').addEventListener('click', () => {
+          if (timerRunning) return;
+          timerRunning = true;
+          timerInterval = setInterval(() => {
+            if (timerMode === 'pomodoro') {
+              if (timerSeconds > 0) {
+                timerSeconds -= 1;
+                updateTimerUI();
+              } else {
+                clearInterval(timerInterval);
+                timerRunning = false;
+                showToast('Pomodoro session completed!');
+              }
+            } else {
+              timerSeconds += 1;
+              updateTimerUI();
+            }
+          }, 1000);
+        });
+
+        document.getElementById('btn-timer-pause').addEventListener('click', () => {
+          clearInterval(timerInterval);
+          timerRunning = false;
+        });
+
+        document.getElementById('btn-timer-reset').addEventListener('click', resetTimer);
+
+        document.getElementById('btn-timer-log').addEventListener('click', () => {
+          const elapsedSecs =
+            timerMode === 'pomodoro' ? Math.max(0, pomoMinutes * 60 - timerSeconds) : timerSeconds;
+          if (elapsedSecs < 60) {
+            showToast('Run the timer for at least 1 minute to log');
+            return;
+          }
+          const hours = Number((elapsedSecs / 3600).toFixed(2));
+          const platId = document.getElementById('timer-platform-select').value;
+          const plat = getPlatformById(platId);
+          const amount = Number((hours * (Number(plat.rate) || 0)).toFixed(2));
+
+          state.entries.unshift({
+            id: 'ent_' + Date.now(),
+            platformId: plat.id,
+            hours,
+            amount,
+            date: todayStr(0),
+            note: `Focus timer (${timerMode === 'pomodoro' ? 'Pomodoro' : 'Open Shift'})`
+          });
+          resetTimer();
+          saveState();
+          renderKpisAndPlatforms();
+          renderEntries();
+          showToast(`Logged ${hours}h ($${amount.toFixed(2)}) to ${plat.name}`);
+        });
+
+        // Platforms Add / Edit / Delete
+        document.getElementById('btn-open-add-platform').addEventListener('click', () => {
+          document.getElementById('modal-platform-title').textContent = 'Add Platform';
+          document.getElementById('plat-id-input').value = '';
+          document.getElementById('plat-name-input').value = '';
+          document.getElementById('plat-goal-input').value = '300';
+          document.getElementById('plat-rate-input').value = '10';
+          document.getElementById('plat-color-input').value = '#6366f1';
+          document.getElementById('modal-platform').classList.add('open');
+        });
+
+        document.getElementById('platforms-list').addEventListener('click', (e) => {
+          const editBtn = e.target.closest('[data-edit-platform]');
+          if (editBtn) {
+            const p = state.platforms.find((x) => x.id === editBtn.dataset.editPlatform);
+            if (!p) return;
+            document.getElementById('modal-platform-title').textContent = 'Edit Platform';
+            document.getElementById('plat-id-input').value = p.id;
+            document.getElementById('plat-name-input').value = p.name;
+            document.getElementById('plat-goal-input').value = p.goal;
+            document.getElementById('plat-rate-input').value = p.rate;
+            document.getElementById('plat-color-input').value = p.color;
+            document.getElementById('modal-platform').classList.add('open');
+            return;
+          }
+          const delBtn = e.target.closest('[data-del-platform]');
+          if (delBtn) {
+            if (state.platforms.length <= 1) {
+              showToast('Keep at least one active platform');
+              return;
+            }
+            state.platforms = state.platforms.filter((x) => x.id !== delBtn.dataset.delPlatform);
+            saveState();
+            renderAll();
+            showToast('Platform deleted');
+          }
+        });
+
+        document.getElementById('form-platform').addEventListener('submit', (e) => {
+          e.preventDefault();
+          const editId = document.getElementById('plat-id-input').value;
+          const name = document.getElementById('plat-name-input').value.trim();
+          const goal = Math.max(1, Number(document.getElementById('plat-goal-input').value) || 100);
+          const rate = Math.max(0, Number(document.getElementById('plat-rate-input').value) || 0);
+          const color = document.getElementById('plat-color-input').value || '#6366f1';
+          if (!name) return;
+
+          if (editId) {
+            const p = state.platforms.find((x) => x.id === editId);
+            if (p) {
+              p.name = name;
+              p.goal = goal;
+              p.rate = rate;
+              p.color = color;
+            }
+            showToast('Platform updated');
+          } else {
+            state.platforms.push({
+              id: 'plat_' + Date.now(),
+              name,
+              goal,
+              rate,
+              color
+            });
+            showToast('Platform added');
+          }
+          saveState();
+          document.getElementById('modal-platform').classList.remove('open');
+          renderAll();
+        });
+
+        // Platform Quick Notes
+        document.getElementById('notes-tabs-bar').addEventListener('click', (e) => {
+          const btn = e.target.closest('[data-note-cat]');
+          if (!btn) return;
+          activeNoteCategory = btn.dataset.noteCat;
+          document.querySelectorAll('#notes-tabs-bar .pill-btn').forEach((b) => b.classList.toggle('active', b === btn));
+          renderNotes();
+        });
+
+        document.getElementById('quick-note-textarea').addEventListener('input', (e) => {
+          state.notes[activeNoteCategory] = e.target.value;
+          document.getElementById('note-char-count').textContent = `${e.target.value.length} chars`;
+          document.getElementById('note-save-status').textContent = 'Saving...';
+          saveState();
+          document.getElementById('note-save-status').textContent = 'Auto-saved';
+        });
+
+        document.getElementById('btn-insert-timestamp').addEventListener('click', () => {
+          const ta = document.getElementById('quick-note-textarea');
+          const stamp = `[${new Date().toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}] `;
+          ta.value = (ta.value ? ta.value + '\n' : '') + stamp;
+          state.notes[activeNoteCategory] = ta.value;
+          saveState();
+          renderNotes();
+          ta.focus();
+        });
+
+        // Skills Add / Increment / Edit / Delete
+        document.getElementById('form-add-skill').addEventListener('submit', (e) => {
+          e.preventDefault();
+          const nameInput = document.getElementById('skill-name-input');
+          const name = nameInput.value.trim();
+          if (!name) return;
+          state.skills.push({
+            id: 'skill_' + Date.now(),
+            name,
+            category: document.getElementById('skill-cat-select').value,
+            target: Math.max(1, Number(document.getElementById('skill-target-input').value) || 20),
+            manualProgress: 0
+          });
+          nameInput.value = '';
+          saveState();
+          populateDropdowns();
+          renderSkills();
+          showToast('Skill added');
+        });
+
+        document.getElementById('skills-list').addEventListener('click', (e) => {
+          const incBtn = e.target.closest('[data-inc-skill]');
+          if (incBtn) {
+            const sk = state.skills.find((x) => x.id === incBtn.dataset.incSkill);
+            if (!sk) return;
+            sk.manualProgress = (Number(sk.manualProgress) || 0) + 1;
+            saveState();
+            renderSkills();
+            return;
+          }
+          const editBtn = e.target.closest('[data-edit-skill]');
+          if (editBtn) {
+            const sk = state.skills.find((x) => x.id === editBtn.dataset.editSkill);
+            if (!sk) return;
+            document.getElementById('edit-skill-id').value = sk.id;
+            document.getElementById('edit-skill-name').value = sk.name;
+            document.getElementById('edit-skill-cat').value = sk.category;
+            document.getElementById('edit-skill-target').value = sk.target;
+            document.getElementById('edit-skill-manual').value = sk.manualProgress || 0;
+            document.getElementById('modal-skill').classList.add('open');
+            return;
+          }
+          const delBtn = e.target.closest('[data-del-skill]');
+          if (delBtn) {
+            state.skills = state.skills.filter((x) => x.id !== delBtn.dataset.delSkill);
+            saveState();
+            populateDropdowns();
+            renderSkills();
+            showToast('Skill removed');
+          }
+        });
+
+        document.getElementById('form-edit-skill').addEventListener('submit', (e) => {
+          e.preventDefault();
+          const id = document.getElementById('edit-skill-id').value;
+          const sk = state.skills.find((x) => x.id === id);
+          if (!sk) return;
+          sk.name = document.getElementById('edit-skill-name').value.trim() || sk.name;
+          sk.category = document.getElementById('edit-skill-cat').value;
+          sk.target = Math.max(1, Number(document.getElementById('edit-skill-target').value) || 10);
+          sk.manualProgress = Math.max(0, Number(document.getElementById('edit-skill-manual').value) || 0);
+          saveState();
+          document.getElementById('modal-skill').classList.remove('open');
+          populateDropdowns();
+          renderSkills();
+          renderTasks();
+          showToast('Skill updated');
+        });
+
+        // Manual Income Entries
+        document.getElementById('entry-hours-input').addEventListener('input', syncEntryAmountFromHours);
+        document.getElementById('entry-platform-select').addEventListener('change', syncEntryAmountFromHours);
+
+        document.getElementById('form-add-entry').addEventListener('submit', (e) => {
+          e.preventDefault();
+          const platformId = document.getElementById('entry-platform-select').value;
+          const hours = Math.max(0, Number(document.getElementById('entry-hours-input').value) || 0);
+          const amount = Math.max(0, Number(document.getElementById('entry-amount-input').value) || 0);
+          const date = document.getElementById('entry-date-input').value || todayStr(0);
+          const note = document.getElementById('entry-note-input').value.trim();
+
+          if (hours <= 0 && amount <= 0) return;
+
+          state.entries.unshift({
+            id: 'ent_' + Date.now(),
+            platformId,
+            hours,
+            amount,
+            date,
+            note
+          });
+          document.getElementById('entry-hours-input').value = '';
+          document.getElementById('entry-amount-input').value = '';
+          document.getElementById('entry-note-input').value = '';
+          saveState();
+          renderKpisAndPlatforms();
+          renderEntries();
+          showToast(`Logged $${amount.toFixed(2)}`);
+        });
+
+        document.getElementById('entries-list').addEventListener('click', (e) => {
+          const del = e.target.closest('[data-del-entry]');
+          if (!del) return;
+          state.entries = state.entries.filter((x) => x.id !== del.dataset.delEntry);
+          saveState();
+          renderKpisAndPlatforms();
+          renderEntries();
+          showToast('Entry deleted');
+        });
+
+        // Habit Tracker Events
         document.getElementById('habit-heatmap-grid').addEventListener('click', (e) => {
-          const cell = e.target.closest('[data-hm-date]');
-          if (!cell) return;
-          selectedHabitDate = cell.dataset.hmDate;
-          renderHabitsPage();
+          const btn = e.target.closest('[data-select-date]');
+          if (!btn) return;
+          selectedHabitDate = btn.dataset.selectDate;
+          renderHabitsView();
         });
 
-        document.getElementById('habit-cat-filters').addEventListener('click', (e) => {
-          const pill = e.target.closest('[data-hcat]');
-          if (!pill) return;
-          habitCatFilter = pill.dataset.hcat;
-          document.querySelectorAll('#habit-cat-filters .filter-pill').forEach((b) => b.classList.toggle('active', b === pill));
-          renderHabitsPage();
+        document.getElementById('btn-jump-today').addEventListener('click', () => {
+          selectedHabitDate = todayStr(0);
+          renderHabitsView();
+        });
+
+        document.getElementById('habit-filter-bar').addEventListener('click', (e) => {
+          const btn = e.target.closest('[data-habit-cat]');
+          if (!btn) return;
+          habitCatFilter = btn.dataset.habitCat;
+          document.querySelectorAll('#habit-filter-bar .pill-btn').forEach((b) => b.classList.toggle('active', b === btn));
+          renderHabitsView();
         });
 
         document.getElementById('btn-open-add-habit').addEventListener('click', () => {
           document.getElementById('modal-habit-title').textContent = 'New Habit';
-          document.getElementById('habit-form-id').value = '';
-          document.getElementById('habit-form-icon').value = '✨';
-          document.getElementById('habit-form-name').value = '';
-          document.getElementById('habit-form-cat').value = 'Spiritual';
-          document.getElementById('habit-form-type').value = 'check';
-          document.getElementById('habit-form-target').value = '4';
-          document.getElementById('habit-form-unit').value = 'pages';
-          document.getElementById('habit-numeric-fields').style.display = 'none';
+          document.getElementById('habit-id-input').value = '';
+          document.getElementById('habit-emoji-input').value = '✨';
+          document.getElementById('habit-name-input').value = '';
+          document.getElementById('habit-cat-input').value = 'Spiritual & Quran';
+          document.getElementById('habit-type-input').value = 'check';
+          document.getElementById('habit-target-input').value = '4';
+          document.getElementById('habit-unit-input').value = 'pages';
+          document.getElementById('habit-num-options').style.display = 'none';
           document.getElementById('modal-habit').classList.add('open');
         });
 
-        document.getElementById('habit-form-type').addEventListener('change', (e) => {
-          document.getElementById('habit-numeric-fields').style.display = e.target.value === 'number' ? 'grid' : 'none';
+        document.getElementById('habit-type-input').addEventListener('change', (e) => {
+          document.getElementById('habit-num-options').style.display = e.target.value === 'number' ? 'grid' : 'none';
         });
 
         document.getElementById('form-habit').addEventListener('submit', (e) => {
           e.preventDefault();
-          const editId = document.getElementById('habit-form-id').value;
-          const icon = document.getElementById('habit-form-icon').value.trim() || '✨';
-          const name = document.getElementById('habit-form-name').value.trim();
-          const category = document.getElementById('habit-form-cat').value;
-          const type = document.getElementById('habit-form-type').value;
-          const target = type === 'number' ? Math.max(1, Number(document.getElementById('habit-form-target').value) || 1) : 1;
-          const unit = type === 'number' ? (document.getElementById('habit-form-unit').value.trim() || 'units') : 'done';
+          const editId = document.getElementById('habit-id-input').value;
+          const emoji = document.getElementById('habit-emoji-input').value.trim() || '✨';
+          const name = document.getElementById('habit-name-input').value.trim();
+          const category = document.getElementById('habit-cat-input').value;
+          const type = document.getElementById('habit-type-input').value;
+          const target = type === 'number' ? Math.max(1, Number(document.getElementById('habit-target-input').value) || 1) : 1;
+          const unit = type === 'number' ? (document.getElementById('habit-unit-input').value.trim() || 'units') : 'done';
           if (!name) return;
 
-          state.isDemo = false;
           if (editId) {
-            const hb = state.habits.find((x) => x.id === editId);
-            if (hb) {
-              hb.icon = icon;
-              hb.name = name;
-              hb.category = category;
-              hb.type = type;
-              hb.target = target;
-              hb.unit = unit;
+            const h = state.habits.find((x) => x.id === editId);
+            if (h) {
+              h.emoji = emoji;
+              h.name = name;
+              h.category = category;
+              h.type = type;
+              h.target = target;
+              h.unit = unit;
             }
-            showToast('Habit updated', 'success');
+            showToast('Habit updated');
           } else {
             state.habits.push({
-              id: 'hb_' + Date.now(),
-              icon,
+              id: 'hab_' + Date.now(),
+              emoji,
               name,
               category,
               type,
               target,
               unit,
-              logs: {},
+              logs: {}
             });
-            showToast('Habit added', 'success');
+            showToast('Habit added');
           }
           saveState();
           document.getElementById('modal-habit').classList.remove('open');
-          renderHabitsPage();
+          renderHabitsView();
         });
 
-        document.getElementById('habits-cards-grid').addEventListener('click', (e) => {
-          const stepBtn = e.target.closest('[data-habit-step]');
+        document.getElementById('habits-grid').addEventListener('click', (e) => {
+          const stepBtn = e.target.closest('[data-step-habit]');
           if (stepBtn) {
-            const hb = state.habits.find((x) => x.id === stepBtn.dataset.habitStep);
-            if (!hb) return;
-            const delta = Number(stepBtn.dataset.delta) || 0;
-            const cur = getHabitValueForDate(hb, selectedHabitDate);
-            hb.logs[selectedHabitDate] = Math.max(0, cur + delta);
-            state.isDemo = false;
+            const h = state.habits.find((x) => x.id === stepBtn.dataset.stepHabit);
+            if (!h) return;
+            const delta = Number(stepBtn.dataset.step) || 0;
+            const cur = getHabitLogVal(h, selectedHabitDate);
+            h.logs[selectedHabitDate] = Math.max(0, cur + delta);
             saveState();
-            renderHabitsPage();
+            renderHabitsView();
             return;
           }
 
-          const compBtn = e.target.closest('[data-habit-complete]');
-          if (compBtn) {
-            const hb = state.habits.find((x) => x.id === compBtn.dataset.habitComplete);
-            if (!hb) return;
-            const target = hb.type === 'number' ? Math.max(1, Number(hb.target) || 1) : 1;
-            const cur = getHabitValueForDate(hb, selectedHabitDate);
-            hb.logs[selectedHabitDate] = cur >= target ? 0 : target;
-            state.isDemo = false;
+          const togBtn = e.target.closest('[data-toggle-habit]');
+          if (togBtn) {
+            const h = state.habits.find((x) => x.id === togBtn.dataset.toggleHabit);
+            if (!h) return;
+            const target = h.type === 'number' ? Math.max(1, Number(h.target) || 1) : 1;
+            const cur = getHabitLogVal(h, selectedHabitDate);
+            h.logs[selectedHabitDate] = cur >= target ? 0 : target;
             saveState();
-            renderHabitsPage();
+            renderHabitsView();
             return;
           }
 
-          const dayBtn = e.target.closest('[data-habit-day]');
-          if (dayBtn) {
-            const hb = state.habits.find((x) => x.id === dayBtn.dataset.habitDay);
-            const dStr = dayBtn.dataset.date;
-            if (!hb || !dStr) return;
-            const target = hb.type === 'number' ? Math.max(1, Number(hb.target) || 1) : 1;
-            const cur = getHabitValueForDate(hb, dStr);
-            hb.logs[dStr] = cur >= target ? 0 : target;
+          const pillBtn = e.target.closest('[data-pill-habit]');
+          if (pillBtn) {
+            const h = state.habits.find((x) => x.id === pillBtn.dataset.pillHabit);
+            const dStr = pillBtn.dataset.pillDate;
+            if (!h || !dStr) return;
+            const target = h.type === 'number' ? Math.max(1, Number(h.target) || 1) : 1;
+            const cur = getHabitLogVal(h, dStr);
+            h.logs[dStr] = cur >= target ? 0 : target;
             selectedHabitDate = dStr;
-            state.isDemo = false;
             saveState();
-            renderHabitsPage();
+            renderHabitsView();
             return;
           }
 
           const editBtn = e.target.closest('[data-edit-habit]');
           if (editBtn) {
-            const hb = state.habits.find((x) => x.id === editBtn.dataset.editHabit);
-            if (!hb) return;
+            const h = state.habits.find((x) => x.id === editBtn.dataset.editHabit);
+            if (!h) return;
             document.getElementById('modal-habit-title').textContent = 'Edit Habit';
-            document.getElementById('habit-form-id').value = hb.id;
-            document.getElementById('habit-form-icon').value = hb.icon;
-            document.getElementById('habit-form-name').value = hb.name;
-            document.getElementById('habit-form-cat').value = hb.category;
-            document.getElementById('habit-form-type').value = hb.type;
-            document.getElementById('habit-form-target').value = hb.target;
-            document.getElementById('habit-form-unit').value = hb.unit;
-            document.getElementById('habit-numeric-fields').style.display = hb.type === 'number' ? 'grid' : 'none';
+            document.getElementById('habit-id-input').value = h.id;
+            document.getElementById('habit-emoji-input').value = h.emoji;
+            document.getElementById('habit-name-input').value = h.name;
+            document.getElementById('habit-cat-input').value = h.category;
+            document.getElementById('habit-type-input').value = h.type;
+            document.getElementById('habit-target-input').value = h.target;
+            document.getElementById('habit-unit-input').value = h.unit;
+            document.getElementById('habit-num-options').style.display = h.type === 'number' ? 'grid' : 'none';
             document.getElementById('modal-habit').classList.add('open');
             return;
           }
@@ -1267,43 +3583,41 @@
           const delBtn = e.target.closest('[data-del-habit]');
           if (delBtn) {
             state.habits = state.habits.filter((x) => x.id !== delBtn.dataset.delHabit);
-            state.isDemo = false;
             saveState();
-            renderHabitsPage();
-            showToast('Habit removed', 'info');
+            renderHabitsView();
+            showToast('Habit deleted');
           }
         });
 
-        document.getElementById('habit-reflection-input').addEventListener('input', (e) => {
-          if (!state.habitReflections) state.habitReflections = {};
+        document.getElementById('habit-reflection-textarea').addEventListener('input', (e) => {
           state.habitReflections[selectedHabitDate] = e.target.value;
-          state.isDemo = false;
-          document.getElementById('habit-reflection-chars').textContent = `${e.target.value.length} chars`;
-          document.getElementById('habit-reflection-status').textContent = 'Saving...';
-          clearTimeout(reflectionDebounceId);
-          reflectionDebounceId = setTimeout(() => {
-            saveState();
-            document.getElementById('habit-reflection-status').textContent = 'Saved & synced';
-          }, 450);
+          document.getElementById('reflection-char-count').textContent = `${e.target.value.length} chars`;
+          document.getElementById('reflection-save-status').textContent = 'Saving...';
+          saveState();
+          document.getElementById('reflection-save-status').textContent = 'Auto-saved';
         });
-
-        window.addEventListener('resize', renderPlatformsAndCharts);
       }
 
-      // ==================== INIT ====================
-      applyTheme(state.theme);
-      document.getElementById('entry-date').value = getDateStr(0);
-      document.getElementById('habit-selected-date').value = selectedHabitDate;
-      bindEvents();
-      renderDashboard();
-      renderHabitsPage();
-      updateClocks();
-      setInterval(updateClocks, 1000);
-      fetchLiveUSDtoEGP(false);
-      updateSyncUI(syncUrl ? 'synced' : 'local');
-      if (syncUrl) {
-        pullFromCloud(true);
-      }
+      // Initialize Application
+      window.addEventListener('DOMContentLoaded', () => {
+        applyTheme(state.theme);
+        document.getElementById('entry-date-input').value = todayStr(0);
+        if (state.egpRateUpdatedAt) {
+          document.getElementById('fx-updated-time').textContent = state.egpRateUpdatedAt;
+        }
+        bindEvents();
+        renderAll();
+        updateWorldClocks();
+        setInterval(updateWorldClocks, 1000);
+        fetchLiveExchangeRate(false);
+
+        if (syncUrl) {
+          setSyncBadge('sync-synced', 'Synced');
+          pullFromCloud(true);
+        } else {
+          setSyncBadge('sync-local', 'Local');
+        }
+      });
     })();
   </script>
 </body>
