@@ -316,6 +316,7 @@
       font-weight: 700;
       transition: all 0.18s ease;
       white-space: nowrap;
+      cursor: pointer;
     }
 
     .tab-pill-btn:hover {
@@ -501,6 +502,7 @@
     .status-syncing { background: var(--accent-indigo-soft); color: var(--accent-indigo); }
     .status-local { background: rgba(148, 163, 184, 0.15); color: var(--text-secondary); }
     .status-error { background: var(--accent-rose-soft); color: var(--accent-rose); }
+    .status-amber { background: var(--accent-amber-soft); color: var(--accent-amber); }
 
     /* Cards & Icon Badges */
     .hub-card {
@@ -556,6 +558,23 @@
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 14px;
+    }
+
+    /* Weekly Review Strip */
+    .weekly-review-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .weekly-metric-box {
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 0;
     }
 
     /* 2-Column Independent Masonry Stack (Zero Dead Gaps) */
@@ -680,6 +699,31 @@
       border-color: var(--border-strong);
     }
 
+    /* Skill Sub-task Checklist */
+    .subtask-panel {
+      margin-top: 4px;
+      padding-top: 8px;
+      border-top: 1px dashed var(--border-subtle);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .subtask-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 5px 8px;
+      border-radius: 8px;
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      font-size: 0.76rem;
+    }
+    .subtask-row.is-done {
+      opacity: 0.65;
+    }
+
     .scroll-box {
       display: flex;
       flex-direction: column;
@@ -759,6 +803,108 @@
       background: linear-gradient(180deg, rgba(16, 185, 129, 0.06), var(--bg-card));
     }
 
+    /* 5 Daily Prayers Smart Grid */
+    .prayers-grid-5 {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .prayer-slot {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 11px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: all 0.18s ease;
+    }
+    .prayer-slot.is-fard {
+      border-color: rgba(16, 185, 129, 0.48);
+      background: linear-gradient(180deg, rgba(16, 185, 129, 0.10), var(--bg-elevated));
+    }
+
+    .prayer-main-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      padding: 7px 9px;
+      border-radius: 10px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-input);
+      color: var(--text-primary);
+      font-weight: 700;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .prayer-main-btn:hover {
+      border-color: var(--border-strong);
+    }
+    .prayer-main-btn.active {
+      background: var(--accent-emerald);
+      border-color: var(--accent-emerald);
+      color: #03261d;
+    }
+
+    .prayer-sub-toggle {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      padding: 5px 6px;
+      border-radius: 8px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-input);
+      color: var(--text-secondary);
+      font-size: 0.68rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .prayer-sub-toggle:hover {
+      border-color: var(--border-strong);
+      color: var(--text-primary);
+    }
+    .prayer-sub-toggle.active-mosque {
+      background: var(--accent-amber-soft);
+      border-color: rgba(245, 158, 11, 0.55);
+      color: var(--accent-amber);
+    }
+    .prayer-sub-toggle.active-sunnah {
+      background: var(--accent-indigo-soft);
+      border-color: rgba(99, 102, 241, 0.55);
+      color: var(--accent-indigo);
+    }
+
+    .extra-pill-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-input);
+      color: var(--text-secondary);
+      font-size: 0.72rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .extra-pill-btn:hover {
+      border-color: var(--border-strong);
+      color: var(--text-primary);
+    }
+    .extra-pill-btn.active {
+      background: var(--accent-indigo-soft);
+      border-color: rgba(99, 102, 241, 0.55);
+      color: var(--accent-indigo);
+    }
+
     .week-strip {
       display: grid;
       grid-template-columns: repeat(7, minmax(0, 1fr));
@@ -812,6 +958,7 @@
       gap: 6px;
     }
     .hm-cell {
+      position: relative;
       aspect-ratio: 1 / 1;
       min-height: 30px;
       border-radius: 8px;
@@ -835,6 +982,15 @@
       outline: 2px solid var(--accent-indigo);
       outline-offset: 1px;
     }
+    .hm-cell .hm-prayer-dot {
+      position: absolute;
+      top: 3px;
+      right: 3px;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #f59e0b;
+    }
     .hm-1 { background: rgba(16, 185, 129, 0.18); border-color: rgba(16, 185, 129, 0.34); color: var(--text-primary); }
     .hm-2 { background: rgba(16, 185, 129, 0.40); border-color: rgba(16, 185, 129, 0.58); color: #ffffff; }
     .hm-3 { background: rgba(16, 185, 129, 0.68); border-color: rgba(16, 185, 129, 0.84); color: #ffffff; }
@@ -857,7 +1013,9 @@
     }
     .modal-card {
       width: 100%;
-      max-width: 460px;
+      max-width: 480px;
+      max-height: 90vh;
+      overflow-y: auto;
       background: var(--bg-card);
       border: 1px solid var(--border-strong);
       border-radius: 18px;
@@ -897,11 +1055,17 @@
       .kpi-row-4 {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
+      .weekly-review-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
       .work-masonry {
         grid-template-columns: 1fr;
       }
       .habit-bottom-row {
         grid-template-columns: 1fr;
+      }
+      .prayers-grid-5 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
       }
     }
 
@@ -917,6 +1081,9 @@
       .clock-card {
         min-width: 0;
       }
+      .prayers-grid-5 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
     }
 
     @media (max-width: 560px) {
@@ -931,6 +1098,12 @@
       }
       .heatmap-grid {
         grid-template-columns: repeat(6, minmax(0, 1fr));
+      }
+      .prayers-grid-5 {
+        grid-template-columns: 1fr;
+      }
+      .weekly-review-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
   </style>
@@ -948,7 +1121,7 @@
           </button>
           <button type="button" class="tab-pill-btn" data-main-tab="habits">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg>
-            <span>Habit Tracker</span>
+            <span>Habit &amp; Prayer Tracker</span>
           </button>
         </nav>
 
@@ -1013,7 +1186,7 @@
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
           <span>Import</span>
         </button>
-        <input id="file-import-input" type="file" accept=".json,application/json" class="hidden" />
+        <input id="file-import-input" type="file" accept=".json,application/json" class="hidden" style="display:none" />
 
         <button id="btn-open-reset" type="button" class="ui-btn ui-btn-crimson">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
@@ -1165,6 +1338,62 @@
         </div>
       </section>
 
+      <!-- Automatic Weekly Review Card -->
+      <section class="hub-card" aria-label="Weekly Review Summary">
+        <div class="flex items-center justify-between gap-2 flex-wrap">
+          <div class="flex items-center gap-2.5">
+            <div class="icon-badge ib-indigo">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+            </div>
+            <div>
+              <div class="flex items-center gap-2 flex-wrap">
+                <h2 class="font-display text-[15px] font-bold">Weekly Review</h2>
+                <span id="weekly-range-badge" class="status-chip status-syncing font-mono-num">Last 7 Days</span>
+              </div>
+              <p class="text-xs" style="color:var(--text-secondary)">1-minute snapshot of hours, income, best $/hr platform, prayers &amp; habits</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-1.5 flex-wrap">
+            <div id="weekly-window-bar" class="inline-flex items-center gap-1">
+              <button type="button" class="filter-pill active" data-weekly-mode="rolling7">Last 7d</button>
+              <button type="button" class="filter-pill" data-weekly-mode="thisWeek">This Week</button>
+            </div>
+            <button id="btn-copy-weekly" type="button" class="ui-btn ui-btn-sm">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              <span>Copy Summary</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="weekly-review-grid">
+          <div class="weekly-metric-box">
+            <span class="text-[11px] font-semibold" style="color:var(--text-secondary)">Weekly Income</span>
+            <strong id="wk-income-usd" class="font-mono-num text-lg font-bold" style="color:var(--accent-emerald)">$0.00</strong>
+            <span id="wk-income-egp" class="font-mono-num text-[11px]" style="color:var(--text-muted)">≈ 0 EGP</span>
+          </div>
+          <div class="weekly-metric-box">
+            <span class="text-[11px] font-semibold" style="color:var(--text-secondary)">Hours Logged</span>
+            <strong id="wk-hours" class="font-mono-num text-lg font-bold" style="color:var(--accent-blue)">0.0h</strong>
+            <span id="wk-avg-rate" class="font-mono-num text-[11px]" style="color:var(--text-muted)">$0.00 / hr avg</span>
+          </div>
+          <div class="weekly-metric-box">
+            <span class="text-[11px] font-semibold" style="color:var(--text-secondary)">Best $/hr Platform</span>
+            <strong id="wk-best-plat-name" class="font-display text-sm font-bold truncate" style="color:var(--text-primary)">No shifts yet</strong>
+            <span id="wk-best-plat-rate" class="font-mono-num text-[11px]" style="color:var(--accent-emerald)">--</span>
+          </div>
+          <div class="weekly-metric-box">
+            <span class="text-[11px] font-semibold" style="color:var(--text-secondary)">Prayers (Fard)</span>
+            <strong id="wk-prayers-pct" class="font-mono-num text-lg font-bold" style="color:var(--accent-emerald)">0%</strong>
+            <span id="wk-prayers-detail" class="font-mono-num text-[11px]" style="color:var(--text-muted)">0/35 · 0 Mosque</span>
+          </div>
+          <div class="weekly-metric-box">
+            <span class="text-[11px] font-semibold" style="color:var(--text-secondary)">Habits Consistency</span>
+            <strong id="wk-habits-pct" class="font-mono-num text-lg font-bold" style="color:var(--accent-indigo)">0%</strong>
+            <span id="wk-habits-detail" class="font-mono-num text-[11px]" style="color:var(--text-muted)">0/7 perfect days</span>
+          </div>
+        </div>
+      </section>
+
       <!-- 2-Column Independent Masonry Stack (Zero Dead Gaps) -->
       <section class="work-masonry">
         <!-- LEFT COLUMN -->
@@ -1178,13 +1407,24 @@
                 </div>
                 <div>
                   <h2 class="font-display text-[15px] font-bold">Daily Priority Tasks</h2>
-                  <p class="text-xs" style="color:var(--text-secondary)">Checking a task updates linked skill progress automatically</p>
+                  <p class="text-xs" style="color:var(--text-secondary)">Link any task to a Skill Goal — checking it updates progress automatically</p>
                 </div>
               </div>
-              <button id="btn-clear-completed" type="button" class="ui-btn ui-btn-sm ui-btn-crimson">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
-                <span>Clear Completed</span>
-              </button>
+              <div class="inline-flex items-center gap-1.5 flex-wrap">
+                <button id="btn-run-daily-templates" type="button" class="ui-btn ui-btn-sm ui-btn-emerald" title="Add all Daily recurring task templates to today's list">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg>
+                  <span>+ Run Daily</span>
+                </button>
+                <button id="btn-open-recurring" type="button" class="ui-btn ui-btn-sm" title="Manage Daily &amp; Weekly recurring task templates">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></svg>
+                  <span>Templates</span>
+                  <span id="recurring-count-chip" class="status-chip status-syncing font-mono-num">0</span>
+                </button>
+                <button id="btn-clear-completed" type="button" class="ui-btn ui-btn-sm ui-btn-crimson">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                  <span>Clear Completed</span>
+                </button>
+              </div>
             </div>
 
             <!-- Clean 2-Row Task Form -->
@@ -1203,6 +1443,11 @@
                   <span>Add</span>
                 </button>
               </div>
+              <!-- Optional: Also save as a sub-task inside the selected Skill Goal -->
+              <label id="task-as-subtask-wrap" class="hidden items-center gap-2 text-xs px-1 cursor-pointer" style="color:var(--text-secondary)">
+                <input id="task-as-subtask-check" type="checkbox" class="w-3.5 h-3.5 accent-indigo-500 cursor-pointer" />
+                <span>Also add as a checklist sub-task inside this Skill Goal</span>
+              </label>
             </form>
 
             <!-- Filter Bar with Live Counts -->
@@ -1246,7 +1491,7 @@
                 </div>
                 <div>
                   <h2 class="font-display text-[15px] font-bold">Skills &amp; Task-Linked Progress</h2>
-                  <p class="text-xs" style="color:var(--text-secondary)">Build mastery via linked tasks or manual milestones</p>
+                  <p class="text-xs" style="color:var(--text-secondary)">Break goals into sub-tasks, link daily tasks, or log manual milestones</p>
                 </div>
               </div>
             </div>
@@ -1270,7 +1515,7 @@
               </div>
             </form>
 
-            <div id="skills-list" class="scroll-box"></div>
+            <div id="skills-list" class="scroll-box" style="max-height:480px"></div>
           </div>
         </div>
 
@@ -1285,7 +1530,7 @@
                 </div>
                 <div>
                   <h2 class="font-display text-[15px] font-bold">Focus Timer &amp; Shift Calculator</h2>
-                  <p class="text-xs" style="color:var(--text-secondary)">Pomodoro sprints or open shifts with live value estimate</p>
+                  <p class="text-xs" style="color:var(--text-secondary)">Keeps counting accurately in background tabs &amp; across workspaces</p>
                 </div>
               </div>
             </div>
@@ -1447,7 +1692,7 @@
     </main>
 
     <!-- ===================================================== -->
-    <!-- TAB 2: HABIT TRACKER                                  -->
+    <!-- TAB 2: HABIT & PRAYER TRACKER                         -->
     <!-- ===================================================== -->
     <section id="panel-habits" class="view-panel">
       <!-- Top 4 Equal-Height KPI Cards -->
@@ -1574,6 +1819,42 @@
         </div>
       </div>
 
+      <!-- SMART 5 DAILY PRAYERS, MOSQUE & NAWAFIL CARD -->
+      <div id="prayer-tracker-card" class="hub-card">
+        <div class="flex items-start justify-between gap-2 flex-wrap">
+          <div class="flex items-center gap-2.5">
+            <div class="icon-badge ib-emerald">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+            </div>
+            <div>
+              <div class="flex items-center gap-2 flex-wrap">
+                <h2 class="font-display text-[15px] font-bold">5 Daily Prayers, Mosque &amp; Nawafil</h2>
+                <span id="prayer-date-badge" class="status-chip status-syncing font-mono-num">Today</span>
+              </div>
+              <p class="text-xs" style="color:var(--text-secondary)">Track Fard, Mosque (Jama'ah), Sunnah Rawatib &amp; Nawafil for any selected day</p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-1.5 flex-wrap">
+            <span id="prayer-fard-chip" class="status-chip status-synced font-mono-num">0/5 Fard</span>
+            <span id="prayer-mosque-chip" class="status-chip status-amber font-mono-num">0 Mosque</span>
+            <span id="prayer-sunnah-chip" class="status-chip status-syncing font-mono-num">0 Sunnah</span>
+            <span id="prayer-streak-chip" class="status-chip status-amber font-mono-num">0d Streak</span>
+            <button id="btn-prayer-all-done" type="button" class="ui-btn ui-btn-sm">Mark 5/5</button>
+          </div>
+        </div>
+
+        <div id="prayers-grid" class="prayers-grid-5"></div>
+
+        <div class="flex items-center justify-between gap-2 flex-wrap pt-2" style="border-top:1px dashed var(--border-subtle)">
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="text-xs font-semibold" style="color:var(--text-secondary)">Nawafil:</span>
+            <div id="prayer-extras-bar" class="flex items-center gap-1.5 flex-wrap"></div>
+          </div>
+          <span id="prayer-30d-summary" class="font-mono-num text-[11px]" style="color:var(--text-secondary)">30d: 0% Fard · 0 Mosque</span>
+        </div>
+      </div>
+
       <!-- 2-Column Balanced Habit Cards Grid -->
       <div id="habits-grid" class="habits-grid-2"></div>
 
@@ -1588,24 +1869,30 @@
               </div>
               <div>
                 <h2 class="font-display text-[15px] font-bold">30-Day Interactive Heatmap</h2>
-                <p class="text-xs" style="color:var(--text-secondary)">Click any day cell to view or log habits</p>
+                <p class="text-xs" style="color:var(--text-secondary)">Click any day cell to view or log habits &amp; prayers</p>
               </div>
             </div>
-            <span id="heatmap-selected-chip" class="status-chip status-syncing font-mono-num">Today</span>
+            <div id="heatmap-mode-bar" class="inline-flex items-center gap-1">
+              <button type="button" class="filter-pill active" data-hm-mode="combined">All</button>
+              <button type="button" class="filter-pill" data-hm-mode="prayers">Prayers</button>
+              <button type="button" class="filter-pill" data-hm-mode="habits">Habits</button>
+            </div>
           </div>
 
           <div id="habit-heatmap" class="heatmap-grid"></div>
 
           <div class="flex items-center justify-between gap-2 flex-wrap text-xs" style="color:var(--text-secondary)">
-            <span id="heatmap-day-summary">0 of 0 completed</span>
+            <div class="flex items-center gap-2 flex-wrap">
+              <span id="heatmap-selected-chip" class="status-chip status-syncing font-mono-num">Today</span>
+              <span id="heatmap-day-summary">0 of 0 completed</span>
+            </div>
             <div class="inline-flex items-center gap-1.5">
-              <span>0%</span>
+              <button id="btn-open-day-prayer-modal" type="button" class="ui-btn ui-btn-sm">Log Prayers for Day</button>
               <span class="w-3 h-3 rounded-[3px] inline-block" style="background:var(--bg-input);border:1px solid var(--border-subtle)"></span>
               <span class="w-3 h-3 rounded-[3px] inline-block hm-1"></span>
               <span class="w-3 h-3 rounded-[3px] inline-block hm-2"></span>
               <span class="w-3 h-3 rounded-[3px] inline-block hm-3"></span>
               <span class="w-3 h-3 rounded-[3px] inline-block hm-4"></span>
-              <span>100%</span>
             </div>
           </div>
         </div>
@@ -1640,6 +1927,97 @@
   <!-- MODALS                                                -->
   <!-- ===================================================== -->
 
+  <!-- Modal: Recurring Daily/Weekly Task Templates -->
+  <div id="modal-recurring" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-recurring-title">
+    <div class="modal-card" style="max-width:540px">
+      <div class="flex items-center justify-between gap-2">
+        <div class="flex items-center gap-2">
+          <div class="icon-badge ib-indigo">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg>
+          </div>
+          <div>
+            <h3 id="modal-recurring-title" class="font-display text-base font-bold">Recurring Task Templates</h3>
+            <p class="text-xs" style="color:var(--text-secondary)">One-click Daily &amp; Weekly routines added straight to Priority Tasks</p>
+          </div>
+        </div>
+        <button type="button" class="icon-action-btn" data-close-modal="modal-recurring">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Quick Add Template Form -->
+      <form id="form-add-recurring" class="flex flex-col gap-2 p-3 rounded-xl" style="background:var(--bg-elevated);border:1px solid var(--border-subtle)">
+        <input id="rec-title-input" type="text" class="ui-input" placeholder="Template task (e.g., Check client handbook, Morning VRI shift)..." required />
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          <select id="rec-platform-select" class="ui-select" aria-label="Template Platform"></select>
+          <select id="rec-skill-select" class="ui-select" aria-label="Template Linked Skill"></select>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+          <select id="rec-priority-select" class="ui-select" aria-label="Template Priority">
+            <option value="High">High Priority</option>
+            <option value="Medium" selected>Medium Priority</option>
+            <option value="Low">Low Priority</option>
+          </select>
+          <select id="rec-freq-select" class="ui-select" aria-label="Template Frequency">
+            <option value="Daily" selected>Daily Routine</option>
+            <option value="Weekly">Weekly Routine</option>
+          </select>
+          <button type="submit" class="ui-btn ui-btn-primary">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+            <span>Save Template</span>
+          </button>
+        </div>
+      </form>
+
+      <!-- Batch Run Controls + Filter -->
+      <div class="flex items-center justify-between gap-2 flex-wrap">
+        <div id="rec-filter-bar" class="inline-flex items-center gap-1.5">
+          <button type="button" class="filter-pill active" data-rec-filter="All">All</button>
+          <button type="button" class="filter-pill" data-rec-filter="Daily">Daily</button>
+          <button type="button" class="filter-pill" data-rec-filter="Weekly">Weekly</button>
+        </div>
+        <div class="inline-flex items-center gap-1.5">
+          <button id="btn-modal-run-daily" type="button" class="ui-btn ui-btn-sm ui-btn-emerald">+ Add All Daily</button>
+          <button id="btn-modal-run-weekly" type="button" class="ui-btn ui-btn-sm ui-btn-primary">+ Add All Weekly</button>
+        </div>
+      </div>
+
+      <div id="recurring-templates-list" class="scroll-box" style="max-height:260px"></div>
+    </div>
+  </div>
+
+  <!-- Modal: Quick Day Prayer & Nawafil Popup (from 30-Day Heatmap) -->
+  <div id="modal-day-prayer" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-day-prayer-title">
+    <div class="modal-card">
+      <div class="flex items-center justify-between gap-2">
+        <div class="flex items-center gap-2">
+          <div class="icon-badge ib-emerald">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+          </div>
+          <div>
+            <h3 id="modal-day-prayer-title" class="font-display text-base font-bold">Daily Prayers Log</h3>
+            <div id="modal-day-prayer-sub" class="font-mono-num text-xs" style="color:var(--text-secondary)">Today</div>
+          </div>
+        </div>
+        <button type="button" class="icon-action-btn" data-close-modal="modal-day-prayer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+
+      <div id="modal-day-prayers-list" class="flex flex-col gap-2"></div>
+
+      <div class="pt-2 flex flex-col gap-2" style="border-top:1px dashed var(--border-subtle)">
+        <span class="text-xs font-semibold" style="color:var(--text-secondary)">Nawafil (Optional Prayers)</span>
+        <div id="modal-day-extras-list" class="flex items-center gap-1.5 flex-wrap"></div>
+      </div>
+
+      <div class="flex items-center justify-between gap-2 pt-1">
+        <button id="btn-modal-prayer-all" type="button" class="ui-btn ui-btn-sm ui-btn-emerald">Mark All 5 Fard</button>
+        <button type="button" class="ui-btn ui-btn-primary" data-close-modal="modal-day-prayer">Done</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Modal: Google Sheets Cloud Sync -->
   <div id="modal-sync" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-sync-title">
     <div class="modal-card">
@@ -1656,7 +2034,7 @@
       </div>
 
       <p class="text-xs leading-relaxed" style="color:var(--text-secondary)">
-        Paste your deployed Google Apps Script Web App URL to automatically sync all income, tasks, notes, skills, and habits across laptop and mobile.
+        Paste your deployed Google Apps Script Web App URL to automatically sync all income, tasks, notes, skills, habits, and prayers across laptop and mobile.
       </p>
 
       <div>
@@ -1874,6 +2252,8 @@
       const SYNC_URL_KEY = 'essam_hub_sync_url';
       const THEME_KEY = 'essam_hub_theme';
       const FX_CACHE_KEY = 'essam_hub_fx_cache_v1';
+      const TIMER_STATE_KEY = 'essam_hub_timer_v1';
+      const BASE_DOC_TITLE = 'Work & Habit Hub';
 
       const NOTE_CATEGORIES = [
         'Outlier AI',
@@ -1907,6 +2287,20 @@
         'Language'
       ];
 
+      const PRAYERS_DEF = [
+        { key: 'fajr', label: 'Fajr', ar: 'الفجر', sunnahHint: '2 before' },
+        { key: 'dhuhr', label: 'Dhuhr', ar: 'الظهر', sunnahHint: '4+2' },
+        { key: 'asr', label: 'Asr', ar: 'العصر', sunnahHint: '4 opt.' },
+        { key: 'maghrib', label: 'Maghrib', ar: 'المغرب', sunnahHint: '2 after' },
+        { key: 'isha', label: 'Isha', ar: 'العشاء', sunnahHint: '2 after' }
+      ];
+
+      const PRAYER_EXTRAS_DEF = [
+        { key: 'duha', label: 'Duha (الضحى)' },
+        { key: 'witr', label: 'Witr (الوتر)' },
+        { key: 'qiyam', label: 'Qiyam (قيام الليل)' }
+      ];
+
       /* ===================================================== */
       /* CRISP INLINE LUCIDE-STYLE SVG ICONS                   */
       /* ===================================================== */
@@ -1919,13 +2313,17 @@
         flame: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>',
         plus: '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>',
         minus: '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg>',
-        sparkles: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>',
+        sparkles: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>',
         bookOpen: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>',
         activity: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>',
         target: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>',
         gradCap: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>',
         user: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
-        link: '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>'
+        link: '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>',
+        arrowUpRight: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>',
+        mosque: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c-2 2.5-5 4-5 7v11h10V9c0-3-3-4.5-5-7Z"/><path d="M3 20h18"/><path d="M10 20v-4a2 2 0 0 1 4 0v4"/></svg>',
+        chevronDown: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>',
+        repeat: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg>'
       };
 
       function getHabitCategoryIcon(category) {
@@ -2007,6 +2405,26 @@
         setTimeout(() => el.remove(), 3000);
       }
 
+      function playGentleChime() {
+        try {
+          const AudioCtx = window.AudioContext || window.webkitAudioContext;
+          if (!AudioCtx) return;
+          const ctx = new AudioCtx();
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(587.33, ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.18);
+          gain.gain.setValueAtTime(0.001, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.12, ctx.currentTime + 0.04);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.45);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start();
+          osc.stop(ctx.currentTime + 0.46);
+        } catch (e) {}
+      }
+
       /* ===================================================== */
       /* DEFAULT DATA & SAFE NORMALIZATION                     */
       /* ===================================================== */
@@ -2021,9 +2439,9 @@
 
       function getDefaultSkills() {
         return [
-          { id: 'skill_vri', name: 'Medical VRI & Terminology', category: 'Communication', target: 25, manualProgress: 0 },
-          { id: 'skill_ops', name: 'VA & Client Operations', category: 'Operations', target: 20, manualProgress: 0 },
-          { id: 'skill_ai', name: 'AI Rubric & Evaluation', category: 'Technical', target: 20, manualProgress: 0 }
+          { id: 'skill_vri', name: 'Medical VRI & Terminology', category: 'Communication', target: 25, manualProgress: 0, subtasks: [] },
+          { id: 'skill_ops', name: 'VA & Client Operations', category: 'Operations', target: 20, manualProgress: 0, subtasks: [] },
+          { id: 'skill_ai', name: 'AI Rubric & Evaluation', category: 'Technical', target: 20, manualProgress: 0, subtasks: [] }
         ];
       }
 
@@ -2077,15 +2495,27 @@
         ];
       }
 
+      function createEmptyPrayerDay() {
+        return {
+          fajr: { fard: false, mosque: false, sunnah: false },
+          dhuhr: { fard: false, mosque: false, sunnah: false },
+          asr: { fard: false, mosque: false, sunnah: false },
+          maghrib: { fard: false, mosque: false, sunnah: false },
+          isha: { fard: false, mosque: false, sunnah: false },
+          extras: { duha: false, witr: false, qiyam: false }
+        };
+      }
+
       function createFreshState() {
         let cachedFx = null;
+        let savedTheme = null;
         try {
           cachedFx = JSON.parse(localStorage.getItem(FX_CACHE_KEY) || 'null');
+          savedTheme = localStorage.getItem(THEME_KEY);
         } catch (e) {}
 
         const plats = getDefaultPlatforms();
         const sumGoal = plats.reduce((s, p) => s + p.goal, 0);
-        const savedTheme = localStorage.getItem(THEME_KEY);
 
         return {
           version: 3,
@@ -2108,13 +2538,15 @@
           skills: getDefaultSkills(),
           habits: getDefaultHabits(),
           habitLogs: {},
-          habitReflections: {}
+          habitReflections: {},
+          prayerLogs: {},
+          recurringTemplates: []
         };
       }
 
       /**
        * Safely normalizes any previous or cloud-synced state structure
-       * without overwriting or losing user platforms, tasks, entries, notes, skills, or habits.
+       * without overwriting or losing user platforms, tasks, entries, notes, skills, habits, or prayers.
        */
       function normalizeState(raw) {
         const base = createFreshState();
@@ -2127,7 +2559,8 @@
         };
 
         // Theme & timestamps
-        const storedTheme = localStorage.getItem(THEME_KEY);
+        let storedTheme = null;
+        try { storedTheme = localStorage.getItem(THEME_KEY); } catch (e) {}
         out.theme = raw.theme === 'light' || raw.theme === 'dark' ? raw.theme : (storedTheme === 'light' ? 'light' : 'dark');
         out.updatedAt = Number(raw.updatedAt) || 0;
 
@@ -2149,7 +2582,7 @@
           out.platforms = getDefaultPlatforms();
         }
 
-        // Monthly Goal & Manual Override (supports manualGoalOverride or legacy monthlyGoalManual)
+        // Monthly Goal & Manual Override
         out.manualGoalOverride = Boolean(
           raw.manualGoalOverride != null ? raw.manualGoalOverride : raw.monthlyGoalManual
         );
@@ -2158,7 +2591,7 @@
           ? Math.max(1, Number(raw.monthlyGoal) || summedGoals)
           : summedGoals;
 
-        // Income Entries (supports incomeEntries or legacy entries)
+        // Income Entries
         const rawEntries =
           Array.isArray(raw.incomeEntries) && raw.incomeEntries.length > 0
             ? raw.incomeEntries
@@ -2177,7 +2610,7 @@
           note: String(e.note || '')
         }));
 
-        // Tasks
+        // Tasks (preserves optional subtaskId for 2-way sync with skill sub-tasks)
         out.tasks = Array.isArray(raw.tasks)
           ? raw.tasks.map((t, i) => {
               const pRaw = String(t.priority || 'Medium').toLowerCase();
@@ -2188,17 +2621,18 @@
                 platformId: t.platformId || (out.platforms[0] ? out.platforms[0].id : ''),
                 priority: prio,
                 skillId: t.skillId || '',
+                subtaskId: t.subtaskId || '',
                 completed: Boolean(t.completed),
                 createdAt: Number(t.createdAt) || Date.now()
               };
             })
           : [];
 
-        // Skills (supports manualProgress, manualBoost, or legacy current)
+        // Skills (preserves manualProgress, linked tasks, and new subtasks array)
         if (Array.isArray(raw.skills)) {
           out.skills = raw.skills.map((s, i) => {
             const id = s.id || ('skill_' + i + '_' + Date.now());
-            const linkedDone = out.tasks.filter((t) => t.completed && t.skillId === id).length;
+            const linkedDone = out.tasks.filter((t) => t.completed && t.skillId === id && !t.subtaskId).length;
             let manualProg = 0;
             if (s.manualProgress != null) {
               manualProg = Number(s.manualProgress) || 0;
@@ -2217,19 +2651,28 @@
               else cat = 'Operations';
             }
 
+            const subtasks = Array.isArray(s.subtasks)
+              ? s.subtasks.map((st, idx) => ({
+                  id: st.id || (`sub_${id}_${idx}`),
+                  title: String(st.title || ''),
+                  completed: Boolean(st.completed)
+                })).filter((st) => st.title.trim() !== '')
+              : [];
+
             return {
               id,
               name: String(s.name || 'Skill'),
               category: cat,
               target: Math.max(1, Number(s.target || s.targetTasks) || 20),
-              manualProgress: manualProg
+              manualProgress: manualProg,
+              subtasks
             };
           });
         } else {
           out.skills = getDefaultSkills();
         }
 
-        // Notes (preserves existing & legacy keys)
+        // Notes
         const mergedNotes = { ...base.notes };
         if (raw.notes && typeof raw.notes === 'object') {
           Object.keys(raw.notes).forEach((k) => {
@@ -2241,7 +2684,7 @@
         }
         out.notes = mergedNotes;
 
-        // Habits & Habit Logs (supports both state.habitLogs[date][habitId] and legacy habit.logs[date])
+        // Habits & Habit Logs
         const normalizedLogs = {};
         if (raw.habitLogs && typeof raw.habitLogs === 'object') {
           Object.keys(raw.habitLogs).forEach((dKey) => {
@@ -2265,7 +2708,6 @@
             const isNumeric = h.type === 'numeric' || h.type === 'number';
             const color = h.color || (cat === 'Spiritual & Quran' ? '#10b981' : cat === 'Health & Fitness' ? '#3b82f6' : cat === 'Work & Focus' ? '#f59e0b' : '#6366f1');
 
-            // Merge legacy per-habit logs into centralized habitLogs
             if (h.logs && typeof h.logs === 'object') {
               Object.keys(h.logs).forEach((dKey) => {
                 if (!normalizedLogs[dKey]) normalizedLogs[dKey] = {};
@@ -2294,6 +2736,50 @@
           raw.habitReflections && typeof raw.habitReflections === 'object'
             ? { ...raw.habitReflections }
             : {};
+
+        // Prayer Logs (backward compatible: empty object if not in older saves)
+        const normalizedPrayers = {};
+        if (raw.prayerLogs && typeof raw.prayerLogs === 'object') {
+          Object.keys(raw.prayerLogs).forEach((dKey) => {
+            const dayRaw = raw.prayerLogs[dKey];
+            if (dayRaw && typeof dayRaw === 'object') {
+              const dayOut = createEmptyPrayerDay();
+              PRAYERS_DEF.forEach((p) => {
+                if (dayRaw[p.key] && typeof dayRaw[p.key] === 'object') {
+                  dayOut[p.key] = {
+                    fard: Boolean(dayRaw[p.key].fard || dayRaw[p.key].mosque),
+                    mosque: Boolean(dayRaw[p.key].mosque),
+                    sunnah: Boolean(dayRaw[p.key].sunnah)
+                  };
+                }
+              });
+              if (dayRaw.extras && typeof dayRaw.extras === 'object') {
+                PRAYER_EXTRAS_DEF.forEach((ex) => {
+                  dayOut.extras[ex.key] = Boolean(dayRaw.extras[ex.key]);
+                });
+              }
+              normalizedPrayers[dKey] = dayOut;
+            }
+          });
+        }
+        out.prayerLogs = normalizedPrayers;
+
+        // Recurring Task Templates (100% backward-compatible)
+        out.recurringTemplates = Array.isArray(raw.recurringTemplates)
+          ? raw.recurringTemplates.map((rt, i) => {
+              const pRaw = String(rt.priority || 'Medium').toLowerCase();
+              const prio = pRaw === 'high' ? 'High' : pRaw === 'low' ? 'Low' : 'Medium';
+              const freq = String(rt.frequency || 'Daily').toLowerCase() === 'weekly' ? 'Weekly' : 'Daily';
+              return {
+                id: rt.id || ('rec_' + i + '_' + Date.now()),
+                title: String(rt.title || '').trim(),
+                platformId: rt.platformId || (out.platforms[0] ? out.platforms[0].id : ''),
+                priority: prio,
+                skillId: rt.skillId || '',
+                frequency: freq
+              };
+            }).filter((rt) => rt.title !== '')
+          : [];
 
         return out;
       }
@@ -2342,13 +2828,58 @@
       let activeNoteCat = 'Outlier AI';
       let activeHabitCat = 'All';
       let selectedHabitDate = getDateStr(0);
+      let heatmapMode = 'combined'; // 'combined' | 'prayers' | 'habits'
+      let weeklyMode = 'rolling7'; // 'rolling7' | 'thisWeek'
+      let activeRecFilter = 'All'; // 'All' | 'Daily' | 'Weekly'
+      const expandedSkillIds = new Set();
 
-      // Focus Timer State
-      let timerMode = 'pomodoro'; // 'pomodoro' | 'shift'
-      let pomoMinutes = 25;
-      let timerSeconds = 25 * 60;
-      let timerRunning = false;
-      let timerInterval = null;
+      // Background-Proof Focus Timer State (Wall-clock timestamp based + persisted)
+      let timerState = {
+        mode: 'pomodoro', // 'pomodoro' | 'shift'
+        pomoMinutes: 25,
+        platformId: '',
+        running: false,
+        startedAt: null,
+        accumulatedMs: 0
+      };
+      let timerTickInterval = null;
+
+      function loadTimerState() {
+        try {
+          const raw = localStorage.getItem(TIMER_STATE_KEY);
+          if (!raw) return;
+          const parsed = JSON.parse(raw);
+          if (parsed && typeof parsed === 'object') {
+            timerState.mode = parsed.mode === 'shift' ? 'shift' : 'pomodoro';
+            timerState.pomoMinutes = [25, 50, 90].includes(Number(parsed.pomoMinutes)) ? Number(parsed.pomoMinutes) : 25;
+            timerState.platformId = typeof parsed.platformId === 'string' ? parsed.platformId : '';
+            timerState.running = Boolean(parsed.running);
+            timerState.startedAt = parsed.running && Number(parsed.startedAt) > 0 ? Number(parsed.startedAt) : null;
+            timerState.accumulatedMs = Math.max(0, Number(parsed.accumulatedMs) || 0);
+          }
+        } catch (e) {}
+      }
+
+      function saveTimerState() {
+        try {
+          localStorage.setItem(TIMER_STATE_KEY, JSON.stringify(timerState));
+        } catch (e) {}
+      }
+
+      function getTimerElapsedMs() {
+        if (timerState.running && timerState.startedAt) {
+          return Math.max(0, timerState.accumulatedMs + (Date.now() - timerState.startedAt));
+        }
+        return Math.max(0, timerState.accumulatedMs);
+      }
+
+      function getTimerElapsedSeconds() {
+        const rawSecs = Math.floor(getTimerElapsedMs() / 1000);
+        if (timerState.mode === 'pomodoro') {
+          return Math.min(timerState.pomoMinutes * 60, rawSecs);
+        }
+        return rawSecs;
+      }
 
       /* ===================================================== */
       /* PERSISTENCE & GOOGLE SHEETS CLOUD SYNC                */
@@ -2560,30 +3091,54 @@
         return state.platforms.find((p) => p.id === id) || state.platforms[0] || { id: '', name: 'General', goal: 100, rate: 0, color: '#6366f1' };
       }
 
-      function getSkillProgress(skill) {
-        const linkedDone = state.tasks.filter((t) => t.completed && t.skillId === skill.id).length;
-        return Math.max(0, linkedDone + (Number(skill.manualProgress) || 0));
+      function getSkillStats(skill) {
+        const subtasks = Array.isArray(skill.subtasks) ? skill.subtasks : [];
+        const subtasksDone = subtasks.filter((st) => st.completed).length;
+        // Count linked tasks that are NOT already mirroring a subtask (avoids double-counting)
+        const standaloneLinkedDone = state.tasks.filter(
+          (t) => t.completed && t.skillId === skill.id && !t.subtaskId
+        ).length;
+        const totalLinkedTasks = state.tasks.filter((t) => t.skillId === skill.id).length;
+        const current = Math.max(0, subtasksDone + standaloneLinkedDone + (Number(skill.manualProgress) || 0));
+        const target = Math.max(1, Number(skill.target) || 10);
+        const pct = Math.min(100, Math.round((current / target) * 100));
+        return { subtasks, subtasksDone, standaloneLinkedDone, totalLinkedTasks, current, target, pct };
       }
 
       function populateSelects() {
-        const platIds = ['task-platform-select', 'timer-platform-select', 'entry-platform-select'];
+        const platIds = ['task-platform-select', 'timer-platform-select', 'entry-platform-select', 'rec-platform-select'];
         platIds.forEach((elId) => {
           const sel = document.getElementById(elId);
           if (!sel) return;
-          const prev = sel.value;
+          const prev = elId === 'timer-platform-select' && timerState.platformId ? timerState.platformId : sel.value;
           sel.innerHTML = state.platforms
             .map((p) => `<option value="${escapeHtml(p.id)}">${escapeHtml(p.name)} ($${Number(p.rate).toFixed(1)}/hr)</option>`)
             .join('');
           if (prev && state.platforms.some((p) => p.id === prev)) sel.value = prev;
         });
 
-        const skillSel = document.getElementById('task-skill-select');
-        if (skillSel) {
+        ['task-skill-select', 'rec-skill-select'].forEach((sId) => {
+          const skillSel = document.getElementById(sId);
+          if (!skillSel) return;
           const prevSkill = skillSel.value;
           skillSel.innerHTML =
-            `<option value="">No Linked Skill</option>` +
-            state.skills.map((s) => `<option value="${escapeHtml(s.id)}">Skill: ${escapeHtml(s.name)}</option>`).join('');
+            `<option value="">Link to Skill Goal (Optional)</option>` +
+            state.skills.map((s) => `<option value="${escapeHtml(s.id)}">Goal: ${escapeHtml(s.name)}</option>`).join('');
           if (prevSkill && state.skills.some((s) => s.id === prevSkill)) skillSel.value = prevSkill;
+        });
+        updateTaskSubtaskToggleVisibility();
+      }
+
+      function updateTaskSubtaskToggleVisibility() {
+        const skillSel = document.getElementById('task-skill-select');
+        const wrap = document.getElementById('task-as-subtask-wrap');
+        if (!skillSel || !wrap) return;
+        if (skillSel.value) {
+          wrap.classList.remove('hidden');
+          wrap.classList.add('flex');
+        } else {
+          wrap.classList.add('hidden');
+          wrap.classList.remove('flex');
         }
       }
 
@@ -2733,20 +3288,34 @@
                 ? 'background:var(--accent-emerald-soft);color:var(--accent-emerald)'
                 : 'background:var(--accent-amber-soft);color:var(--accent-amber)';
 
+            const skillOptions =
+              `<option value="">Unlinked</option>` +
+              state.skills
+                .map((s) => `<option value="${escapeHtml(s.id)}" ${t.skillId === s.id ? 'selected' : ''}>${escapeHtml(s.name)}</option>`)
+                .join('');
+
             return `
               <div class="sub-item flex items-center justify-between gap-2.5 ${t.completed ? 'opacity-60' : ''}">
                 <div class="flex items-start gap-2.5 min-w-0 flex-1">
                   <input type="checkbox" class="mt-0.5 w-4 h-4 accent-emerald-500 cursor-pointer flex-shrink-0" data-toggle-task="${escapeHtml(t.id)}" ${t.completed ? 'checked' : ''} />
-                  <div class="min-w-0">
+                  <div class="min-w-0 flex-1">
                     <div class="text-[13px] font-semibold break-words ${t.completed ? 'line-through' : ''}" style="${t.completed ? 'color:var(--text-muted)' : ''}">${escapeHtml(t.title)}</div>
                     <div class="flex items-center gap-1.5 flex-wrap mt-1.5">
                       <span class="status-chip" style="${prioStyle}">${escapeHtml(t.priority)}</span>
                       <span class="status-chip status-syncing">${escapeHtml(plat.name)}</span>
-                      ${skill ? `<span class="status-chip status-synced">${ICONS.link}<span>${escapeHtml(skill.name)}</span></span>` : ''}
+                      ${skill
+                        ? `<span class="status-chip status-synced">${ICONS.link}<span>${escapeHtml(skill.name)}</span></span>`
+                        : ''}
+                      <select data-relink-task="${escapeHtml(t.id)}" aria-label="Change linked skill" class="text-[11px] rounded-full px-2 py-0.5 cursor-pointer outline-none" style="background:var(--bg-input);border:1px solid var(--border-subtle);color:var(--text-secondary)">
+                        ${skillOptions}
+                      </select>
                     </div>
                   </div>
                 </div>
-                <button type="button" class="icon-action-btn danger" data-del-task="${escapeHtml(t.id)}" title="Delete Task">${ICONS.x}</button>
+                <div class="inline-flex items-center gap-1 flex-shrink-0">
+                  <button type="button" class="icon-action-btn" data-save-task-template="${escapeHtml(t.id)}" title="Save as Daily Recurring Template">${ICONS.repeat}</button>
+                  <button type="button" class="icon-action-btn danger" data-del-task="${escapeHtml(t.id)}" title="Delete Task">${ICONS.x}</button>
+                </div>
               </div>
             `;
           })
@@ -2756,23 +3325,47 @@
       function renderSkills() {
         const list = document.getElementById('skills-list');
         if (state.skills.length === 0) {
-          list.innerHTML = `<div class="empty-box">No skills added yet. Add a skill above and link tasks to it.</div>`;
+          list.innerHTML = `<div class="empty-box">No skills added yet. Add a skill above and break it into sub-tasks.</div>`;
           return;
         }
 
         list.innerHTML = state.skills
           .map((s) => {
-            const current = getSkillProgress(s);
-            const target = Math.max(1, Number(s.target) || 10);
-            const pct = Math.min(100, Math.round((current / target) * 100));
+            const stats = getSkillStats(s);
+            const isOpen = expandedSkillIds.has(s.id) || stats.subtasks.length > 0;
+            const reached = stats.current >= stats.target;
+
+            const subtasksHtml = stats.subtasks
+              .map((st) => `
+                <div class="subtask-row ${st.completed ? 'is-done' : ''}">
+                  <label class="flex items-center gap-2 min-w-0 flex-1 cursor-pointer">
+                    <input type="checkbox" class="w-3.5 h-3.5 accent-emerald-500 cursor-pointer flex-shrink-0" data-toggle-subtask="${escapeHtml(s.id)}" data-subtask-id="${escapeHtml(st.id)}" ${st.completed ? 'checked' : ''} />
+                    <span class="truncate ${st.completed ? 'line-through' : ''}" style="${st.completed ? 'color:var(--text-muted)' : ''}">${escapeHtml(st.title)}</span>
+                  </label>
+                  <div class="inline-flex items-center gap-1 flex-shrink-0">
+                    ${!st.completed ? `<button type="button" class="icon-action-btn" style="width:22px;height:22px" data-push-subtask="${escapeHtml(s.id)}" data-subtask-id="${escapeHtml(st.id)}" title="Add to Daily Priority Tasks">${ICONS.arrowUpRight}</button>` : ''}
+                    <button type="button" class="icon-action-btn danger" style="width:22px;height:22px" data-del-subtask="${escapeHtml(s.id)}" data-subtask-id="${escapeHtml(st.id)}" title="Remove Sub-task">${ICONS.x}</button>
+                  </div>
+                </div>
+              `)
+              .join('');
+
             return `
-              <div class="sub-item flex flex-col gap-2">
+              <div class="sub-item flex flex-col gap-2" style="${reached ? 'border-color:rgba(16,185,129,0.45)' : ''}">
                 <div class="flex items-start justify-between gap-2">
                   <div class="min-w-0">
-                    <div class="font-display text-sm font-bold break-words">${escapeHtml(s.name)}</div>
-                    <span class="status-chip status-syncing mt-1">${escapeHtml(s.category)}</span>
+                    <div class="flex items-center gap-1.5 flex-wrap">
+                      <span class="font-display text-sm font-bold break-words">${escapeHtml(s.name)}</span>
+                      ${reached ? `<span class="status-chip status-synced">${ICONS.check}<span>Goal Reached</span></span>` : ''}
+                    </div>
+                    <div class="flex items-center gap-1.5 flex-wrap mt-1">
+                      <span class="status-chip status-syncing">${escapeHtml(s.category)}</span>
+                      ${stats.subtasks.length > 0 ? `<span class="status-chip status-local font-mono-num">${stats.subtasksDone}/${stats.subtasks.length} sub-tasks</span>` : ''}
+                      ${stats.totalLinkedTasks > 0 ? `<span class="status-chip status-synced font-mono-num">${ICONS.link}<span>${stats.totalLinkedTasks} daily</span></span>` : ''}
+                    </div>
                   </div>
                   <div class="inline-flex items-center gap-1.5 flex-shrink-0">
+                    <button type="button" class="icon-action-btn" data-toggle-skill-panel="${escapeHtml(s.id)}" title="Show / Hide Sub-tasks">${ICONS.chevronDown}</button>
                     <button type="button" class="icon-action-btn" data-step-skill="${escapeHtml(s.id)}" data-delta="-1" title="Decrement Milestone">${ICONS.minus}</button>
                     <button type="button" class="icon-action-btn" style="color:var(--accent-emerald);border-color:rgba(16,185,129,0.35)" data-step-skill="${escapeHtml(s.id)}" data-delta="1" title="Increment Milestone">${ICONS.plus}</button>
                     <button type="button" class="icon-action-btn" data-edit-skill="${escapeHtml(s.id)}" title="Edit Skill">${ICONS.pencil}</button>
@@ -2780,11 +3373,20 @@
                   </div>
                 </div>
                 <div class="flex items-center justify-between text-xs font-mono-num" style="color:var(--text-secondary)">
-                  <span>${current} / ${target} milestones</span>
-                  <span style="color:var(--accent-emerald);font-weight:700">${pct}%</span>
+                  <span>${stats.current} / ${stats.target} milestones</span>
+                  <span style="color:var(--accent-emerald);font-weight:700">${stats.pct}%</span>
                 </div>
                 <div class="bar-track">
-                  <div class="bar-fill bar-glow-indigo" style="width:${pct}%"></div>
+                  <div class="bar-fill ${reached ? 'bar-glow-emerald' : 'bar-glow-indigo'}" style="width:${stats.pct}%"></div>
+                </div>
+
+                <!-- Sub-tasks Checklist & Inline Quick-Add -->
+                <div class="subtask-panel" style="${isOpen ? '' : 'display:none'}">
+                  ${subtasksHtml || `<div class="text-[11px] px-1" style="color:var(--text-muted)">Add small sub-tasks below to reach this goal step by step.</div>`}
+                  <form class="flex items-center gap-1.5 mt-1" data-add-subtask-form="${escapeHtml(s.id)}">
+                    <input type="text" class="ui-input" style="padding:5px 9px;font-size:0.75rem" placeholder="Add small sub-task under ${escapeHtml(s.name)}..." required />
+                    <button type="submit" class="ui-btn ui-btn-sm ui-btn-primary" style="padding:5px 9px" title="Add Sub-task">${ICONS.plus}</button>
+                  </form>
                 </div>
               </div>
             `;
@@ -2833,13 +3435,56 @@
       }
 
       /* ===================================================== */
-      /* FOCUS TIMER & CIRCULAR RING                           */
+      /* BACKGROUND-PROOF FOCUS TIMER & CIRCULAR RING          */
       /* ===================================================== */
+      function syncTimerModeControlsUI() {
+        const bP = document.getElementById('btn-mode-pomo');
+        const bS = document.getElementById('btn-mode-shift');
+        const presetsRow = document.getElementById('timer-presets-row');
+
+        if (timerState.mode === 'pomodoro') {
+          bP.classList.add('ui-btn-primary');
+          bP.classList.remove('border-0', 'bg-transparent');
+          bS.classList.remove('ui-btn-primary');
+          bS.classList.add('border-0', 'bg-transparent');
+          presetsRow.style.display = 'inline-flex';
+        } else {
+          bS.classList.add('ui-btn-primary');
+          bS.classList.remove('border-0', 'bg-transparent');
+          bP.classList.remove('ui-btn-primary');
+          bP.classList.add('border-0', 'bg-transparent');
+          presetsRow.style.display = 'none';
+        }
+
+        document.querySelectorAll('#timer-presets-row .filter-pill').forEach((b) => {
+          b.classList.toggle('active', Number(b.dataset.pomoMins) === timerState.pomoMinutes);
+        });
+      }
+
       function updateTimerUI() {
-        const totalSecs = Math.max(0, timerSeconds);
-        const hrs = Math.floor(totalSecs / 3600);
-        const mins = Math.floor((totalSecs % 3600) / 60);
-        const secs = totalSecs % 60;
+        const elapsedSecs = getTimerElapsedSeconds();
+        let displaySecs = elapsedSecs;
+
+        if (timerState.mode === 'pomodoro') {
+          const totalPomoSecs = timerState.pomoMinutes * 60;
+          displaySecs = Math.max(0, totalPomoSecs - elapsedSecs);
+
+          // Check if Pomodoro finished while in background or active tab
+          if (timerState.running && displaySecs <= 0) {
+            timerState.accumulatedMs = totalPomoSecs * 1000;
+            timerState.running = false;
+            timerState.startedAt = null;
+            clearInterval(timerTickInterval);
+            timerTickInterval = null;
+            saveTimerState();
+            playGentleChime();
+            showToast('Pomodoro session completed');
+          }
+        }
+
+        const hrs = Math.floor(displaySecs / 3600);
+        const mins = Math.floor((displaySecs % 3600) / 60);
+        const secs = displaySecs % 60;
 
         const timeLabel =
           hrs > 0
@@ -2847,36 +3492,293 @@
             : `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
         document.getElementById('timer-display').textContent = timeLabel;
 
-        const elapsedSecs =
-          timerMode === 'pomodoro' ? Math.max(0, pomoMinutes * 60 - timerSeconds) : timerSeconds;
+        // Live browser tab title while running
+        if (timerState.running) {
+          document.title = `${timeLabel} · ${timerState.mode === 'pomodoro' ? 'Focus' : 'Shift'} | ${BASE_DOC_TITLE}`;
+        } else {
+          document.title = BASE_DOC_TITLE;
+        }
+
         const elapsedHours = elapsedSecs / 3600;
         const plat = getPlatform(document.getElementById('timer-platform-select').value);
         const estUsd = elapsedHours * (Number(plat.rate) || 0);
         document.getElementById('timer-est-value').textContent = `$${estUsd.toFixed(2)} · ${elapsedHours.toFixed(2)}h`;
 
         const caption = document.getElementById('timer-mode-caption');
-        caption.textContent = timerRunning
-          ? timerMode === 'pomodoro' ? 'Focusing...' : 'Shift Running'
+        caption.textContent = timerState.running
+          ? (timerState.mode === 'pomodoro' ? 'Focusing...' : 'Shift Running')
           : elapsedSecs > 0 ? 'Paused' : 'Ready';
 
         // Circular SVG Progress Ring (r = 68 => C = 427.256)
         const circumference = 2 * Math.PI * 68;
         let progressRatio = 0;
-        if (timerMode === 'pomodoro') {
-          progressRatio = (pomoMinutes * 60 - timerSeconds) / Math.max(1, pomoMinutes * 60);
+        if (timerState.mode === 'pomodoro') {
+          progressRatio = elapsedSecs / Math.max(1, timerState.pomoMinutes * 60);
         } else {
-          // Smooth 60-minute loop visual for open shift
-          progressRatio = (timerSeconds % 3600) / 3600;
+          progressRatio = (elapsedSecs % 3600) / 3600;
         }
         const offset = circumference * (1 - Math.min(1, Math.max(0, progressRatio)));
         document.getElementById('timer-ring-fg').style.strokeDashoffset = String(offset);
       }
 
-      function resetTimer() {
-        clearInterval(timerInterval);
-        timerRunning = false;
-        timerSeconds = timerMode === 'pomodoro' ? pomoMinutes * 60 : 0;
+      function ensureTimerTickLoop() {
+        clearInterval(timerTickInterval);
+        if (timerState.running) {
+          timerTickInterval = setInterval(updateTimerUI, 500);
+        }
+      }
+
+      function startTimer() {
+        if (timerState.running) return;
+        // If Pomodoro already reached 0, reset before starting fresh
+        if (timerState.mode === 'pomodoro' && getTimerElapsedSeconds() >= timerState.pomoMinutes * 60) {
+          timerState.accumulatedMs = 0;
+        }
+        timerState.running = true;
+        timerState.startedAt = Date.now();
+        timerState.platformId = document.getElementById('timer-platform-select').value;
+        saveTimerState();
         updateTimerUI();
+        ensureTimerTickLoop();
+      }
+
+      function pauseTimer() {
+        if (!timerState.running) return;
+        timerState.accumulatedMs = getTimerElapsedMs();
+        timerState.running = false;
+        timerState.startedAt = null;
+        clearInterval(timerTickInterval);
+        timerTickInterval = null;
+        saveTimerState();
+        updateTimerUI();
+      }
+
+      function resetTimer() {
+        clearInterval(timerTickInterval);
+        timerTickInterval = null;
+        timerState.running = false;
+        timerState.startedAt = null;
+        timerState.accumulatedMs = 0;
+        saveTimerState();
+        updateTimerUI();
+      }
+
+      /* ===================================================== */
+      /* 5 DAILY PRAYERS, MOSQUE & NAWAFIL ENGINE              */
+      /* ===================================================== */
+      function getPrayerDay(dateStr) {
+        const existing = state.prayerLogs && state.prayerLogs[dateStr];
+        if (!existing) return createEmptyPrayerDay();
+        const out = createEmptyPrayerDay();
+        PRAYERS_DEF.forEach((p) => {
+          if (existing[p.key]) {
+            out[p.key] = {
+              fard: Boolean(existing[p.key].fard || existing[p.key].mosque),
+              mosque: Boolean(existing[p.key].mosque),
+              sunnah: Boolean(existing[p.key].sunnah)
+            };
+          }
+        });
+        if (existing.extras) {
+          PRAYER_EXTRAS_DEF.forEach((ex) => {
+            out.extras[ex.key] = Boolean(existing.extras[ex.key]);
+          });
+        }
+        return out;
+      }
+
+      function ensurePrayerDay(dateStr) {
+        if (!state.prayerLogs) state.prayerLogs = {};
+        if (!state.prayerLogs[dateStr]) {
+          state.prayerLogs[dateStr] = createEmptyPrayerDay();
+        }
+        return state.prayerLogs[dateStr];
+      }
+
+      function getPrayerDaySummary(dateStr) {
+        const day = getPrayerDay(dateStr);
+        let fard = 0;
+        let mosque = 0;
+        let sunnah = 0;
+        PRAYERS_DEF.forEach((p) => {
+          if (day[p.key].fard) fard += 1;
+          if (day[p.key].mosque) mosque += 1;
+          if (day[p.key].sunnah) sunnah += 1;
+        });
+        let extras = 0;
+        PRAYER_EXTRAS_DEF.forEach((ex) => {
+          if (day.extras[ex.key]) extras += 1;
+        });
+        return {
+          fard,
+          mosque,
+          sunnah,
+          extras,
+          totalNawafil: sunnah + extras,
+          pct: Math.round((fard / 5) * 100)
+        };
+      }
+
+      function getPrayerStreak() {
+        let streak = 0;
+        let offset = getPrayerDaySummary(getDateStr(0)).fard === 5 ? 0 : -1;
+        while (getPrayerDaySummary(getDateStr(offset)).fard === 5) {
+          streak += 1;
+          offset -= 1;
+        }
+        return streak;
+      }
+
+      function togglePrayerField(dateStr, prayerKey, field) {
+        const day = ensurePrayerDay(dateStr);
+        if (!day[prayerKey]) day[prayerKey] = { fard: false, mosque: false, sunnah: false };
+
+        if (field === 'fard') {
+          const next = !day[prayerKey].fard;
+          day[prayerKey].fard = next;
+          if (!next) day[prayerKey].mosque = false;
+        } else if (field === 'mosque') {
+          const next = !day[prayerKey].mosque;
+          day[prayerKey].mosque = next;
+          if (next) day[prayerKey].fard = true;
+        } else if (field === 'sunnah') {
+          day[prayerKey].sunnah = !day[prayerKey].sunnah;
+        }
+        saveState();
+        renderHabitsView();
+        renderDayPrayerModalIfOpen();
+      }
+
+      function togglePrayerExtra(dateStr, extraKey) {
+        const day = ensurePrayerDay(dateStr);
+        if (!day.extras) day.extras = { duha: false, witr: false, qiyam: false };
+        day.extras[extraKey] = !day.extras[extraKey];
+        saveState();
+        renderHabitsView();
+        renderDayPrayerModalIfOpen();
+      }
+
+      function markAllFivePrayers(dateStr) {
+        const day = ensurePrayerDay(dateStr);
+        const allDone = PRAYERS_DEF.every((p) => day[p.key] && day[p.key].fard);
+        PRAYERS_DEF.forEach((p) => {
+          if (!day[p.key]) day[p.key] = { fard: false, mosque: false, sunnah: false };
+          day[p.key].fard = !allDone;
+          if (allDone) day[p.key].mosque = false;
+        });
+        saveState();
+        renderHabitsView();
+        renderDayPrayerModalIfOpen();
+      }
+
+      function renderPrayerCard() {
+        const friendlyLabel = formatFriendlyDate(selectedHabitDate);
+        const day = getPrayerDay(selectedHabitDate);
+        const sum = getPrayerDaySummary(selectedHabitDate);
+        const streak = getPrayerStreak();
+
+        document.getElementById('prayer-date-badge').textContent = `${friendlyLabel} · ${selectedHabitDate}`;
+        document.getElementById('prayer-fard-chip').textContent = `${sum.fard}/5 Fard`;
+        document.getElementById('prayer-mosque-chip').textContent = `${sum.mosque} Mosque`;
+        document.getElementById('prayer-sunnah-chip').textContent = `${sum.totalNawafil} Sunnah/Nawafil`;
+        document.getElementById('prayer-streak-chip').innerHTML = `${ICONS.flame}<span>${streak}d (5/5)</span>`;
+
+        const markBtn = document.getElementById('btn-prayer-all-done');
+        markBtn.textContent = sum.fard === 5 ? 'Clear 5/5' : 'Mark 5/5';
+        markBtn.className = `ui-btn ui-btn-sm ${sum.fard === 5 ? 'ui-btn-emerald' : ''}`;
+
+        // 5 Prayers Grid
+        const grid = document.getElementById('prayers-grid');
+        grid.innerHTML = PRAYERS_DEF.map((p) => {
+          const item = day[p.key];
+          return `
+            <div class="prayer-slot ${item.fard ? 'is-fard' : ''}">
+              <button type="button" class="prayer-main-btn ${item.fard ? 'active' : ''}" data-prayer-toggle="${p.key}" data-prayer-field="fard">
+                <span>${p.label} <span style="opacity:0.78;font-weight:600">${p.ar}</span></span>
+                <span class="inline-flex">${item.fard ? ICONS.check : ''}</span>
+              </button>
+              <div class="flex items-center gap-1.5">
+                <button type="button" class="prayer-sub-toggle ${item.mosque ? 'active-mosque' : ''}" data-prayer-toggle="${p.key}" data-prayer-field="mosque" title="Prayed in Mosque / Jama'ah">
+                  ${ICONS.mosque}<span>Mosque</span>
+                </button>
+                <button type="button" class="prayer-sub-toggle ${item.sunnah ? 'active-sunnah' : ''}" data-prayer-toggle="${p.key}" data-prayer-field="sunnah" title="Sunnah Rawatib (${p.sunnahHint})">
+                  ${ICONS.sparkles}<span>Sunnah</span>
+                </button>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        // Nawafil / Extras
+        const extrasBar = document.getElementById('prayer-extras-bar');
+        extrasBar.innerHTML = PRAYER_EXTRAS_DEF.map((ex) => {
+          const active = Boolean(day.extras[ex.key]);
+          return `
+            <button type="button" class="extra-pill-btn ${active ? 'active' : ''}" data-prayer-extra="${ex.key}">
+              ${active ? ICONS.check : ICONS.plus}
+              <span>${ex.label}</span>
+            </button>
+          `;
+        }).join('');
+
+        // 30-day Prayer Summary
+        let fard30 = 0;
+        let mosque30 = 0;
+        for (let i = 0; i < 30; i++) {
+          const s = getPrayerDaySummary(getDateStr(-i));
+          fard30 += s.fard;
+          mosque30 += s.mosque;
+        }
+        const fard30Pct = Math.round((fard30 / 150) * 100);
+        document.getElementById('prayer-30d-summary').textContent = `30d: ${fard30Pct}% Fard (${fard30}/150) · ${mosque30} Mosque`;
+      }
+
+      function renderDayPrayerModalIfOpen() {
+        const modal = document.getElementById('modal-day-prayer');
+        if (!modal || !modal.classList.contains('open')) return;
+        renderDayPrayerModal();
+      }
+
+      function renderDayPrayerModal() {
+        const friendly = formatFriendlyDate(selectedHabitDate);
+        const day = getPrayerDay(selectedHabitDate);
+        const sum = getPrayerDaySummary(selectedHabitDate);
+
+        document.getElementById('modal-day-prayer-title').textContent = `Prayers · ${friendly}`;
+        document.getElementById('modal-day-prayer-sub').textContent = `${selectedHabitDate} · ${sum.fard}/5 Fard · ${sum.mosque} Mosque · ${sum.totalNawafil} Sunnah/Nawafil`;
+
+        document.getElementById('modal-day-prayers-list').innerHTML = PRAYERS_DEF.map((p) => {
+          const item = day[p.key];
+          return `
+            <div class="sub-item flex items-center justify-between gap-2 flex-wrap">
+              <button type="button" class="ui-btn ui-btn-sm ${item.fard ? 'ui-btn-emerald' : ''}" style="min-width:128px;justify-content:space-between" data-prayer-toggle="${p.key}" data-prayer-field="fard">
+                <span>${p.label} (${p.ar})</span>
+                <span>${item.fard ? ICONS.check : ''}</span>
+              </button>
+              <div class="flex items-center gap-1.5">
+                <button type="button" class="prayer-sub-toggle ${item.mosque ? 'active-mosque' : ''}" style="padding:6px 10px" data-prayer-toggle="${p.key}" data-prayer-field="mosque">
+                  ${ICONS.mosque}<span>Mosque</span>
+                </button>
+                <button type="button" class="prayer-sub-toggle ${item.sunnah ? 'active-sunnah' : ''}" style="padding:6px 10px" data-prayer-toggle="${p.key}" data-prayer-field="sunnah">
+                  ${ICONS.sparkles}<span>Sunnah (${p.sunnahHint})</span>
+                </button>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        document.getElementById('modal-day-extras-list').innerHTML = PRAYER_EXTRAS_DEF.map((ex) => {
+          const active = Boolean(day.extras[ex.key]);
+          return `
+            <button type="button" class="extra-pill-btn ${active ? 'active' : ''}" data-prayer-extra="${ex.key}">
+              ${active ? ICONS.check : ICONS.plus}
+              <span>${ex.label}</span>
+            </button>
+          `;
+        }).join('');
+
+        const allBtn = document.getElementById('btn-modal-prayer-all');
+        allBtn.textContent = sum.fard === 5 ? 'Clear 5 Fard' : 'Mark All 5 Fard';
       }
 
       /* ===================================================== */
@@ -2955,10 +3857,11 @@
 
       function renderHabitsView() {
         const dayStats = getDaySummary(selectedHabitDate);
+        const prayerStats = getPrayerDaySummary(selectedHabitDate);
         const friendlyLabel = formatFriendlyDate(selectedHabitDate);
         const isToday = selectedHabitDate === getDateStr(0);
 
-        // KPI 1: Progress Ring
+        // KPI 1: Progress Ring (keeps original habit progress intact!)
         document.getElementById('habit-kpi-title').textContent = isToday ? "Today's Progress" : `${friendlyLabel}'s Progress`;
         document.getElementById('habit-kpi-date-sub').textContent = selectedHabitDate;
         document.getElementById('habit-ring-pct').textContent = `${dayStats.pct}%`;
@@ -3004,6 +3907,9 @@
         document.getElementById('heatmap-selected-chip').textContent = friendlyLabel;
         document.getElementById('reflection-date-chip').textContent = `${friendlyLabel} (${selectedHabitDate})`;
 
+        // Render Smart 5 Daily Prayers Card
+        renderPrayerCard();
+
         // Habit Cards Grid
         const grid = document.getElementById('habits-grid');
         const visible = state.habits.filter((h) => activeHabitCat === 'All' || h.category === activeHabitCat);
@@ -3011,7 +3917,6 @@
         if (visible.length === 0) {
           grid.innerHTML = `<div class="empty-box" style="grid-column:1/-1">No habits in this category yet. Click "+ New Habit" to create one.</div>`;
         } else {
-          // 7-day rolling strip ending on selectedHabitDate
           const stripDates = [];
           for (let i = 6; i >= 0; i--) stripDates.push(shiftDateStr(selectedHabitDate, -i));
 
@@ -3110,41 +4015,253 @@
             .join('');
         }
 
-        // 30-Day Heatmap
+        // 30-Day Interactive Heatmap (supports All / Prayers / Habits modes)
         const hmEl = document.getElementById('habit-heatmap');
         const hmCells = [];
         for (let i = 29; i >= 0; i--) {
           const dStr = getDateStr(-i);
           const s = getDaySummary(dStr);
+          const p = getPrayerDaySummary(dStr);
+
+          let scorePct = s.pct;
+          if (heatmapMode === 'prayers') {
+            scorePct = p.pct;
+          } else if (heatmapMode === 'combined') {
+            const hasPrayerLog = p.fard > 0 || p.totalNawafil > 0;
+            scorePct = hasPrayerLog ? Math.round((s.pct + p.pct) / 2) : s.pct;
+          }
+
           let lvl = '';
-          if (s.pct >= 100) lvl = 'hm-4';
-          else if (s.pct >= 75) lvl = 'hm-3';
-          else if (s.pct >= 45) lvl = 'hm-2';
-          else if (s.pct >= 1) lvl = 'hm-1';
+          if (scorePct >= 100) lvl = 'hm-4';
+          else if (scorePct >= 75) lvl = 'hm-3';
+          else if (scorePct >= 45) lvl = 'hm-2';
+          else if (scorePct >= 1) lvl = 'hm-1';
+
+          const showPrayerDot = p.fard === 5;
           hmCells.push(`
-            <button type="button" class="hm-cell ${lvl} ${dStr === selectedHabitDate ? 'selected' : ''}" data-hm-date="${dStr}" title="${dStr}: ${s.done}/${s.total} (${s.pct}%)">
+            <button type="button" class="hm-cell ${lvl} ${dStr === selectedHabitDate ? 'selected' : ''}" data-hm-date="${dStr}" title="${dStr}: Habits ${s.done}/${s.total} (${s.pct}%) · Prayers ${p.fard}/5 (${p.mosque} Mosque, ${p.totalNawafil} Sunnah)">
               ${dStr.slice(8, 10)}
+              ${showPrayerDot ? '<span class="hm-prayer-dot" title="5/5 Prayers Completed"></span>' : ''}
             </button>
           `);
         }
         hmEl.innerHTML = hmCells.join('');
         document.getElementById('heatmap-day-summary').textContent =
-          `${dayStats.done} of ${dayStats.total} habits completed (${dayStats.pct}%) on ${friendlyLabel}`;
+          `Habits ${dayStats.done}/${dayStats.total} · Prayers ${prayerStats.fard}/5 (${prayerStats.mosque} Mosque)`;
 
         // Daily Reflection Note
         const refInput = document.getElementById('habit-reflection-input');
         const refText = state.habitReflections[selectedHabitDate] || '';
         if (document.activeElement !== refInput) refInput.value = refText;
         document.getElementById('reflection-char-count').textContent = `${refText.length} chars`;
+        renderWeeklyReview();
+      }
+
+      /* ===================================================== */
+      /* WEEKLY REVIEW CARD & RECURRING TASK TEMPLATES         */
+      /* ===================================================== */
+      function getWeeklyDateList() {
+        const dates = [];
+        if (weeklyMode === 'thisWeek') {
+          // Saturday-to-Friday (Egypt/MENA work week) up to today
+          const today = new Date();
+          today.setHours(12, 0, 0, 0);
+          const dayIdx = today.getDay(); // 0=Sun..6=Sat
+          const daysSinceSat = (dayIdx + 1) % 7;
+          for (let i = daysSinceSat; i >= 0; i--) {
+            dates.push(getDateStr(-i));
+          }
+        } else {
+          for (let i = 6; i >= 0; i--) {
+            dates.push(getDateStr(-i));
+          }
+        }
+        return dates;
+      }
+
+      function computeWeeklyReviewData() {
+        const dates = getWeeklyDateList();
+        const dateSet = new Set(dates);
+        const entries = state.incomeEntries.filter((e) => dateSet.has((e.date || '').slice(0, 10)));
+
+        const incomeUsd = entries.reduce((sum, e) => sum + (Number(e.amount) || 0), 0);
+        const hours = entries.reduce((sum, e) => sum + (Number(e.hours) || 0), 0);
+        const incomeEgp = Math.round(incomeUsd * (Number(state.usdRate) || 50));
+        const avgRate = hours > 0 ? incomeUsd / hours : 0;
+
+        // Best $/hr platform this week
+        const platEarn = {};
+        const platHrs = {};
+        entries.forEach((e) => {
+          platEarn[e.platformId] = (platEarn[e.platformId] || 0) + (Number(e.amount) || 0);
+          platHrs[e.platformId] = (platHrs[e.platformId] || 0) + (Number(e.hours) || 0);
+        });
+
+        let bestPlatName = 'No shifts yet';
+        let bestPlatRate = 0;
+        let bestPlatEarned = 0;
+        state.platforms.forEach((p) => {
+          const h = platHrs[p.id] || 0;
+          const usd = platEarn[p.id] || 0;
+          if (h > 0) {
+            const r = usd / h;
+            if (r > bestPlatRate) {
+              bestPlatRate = r;
+              bestPlatName = p.name;
+              bestPlatEarned = usd;
+            }
+          }
+        });
+
+        // Prayers over window
+        let fardTotal = 0;
+        let mosqueTotal = 0;
+        let sunnahTotal = 0;
+        dates.forEach((d) => {
+          const p = getPrayerDaySummary(d);
+          fardTotal += p.fard;
+          mosqueTotal += p.mosque;
+          sunnahTotal += p.totalNawafil;
+        });
+        const maxFard = dates.length * 5;
+        const prayerPct = maxFard > 0 ? Math.round((fardTotal / maxFard) * 100) : 0;
+
+        // Habits over window
+        let habitSumPct = 0;
+        let perfectDays = 0;
+        dates.forEach((d) => {
+          const s = getDaySummary(d);
+          habitSumPct += s.pct;
+          if (s.total > 0 && s.done === s.total) perfectDays += 1;
+        });
+        const habitPct = dates.length > 0 ? Math.round(habitSumPct / dates.length) : 0;
+
+        return {
+          dates,
+          incomeUsd,
+          incomeEgp,
+          hours,
+          avgRate,
+          bestPlatName,
+          bestPlatRate,
+          bestPlatEarned,
+          fardTotal,
+          maxFard,
+          mosqueTotal,
+          sunnahTotal,
+          prayerPct,
+          habitPct,
+          perfectDays
+        };
+      }
+
+      function renderWeeklyReview() {
+        const w = computeWeeklyReviewData();
+        const rangeLabel = weeklyMode === 'thisWeek'
+          ? `This Week (${w.dates.length}d · Sat–Today)`
+          : `Last 7 Days (${w.dates[0].slice(5)} → ${w.dates[w.dates.length - 1].slice(5)})`;
+
+        document.getElementById('weekly-range-badge').textContent = rangeLabel;
+        document.getElementById('wk-income-usd').textContent = `$${w.incomeUsd.toFixed(2)}`;
+        document.getElementById('wk-income-egp').textContent = `≈ ${w.incomeEgp.toLocaleString()} EGP`;
+        document.getElementById('wk-hours').textContent = `${w.hours.toFixed(1)}h`;
+        document.getElementById('wk-avg-rate').textContent = `$${w.avgRate.toFixed(2)} / hr avg`;
+        document.getElementById('wk-best-plat-name').textContent = w.bestPlatName;
+        document.getElementById('wk-best-plat-rate').textContent =
+          w.bestPlatRate > 0 ? `$${w.bestPlatRate.toFixed(2)}/hr ($${w.bestPlatEarned.toFixed(0)})` : 'Log a shift to see';
+        document.getElementById('wk-prayers-pct').textContent = `${w.prayerPct}%`;
+        document.getElementById('wk-prayers-detail').textContent = `${w.fardTotal}/${w.maxFard} · ${w.mosqueTotal} Mosque`;
+        document.getElementById('wk-habits-pct').textContent = `${w.habitPct}%`;
+        document.getElementById('wk-habits-detail').textContent = `${w.perfectDays}/${w.dates.length} perfect days`;
+      }
+
+      function renderRecurringTemplates() {
+        const list = Array.isArray(state.recurringTemplates) ? state.recurringTemplates : [];
+        const chip = document.getElementById('recurring-count-chip');
+        if (chip) chip.textContent = String(list.length);
+
+        const container = document.getElementById('recurring-templates-list');
+        if (!container) return;
+
+        const filtered = list.filter((rt) => activeRecFilter === 'All' || rt.frequency === activeRecFilter);
+        if (filtered.length === 0) {
+          container.innerHTML = `<div class="empty-box">No ${activeRecFilter === 'All' ? '' : activeRecFilter.toLowerCase() + ' '}templates yet. Add your fixed daily or weekly routines above.</div>`;
+          return;
+        }
+
+        container.innerHTML = filtered
+          .map((rt) => {
+            const plat = getPlatform(rt.platformId);
+            const skill = rt.skillId ? state.skills.find((sk) => sk.id === rt.skillId) : null;
+            const freqClass = rt.frequency === 'Daily' ? 'status-synced' : 'status-syncing';
+            return `
+              <div class="sub-item flex items-center justify-between gap-2">
+                <div class="min-w-0 flex-1">
+                  <div class="text-[13px] font-semibold break-words">${escapeHtml(rt.title)}</div>
+                  <div class="flex items-center gap-1.5 flex-wrap mt-1">
+                    <span class="status-chip ${freqClass}">${escapeHtml(rt.frequency)}</span>
+                    <span class="status-chip status-local">${escapeHtml(rt.priority)}</span>
+                    <span class="status-chip status-syncing">${escapeHtml(plat.name)}</span>
+                    ${skill ? `<span class="status-chip status-synced">${ICONS.link}<span>${escapeHtml(skill.name)}</span></span>` : ''}
+                  </div>
+                </div>
+                <div class="inline-flex items-center gap-1.5 flex-shrink-0">
+                  <button type="button" class="ui-btn ui-btn-sm ui-btn-emerald" data-run-single-rec="${escapeHtml(rt.id)}" title="Add to today's tasks">+ Add</button>
+                  <button type="button" class="icon-action-btn danger" data-del-rec="${escapeHtml(rt.id)}" title="Delete Template">${ICONS.x}</button>
+                </div>
+              </div>
+            `;
+          })
+          .join('');
+      }
+
+      function applyRecurringTemplates(frequency) {
+        const list = (state.recurringTemplates || []).filter((rt) => rt.frequency === frequency);
+        if (list.length === 0) {
+          showToast(`No ${frequency} templates saved yet — click Templates to add some`, 'warn');
+          return;
+        }
+        let added = 0;
+        list.forEach((rt) => {
+          const existsPending = state.tasks.some(
+            (t) => !t.completed && t.title.trim().toLowerCase() === rt.title.trim().toLowerCase()
+          );
+          if (!existsPending) {
+            state.tasks.unshift({
+              id: 'task_' + Date.now() + '_' + Math.floor(Math.random() * 1000),
+              title: rt.title,
+              platformId: rt.platformId || (state.platforms[0] ? state.platforms[0].id : ''),
+              priority: rt.priority || 'Medium',
+              skillId: rt.skillId || '',
+              subtaskId: '',
+              completed: false,
+              createdAt: Date.now()
+            });
+            added += 1;
+          }
+        });
+
+        if (added > 0) {
+          saveState();
+          renderTasks();
+          renderSkills();
+          renderWorkKpisAndPlatforms();
+          showToast(`Added ${added} ${frequency.toLowerCase()} task${added > 1 ? 's' : ''} to Today's List`);
+        } else {
+          showToast(`All ${frequency.toLowerCase()} tasks are already in your active list`, 'warn');
+        }
       }
 
       function renderAll() {
         populateSelects();
         renderWorkKpisAndPlatforms();
+        renderWeeklyReview();
         renderTasks();
+        renderRecurringTemplates();
         renderSkills();
         renderNotes();
         renderEntries();
+        syncTimerModeControlsUI();
         updateTimerUI();
         renderHabitsView();
       }
@@ -3256,13 +4373,13 @@
           const val = document.getElementById('sync-url-input').value.trim();
           if (!val) {
             syncUrl = '';
-            localStorage.removeItem(SYNC_URL_KEY);
+            try { localStorage.removeItem(SYNC_URL_KEY); } catch (e) {}
             setSyncStatus('local', 'Local');
             showToast('Cloud sync disconnected');
             return;
           }
           syncUrl = val;
-          localStorage.setItem(SYNC_URL_KEY, syncUrl);
+          try { localStorage.setItem(SYNC_URL_KEY, syncUrl); } catch (e) {}
           pullFromCloud(false);
         });
 
@@ -3349,24 +4466,43 @@
         });
 
         // Daily Priority Tasks
+        document.getElementById('task-skill-select').addEventListener('change', updateTaskSubtaskToggleVisibility);
+
         document.getElementById('form-add-task').addEventListener('submit', (e) => {
           e.preventDefault();
           const input = document.getElementById('task-title-input');
           const title = input.value.trim();
           if (!title) return;
+          const skillId = document.getElementById('task-skill-select').value;
+          const alsoSubtask = Boolean(skillId && document.getElementById('task-as-subtask-check').checked);
+          let subtaskId = '';
+
+          if (alsoSubtask) {
+            const sk = state.skills.find((x) => x.id === skillId);
+            if (sk) {
+              if (!Array.isArray(sk.subtasks)) sk.subtasks = [];
+              subtaskId = 'sub_' + Date.now();
+              sk.subtasks.push({ id: subtaskId, title, completed: false });
+              expandedSkillIds.add(sk.id);
+            }
+          }
+
           state.tasks.unshift({
             id: 'task_' + Date.now(),
             title,
             platformId: document.getElementById('task-platform-select').value,
             priority: document.getElementById('task-priority-select').value,
-            skillId: document.getElementById('task-skill-select').value,
+            skillId,
+            subtaskId,
             completed: false,
             createdAt: Date.now()
           });
           input.value = '';
           saveState();
           renderTasks();
+          renderSkills();
           renderWorkKpisAndPlatforms();
+          if (skillId) showToast('Task added & linked to Skill Goal');
         });
 
         document.getElementById('task-filter-bar').addEventListener('click', (e) => {
@@ -3392,10 +4528,41 @@
             const t = state.tasks.find((x) => x.id === tog.dataset.toggleTask);
             if (!t) return;
             t.completed = !t.completed;
+            // Sync with mirrored Skill Sub-task if linked
+            if (t.skillId && t.subtaskId) {
+              const sk = state.skills.find((s) => s.id === t.skillId);
+              const st = sk && Array.isArray(sk.subtasks) ? sk.subtasks.find((item) => item.id === t.subtaskId) : null;
+              if (st) st.completed = t.completed;
+            }
             saveState();
             renderTasks();
             renderSkills();
             renderWorkKpisAndPlatforms();
+            return;
+          }
+          const saveTpl = e.target.closest('[data-save-task-template]');
+          if (saveTpl) {
+            const t = state.tasks.find((x) => x.id === saveTpl.dataset.saveTaskTemplate);
+            if (!t) return;
+            if (!Array.isArray(state.recurringTemplates)) state.recurringTemplates = [];
+            const dup = state.recurringTemplates.some(
+              (rt) => rt.title.trim().toLowerCase() === t.title.trim().toLowerCase()
+            );
+            if (dup) {
+              showToast('Already saved in Recurring Templates', 'warn');
+              return;
+            }
+            state.recurringTemplates.unshift({
+              id: 'rec_' + Date.now(),
+              title: t.title,
+              platformId: t.platformId,
+              priority: t.priority,
+              skillId: t.skillId || '',
+              frequency: 'Daily'
+            });
+            saveState();
+            renderRecurringTemplates();
+            showToast('Saved as Daily recurring template');
             return;
           }
           const del = e.target.closest('[data-del-task]');
@@ -3408,74 +4575,51 @@
           }
         });
 
-        // Focus Timer
+        document.getElementById('task-list').addEventListener('change', (e) => {
+          const sel = e.target.closest('[data-relink-task]');
+          if (!sel) return;
+          const t = state.tasks.find((x) => x.id === sel.dataset.relinkTask);
+          if (!t) return;
+          t.skillId = sel.value;
+          t.subtaskId = '';
+          saveState();
+          renderTasks();
+          renderSkills();
+        });
+
+        // Focus Timer (Wall-Clock Background-Proof)
         document.getElementById('btn-mode-pomo').addEventListener('click', () => {
-          timerMode = 'pomodoro';
-          const bP = document.getElementById('btn-mode-pomo');
-          const bS = document.getElementById('btn-mode-shift');
-          bP.classList.add('ui-btn-primary');
-          bP.classList.remove('border-0', 'bg-transparent');
-          bS.classList.remove('ui-btn-primary');
-          bS.classList.add('border-0', 'bg-transparent');
-          document.getElementById('timer-presets-row').style.display = 'inline-flex';
+          timerState.mode = 'pomodoro';
+          syncTimerModeControlsUI();
           resetTimer();
         });
 
         document.getElementById('btn-mode-shift').addEventListener('click', () => {
-          timerMode = 'shift';
-          const bP = document.getElementById('btn-mode-pomo');
-          const bS = document.getElementById('btn-mode-shift');
-          bS.classList.add('ui-btn-primary');
-          bS.classList.remove('border-0', 'bg-transparent');
-          bP.classList.remove('ui-btn-primary');
-          bP.classList.add('border-0', 'bg-transparent');
-          document.getElementById('timer-presets-row').style.display = 'none';
+          timerState.mode = 'shift';
+          syncTimerModeControlsUI();
           resetTimer();
         });
 
         document.getElementById('timer-presets-row').addEventListener('click', (e) => {
           const btn = e.target.closest('[data-pomo-mins]');
           if (!btn) return;
-          pomoMinutes = Number(btn.dataset.pomoMins) || 25;
-          document.querySelectorAll('#timer-presets-row .filter-pill').forEach((b) => b.classList.toggle('active', b === btn));
+          timerState.pomoMinutes = Number(btn.dataset.pomoMins) || 25;
+          syncTimerModeControlsUI();
           resetTimer();
         });
 
-        document.getElementById('timer-platform-select').addEventListener('change', updateTimerUI);
-
-        document.getElementById('btn-timer-start').addEventListener('click', () => {
-          if (timerRunning) return;
-          timerRunning = true;
-          updateTimerUI();
-          timerInterval = setInterval(() => {
-            if (timerMode === 'pomodoro') {
-              if (timerSeconds > 0) {
-                timerSeconds -= 1;
-                updateTimerUI();
-              } else {
-                clearInterval(timerInterval);
-                timerRunning = false;
-                updateTimerUI();
-                showToast('Pomodoro session completed');
-              }
-            } else {
-              timerSeconds += 1;
-              updateTimerUI();
-            }
-          }, 1000);
-        });
-
-        document.getElementById('btn-timer-pause').addEventListener('click', () => {
-          clearInterval(timerInterval);
-          timerRunning = false;
+        document.getElementById('timer-platform-select').addEventListener('change', (e) => {
+          timerState.platformId = e.target.value;
+          saveTimerState();
           updateTimerUI();
         });
 
+        document.getElementById('btn-timer-start').addEventListener('click', startTimer);
+        document.getElementById('btn-timer-pause').addEventListener('click', pauseTimer);
         document.getElementById('btn-timer-reset').addEventListener('click', resetTimer);
 
         document.getElementById('btn-timer-log').addEventListener('click', () => {
-          const elapsedSecs =
-            timerMode === 'pomodoro' ? Math.max(0, pomoMinutes * 60 - timerSeconds) : timerSeconds;
+          const elapsedSecs = getTimerElapsedSeconds();
           if (elapsedSecs < 60) {
             showToast('Run the timer for at least 1 minute to log', 'warn');
             return;
@@ -3489,11 +4633,12 @@
             hours,
             amount,
             date: getDateStr(0),
-            note: `Focus timer (${timerMode === 'pomodoro' ? 'Pomodoro' : 'Open Shift'})`
+            note: `Focus timer (${timerState.mode === 'pomodoro' ? 'Pomodoro' : 'Open Shift'})`
           });
           resetTimer();
           saveState();
           renderWorkKpisAndPlatforms();
+          renderWeeklyReview();
           renderEntries();
           showToast(`Logged ${hours}h ($${amount.toFixed(2)}) to ${plat.name}`);
         });
@@ -3597,19 +4742,22 @@
           if (copyTextToClipboard(text)) showToast('Note copied to clipboard');
         });
 
-        // Skills CRUD
+        // Skills & Sub-tasks CRUD
         document.getElementById('form-add-skill').addEventListener('submit', (e) => {
           e.preventDefault();
           const nameInput = document.getElementById('skill-name-input');
           const name = nameInput.value.trim();
           if (!name) return;
+          const newId = 'skill_' + Date.now();
           state.skills.push({
-            id: 'skill_' + Date.now(),
+            id: newId,
             name,
             category: document.getElementById('skill-cat-select').value,
             target: Math.max(1, Number(document.getElementById('skill-target-input').value) || 20),
-            manualProgress: 0
+            manualProgress: 0,
+            subtasks: []
           });
+          expandedSkillIds.add(newId);
           nameInput.value = '';
           saveState();
           populateSelects();
@@ -3617,15 +4765,103 @@
           showToast('Skill added');
         });
 
+        document.getElementById('skills-list').addEventListener('submit', (e) => {
+          const form = e.target.closest('[data-add-subtask-form]');
+          if (!form) return;
+          e.preventDefault();
+          const skillId = form.dataset.addSubtaskForm;
+          const sk = state.skills.find((x) => x.id === skillId);
+          const inp = form.querySelector('input');
+          if (!sk || !inp) return;
+          const title = inp.value.trim();
+          if (!title) return;
+          if (!Array.isArray(sk.subtasks)) sk.subtasks = [];
+          sk.subtasks.push({ id: 'sub_' + Date.now(), title, completed: false });
+          expandedSkillIds.add(sk.id);
+          inp.value = '';
+          saveState();
+          renderSkills();
+        });
+
         document.getElementById('skills-list').addEventListener('click', (e) => {
+          const panelToggle = e.target.closest('[data-toggle-skill-panel]');
+          if (panelToggle) {
+            const id = panelToggle.dataset.toggleSkillPanel;
+            if (expandedSkillIds.has(id)) expandedSkillIds.delete(id);
+            else expandedSkillIds.add(id);
+            renderSkills();
+            return;
+          }
+
+          const subCheck = e.target.closest('[data-toggle-subtask]');
+          if (subCheck) {
+            const sk = state.skills.find((x) => x.id === subCheck.dataset.toggleSubtask);
+            const subId = subCheck.dataset.subtaskId;
+            if (!sk || !Array.isArray(sk.subtasks)) return;
+            const st = sk.subtasks.find((item) => item.id === subId);
+            if (!st) return;
+            st.completed = !st.completed;
+            // Keep any linked Daily Priority Task in sync
+            state.tasks.forEach((t) => {
+              if (t.skillId === sk.id && t.subtaskId === subId) {
+                t.completed = st.completed;
+              }
+            });
+            saveState();
+            renderSkills();
+            renderTasks();
+            renderWorkKpisAndPlatforms();
+            return;
+          }
+
+          const pushSub = e.target.closest('[data-push-subtask]');
+          if (pushSub) {
+            const sk = state.skills.find((x) => x.id === pushSub.dataset.pushSubtask);
+            const subId = pushSub.dataset.subtaskId;
+            const st = sk && Array.isArray(sk.subtasks) ? sk.subtasks.find((item) => item.id === subId) : null;
+            if (!sk || !st) return;
+            const alreadyExists = state.tasks.some((t) => t.skillId === sk.id && t.subtaskId === subId);
+            if (alreadyExists) {
+              showToast('Already in Daily Priority Tasks', 'warn');
+              return;
+            }
+            state.tasks.unshift({
+              id: 'task_' + Date.now(),
+              title: st.title,
+              platformId: state.platforms[0] ? state.platforms[0].id : '',
+              priority: 'Medium',
+              skillId: sk.id,
+              subtaskId: st.id,
+              completed: Boolean(st.completed),
+              createdAt: Date.now()
+            });
+            saveState();
+            renderTasks();
+            renderSkills();
+            renderWorkKpisAndPlatforms();
+            showToast('Sent sub-task to Daily Priority Tasks');
+            return;
+          }
+
+          const delSub = e.target.closest('[data-del-subtask]');
+          if (delSub) {
+            const sk = state.skills.find((x) => x.id === delSub.dataset.delSubtask);
+            const subId = delSub.dataset.subtaskId;
+            if (!sk || !Array.isArray(sk.subtasks)) return;
+            sk.subtasks = sk.subtasks.filter((item) => item.id !== subId);
+            saveState();
+            renderSkills();
+            return;
+          }
+
           const stepBtn = e.target.closest('[data-step-skill]');
           if (stepBtn) {
             const sk = state.skills.find((x) => x.id === stepBtn.dataset.stepSkill);
             if (!sk) return;
             const delta = Number(stepBtn.dataset.delta) || 0;
-            const linkedDone = state.tasks.filter((t) => t.completed && t.skillId === sk.id).length;
+            const stats = getSkillStats(sk);
             const nextManual = (Number(sk.manualProgress) || 0) + delta;
-            if (linkedDone + nextManual >= 0) {
+            if (stats.subtasksDone + stats.standaloneLinkedDone + nextManual >= 0) {
               sk.manualProgress = nextManual;
               saveState();
               renderSkills();
@@ -3700,6 +4936,7 @@
           document.getElementById('entry-note-input').value = '';
           saveState();
           renderWorkKpisAndPlatforms();
+          renderWeeklyReview();
           renderEntries();
           showToast(`Logged $${amount.toFixed(2)}`);
         });
@@ -3710,8 +4947,47 @@
           state.incomeEntries = state.incomeEntries.filter((x) => x.id !== del.dataset.delEntry);
           saveState();
           renderWorkKpisAndPlatforms();
+          renderWeeklyReview();
           renderEntries();
           showToast('Entry removed');
+        });
+
+        // 5 Daily Prayers & Nawafil Listeners (Card + Modal)
+        function handlePrayerClick(e) {
+          const pBtn = e.target.closest('[data-prayer-toggle]');
+          if (pBtn) {
+            togglePrayerField(selectedHabitDate, pBtn.dataset.prayerToggle, pBtn.dataset.prayerField);
+            return;
+          }
+          const exBtn = e.target.closest('[data-prayer-extra]');
+          if (exBtn) {
+            togglePrayerExtra(selectedHabitDate, exBtn.dataset.prayerExtra);
+          }
+        }
+
+        document.getElementById('prayer-tracker-card').addEventListener('click', handlePrayerClick);
+        document.getElementById('modal-day-prayer').addEventListener('click', handlePrayerClick);
+
+        document.getElementById('btn-prayer-all-done').addEventListener('click', () => {
+          markAllFivePrayers(selectedHabitDate);
+        });
+
+        document.getElementById('btn-modal-prayer-all').addEventListener('click', () => {
+          markAllFivePrayers(selectedHabitDate);
+        });
+
+        document.getElementById('btn-open-day-prayer-modal').addEventListener('click', () => {
+          renderDayPrayerModal();
+          document.getElementById('modal-day-prayer').classList.add('open');
+        });
+
+        // Heatmap Mode Switcher
+        document.getElementById('heatmap-mode-bar').addEventListener('click', (e) => {
+          const btn = e.target.closest('[data-hm-mode]');
+          if (!btn) return;
+          heatmapMode = btn.dataset.hmMode;
+          document.querySelectorAll('#heatmap-mode-bar .filter-pill').forEach((b) => b.classList.toggle('active', b === btn));
+          renderHabitsView();
         });
 
         // Habit Tracker Controls
@@ -3743,6 +5019,11 @@
           if (!cell) return;
           selectedHabitDate = cell.dataset.hmDate;
           renderHabitsView();
+          // Open quick day prayer popup when in Prayers mode or double-clicking; always update Prayer card above
+          if (heatmapMode === 'prayers') {
+            renderDayPrayerModal();
+            document.getElementById('modal-day-prayer').classList.add('open');
+          }
         });
 
         document.getElementById('btn-open-add-habit').addEventListener('click', () => {
@@ -3878,8 +5159,119 @@
           saveState();
         });
 
-        // Auto-pull on window focus (throttled to avoid request spam)
+        // Weekly Review Card Controls
+        document.getElementById('weekly-window-bar').addEventListener('click', (e) => {
+          const btn = e.target.closest('[data-weekly-mode]');
+          if (!btn) return;
+          weeklyMode = btn.dataset.weeklyMode;
+          document.querySelectorAll('#weekly-window-bar .filter-pill').forEach((b) => b.classList.toggle('active', b === btn));
+          renderWeeklyReview();
+        });
+
+        document.getElementById('btn-copy-weekly').addEventListener('click', () => {
+          const w = computeWeeklyReviewData();
+          const summary = [
+            `Weekly Review (${w.dates[0]} to ${w.dates[w.dates.length - 1]})`,
+            `• Income: $${w.incomeUsd.toFixed(2)} (≈ ${w.incomeEgp.toLocaleString()} EGP)`,
+            `• Hours: ${w.hours.toFixed(1)}h ($${w.avgRate.toFixed(2)}/hr avg)`,
+            `• Top Platform ($/hr): ${w.bestPlatRate > 0 ? `${w.bestPlatName} ($${w.bestPlatRate.toFixed(2)}/hr)` : 'N/A'}`,
+            `• Prayers: ${w.fardTotal}/${w.maxFard} Fard (${w.prayerPct}%) · ${w.mosqueTotal} Mosque · ${w.sunnahTotal} Sunnah/Nawafil`,
+            `• Habits: ${w.habitPct}% consistency (${w.perfectDays}/${w.dates.length} perfect days)`
+          ].join('\n');
+          if (copyTextToClipboard(summary)) showToast('Weekly summary copied');
+          else showToast('Could not copy summary', 'error');
+        });
+
+        // Recurring Task Templates Controls
+        document.getElementById('btn-run-daily-templates').addEventListener('click', () => {
+          applyRecurringTemplates('Daily');
+        });
+
+        document.getElementById('btn-open-recurring').addEventListener('click', () => {
+          populateSelects();
+          renderRecurringTemplates();
+          document.getElementById('modal-recurring').classList.add('open');
+        });
+
+        document.getElementById('btn-modal-run-daily').addEventListener('click', () => {
+          applyRecurringTemplates('Daily');
+        });
+
+        document.getElementById('btn-modal-run-weekly').addEventListener('click', () => {
+          applyRecurringTemplates('Weekly');
+        });
+
+        document.getElementById('rec-filter-bar').addEventListener('click', (e) => {
+          const btn = e.target.closest('[data-rec-filter]');
+          if (!btn) return;
+          activeRecFilter = btn.dataset.recFilter;
+          document.querySelectorAll('#rec-filter-bar .filter-pill').forEach((b) => b.classList.toggle('active', b === btn));
+          renderRecurringTemplates();
+        });
+
+        document.getElementById('form-add-recurring').addEventListener('submit', (e) => {
+          e.preventDefault();
+          const inp = document.getElementById('rec-title-input');
+          const title = inp.value.trim();
+          if (!title) return;
+          if (!Array.isArray(state.recurringTemplates)) state.recurringTemplates = [];
+          state.recurringTemplates.unshift({
+            id: 'rec_' + Date.now(),
+            title,
+            platformId: document.getElementById('rec-platform-select').value,
+            priority: document.getElementById('rec-priority-select').value,
+            skillId: document.getElementById('rec-skill-select').value,
+            frequency: document.getElementById('rec-freq-select').value
+          });
+          inp.value = '';
+          saveState();
+          renderRecurringTemplates();
+          showToast('Recurring template saved');
+        });
+
+        document.getElementById('recurring-templates-list').addEventListener('click', (e) => {
+          const runBtn = e.target.closest('[data-run-single-rec]');
+          if (runBtn) {
+            const rt = (state.recurringTemplates || []).find((x) => x.id === runBtn.dataset.runSingleRec);
+            if (!rt) return;
+            state.tasks.unshift({
+              id: 'task_' + Date.now(),
+              title: rt.title,
+              platformId: rt.platformId || (state.platforms[0] ? state.platforms[0].id : ''),
+              priority: rt.priority || 'Medium',
+              skillId: rt.skillId || '',
+              subtaskId: '',
+              completed: false,
+              createdAt: Date.now()
+            });
+            saveState();
+            renderTasks();
+            renderSkills();
+            renderWorkKpisAndPlatforms();
+            showToast(`Added "${rt.title}" to Daily Priority Tasks`);
+            return;
+          }
+          const delBtn = e.target.closest('[data-del-rec]');
+          if (delBtn) {
+            state.recurringTemplates = (state.recurringTemplates || []).filter((x) => x.id !== delBtn.dataset.delRec);
+            saveState();
+            renderRecurringTemplates();
+            showToast('Template removed');
+          }
+        });
+
+        // Immediately resync Focus Timer when switching back to tab or window
+        document.addEventListener('visibilitychange', () => {
+          if (!document.hidden) {
+            updateTimerUI();
+            updateWorldClocks();
+          }
+        });
+
+        // Auto-pull on window focus (throttled to avoid request spam) + resync timer
         window.addEventListener('focus', () => {
+          updateTimerUI();
+          updateWorldClocks();
           const now = Date.now();
           if (syncUrl && now - lastFocusPull > 10000) {
             lastFocusPull = now;
@@ -3893,12 +5285,14 @@
       /* ===================================================== */
       window.addEventListener('DOMContentLoaded', () => {
         applyTheme(state.theme);
+        loadTimerState();
         document.getElementById('entry-date-input').value = getDateStr(0);
         if (state.usdRateUpdatedAt) {
           document.getElementById('fx-updated-time').textContent = state.usdRateUpdatedAt;
         }
         bindEvents();
         renderAll();
+        ensureTimerTickLoop();
         updateWorldClocks();
         setInterval(updateWorldClocks, 1000);
         fetchUsdEgpRate(false);
