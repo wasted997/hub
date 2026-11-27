@@ -4029,10 +4029,11 @@
         // Never clutter Daily Tasks with Skill sub-tasks
         const dailyTasks = state.tasks.filter((t) => !t.subtaskId);
 
-        const todayCnt = dailyTasks.filter((t) => (t.dueDate || todayStr) === todayStr).length;
-        const tomorrowCnt = dailyTasks.filter((t) => (t.dueDate || todayStr) === tomorrowStr).length;
-        const upcomingCnt = dailyTasks.filter((t) => (t.dueDate || todayStr) > todayStr && !t.completed).length;
-        const allCnt = dailyTasks.length;
+        const pendingDaily = dailyTasks.filter((t) => !t.completed);
+        const todayCnt = pendingDaily.filter((t) => (t.dueDate || todayStr) === todayStr).length;
+        const tomorrowCnt = pendingDaily.filter((t) => (t.dueDate || todayStr) === tomorrowStr).length;
+        const upcomingCnt = pendingDaily.filter((t) => (t.dueDate || todayStr) > todayStr).length;
+        const allCnt = pendingDaily.length;
         const doneCnt = dailyTasks.filter((t) => t.completed).length;
 
         const setCnt = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = String(val); };
@@ -4044,11 +4045,12 @@
 
         const filtered = dailyTasks.filter((t) => {
           const d = t.dueDate || todayStr;
+          if (activeTaskFilter === 'Completed') return t.completed;
+          if (t.completed) return false;
           if (activeTaskSpecificDate) return d === activeTaskSpecificDate;
           if (activeTaskFilter === 'Today') return d === todayStr;
           if (activeTaskFilter === 'Tomorrow') return d === tomorrowStr;
-          if (activeTaskFilter === 'Upcoming') return d > todayStr && !t.completed;
-          if (activeTaskFilter === 'Completed') return t.completed;
+          if (activeTaskFilter === 'Upcoming') return d > todayStr;
           return true;
         });
 
@@ -6086,6 +6088,7 @@
               if (st) st.completed = t.completed;
             }
             saveState();
+            populateSelects();
             renderTasks();
             renderSkills();
             renderWorkKpisAndPlatforms();
