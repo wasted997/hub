@@ -1090,6 +1090,52 @@
     .sched-slot.is-peak {
       border-color: rgba(16, 185, 129, 0.38);
     }
+    .sched-slot.is-custom {
+      background: rgba(6, 182, 212, 0.11);
+      border-color: rgba(6, 182, 212, 0.38);
+    }
+    .sched-day-card.is-logged {
+      border-color: rgba(16, 185, 129, 0.55) !important;
+      background: linear-gradient(180deg, rgba(16, 185, 129, 0.08), var(--bg-card));
+    }
+    .day-log-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      padding: 4px 8px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-input);
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .day-log-btn:hover {
+      border-color: rgba(16, 185, 129, 0.45);
+      color: var(--accent-emerald);
+    }
+    .day-log-btn.is-done {
+      background: rgba(16, 185, 129, 0.16);
+      border-color: rgba(16, 185, 129, 0.55);
+      color: var(--accent-emerald);
+    }
+    .subtask-push-active {
+      background: rgba(16, 185, 129, 0.16) !important;
+      border-color: rgba(16, 185, 129, 0.55) !important;
+      color: var(--accent-emerald) !important;
+    }
+    .focus-stats-strip {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 12px;
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+    }
     .sched-slot.is-overflow {
       border-color: rgba(99, 102, 241, 0.45);
       background: rgba(99, 102, 241, 0.08);
@@ -1694,8 +1740,13 @@
                 <button type="button" class="filter-pill font-mono-num" data-pomo-mins="90">90m</button>
               </div>
               <div class="flex-1 min-w-[180px]">
-                <select id="timer-platform-select" class="ui-select" aria-label="Active Platform"></select>
+                <select id="timer-platform-select" class="ui-select" aria-label="Focus Mode or Paid Platform"></select>
               </div>
+            </div>
+
+            <!-- Optional Link to Skill or Daily Task -->
+            <div class="flex items-center gap-2">
+              <select id="timer-link-select" class="ui-select" aria-label="Optional Skill or Task Link"></select>
             </div>
 
             <!-- Sleek 156px Circular SVG Progress Ring -->
@@ -1735,8 +1786,24 @@
               </button>
               <button id="btn-timer-log" type="button" class="ui-btn ui-btn-primary">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
-                <span>Log Shift to Income</span>
+                <span id="btn-timer-log-label">Log Focus Time</span>
               </button>
+            </div>
+
+            <!-- Total Focus Time Tracker Strip -->
+            <div class="focus-stats-strip">
+              <div>
+                <div class="text-[10.5px] font-semibold uppercase tracking-wide" style="color:var(--text-muted)">Today's Focus</div>
+                <div id="focus-today-total" class="font-mono-num text-sm font-bold" style="color:var(--accent-emerald)">0m</div>
+              </div>
+              <div>
+                <div class="text-[10.5px] font-semibold uppercase tracking-wide" style="color:var(--text-muted)">All-Time Total</div>
+                <div id="focus-alltime-total" class="font-mono-num text-sm font-bold" style="color:var(--text-primary)">0m · 0 sessions</div>
+              </div>
+              <div id="focus-linked-row" class="col-span-2 pt-1.5 text-[11px] font-mono-num flex items-center justify-between gap-2" style="display:none;border-top:1px dashed var(--border-subtle);color:var(--text-secondary)">
+                <span id="focus-linked-name" class="truncate"></span>
+                <span id="focus-linked-total" class="font-bold flex-shrink-0" style="color:var(--accent-indigo)">0m total</span>
+              </div>
             </div>
           </div>
 
@@ -2115,14 +2182,21 @@
               <div class="flex items-center gap-2 flex-wrap">
                 <h2 class="font-display text-[15px] font-bold">Weekly Interpreting Login Schedule (Cairo Time)</h2>
                 <span id="interp-offset-chip" class="status-chip status-synced font-mono-num">Cairo = ET +7h</span>
+                <span id="interp-logged-week-chip" class="status-chip status-syncing font-mono-num">0/7 Days Logged</span>
               </div>
               <p class="text-xs" style="color:var(--text-secondary)">Updated from Lingotec Arabic (2,350 calls · 18.7m avg) + live calls caught &amp; Backstop overflow windows</p>
             </div>
           </div>
 
-          <div id="interp-offset-bar" class="inline-flex items-center gap-1.5">
-            <button type="button" class="filter-pill active font-mono-num" data-et-offset="7">Winter (ET +7h)</button>
-            <button type="button" class="filter-pill font-mono-num" data-et-offset="6">Summer (ET +6h)</button>
+          <div class="inline-flex items-center gap-2 flex-wrap">
+            <div id="interp-offset-bar" class="inline-flex items-center gap-1.5">
+              <button type="button" class="filter-pill active font-mono-num" data-et-offset="7">Winter (ET +7h)</button>
+              <button type="button" class="filter-pill font-mono-num" data-et-offset="6">Summer (ET +6h)</button>
+            </div>
+            <button id="btn-open-add-interp-slot" type="button" class="ui-btn ui-btn-sm ui-btn-emerald">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+              <span>Add Custom Time</span>
+            </button>
           </div>
         </div>
 
@@ -2475,6 +2549,44 @@
     </div>
   </div>
 
+
+  <!-- Modal: Add Custom Interpreting Time Slot -->
+  <div id="modal-interp-slot" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-interp-slot-title">
+    <div class="modal-card">
+      <div class="flex items-center justify-between">
+        <h3 id="modal-interp-slot-title" class="font-display text-base font-bold">Add Custom Login Time</h3>
+        <button type="button" class="icon-action-btn" data-close-modal="modal-interp-slot">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+      <form id="form-interp-slot" class="flex flex-col gap-3">
+        <div>
+          <label class="block text-xs font-semibold mb-1" style="color:var(--text-secondary)">Day of Week</label>
+          <select id="islot-day-input" class="ui-select">
+            <option value="mon">Monday</option>
+            <option value="tue">Tuesday</option>
+            <option value="wed">Wednesday</option>
+            <option value="thu">Thursday</option>
+            <option value="fri">Friday</option>
+            <option value="sat">Saturday</option>
+            <option value="sun">Sunday</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold mb-1" style="color:var(--text-secondary)">Time Window (Cairo Time)</label>
+          <input id="islot-time-input" type="text" class="ui-input" placeholder="e.g., 11:00 PM - 12:30 AM" required />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold mb-1" style="color:var(--text-secondary)">Calls / Note (Optional)</label>
+          <input id="islot-note-input" type="text" class="ui-input" placeholder="e.g., Caught 2 Arabic OPI calls" />
+        </div>
+        <div class="flex justify-end gap-2 mt-1">
+          <button type="button" class="ui-btn" data-close-modal="modal-interp-slot">Cancel</button>
+          <button type="submit" class="ui-btn ui-btn-emerald">Save Time Slot</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
   <!-- Modal: Add / Edit Interpreting Pipeline Platform -->
   <div id="modal-interp-platform" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-interp-plat-title">
@@ -3100,6 +3212,9 @@
           recurringTemplates: [],
           interpretingOffsetHours: 7,
           interpretingPlatforms: getDefaultInterpPlatforms(),
+          interpretingCustomSlots: {},
+          interpretingLoggedDays: {},
+          focusSessions: [],
           reminders: []
         };
       }
@@ -3377,6 +3492,48 @@
             })).filter((r) => r.dueAt)
           : [];
 
+        // Custom interpreting schedule slots & weekly logged-in day checks (additive)
+        const normCustomSlots = {};
+        if (raw.interpretingCustomSlots && typeof raw.interpretingCustomSlots === 'object') {
+          ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'].forEach((dk) => {
+            if (Array.isArray(raw.interpretingCustomSlots[dk])) {
+              normCustomSlots[dk] = raw.interpretingCustomSlots[dk]
+                .map((cs, idx) => ({
+                  id: cs.id || (`cslot_${dk}_${idx}_${Date.now()}`),
+                  time: String(cs.time || '').trim(),
+                  note: String(cs.note || '').trim()
+                }))
+                .filter((cs) => cs.time !== '');
+            }
+          });
+        }
+        out.interpretingCustomSlots = normCustomSlots;
+
+        const normLoggedDays = {};
+        if (raw.interpretingLoggedDays && typeof raw.interpretingLoggedDays === 'object') {
+          Object.keys(raw.interpretingLoggedDays).forEach((wk) => {
+            if (raw.interpretingLoggedDays[wk] && typeof raw.interpretingLoggedDays[wk] === 'object') {
+              normLoggedDays[wk] = { ...raw.interpretingLoggedDays[wk] };
+            }
+          });
+        }
+        out.interpretingLoggedDays = normLoggedDays;
+
+        // Focus sessions log (additive)
+        out.focusSessions = Array.isArray(raw.focusSessions)
+          ? raw.focusSessions
+              .map((fs, idx) => ({
+                id: fs.id || (`fses_${idx}_${Date.now()}`),
+                seconds: Math.max(0, Number(fs.seconds) || 0),
+                date: typeof fs.date === 'string' && fs.date.length >= 10 ? fs.date.slice(0, 10) : getDateStr(0),
+                mode: fs.mode === 'shift' ? 'shift' : 'pomodoro',
+                platformId: String(fs.platformId || ''),
+                linkValue: String(fs.linkValue || ''),
+                linkLabel: String(fs.linkLabel || '')
+              }))
+              .filter((fs) => fs.seconds > 0)
+          : [];
+
         return out;
       }
 
@@ -3434,6 +3591,7 @@
         mode: 'pomodoro', // 'pomodoro' | 'shift'
         pomoMinutes: 25,
         platformId: '',
+        linkValue: '',
         running: false,
         startedAt: null,
         accumulatedMs: 0
@@ -3449,6 +3607,7 @@
             timerState.mode = parsed.mode === 'shift' ? 'shift' : 'pomodoro';
             timerState.pomoMinutes = [25, 50, 90].includes(Number(parsed.pomoMinutes)) ? Number(parsed.pomoMinutes) : 25;
             timerState.platformId = typeof parsed.platformId === 'string' ? parsed.platformId : '';
+            timerState.linkValue = typeof parsed.linkValue === 'string' ? parsed.linkValue : '';
             timerState.running = Boolean(parsed.running);
             timerState.startedAt = parsed.running && Number(parsed.startedAt) > 0 ? Number(parsed.startedAt) : null;
             timerState.accumulatedMs = Math.max(0, Number(parsed.accumulatedMs) || 0);
@@ -3706,12 +3865,35 @@
         platIds.forEach((elId) => {
           const sel = document.getElementById(elId);
           if (!sel) return;
-          const prev = elId === 'timer-platform-select' && timerState.platformId ? timerState.platformId : sel.value;
-          sel.innerHTML = state.platforms
+          const isTimerSel = elId === 'timer-platform-select';
+          const prev = isTimerSel ? timerState.platformId : sel.value;
+          const optionsHtml = state.platforms
             .map((p) => `<option value="${escapeHtml(p.id)}">${escapeHtml(p.name)} ($${Number(p.rate).toFixed(1)}/hr)</option>`)
             .join('');
-          if (prev && state.platforms.some((p) => p.id === prev)) sel.value = prev;
+          sel.innerHTML = isTimerSel
+            ? `<option value="">Focus Only (No Pay)</option>` + optionsHtml
+            : optionsHtml;
+          if (isTimerSel) {
+            sel.value = prev && state.platforms.some((p) => p.id === prev) ? prev : '';
+          } else if (prev && state.platforms.some((p) => p.id === prev)) {
+            sel.value = prev;
+          }
         });
+
+        const timerLinkSel = document.getElementById('timer-link-select');
+        if (timerLinkSel) {
+          const prevLink = timerState.linkValue || timerLinkSel.value || '';
+          const skillsOpts = state.skills.map((s) => `<option value="skill:${escapeHtml(s.id)}">Skill: ${escapeHtml(s.name)}</option>`).join('');
+          const openTasks = state.tasks.filter((t) => !t.completed);
+          const tasksOpts = openTasks.map((t) => `<option value="task:${escapeHtml(t.id)}">Task: ${escapeHtml(t.title)}</option>`).join('');
+          timerLinkSel.innerHTML =
+            `<option value="">No Task / Skill Linked (Pure Focus)</option>` +
+            (skillsOpts ? `<optgroup label="Skills">${skillsOpts}</optgroup>` : '') +
+            (tasksOpts ? `<optgroup label="Open Daily Tasks">${tasksOpts}</optgroup>` : '');
+          const hasPrev = Array.from(timerLinkSel.options).some((o) => o.value === prevLink);
+          timerLinkSel.value = hasPrev ? prevLink : '';
+          if (!hasPrev) timerState.linkValue = '';
+        }
 
         ['task-skill-select', 'rec-skill-select'].forEach((sId) => {
           const skillSel = document.getElementById(sId);
@@ -3936,18 +4118,21 @@
             const reached = stats.current >= stats.target;
 
             const subtasksHtml = stats.subtasks
-              .map((st) => `
+              .map((st) => {
+                const isInDaily = state.tasks.some((t) => t.skillId === s.id && t.subtaskId === st.id);
+                return `
                 <div class="subtask-row ${st.completed ? 'is-done' : ''}">
                   <label class="flex items-center gap-2 min-w-0 flex-1 cursor-pointer">
                     <input type="checkbox" class="w-3.5 h-3.5 accent-emerald-500 cursor-pointer flex-shrink-0" data-toggle-subtask="${escapeHtml(s.id)}" data-subtask-id="${escapeHtml(st.id)}" ${st.completed ? 'checked' : ''} />
                     <span class="truncate ${st.completed ? 'line-through' : ''}" style="${st.completed ? 'color:var(--text-muted)' : ''}">${escapeHtml(st.title)}</span>
                   </label>
                   <div class="inline-flex items-center gap-1 flex-shrink-0">
-                    ${!st.completed ? `<button type="button" class="icon-action-btn" style="width:22px;height:22px" data-push-subtask="${escapeHtml(s.id)}" data-subtask-id="${escapeHtml(st.id)}" title="Add to Daily Priority Tasks">${ICONS.arrowUpRight}</button>` : ''}
+                    ${(!st.completed || isInDaily) ? `<button type="button" class="icon-action-btn ${isInDaily ? 'subtask-push-active' : ''}" style="width:22px;height:22px" data-push-subtask="${escapeHtml(s.id)}" data-subtask-id="${escapeHtml(st.id)}" title="${isInDaily ? 'In Daily Tasks — click to remove from Daily Tasks' : 'Send to Daily Priority Tasks'}">${ICONS.arrowUpRight}</button>` : ''}
                     <button type="button" class="icon-action-btn danger" style="width:22px;height:22px" data-del-subtask="${escapeHtml(s.id)}" data-subtask-id="${escapeHtml(st.id)}" title="Remove Sub-task">${ICONS.x}</button>
                   </div>
                 </div>
-              `)
+              `;
+              })
               .join('');
 
             return `
@@ -4061,6 +4246,50 @@
         });
       }
 
+      function formatDurationHuman(totalSeconds) {
+        const secs = Math.max(0, Math.floor(Number(totalSeconds) || 0));
+        const h = Math.floor(secs / 3600);
+        const m = Math.floor((secs % 3600) / 60);
+        if (h > 0) return `${h}h ${m}m`;
+        return `${m}m`;
+      }
+
+      function renderFocusTimeStats() {
+        const sessions = Array.isArray(state.focusSessions) ? state.focusSessions : [];
+        const todayStr = getDateStr(0);
+        let todaySecs = 0;
+        let allSecs = 0;
+        sessions.forEach((s) => {
+          const sec = Number(s.seconds) || 0;
+          allSecs += sec;
+          if (s.date === todayStr) todaySecs += sec;
+        });
+
+        const todayEl = document.getElementById('focus-today-total');
+        const allEl = document.getElementById('focus-alltime-total');
+        if (todayEl) todayEl.textContent = formatDurationHuman(todaySecs);
+        if (allEl) allEl.textContent = `${formatDurationHuman(allSecs)} · ${sessions.length} ${sessions.length === 1 ? 'session' : 'sessions'}`;
+
+        const linkSel = document.getElementById('timer-link-select');
+        const linkedRow = document.getElementById('focus-linked-row');
+        const linkedName = document.getElementById('focus-linked-name');
+        const linkedTotal = document.getElementById('focus-linked-total');
+        if (linkSel && linkedRow && linkedName && linkedTotal) {
+          const val = linkSel.value;
+          if (val) {
+            const matchedSecs = sessions
+              .filter((s) => s.linkValue === val)
+              .reduce((sum, s) => sum + (Number(s.seconds) || 0), 0);
+            const optText = linkSel.selectedOptions[0] ? linkSel.selectedOptions[0].textContent : val;
+            linkedName.textContent = optText;
+            linkedTotal.textContent = `${formatDurationHuman(matchedSecs)} total`;
+            linkedRow.style.display = 'flex';
+          } else {
+            linkedRow.style.display = 'none';
+          }
+        }
+      }
+
       function updateTimerUI() {
         const elapsedSecs = getTimerElapsedSeconds();
         let displaySecs = elapsedSecs;
@@ -4107,9 +4336,26 @@
         }
 
         const elapsedHours = elapsedSecs / 3600;
-        const plat = getPlatform(document.getElementById('timer-platform-select').value);
-        const estUsd = elapsedHours * (Number(plat.rate) || 0);
-        document.getElementById('timer-est-value').textContent = `$${estUsd.toFixed(2)} · ${elapsedHours.toFixed(2)}h`;
+        const elapsedMins = Math.floor(elapsedSecs / 60);
+        const selectedPlatId = document.getElementById('timer-platform-select').value;
+        const linkSelEl = document.getElementById('timer-link-select');
+        const selectedLinkVal = linkSelEl ? linkSelEl.value : '';
+        const logBtnLabel = document.getElementById('btn-timer-log-label');
+
+        if (!selectedPlatId) {
+          const linkText = selectedLinkVal && linkSelEl && linkSelEl.selectedOptions[0]
+            ? linkSelEl.selectedOptions[0].textContent
+            : 'Pure Focus';
+          const shortLink = linkText.length > 28 ? linkText.slice(0, 28) + '…' : linkText;
+          document.getElementById('timer-est-value').textContent = `${shortLink} · ${elapsedMins}m (${elapsedHours.toFixed(2)}h)`;
+          if (logBtnLabel) logBtnLabel.textContent = 'Log Focus Time';
+        } else {
+          const plat = getPlatform(selectedPlatId);
+          const estUsd = elapsedHours * (Number(plat.rate) || 0);
+          document.getElementById('timer-est-value').textContent = `$${estUsd.toFixed(2)} · ${elapsedHours.toFixed(2)}h`;
+          if (logBtnLabel) logBtnLabel.textContent = 'Log Shift to Income';
+        }
+        renderFocusTimeStats();
 
         const caption = document.getElementById('timer-mode-caption');
         caption.textContent = timerState.running
@@ -4966,11 +5212,24 @@
         const certChip = document.getElementById('interp-cert-chip');
         if (certChip) certChip.textContent = `LC-1498 unlocks in ${daysLeft}d`;
 
+        // Current Week Monday Key (resets cleanly every Monday while keeping past weeks saved)
+        const nowLocal = new Date();
+        const diffToMon = (nowLocal.getDay() + 6) % 7;
+        const mondayDateStr = getDateStr(-diffToMon);
+        const weekLoggedMap = (state.interpretingLoggedDays && state.interpretingLoggedDays[mondayDateStr]) || {};
+        const customSlotsMap = state.interpretingCustomSlots || {};
+        let loggedDaysCount = 0;
+
         // 7-Day Schedule Grid
         const schedGrid = document.getElementById('interp-schedule-grid');
         schedGrid.innerHTML = INTERP_SCHEDULE_DEF.map((d) => {
+          const dayKey = d.short.toLowerCase();
           const isToday = d.jsDay === jsDay;
-          const slotsHtml = d.slots.length > 0
+          const isLogged = Boolean(weekLoggedMap[dayKey]);
+          if (isLogged) loggedDaysCount += 1;
+          const customSlots = Array.isArray(customSlotsMap[dayKey]) ? customSlotsMap[dayKey] : [];
+
+          const baseSlotsHtml = d.slots.length > 0
             ? d.slots.map((s) => {
                 const slotClass = s.kind === 'missed' ? 'is-missed' : s.kind === 'overflow' ? 'is-overflow' : 'is-peak';
                 const slotColor = s.kind === 'missed' ? 'var(--accent-amber)' : s.kind === 'overflow' ? 'var(--accent-indigo)' : 'var(--accent-emerald)';
@@ -4986,10 +5245,21 @@
                   </div>
                 `;
               }).join('')
-            : `<div class="sched-slot"><div class="text-[11px] font-semibold" style="color:var(--text-muted)">Rest / Apply to New Platforms</div></div>`;
+            : (customSlots.length === 0 ? `<div class="sched-slot"><div class="text-[11px] font-semibold" style="color:var(--text-muted)">Rest / Apply to New Platforms</div></div>` : '');
+
+          const customSlotsHtml = customSlots.map((cs) => `
+            <div class="sched-slot is-custom">
+              <div class="flex items-center justify-between gap-1 text-[10px] font-bold" style="color:#06b6d4">
+                <span>Custom · Calls</span>
+                <button type="button" class="cursor-pointer border-0 bg-transparent p-0 leading-none" style="color:var(--text-muted)" data-del-custom-slot="${escapeHtml(cs.id)}" data-slot-day="${escapeHtml(dayKey)}" title="Remove custom time">×</button>
+              </div>
+              <div class="font-mono-num text-[11px] font-bold" style="color:var(--text-primary)">${escapeHtml(cs.time)}</div>
+              ${cs.note ? `<div class="text-[10px] mt-0.5" style="color:var(--text-secondary)">${escapeHtml(cs.note)}</div>` : ''}
+            </div>
+          `).join('');
 
           return `
-            <div class="sched-day-card ${isToday ? 'is-today' : ''} ${d.isRest ? 'is-rest' : ''}">
+            <div class="sched-day-card ${isToday ? 'is-today' : ''} ${d.isRest ? 'is-rest' : ''} ${isLogged ? 'is-logged' : ''}">
               <div class="flex flex-col gap-2">
                 <div class="flex items-center justify-between gap-1">
                   <span class="font-display text-sm font-bold">${escapeHtml(d.short)}</span>
@@ -4997,15 +5267,30 @@
                     ? `<span class="status-chip status-synced">TODAY</span>`
                     : `<span class="status-chip ${d.isRest ? 'status-local' : d.tier === '#1 Peak' ? 'status-synced' : 'status-syncing'}">${escapeHtml(d.tier)}</span>`}
                 </div>
-                <div class="flex flex-col gap-1.5">${slotsHtml}</div>
+                <div class="flex flex-col gap-1.5">${baseSlotsHtml}${customSlotsHtml}</div>
               </div>
-              <div class="pt-1 text-[10.5px] leading-snug" style="border-top:1px dashed var(--border-subtle);color:var(--text-secondary)">
-                <div class="font-mono-num font-bold mb-0.5" style="color:var(--text-primary)">${escapeHtml(d.volLabel)}</div>
-                <div>${escapeHtml(d.note)}</div>
+              <div class="flex flex-col gap-1.5 pt-1.5" style="border-top:1px dashed var(--border-subtle)">
+                <div class="text-[10.5px] leading-snug" style="color:var(--text-secondary)">
+                  <div class="font-mono-num font-bold mb-0.5" style="color:var(--text-primary)">${escapeHtml(d.volLabel)}</div>
+                  <div>${escapeHtml(d.note)}</div>
+                </div>
+                <div class="flex items-center gap-1 pt-0.5">
+                  <button type="button" class="day-log-btn flex-1 ${isLogged ? 'is-done' : ''}" data-toggle-interp-day="${escapeHtml(dayKey)}" data-week-key="${escapeHtml(mondayDateStr)}" title="Mark ${escapeHtml(d.name)} as logged in">
+                    ${isLogged ? ICONS.check : ''}
+                    <span>${isLogged ? 'Logged ✓' : 'Log Day'}</span>
+                  </button>
+                  <button type="button" class="day-log-btn" data-open-slot-day="${escapeHtml(dayKey)}" title="Add custom login time for ${escapeHtml(d.name)}">+ Time</button>
+                </div>
               </div>
             </div>
           `;
         }).join('');
+
+        const weekChip = document.getElementById('interp-logged-week-chip');
+        if (weekChip) {
+          weekChip.textContent = `${loggedDaysCount}/7 Days Logged`;
+          weekChip.className = `status-chip ${loggedDaysCount > 0 ? 'status-synced' : 'status-syncing'} font-mono-num`;
+        }
 
         // Platforms Pipeline (Add / Edit / Delete + Status)
         const platforms = Array.isArray(state.interpretingPlatforms) ? state.interpretingPlatforms : [];
@@ -5248,6 +5533,83 @@
           state.interpretingOffsetHours = Number(btn.dataset.etOffset) === 6 ? 6 : 7;
           saveState();
           renderInterpretingHub();
+        });
+
+        function openAddInterpSlotModal(dayKey) {
+          const dayNames = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+          const fallbackDay = dayNames[new Date().getDay()] || 'mon';
+          document.getElementById('islot-day-input').value = dayKey || fallbackDay;
+          document.getElementById('islot-time-input').value = '';
+          document.getElementById('islot-note-input').value = '';
+          document.getElementById('modal-interp-slot').classList.add('open');
+          setTimeout(() => document.getElementById('islot-time-input').focus(), 60);
+        }
+
+        document.getElementById('btn-open-add-interp-slot').addEventListener('click', () => {
+          openAddInterpSlotModal('');
+        });
+
+        document.getElementById('interp-schedule-grid').addEventListener('click', (e) => {
+          const toggleDayBtn = e.target.closest('[data-toggle-interp-day]');
+          if (toggleDayBtn) {
+            const dk = toggleDayBtn.dataset.toggleInterpDay;
+            const wk = toggleDayBtn.dataset.weekKey;
+            if (!state.interpretingLoggedDays || typeof state.interpretingLoggedDays !== 'object') {
+              state.interpretingLoggedDays = {};
+            }
+            if (!state.interpretingLoggedDays[wk]) state.interpretingLoggedDays[wk] = {};
+            const nextVal = !Boolean(state.interpretingLoggedDays[wk][dk]);
+            state.interpretingLoggedDays[wk][dk] = nextVal;
+            saveState();
+            renderInterpretingHub();
+            if (nextVal) {
+              triggerTaskCelebration(`${dk.toUpperCase()} Interpreting Shift Logged`, toggleDayBtn);
+            } else {
+              showToast(`Unmarked ${dk.toUpperCase()} login`);
+            }
+            return;
+          }
+
+          const addTimeBtn = e.target.closest('[data-open-slot-day]');
+          if (addTimeBtn) {
+            openAddInterpSlotModal(addTimeBtn.dataset.openSlotDay);
+            return;
+          }
+
+          const delSlotBtn = e.target.closest('[data-del-custom-slot]');
+          if (delSlotBtn) {
+            const sid = delSlotBtn.dataset.delCustomSlot;
+            const dk = delSlotBtn.dataset.slotDay;
+            if (state.interpretingCustomSlots && Array.isArray(state.interpretingCustomSlots[dk])) {
+              state.interpretingCustomSlots[dk] = state.interpretingCustomSlots[dk].filter((x) => x.id !== sid);
+              saveState();
+              renderInterpretingHub();
+              showToast('Custom time slot removed');
+            }
+          }
+        });
+
+        document.getElementById('form-interp-slot').addEventListener('submit', (e) => {
+          e.preventDefault();
+          const dk = document.getElementById('islot-day-input').value || 'mon';
+          const timeStr = document.getElementById('islot-time-input').value.trim();
+          const noteStr = document.getElementById('islot-note-input').value.trim();
+          if (!timeStr) return;
+          if (!state.interpretingCustomSlots || typeof state.interpretingCustomSlots !== 'object') {
+            state.interpretingCustomSlots = {};
+          }
+          if (!Array.isArray(state.interpretingCustomSlots[dk])) {
+            state.interpretingCustomSlots[dk] = [];
+          }
+          state.interpretingCustomSlots[dk].push({
+            id: 'cslot_' + Date.now(),
+            time: timeStr,
+            note: noteStr
+          });
+          saveState();
+          document.getElementById('modal-interp-slot').classList.remove('open');
+          renderInterpretingHub();
+          showToast(`Added custom time slot to ${dk.toUpperCase()}`);
         });
 
         document.getElementById('btn-open-interp-reminder').addEventListener('click', () => {
@@ -5771,6 +6133,12 @@
           updateTimerUI();
         });
 
+        document.getElementById('timer-link-select').addEventListener('change', (e) => {
+          timerState.linkValue = e.target.value;
+          saveTimerState();
+          updateTimerUI();
+        });
+
         document.getElementById('btn-timer-start').addEventListener('click', startTimer);
         document.getElementById('btn-timer-pause').addEventListener('click', pauseTimer);
         document.getElementById('btn-timer-reset').addEventListener('click', resetTimer);
@@ -5781,23 +6149,48 @@
             showToast('Run the timer for at least 1 minute to log', 'warn');
             return;
           }
-          const hours = Number((elapsedSecs / 3600).toFixed(2));
-          const plat = getPlatform(document.getElementById('timer-platform-select').value);
-          const amount = Number((hours * (Number(plat.rate) || 0)).toFixed(2));
-          state.incomeEntries.unshift({
-            id: 'ent_' + Date.now(),
-            platformId: plat.id,
-            hours,
-            amount,
+          const selectedPlatId = document.getElementById('timer-platform-select').value;
+          const linkSel = document.getElementById('timer-link-select');
+          const linkVal = linkSel ? linkSel.value : '';
+          const linkLabel = linkVal && linkSel && linkSel.selectedOptions[0] ? linkSel.selectedOptions[0].textContent : '';
+
+          if (!Array.isArray(state.focusSessions)) state.focusSessions = [];
+          state.focusSessions.unshift({
+            id: 'fses_' + Date.now(),
+            seconds: elapsedSecs,
             date: getDateStr(0),
-            note: `Focus timer (${timerState.mode === 'pomodoro' ? 'Pomodoro' : 'Open Shift'})`
+            mode: timerState.mode,
+            platformId: selectedPlatId,
+            linkValue: linkVal,
+            linkLabel: linkLabel
           });
-          resetTimer();
-          saveState();
-          renderWorkKpisAndPlatforms();
-          renderWeeklyReview();
-          renderEntries();
-          showToast(`Logged ${hours}h ($${amount.toFixed(2)}) to ${plat.name}`);
+
+          if (!selectedPlatId) {
+            resetTimer();
+            saveState();
+            renderFocusTimeStats();
+            triggerTaskCelebration(linkLabel || `${formatDurationHuman(elapsedSecs)} Focus Session`, document.getElementById('btn-timer-log'));
+            showToast(`Logged ${formatDurationHuman(elapsedSecs)} focus time${linkLabel ? ' (' + linkLabel + ')' : ''}`);
+          } else {
+            const hours = Number((elapsedSecs / 3600).toFixed(2));
+            const plat = getPlatform(selectedPlatId);
+            const amount = Number((hours * (Number(plat.rate) || 0)).toFixed(2));
+            state.incomeEntries.unshift({
+              id: 'ent_' + Date.now(),
+              platformId: plat.id,
+              hours,
+              amount,
+              date: getDateStr(0),
+              note: `Focus timer (${timerState.mode === 'pomodoro' ? 'Pomodoro' : 'Open Shift'})${linkLabel ? ' · ' + linkLabel : ''}`
+            });
+            resetTimer();
+            saveState();
+            renderWorkKpisAndPlatforms();
+            renderWeeklyReview();
+            renderEntries();
+            renderFocusTimeStats();
+            showToast(`Logged ${hours}h ($${amount.toFixed(2)}) to ${plat.name}`);
+          }
         });
 
         // Platforms CRUD
@@ -5980,7 +6373,13 @@
             if (!sk || !st) return;
             const alreadyExists = state.tasks.some((t) => t.skillId === sk.id && t.subtaskId === subId);
             if (alreadyExists) {
-              showToast('Already in Daily Priority Tasks', 'warn');
+              state.tasks = state.tasks.filter((t) => !(t.skillId === sk.id && t.subtaskId === subId));
+              saveState();
+              populateSelects();
+              renderTasks();
+              renderSkills();
+              renderWorkKpisAndPlatforms();
+              showToast('Removed from Daily Priority Tasks');
               return;
             }
             state.tasks.unshift({
