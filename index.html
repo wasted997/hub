@@ -295,7 +295,6 @@
     .tab-switcher {
       display: inline-flex;
       align-items: center;
-      flex-wrap: wrap;
       background: var(--bg-input);
       border: 1px solid var(--border-subtle);
       border-radius: 14px;
@@ -413,7 +412,6 @@
       transition: all 0.16s ease;
       white-space: nowrap;
       cursor: pointer;
-      text-decoration: none;
     }
 
     .ui-btn:hover {
@@ -1052,180 +1050,6 @@
       gap: 8px;
     }
 
-    
-    /* Interpreting Schedule Grid & Compact Command Bar */
-    .sched-grid {
-      display: grid;
-      grid-template-columns: repeat(7, minmax(0, 1fr));
-      gap: 10px;
-    }
-    .sched-day-card {
-      background: var(--bg-elevated);
-      border: 1px solid var(--border-subtle);
-      border-radius: 14px;
-      padding: 12px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 8px;
-      transition: border-color 0.18s ease;
-    }
-    .sched-day-card.is-today {
-      border-color: rgba(16, 185, 129, 0.65);
-      background: linear-gradient(180deg, rgba(16, 185, 129, 0.10), var(--bg-elevated));
-      box-shadow: 0 0 0 1px rgba(16, 185, 129, 0.35);
-    }
-    .sched-day-card.is-rest {
-      opacity: 0.78;
-    }
-    .sched-slot {
-      background: var(--bg-input);
-      border: 1px solid var(--border-subtle);
-      border-radius: 9px;
-      padding: 6px 8px;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-    .sched-slot.is-peak {
-      border-color: rgba(16, 185, 129, 0.38);
-    }
-    .sched-slot.is-custom {
-      background: rgba(6, 182, 212, 0.11);
-      border-color: rgba(6, 182, 212, 0.38);
-    }
-    .sched-day-card.is-logged {
-      border-color: rgba(16, 185, 129, 0.55) !important;
-      background: linear-gradient(180deg, rgba(16, 185, 129, 0.08), var(--bg-card));
-    }
-    .day-log-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-      padding: 4px 8px;
-      border-radius: 8px;
-      font-size: 11px;
-      font-weight: 700;
-      border: 1px solid var(--border-subtle);
-      background: var(--bg-input);
-      color: var(--text-secondary);
-      cursor: pointer;
-      transition: all 0.15s ease;
-    }
-    .day-log-btn:hover {
-      border-color: rgba(16, 185, 129, 0.45);
-      color: var(--accent-emerald);
-    }
-    .day-log-btn.is-done {
-      background: rgba(16, 185, 129, 0.16);
-      border-color: rgba(16, 185, 129, 0.55);
-      color: var(--accent-emerald);
-    }
-    .subtask-push-active {
-      background: rgba(16, 185, 129, 0.16) !important;
-      border-color: rgba(16, 185, 129, 0.55) !important;
-      color: var(--accent-emerald) !important;
-    }
-    .focus-stats-strip {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 8px;
-      padding: 8px 10px;
-      border-radius: 12px;
-      background: var(--bg-input);
-      border: 1px solid var(--border-subtle);
-    }
-    .sched-slot.is-overflow {
-      border-color: rgba(99, 102, 241, 0.45);
-      background: rgba(99, 102, 241, 0.08);
-    }
-    .sched-slot.is-missed {
-      border-color: rgba(245, 158, 11, 0.45);
-      background: rgba(245, 158, 11, 0.08);
-    }
-
-    /* Task Completion Celebration Overlay & Confetti */
-    .celebrate-banner {
-      position: fixed;
-      top: 22px;
-      left: 50%;
-      transform: translateX(-50%) translateY(-18px) scale(0.92);
-      opacity: 0;
-      pointer-events: none;
-      z-index: 80;
-      background: linear-gradient(135deg, rgba(16, 185, 129, 0.96), rgba(5, 150, 105, 0.96));
-      color: #022c22;
-      padding: 11px 20px;
-      border-radius: 999px;
-      font-family: var(--font-display);
-      font-size: 0.86rem;
-      font-weight: 800;
-      box-shadow: 0 16px 38px -8px rgba(16, 185, 129, 0.55);
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-      transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.28s ease;
-    }
-    .celebrate-banner.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0) scale(1);
-    }
-    .confetti-piece {
-      position: fixed;
-      width: 8px;
-      height: 8px;
-      border-radius: 2px;
-      pointer-events: none;
-      z-index: 79;
-      animation: confettiFall 1.05s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-    @keyframes confettiFall {
-      0% { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 1; }
-      100% { transform: translate(var(--dx), var(--dy)) rotate(var(--rot)) scale(0.4); opacity: 0; }
-    }
-    .task-done-flash {
-      animation: taskPulse 0.48s ease;
-    }
-    @keyframes taskPulse {
-      0% { transform: scale(1); border-color: rgba(16, 185, 129, 0.9); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.55); }
-      50% { transform: scale(1.012); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
-      100% { transform: scale(1); }
-    }
-
-    /* Reminder Banner */
-    .reminder-alert-banner {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 85;
-      max-width: 360px;
-      background: var(--bg-card);
-      border: 1px solid rgba(245, 158, 11, 0.65);
-      box-shadow: 0 18px 40px -10px rgba(0, 0, 0, 0.7);
-      border-radius: 16px;
-      padding: 14px 16px;
-      display: none;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .reminder-alert-banner.open {
-      display: flex;
-    }
-
-    @media (max-width: 1200px) {
-      .sched-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-    }
-    @media (max-width: 1024px) {
-      .sched-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    }
-    @media (max-width: 768px) {
-      .sched-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    }
-    @media (max-width: 560px) {
-      .sched-grid { grid-template-columns: 1fr; }
-    }
-
     /* Responsive Rules */
     @media (max-width: 1024px) {
       .kpi-row-4 {
@@ -1299,10 +1123,6 @@
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg>
             <span>Habit &amp; Prayer Tracker</span>
           </button>
-          <button type="button" class="tab-pill-btn" data-main-tab="interpreting">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
-            <span>Interpreting Hub</span>
-          </button>
         </nav>
 
         <div class="clocks-group" aria-label="Live World Clocks">
@@ -1367,17 +1187,6 @@
           <span>Import</span>
         </button>
         <input id="file-import-input" type="file" accept=".json,application/json" class="hidden" style="display:none" />
-
-        <button id="btn-header-timer-pill" type="button" class="ui-btn ui-btn-emerald" style="display:none" title="Focus Timer is running in background — click to jump to Work tab">
-          <span class="dot-sm" style="background:#03261d"></span>
-          <span id="header-timer-text" class="font-mono-num">00:00</span>
-        </button>
-
-        <button id="btn-enable-notif" type="button" class="ui-btn" title="Enable browser desktop alerts for task &amp; interpreting reminders">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
-          <span id="notif-btn-label">Reminders</span>
-          <span id="active-reminders-chip" class="status-chip status-amber font-mono-num" style="display:none">0</span>
-        </button>
 
         <button id="btn-open-reset" type="button" class="ui-btn ui-btn-crimson">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
@@ -1523,8 +1332,8 @@
           </div>
 
           <div class="flex items-center justify-between gap-2 text-xs pt-1" style="color:var(--text-secondary)">
-            <span>High Priority Left</span>
-            <strong id="kpi-high-left" class="font-mono-num" style="color:var(--accent-rose)">0 remaining</strong>
+            <span>Pending Left</span>
+            <strong id="kpi-pending-left" class="font-mono-num" style="color:var(--accent-amber)">0 remaining</strong>
           </div>
         </div>
       </section>
@@ -1598,11 +1407,11 @@
                 </div>
                 <div>
                   <h2 class="font-display text-[15px] font-bold">Daily Priority Tasks</h2>
-                  <p class="text-xs" style="color:var(--text-secondary)">Link any task to a Skill Goal — checking it updates progress automatically</p>
+                  <p class="text-xs" style="color:var(--text-secondary)">Schedule tasks by date — automatically filtered to the selected day</p>
                 </div>
               </div>
               <div class="inline-flex items-center gap-1.5 flex-wrap">
-                <button id="btn-run-daily-templates" type="button" class="ui-btn ui-btn-sm ui-btn-emerald" title="Add all Daily recurring task templates to today's list">
+                <button id="btn-run-daily-templates" type="button" class="ui-btn ui-btn-sm ui-btn-emerald" title="Add all Daily recurring task templates to the selected date">
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg>
                   <span>+ Run Daily</span>
                 </button>
@@ -1613,40 +1422,43 @@
                 </button>
                 <button id="btn-clear-completed" type="button" class="ui-btn ui-btn-sm ui-btn-crimson">
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
-                  <span>Clear Completed</span>
+                  <span>Clear Done</span>
                 </button>
               </div>
             </div>
 
-            <!-- Clean 2-Row Task Form -->
+            <!-- Clean 2-Row Task Form (Platform + Date Picker + Add) -->
             <form id="form-add-task" class="flex flex-col gap-2">
               <input id="task-title-input" type="text" class="ui-input" placeholder="Add a new task (e.g., Follow up on UPS shipment or VRI shift)..." required />
-              <div class="grid grid-cols-1 sm:grid-cols-4 gap-2">
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
                 <select id="task-platform-select" class="ui-select" aria-label="Platform"></select>
-                <select id="task-priority-select" class="ui-select" aria-label="Priority">
-                  <option value="High">High Priority</option>
-                  <option value="Medium" selected>Medium Priority</option>
-                  <option value="Low">Low Priority</option>
-                </select>
-                <select id="task-skill-select" class="ui-select" aria-label="Linked Skill"></select>
+                <input id="task-date-input" type="date" class="ui-input font-mono-num" aria-label="Task Date" required />
                 <button type="submit" class="ui-btn ui-btn-primary">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
-                  <span>Add</span>
+                  <span>Add Task</span>
                 </button>
               </div>
-              <!-- Optional: Also save as a sub-task inside the selected Skill Goal -->
-              <label id="task-as-subtask-wrap" class="hidden items-center gap-2 text-xs px-1 cursor-pointer" style="color:var(--text-secondary)">
-                <input id="task-as-subtask-check" type="checkbox" class="w-3.5 h-3.5 accent-indigo-500 cursor-pointer" />
-                <span>Also add as a checklist sub-task inside this Skill Goal</span>
-              </label>
             </form>
 
-            <!-- Filter Bar with Live Counts -->
-            <div id="task-filter-bar" class="flex items-center gap-1.5 flex-wrap">
-              <button type="button" class="filter-pill active" data-task-filter="All">All <span id="cnt-task-all" class="pill-count">0</span></button>
-              <button type="button" class="filter-pill" data-task-filter="High">High <span id="cnt-task-high" class="pill-count">0</span></button>
-              <button type="button" class="filter-pill" data-task-filter="Pending">Pending <span id="cnt-task-pending" class="pill-count">0</span></button>
-              <button type="button" class="filter-pill" data-task-filter="Completed">Completed <span id="cnt-task-completed" class="pill-count">0</span></button>
+            <!-- Date Filter Navigator & Status Pills -->
+            <div class="flex items-center justify-between gap-2 flex-wrap pt-1" style="border-top:1px solid var(--border-subtle)">
+              <div class="inline-flex items-center gap-1.5 flex-wrap">
+                <button id="btn-task-prev-day" type="button" class="icon-action-btn" title="Previous Day">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                </button>
+                <input id="task-filter-date-input" type="date" class="ui-input font-mono-num text-xs" style="width:auto;padding:4px 8px" aria-label="Filter tasks by date" />
+                <button id="btn-task-next-day" type="button" class="icon-action-btn" title="Next Day">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                </button>
+                <button id="btn-task-today" type="button" class="ui-btn ui-btn-sm" style="display:none">Today</button>
+                <button id="btn-task-all-dates" type="button" class="filter-pill" title="Show tasks across all dates">All Dates</button>
+              </div>
+
+              <div id="task-filter-bar" class="flex items-center gap-1.5 flex-wrap">
+                <button type="button" class="filter-pill active" data-task-filter="All">All <span id="cnt-task-all" class="pill-count">0</span></button>
+                <button type="button" class="filter-pill" data-task-filter="Pending">Pending <span id="cnt-task-pending" class="pill-count">0</span></button>
+                <button type="button" class="filter-pill" data-task-filter="Completed">Completed <span id="cnt-task-completed" class="pill-count">0</span></button>
+              </div>
             </div>
 
             <div id="task-list" class="scroll-box"></div>
@@ -1721,7 +1533,7 @@
                 </div>
                 <div>
                   <h2 class="font-display text-[15px] font-bold">Focus Timer &amp; Shift Calculator</h2>
-                  <p class="text-xs" style="color:var(--text-secondary)">Keeps counting accurately in background tabs &amp; across workspaces</p>
+                  <p class="text-xs" style="color:var(--text-secondary)">Auto-logs Platform shifts to Income · Tasks &amp; Skills track Focus Time only</p>
                 </div>
               </div>
             </div>
@@ -1732,21 +1544,17 @@
               <button id="btn-mode-shift" type="button" class="ui-btn border-0 bg-transparent">Open Shift (Count-Up)</button>
             </div>
 
-            <!-- Preset Pills & Platform Select -->
-            <div class="flex items-center justify-between gap-2 flex-wrap">
-              <div id="timer-presets-row" class="inline-flex items-center gap-1.5">
-                <button type="button" class="filter-pill active font-mono-num" data-pomo-mins="25">25m</button>
-                <button type="button" class="filter-pill font-mono-num" data-pomo-mins="50">50m</button>
-                <button type="button" class="filter-pill font-mono-num" data-pomo-mins="90">90m</button>
+            <!-- Preset Pills & Unified Smart Target Select -->
+            <div class="flex flex-col gap-2">
+              <div class="flex items-center justify-between gap-2 flex-wrap">
+                <div id="timer-presets-row" class="inline-flex items-center gap-1.5">
+                  <button type="button" class="filter-pill active font-mono-num" data-pomo-mins="25">25m</button>
+                  <button type="button" class="filter-pill font-mono-num" data-pomo-mins="50">50m</button>
+                  <button type="button" class="filter-pill font-mono-num" data-pomo-mins="90">90m</button>
+                </div>
+                <span id="timer-routing-badge" class="status-chip status-synced">Logs to Income + Hours</span>
               </div>
-              <div class="flex-1 min-w-[180px]">
-                <select id="timer-platform-select" class="ui-select" aria-label="Focus Mode or Paid Platform"></select>
-              </div>
-            </div>
-
-            <!-- Optional Link to Skill or Daily Task -->
-            <div class="flex items-center gap-2">
-              <select id="timer-link-select" class="ui-select" aria-label="Optional Skill or Task Link"></select>
+              <select id="timer-target-select" class="ui-select" aria-label="Timer Target (Platform, Task, or Skill)"></select>
             </div>
 
             <!-- Sleek 156px Circular SVG Progress Ring -->
@@ -1770,7 +1578,7 @@
               <div id="timer-est-value" class="font-mono-num text-xs font-bold" style="color:var(--accent-emerald)">$0.00 · 0.00h</div>
             </div>
 
-            <!-- Timer Action Controls -->
+            <!-- Timer Action Controls (Start, Pause, Stop & Save, Reset) -->
             <div class="flex items-center justify-center gap-2 flex-wrap">
               <button id="btn-timer-start" type="button" class="ui-btn ui-btn-emerald">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="6 3 20 12 6 21 6 3"/></svg>
@@ -1780,29 +1588,25 @@
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
                 <span>Pause</span>
               </button>
+              <button id="btn-timer-stop-save" type="button" class="ui-btn ui-btn-primary">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/></svg>
+                <span>Stop &amp; Save</span>
+              </button>
               <button id="btn-timer-reset" type="button" class="ui-btn">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
                 <span>Reset</span>
               </button>
-              <button id="btn-timer-log" type="button" class="ui-btn ui-btn-primary">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
-                <span id="btn-timer-log-label">Log Focus Time</span>
-              </button>
             </div>
 
-            <!-- Total Focus Time Tracker Strip -->
-            <div class="focus-stats-strip">
-              <div>
-                <div class="text-[10.5px] font-semibold uppercase tracking-wide" style="color:var(--text-muted)">Today's Focus</div>
-                <div id="focus-today-total" class="font-mono-num text-sm font-bold" style="color:var(--accent-emerald)">0m</div>
+            <!-- Focus Time Totals (Today's Focus & All-Time Total) -->
+            <div class="grid grid-cols-2 gap-3 p-3 rounded-xl" style="background:var(--bg-input);border:1px solid var(--border-subtle)">
+              <div class="flex flex-col gap-0.5">
+                <span class="text-[10px] font-bold tracking-wider uppercase" style="color:var(--text-muted)">Today's Focus</span>
+                <strong id="focus-today-total" class="font-mono-num text-sm font-bold" style="color:var(--accent-emerald)">0m</strong>
               </div>
-              <div>
-                <div class="text-[10.5px] font-semibold uppercase tracking-wide" style="color:var(--text-muted)">All-Time Total</div>
-                <div id="focus-alltime-total" class="font-mono-num text-sm font-bold" style="color:var(--text-primary)">0m · 0 sessions</div>
-              </div>
-              <div id="focus-linked-row" class="col-span-2 pt-1.5 text-[11px] font-mono-num flex items-center justify-between gap-2" style="display:none;border-top:1px dashed var(--border-subtle);color:var(--text-secondary)">
-                <span id="focus-linked-name" class="truncate"></span>
-                <span id="focus-linked-total" class="font-bold flex-shrink-0" style="color:var(--accent-indigo)">0m total</span>
+              <div class="flex flex-col gap-0.5">
+                <span class="text-[10px] font-bold tracking-wider uppercase" style="color:var(--text-muted)">All-Time Total</span>
+                <strong id="focus-alltime-total" class="font-mono-num text-sm font-bold" style="color:var(--text-primary)">0m · 0 sessions</strong>
               </div>
             </div>
           </div>
@@ -2133,105 +1937,6 @@
         </div>
       </div>
     </section>
-
-    <!-- ===================================================== -->
-    <!-- TAB 3: INTERPRETING HUB (SCHEDULE & PLATFORMS)        -->
-    <!-- ===================================================== -->
-    <section id="panel-interpreting" class="view-panel" aria-label="Interpreting Hub">
-      <!-- Single Clean Uncluttered Top Command Card -->
-      <div class="hub-card">
-        <div class="flex items-center justify-between gap-4 flex-wrap">
-          <div class="flex items-center gap-3 min-w-0">
-            <div class="icon-badge ib-emerald" style="width:42px;height:42px">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            </div>
-            <div class="min-w-0">
-              <div class="flex items-center gap-2 flex-wrap">
-                <h2 id="interp-live-headline" class="font-display text-base font-bold">--</h2>
-                <span id="interp-live-badge" class="status-chip status-local">Checking...</span>
-                <span id="interp-today-slots-chip" class="status-chip status-syncing font-mono-num">--</span>
-              </div>
-              <p id="interp-live-sub" class="text-xs mt-0.5" style="color:var(--text-secondary)">--</p>
-            </div>
-          </div>
-
-          <div class="flex items-center gap-2 flex-wrap">
-            <span id="interp-cert-chip" class="status-chip status-amber font-mono-num" title="40-Hour Medical Cert (LC-1498) unlocks Apr 12, 2027">LC-1498: --d left</span>
-            <button id="btn-open-interp-reminder" type="button" class="ui-btn ui-btn-sm ui-btn-primary">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
-              <span>Shift Reminder</span>
-            </button>
-            <a href="https://lingotec.ca.interpretmanager.com/ng/#/app/interpreter/dashboard/interpreter-home" target="_blank" rel="noopener noreferrer" class="ui-btn ui-btn-sm ui-btn-emerald">
-              <span>InterpretManager</span>
-            </a>
-            <a href="https://lingotec-server.tail223c7f.ts.net/live-calls" target="_blank" rel="noopener noreferrer" class="ui-btn ui-btn-sm">
-              <span>Live Calls</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Weekly Peak Login Schedule (Cairo Time — Updated with Latest Arabic Data & Real Call Times) -->
-      <div class="hub-card">
-        <div class="flex items-start justify-between gap-3 flex-wrap">
-          <div class="flex items-center gap-2.5">
-            <div class="icon-badge ib-emerald">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            </div>
-            <div>
-              <div class="flex items-center gap-2 flex-wrap">
-                <h2 class="font-display text-[15px] font-bold">Weekly Interpreting Login Schedule (Cairo Time)</h2>
-                <span id="interp-offset-chip" class="status-chip status-synced font-mono-num">Cairo = ET +7h</span>
-                <span id="interp-logged-week-chip" class="status-chip status-syncing font-mono-num">0/7 Days Logged</span>
-              </div>
-              <p class="text-xs" style="color:var(--text-secondary)">Updated from Lingotec Arabic (2,350 calls · 18.7m avg) + live calls caught &amp; Backstop overflow windows</p>
-            </div>
-          </div>
-
-          <div class="inline-flex items-center gap-2 flex-wrap">
-            <div id="interp-offset-bar" class="inline-flex items-center gap-1.5">
-              <button type="button" class="filter-pill active font-mono-num" data-et-offset="7">Winter (ET +7h)</button>
-              <button type="button" class="filter-pill font-mono-num" data-et-offset="6">Summer (ET +6h)</button>
-            </div>
-            <button id="btn-open-add-interp-slot" type="button" class="ui-btn ui-btn-sm ui-btn-emerald">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
-              <span>Add Custom Time</span>
-            </button>
-          </div>
-        </div>
-
-        <div id="interp-schedule-grid" class="sched-grid"></div>
-
-        <div class="flex items-center justify-between gap-2 flex-wrap pt-2 text-xs" style="border-top:1px dashed var(--border-subtle);color:var(--text-secondary)">
-          <span><strong>Real Calls Caught:</strong> Interpreters caught Arabic OPI/VRI calls right up to <span id="interp-caught-tail" class="font-mono-num font-bold" style="color:var(--accent-emerald)">9:49–9:59 PM Cairo</span> (<span class="font-mono-num">&lt;10–15s</span>), and calls spilled to Backstop at <span id="interp-backstop-times" class="font-mono-num font-bold" style="color:var(--accent-indigo)">7:21 PM, 10:01 PM &amp; 11:09 PM Cairo</span>.</span>
-          <span><strong>Missed-Call Edge:</strong> <span id="interp-missed-win" class="font-mono-num font-bold" style="color:var(--accent-amber)">5:00–6:00 PM Cairo</span> (peak overflow) + Thu <span id="interp-thu-am" class="font-mono-num font-bold" style="color:var(--accent-amber)">10:00 AM–12:00 PM</span>.</span>
-        </div>
-      </div>
-
-      <!-- AR <-> EN Interpreting Platforms Pipeline (Full Add / Edit / Delete + Cloud Sync) -->
-      <div class="hub-card">
-        <div class="flex items-start justify-between gap-2 flex-wrap">
-          <div class="flex items-center gap-2.5">
-            <div class="icon-badge ib-blue">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" x2="22" y1="12" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-            </div>
-            <div>
-              <h2 class="font-display text-[15px] font-bold">AR ↔ EN Interpreting Platforms Pipeline</h2>
-              <p class="text-xs" style="color:var(--text-secondary)">Add, edit, or track any interpreting website — automatically saved &amp; synced to Google Sheets</p>
-            </div>
-          </div>
-          <div class="inline-flex items-center gap-2">
-            <span id="interp-applied-chip" class="status-chip status-syncing font-mono-num">0/7 Applied</span>
-            <button id="btn-open-add-interp-plat" type="button" class="ui-btn ui-btn-sm ui-btn-primary">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
-              <span>Add Platform</span>
-            </button>
-          </div>
-        </div>
-
-        <div id="interp-platforms-list" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
-      </div>
-    </section>
   </div>
 
   <!-- ===================================================== -->
@@ -2259,16 +1964,8 @@
       <!-- Quick Add Template Form -->
       <form id="form-add-recurring" class="flex flex-col gap-2 p-3 rounded-xl" style="background:var(--bg-elevated);border:1px solid var(--border-subtle)">
         <input id="rec-title-input" type="text" class="ui-input" placeholder="Template task (e.g., Check client handbook, Morning VRI shift)..." required />
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-          <select id="rec-platform-select" class="ui-select" aria-label="Template Platform"></select>
-          <select id="rec-skill-select" class="ui-select" aria-label="Template Linked Skill"></select>
-        </div>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-          <select id="rec-priority-select" class="ui-select" aria-label="Template Priority">
-            <option value="High">High Priority</option>
-            <option value="Medium" selected>Medium Priority</option>
-            <option value="Low">Low Priority</option>
-          </select>
+          <select id="rec-platform-select" class="ui-select" aria-label="Template Platform"></select>
           <select id="rec-freq-select" class="ui-select" aria-label="Template Frequency">
             <option value="Daily" selected>Daily Routine</option>
             <option value="Weekly">Weekly Routine</option>
@@ -2549,173 +2246,6 @@
     </div>
   </div>
 
-
-  <!-- Modal: Add Custom Interpreting Time Slot -->
-  <div id="modal-interp-slot" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-interp-slot-title">
-    <div class="modal-card">
-      <div class="flex items-center justify-between">
-        <h3 id="modal-interp-slot-title" class="font-display text-base font-bold">Add Custom Login Time</h3>
-        <button type="button" class="icon-action-btn" data-close-modal="modal-interp-slot">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-        </button>
-      </div>
-      <form id="form-interp-slot" class="flex flex-col gap-3">
-        <div>
-          <label class="block text-xs font-semibold mb-1" style="color:var(--text-secondary)">Day of Week</label>
-          <select id="islot-day-input" class="ui-select">
-            <option value="mon">Monday</option>
-            <option value="tue">Tuesday</option>
-            <option value="wed">Wednesday</option>
-            <option value="thu">Thursday</option>
-            <option value="fri">Friday</option>
-            <option value="sat">Saturday</option>
-            <option value="sun">Sunday</option>
-          </select>
-        </div>
-        <div>
-          <label class="block text-xs font-semibold mb-1" style="color:var(--text-secondary)">Time Window (Cairo Time)</label>
-          <input id="islot-time-input" type="text" class="ui-input" placeholder="e.g., 11:00 PM - 12:30 AM" required />
-        </div>
-        <div>
-          <label class="block text-xs font-semibold mb-1" style="color:var(--text-secondary)">Calls / Note (Optional)</label>
-          <input id="islot-note-input" type="text" class="ui-input" placeholder="e.g., Caught 2 Arabic OPI calls" />
-        </div>
-        <div class="flex justify-end gap-2 mt-1">
-          <button type="button" class="ui-btn" data-close-modal="modal-interp-slot">Cancel</button>
-          <button type="submit" class="ui-btn ui-btn-emerald">Save Time Slot</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- Modal: Add / Edit Interpreting Pipeline Platform -->
-  <div id="modal-interp-platform" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-interp-plat-title">
-    <div class="modal-card">
-      <div class="flex items-center justify-between">
-        <h3 id="modal-interp-plat-title" class="font-display text-base font-bold">Interpreting Platform</h3>
-        <button type="button" class="icon-action-btn" data-close-modal="modal-interp-platform">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-        </button>
-      </div>
-
-      <form id="form-interp-platform" class="flex flex-col gap-3">
-        <input id="ip-id-input" type="hidden" />
-        <div>
-          <label for="ip-name-input" class="block text-xs font-semibold mb-1" style="color:var(--text-secondary)">Platform / Company Name</label>
-          <input id="ip-name-input" type="text" class="ui-input" required placeholder="e.g., Future Group (Kalam)" />
-        </div>
-        <div class="grid grid-cols-2 gap-2.5">
-          <div>
-            <label for="ip-badge-input" class="block text-xs font-semibold mb-1" style="color:var(--text-secondary)">Tag / Region</label>
-            <input id="ip-badge-input" type="text" class="ui-input" placeholder="e.g., Egypt / Remote" />
-          </div>
-          <div>
-            <label for="ip-status-input" class="block text-xs font-semibold mb-1" style="color:var(--text-secondary)">Status</label>
-            <select id="ip-status-input" class="ui-select">
-              <option value="Not Applied">Not Applied</option>
-              <option value="Applied">Applied</option>
-              <option value="Assessment">Assessment / Interview</option>
-              <option value="Active">Active Roster</option>
-            </select>
-          </div>
-        </div>
-        <div>
-          <label for="ip-model-input" class="block text-xs font-semibold mb-1" style="color:var(--text-secondary)">Notes / Work Model</label>
-          <input id="ip-model-input" type="text" class="ui-input" placeholder="e.g., OPI &amp; VRI · Per-minute or Fixed Shift" />
-        </div>
-        <div>
-          <label for="ip-url-input" class="block text-xs font-semibold mb-1" style="color:var(--text-secondary)">Application / Portal URL</label>
-          <input id="ip-url-input" type="url" class="ui-input font-mono-num text-xs" required placeholder="https://..." />
-        </div>
-        <div class="flex justify-end gap-2 pt-1">
-          <button type="button" class="ui-btn" data-close-modal="modal-interp-platform">Cancel</button>
-          <button type="submit" class="ui-btn ui-btn-primary">Save Platform</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- Modal: Set Reminder (Task or Interpreting Shift) -->
-  <div id="modal-reminder" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-reminder-title">
-    <div class="modal-card">
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-2">
-          <div class="icon-badge ib-amber">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
-          </div>
-          <div>
-            <h3 id="modal-reminder-title" class="font-display text-base font-bold">Set Reminder</h3>
-            <div id="modal-reminder-sub" class="text-xs" style="color:var(--text-secondary)">Chime + Desktop Notification when due</div>
-          </div>
-        </div>
-        <button type="button" class="icon-action-btn" data-close-modal="modal-reminder">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-        </button>
-      </div>
-
-      <form id="form-reminder" class="flex flex-col gap-3">
-        <input id="rem-kind-input" type="hidden" value="shift" />
-        <input id="rem-task-id-input" type="hidden" value="" />
-        <div>
-          <label for="rem-label-input" class="block text-xs font-semibold mb-1" style="color:var(--text-secondary)">Reminder Title</label>
-          <input id="rem-label-input" type="text" class="ui-input" required placeholder="e.g., Log into Lingotec Peak 1" />
-        </div>
-
-        <div class="flex items-center gap-1.5 flex-wrap">
-          <button type="button" class="filter-pill" data-rem-quick="15">+15m</button>
-          <button type="button" class="filter-pill" data-rem-quick="30">+30m</button>
-          <button type="button" class="filter-pill" data-rem-quick="60">+1h</button>
-          <button type="button" class="filter-pill" data-rem-peak="peak1">Peak 1 (3:55 PM)</button>
-          <button type="button" class="filter-pill" data-rem-peak="peak2">Peak 2 (7:55 PM)</button>
-        </div>
-
-        <div>
-          <label for="rem-datetime-input" class="block text-xs font-semibold mb-1" style="color:var(--text-secondary)">Date &amp; Time (Local)</label>
-          <input id="rem-datetime-input" type="datetime-local" class="ui-input font-mono-num" required />
-        </div>
-
-        <div class="flex items-center justify-between gap-2 pt-1">
-          <button id="btn-clear-task-rem" type="button" class="ui-btn ui-btn-crimson" style="display:none">Remove Reminder</button>
-          <div class="inline-flex items-center gap-2 ml-auto">
-            <button type="button" class="ui-btn" data-close-modal="modal-reminder">Cancel</button>
-            <button type="submit" class="ui-btn ui-btn-emerald">Save Reminder</button>
-          </div>
-        </div>
-      </form>
-
-      <div id="active-reminders-section" class="pt-2 flex flex-col gap-2" style="border-top:1px dashed var(--border-subtle)">
-        <div class="text-xs font-semibold" style="color:var(--text-secondary)">Upcoming Active Reminders</div>
-        <div id="active-reminders-list" class="scroll-box" style="max-height:150px"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Task Completion Celebration Banner -->
-  <div id="celebrate-banner" class="celebrate-banner" role="status" aria-live="polite">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-    <span id="celebrate-text">Task completed successfully!</span>
-  </div>
-
-  <!-- Active Reminder Alert Banner -->
-  <div id="reminder-alert-banner" class="reminder-alert-banner" role="alert">
-    <div class="flex items-start justify-between gap-2">
-      <div class="flex items-center gap-2">
-        <div class="icon-badge ib-amber" style="width:28px;height:28px">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
-        </div>
-        <div class="font-display text-sm font-bold">Reminder Due!</div>
-      </div>
-      <button id="btn-dismiss-rem-alert" type="button" class="icon-action-btn" title="Dismiss">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-      </button>
-    </div>
-    <div id="reminder-alert-msg" class="text-xs font-semibold" style="color:var(--text-primary)">--</div>
-    <div class="flex items-center justify-end gap-2">
-      <button id="btn-snooze-rem-alert" type="button" class="ui-btn ui-btn-sm">Snooze 10m</button>
-      <button id="btn-ok-rem-alert" type="button" class="ui-btn ui-btn-sm ui-btn-emerald">Got it</button>
-    </div>
-  </div>
-
   <!-- Toast Container -->
   <div id="toast-container" class="toast-container" aria-live="polite"></div>
 
@@ -2779,151 +2309,6 @@
         { key: 'qiyam', label: 'Qiyam (قيام الليل)' }
       ];
 
-
-      const INTERP_SCHEDULE_DEF = [
-        {
-          jsDay: 1,
-          short: 'Mon',
-          name: 'Monday',
-          volLabel: '~1,060 min/wk',
-          tier: 'High',
-          slots: [
-            { label: 'Peak 1', startET: 9, endET: 12, kind: 'peak' },
-            { label: 'Peak 2', startET: 13, endET: 15, kind: 'peak' }
-          ],
-          note: 'Strong 9–12 & 1–3 PM ET. Lunch dip at 12–1 PM ET.'
-        },
-        {
-          jsDay: 2,
-          short: 'Tue',
-          name: 'Tuesday',
-          volLabel: '~1,398 min/wk',
-          tier: '#1 Peak',
-          slots: [
-            { label: 'Peak 1 (#1)', startET: 9, endET: 12, kind: 'peak' },
-            { label: 'Peak 2', startET: 13, endET: 15, kind: 'peak' }
-          ],
-          note: 'Highest volume day (~60 calls at 10 AM ET alone, 22.9m avg).'
-        },
-        {
-          jsDay: 3,
-          short: 'Wed',
-          name: 'Wednesday',
-          volLabel: '~1,202 min/wk',
-          tier: 'Top 3',
-          slots: [
-            { label: 'Peak 1', startET: 9, endET: 12, kind: 'peak' },
-            { label: 'Peak 2', startET: 13, endET: 15, kind: 'peak' }
-          ],
-          note: 'Major spike at 10 AM & 1 PM ET; missed calls at 10 AM & 9 PM ET.'
-        },
-        {
-          jsDay: 4,
-          short: 'Thu',
-          name: 'Thursday',
-          volLabel: '~1,292 min/wk',
-          tier: 'Top + Edge',
-          slots: [
-            { label: 'Low-Comp AM', startET: 3, endET: 5, kind: 'missed' },
-            { label: 'Peak 1', startET: 9, endET: 12, kind: 'peak' },
-            { label: 'Peak 2 + Overflow', startET: 13, endET: 16.25, kind: 'overflow' }
-          ],
-          note: 'Live calls caught up to 2:59 PM ET; Backstop overflow at 3:01 & 4:09 PM ET!'
-        },
-        {
-          jsDay: 5,
-          short: 'Fri',
-          name: 'Friday',
-          volLabel: '~1,175 min/wk',
-          tier: 'Continuous',
-          slots: [
-            { label: 'Continuous Peak', startET: 9, endET: 15, kind: 'peak' }
-          ],
-          note: 'Steady continuous volume 9 AM–3 PM ET (less lunch drop).'
-        },
-        {
-          jsDay: 6,
-          short: 'Sat',
-          name: 'Saturday',
-          volLabel: '~133 min/wk',
-          tier: 'Rest / Apply',
-          isRest: true,
-          slots: [],
-          note: 'Low volume (occasional 1–3 AM ET missed calls). Best for applying.'
-        },
-        {
-          jsDay: 0,
-          short: 'Sun',
-          name: 'Sunday',
-          volLabel: '~67 min/wk',
-          tier: 'Rest / Prep',
-          isRest: true,
-          slots: [],
-          note: 'Rest day — refresh glossaries & prep for Monday.'
-        }
-      ];
-
-      function getDefaultInterpPlatforms() {
-        return [
-          {
-            id: 'ip_future_group',
-            name: 'Future Group (Kalam)',
-            badge: 'Egypt / Worldwide',
-            model: 'Fixed Shift / FT or PT · Paid Training',
-            url: 'https://kalam.freshteam.com/jobs/seVMC39TFvZ8/arabic-english-opi-vri-interpretation-vacancy-remote',
-            status: 'Not Applied'
-          },
-          {
-            id: 'ip_lionbridge',
-            name: 'Lionbridge (OPI)',
-            badge: 'Hiring AR-EN',
-            model: 'Freelance OPI · US Business Hours (16h+/wk)',
-            url: 'https://careers.lionbridge.com/jobs/arabic-interpreter',
-            status: 'Not Applied'
-          },
-          {
-            id: 'ip_lsa',
-            name: 'Language Services Associates (LSA)',
-            badge: 'Global Network',
-            model: 'Independent Contractor · OPI & VRI',
-            url: 'https://lsa.inc/opportunities/interpreter-opportunities/',
-            status: 'Not Applied'
-          },
-          {
-            id: 'ip_thebigword',
-            name: 'thebigword (WordSynk)',
-            badge: '250+ Languages',
-            model: '24/7 On-Demand OPI/VRI + Scheduled',
-            url: 'https://en-gb.thebigword.com/linguist-opportunities/',
-            status: 'Not Applied'
-          },
-          {
-            id: 'ip_day_translations',
-            name: 'Day Translations / Day Interpreting',
-            badge: '100% Remote',
-            model: 'Global Remote · OPI & VRI',
-            url: 'https://www.daytranslations.com/company/careers/',
-            status: 'Not Applied'
-          },
-          {
-            id: 'ip_globo',
-            name: 'GLOBO Language Solutions',
-            badge: 'Medical Focus',
-            model: 'Check active Arabic list before applying',
-            url: 'https://www.helloglobo.com/linguisthub/applying-to-be-an-interpreter-with-globo',
-            status: 'Not Applied'
-          },
-          {
-            id: 'ip_big_interpvault',
-            name: 'BIG Language Solutions (InterpVault)',
-            badge: 'Vendor / Email',
-            model: 'Email providerrelations@biglanguage.com + Vendor form',
-            url: 'https://biglanguage.com/contact/contact-vendor/',
-            status: 'Not Applied'
-          }
-        ];
-      }
-
       /* ===================================================== */
       /* CRISP INLINE LUCIDE-STYLE SVG ICONS                   */
       /* ===================================================== */
@@ -2946,7 +2331,6 @@
         arrowUpRight: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>',
         mosque: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c-2 2.5-5 4-5 7v11h10V9c0-3-3-4.5-5-7Z"/><path d="M3 20h18"/><path d="M10 20v-4a2 2 0 0 1 4 0v4"/></svg>',
         chevronDown: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>',
-        bell: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>',
         repeat: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg>'
       };
 
@@ -2990,51 +2374,6 @@
         const parts = dateStr.split('-').map(Number);
         const d = new Date(Date.UTC(parts[0], (parts[1] || 1) - 1, parts[2] || 1));
         return d.toLocaleDateString('en-US', { timeZone: 'UTC', weekday: 'short', month: 'short', day: 'numeric' });
-      }
-
-
-      function formatHour12(h24Float) {
-        const totalMins = Math.round(((h24Float % 24) + 24) % 24 * 60);
-        const h = Math.floor(totalMins / 60) % 24;
-        const m = totalMins % 60;
-        const suffix = h >= 12 ? 'PM' : 'AM';
-        const hr12 = h % 12 === 0 ? 12 : h % 12;
-        return `${hr12}:${String(m).padStart(2, '0')} ${suffix}`;
-      }
-
-      let celebrateTimer = null;
-      function triggerTaskCelebration(taskTitle, originEl) {
-        playGentleChime();
-        const banner = document.getElementById('celebrate-banner');
-        const txt = document.getElementById('celebrate-text');
-        if (banner && txt) {
-          const shortTitle = taskTitle && taskTitle.length > 36 ? taskTitle.slice(0, 36) + '…' : (taskTitle || 'Task');
-          txt.textContent = `Completed: ${shortTitle}!`;
-          banner.classList.add('show');
-          clearTimeout(celebrateTimer);
-          celebrateTimer = setTimeout(() => banner.classList.remove('show'), 2100);
-        }
-        // Lightweight CSS confetti burst around the checkbox or screen top-center
-        try {
-          const rect = originEl && originEl.getBoundingClientRect ? originEl.getBoundingClientRect() : null;
-          const cx = rect ? rect.left + rect.width / 2 : window.innerWidth / 2;
-          const cy = rect ? rect.top + rect.height / 2 : 80;
-          const colors = ['#10b981', '#34d399', '#6366f1', '#f59e0b', '#22d3ee', '#a78bfa'];
-          for (let i = 0; i < 18; i++) {
-            const p = document.createElement('div');
-            p.className = 'confetti-piece';
-            const angle = (Math.PI * 2 * i) / 18 + (Math.random() - 0.5) * 0.4;
-            const dist = 45 + Math.random() * 75;
-            p.style.left = `${cx}px`;
-            p.style.top = `${cy}px`;
-            p.style.background = colors[i % colors.length];
-            p.style.setProperty('--dx', `${Math.round(Math.cos(angle) * dist)}px`);
-            p.style.setProperty('--dy', `${Math.round(Math.sin(angle) * dist - 20)}px`);
-            p.style.setProperty('--rot', `${Math.round((Math.random() - 0.5) * 540)}deg`);
-            document.body.appendChild(p);
-            setTimeout(() => p.remove(), 1100);
-          }
-        } catch (e) {}
       }
 
       function escapeHtml(val) {
@@ -3210,12 +2549,7 @@
           habitReflections: {},
           prayerLogs: {},
           recurringTemplates: [],
-          interpretingOffsetHours: 7,
-          interpretingPlatforms: getDefaultInterpPlatforms(),
-          interpretingCustomSlots: {},
-          interpretingLoggedDays: {},
-          focusSessions: [],
-          reminders: []
+          focusSessions: []
         };
       }
 
@@ -3285,11 +2619,14 @@
           note: String(e.note || '')
         }));
 
-        // Tasks (preserves optional subtaskId for 2-way sync with skill sub-tasks)
+        // Tasks (preserves dueDate + optional subtaskId for 2-way sync with skill sub-tasks)
         out.tasks = Array.isArray(raw.tasks)
           ? raw.tasks.map((t, i) => {
               const pRaw = String(t.priority || 'Medium').toLowerCase();
               const prio = pRaw === 'high' ? 'High' : pRaw === 'low' ? 'Low' : 'Medium';
+              const due = typeof t.dueDate === 'string' && t.dueDate.length >= 10
+                ? t.dueDate.slice(0, 10)
+                : getDateStr(0);
               return {
                 id: t.id || ('task_' + i + '_' + Date.now()),
                 title: String(t.title || ''),
@@ -3297,10 +2634,9 @@
                 priority: prio,
                 skillId: t.skillId || '',
                 subtaskId: t.subtaskId || '',
+                dueDate: due,
                 completed: Boolean(t.completed),
-                createdAt: Number(t.createdAt) || Date.now(),
-                reminderAt: typeof t.reminderAt === 'string' ? t.reminderAt : '',
-                reminderFired: Boolean(t.reminderFired)
+                createdAt: Number(t.createdAt) || Date.now()
               };
             })
           : [];
@@ -3458,80 +2794,16 @@
             }).filter((rt) => rt.title !== '')
           : [];
 
-
-        // Interpreting Hub additive fields (100% backward compatible, never touches existing user data)
-        out.interpretingOffsetHours = Number(raw.interpretingOffsetHours) === 6 ? 6 : 7;
-        if (Array.isArray(raw.interpretingPlatforms) && raw.interpretingPlatforms.length > 0) {
-          out.interpretingPlatforms = raw.interpretingPlatforms.map((ip, i) => ({
-            id: ip.id || ('ip_' + i + '_' + Date.now()),
-            name: String(ip.name || 'Platform'),
-            badge: String(ip.badge || 'Remote'),
-            model: String(ip.model || ''),
-            url: String(ip.url || ''),
-            status: String(ip.status || 'Not Applied')
-          }));
-        } else {
-          const defs = getDefaultInterpPlatforms();
-          if (raw.interpretingPlatformStatus && typeof raw.interpretingPlatformStatus === 'object') {
-            defs.forEach((d) => {
-              const legacyKey = d.id.replace(/^ip_/, '');
-              if (raw.interpretingPlatformStatus[legacyKey]) d.status = raw.interpretingPlatformStatus[legacyKey];
-            });
-          }
-          out.interpretingPlatforms = defs;
-        }
-
-        out.reminders = Array.isArray(raw.reminders)
-          ? raw.reminders.map((r, i) => ({
-              id: r.id || ('rem_' + i + '_' + Date.now()),
-              label: String(r.label || 'Reminder'),
-              dueAt: String(r.dueAt || ''),
-              kind: r.kind === 'task' ? 'task' : 'shift',
-              taskId: String(r.taskId || ''),
-              fired: Boolean(r.fired)
-            })).filter((r) => r.dueAt)
-          : [];
-
-        // Custom interpreting schedule slots & weekly logged-in day checks (additive)
-        const normCustomSlots = {};
-        if (raw.interpretingCustomSlots && typeof raw.interpretingCustomSlots === 'object') {
-          ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'].forEach((dk) => {
-            if (Array.isArray(raw.interpretingCustomSlots[dk])) {
-              normCustomSlots[dk] = raw.interpretingCustomSlots[dk]
-                .map((cs, idx) => ({
-                  id: cs.id || (`cslot_${dk}_${idx}_${Date.now()}`),
-                  time: String(cs.time || '').trim(),
-                  note: String(cs.note || '').trim()
-                }))
-                .filter((cs) => cs.time !== '');
-            }
-          });
-        }
-        out.interpretingCustomSlots = normCustomSlots;
-
-        const normLoggedDays = {};
-        if (raw.interpretingLoggedDays && typeof raw.interpretingLoggedDays === 'object') {
-          Object.keys(raw.interpretingLoggedDays).forEach((wk) => {
-            if (raw.interpretingLoggedDays[wk] && typeof raw.interpretingLoggedDays[wk] === 'object') {
-              normLoggedDays[wk] = { ...raw.interpretingLoggedDays[wk] };
-            }
-          });
-        }
-        out.interpretingLoggedDays = normLoggedDays;
-
-        // Focus sessions log (additive)
+        // Focus Sessions (tracks Today's Focus & All-Time Total for Focus-only sessions)
         out.focusSessions = Array.isArray(raw.focusSessions)
-          ? raw.focusSessions
-              .map((fs, idx) => ({
-                id: fs.id || (`fses_${idx}_${Date.now()}`),
-                seconds: Math.max(0, Number(fs.seconds) || 0),
-                date: typeof fs.date === 'string' && fs.date.length >= 10 ? fs.date.slice(0, 10) : getDateStr(0),
-                mode: fs.mode === 'shift' ? 'shift' : 'pomodoro',
-                platformId: String(fs.platformId || ''),
-                linkValue: String(fs.linkValue || ''),
-                linkLabel: String(fs.linkLabel || '')
-              }))
-              .filter((fs) => fs.seconds > 0)
+          ? raw.focusSessions.map((fs, i) => ({
+              id: fs.id || ('foc_' + i + '_' + Date.now()),
+              date: typeof fs.date === 'string' && fs.date.length >= 10 ? fs.date.slice(0, 10) : getDateStr(0),
+              seconds: Math.max(0, Number(fs.seconds) || 0),
+              targetType: String(fs.targetType || 'focus'),
+              targetId: String(fs.targetId || ''),
+              targetName: String(fs.targetName || 'Focus')
+            })).filter((fs) => fs.seconds > 0)
           : [];
 
         return out;
@@ -3578,6 +2850,8 @@
 
       // UI Filter & View State
       let activeTaskFilter = 'All';
+      let selectedTaskDate = getDateStr(0);
+      let showAllTaskDates = false;
       let activeNoteCat = 'Outlier AI';
       let activeHabitCat = 'All';
       let selectedHabitDate = getDateStr(0);
@@ -3590,8 +2864,7 @@
       let timerState = {
         mode: 'pomodoro', // 'pomodoro' | 'shift'
         pomoMinutes: 25,
-        platformId: '',
-        linkValue: '',
+        targetValue: '', // 'platform:<id>' | 'task:<id>' | 'skill:<id>' | 'focus:general'
         running: false,
         startedAt: null,
         accumulatedMs: 0
@@ -3606,8 +2879,11 @@
           if (parsed && typeof parsed === 'object') {
             timerState.mode = parsed.mode === 'shift' ? 'shift' : 'pomodoro';
             timerState.pomoMinutes = [25, 50, 90].includes(Number(parsed.pomoMinutes)) ? Number(parsed.pomoMinutes) : 25;
-            timerState.platformId = typeof parsed.platformId === 'string' ? parsed.platformId : '';
-            timerState.linkValue = typeof parsed.linkValue === 'string' ? parsed.linkValue : '';
+            if (typeof parsed.targetValue === 'string' && parsed.targetValue) {
+              timerState.targetValue = parsed.targetValue;
+            } else if (typeof parsed.platformId === 'string' && parsed.platformId) {
+              timerState.targetValue = 'platform:' + parsed.platformId;
+            }
             timerState.running = Boolean(parsed.running);
             timerState.startedAt = parsed.running && Number(parsed.startedAt) > 0 ? Number(parsed.startedAt) : null;
             timerState.accumulatedMs = Math.max(0, Number(parsed.accumulatedMs) || 0);
@@ -3861,62 +3137,50 @@
       }
 
       function populateSelects() {
-        const platIds = ['task-platform-select', 'timer-platform-select', 'entry-platform-select', 'rec-platform-select'];
+        const platIds = ['task-platform-select', 'entry-platform-select', 'rec-platform-select'];
         platIds.forEach((elId) => {
           const sel = document.getElementById(elId);
           if (!sel) return;
-          const isTimerSel = elId === 'timer-platform-select';
-          const prev = isTimerSel ? timerState.platformId : sel.value;
-          const optionsHtml = state.platforms
+          const prev = sel.value;
+          sel.innerHTML = state.platforms
             .map((p) => `<option value="${escapeHtml(p.id)}">${escapeHtml(p.name)} ($${Number(p.rate).toFixed(1)}/hr)</option>`)
             .join('');
-          sel.innerHTML = isTimerSel
-            ? `<option value="">Focus Only (No Pay)</option>` + optionsHtml
-            : optionsHtml;
-          if (isTimerSel) {
-            sel.value = prev && state.platforms.some((p) => p.id === prev) ? prev : '';
-          } else if (prev && state.platforms.some((p) => p.id === prev)) {
-            sel.value = prev;
+          if (prev && state.platforms.some((p) => p.id === prev)) sel.value = prev;
+        });
+
+        // Unified Smart Focus Timer Target Select
+        const timerSel = document.getElementById('timer-target-select');
+        if (timerSel) {
+          const prevVal = timerState.targetValue || timerSel.value;
+          const platOpts = state.platforms
+            .map((p) => `<option value="platform:${escapeHtml(p.id)}">${escapeHtml(p.name)} ($${Number(p.rate).toFixed(1)}/hr) — Income + Hours</option>`)
+            .join('');
+          const pendingTasks = state.tasks.filter((t) => !t.completed && !t.subtaskId);
+          const taskOpts = pendingTasks
+            .map((t) => `<option value="task:${escapeHtml(t.id)}">Task: ${escapeHtml(t.title)} — Focus Only</option>`)
+            .join('');
+          const skillOpts = state.skills
+            .map((sk) => `<option value="skill:${escapeHtml(sk.id)}">Skill: ${escapeHtml(sk.name)} — Focus Only</option>`)
+            .join('');
+
+          let html = `<optgroup label="Platforms (Auto-Logs Money + Hours to Income)">${platOpts}</optgroup>`;
+          if (taskOpts) {
+            html += `<optgroup label="Daily Priority Tasks (Focus Time Only)">${taskOpts}</optgroup>`;
           }
-        });
+          if (skillOpts) {
+            html += `<optgroup label="Skills &amp; Goals (Focus Time Only)">${skillOpts}</optgroup>`;
+          }
+          html += `<optgroup label="General"><option value="focus:general">Pure Focus Session — Focus Time Only</option></optgroup>`;
 
-        const timerLinkSel = document.getElementById('timer-link-select');
-        if (timerLinkSel) {
-          const prevLink = timerState.linkValue || timerLinkSel.value || '';
-          const skillsOpts = state.skills.map((s) => `<option value="skill:${escapeHtml(s.id)}">Skill: ${escapeHtml(s.name)}</option>`).join('');
-          const openTasks = state.tasks.filter((t) => !t.completed);
-          const tasksOpts = openTasks.map((t) => `<option value="task:${escapeHtml(t.id)}">Task: ${escapeHtml(t.title)}</option>`).join('');
-          timerLinkSel.innerHTML =
-            `<option value="">No Task / Skill Linked (Pure Focus)</option>` +
-            (skillsOpts ? `<optgroup label="Skills">${skillsOpts}</optgroup>` : '') +
-            (tasksOpts ? `<optgroup label="Open Daily Tasks">${tasksOpts}</optgroup>` : '');
-          const hasPrev = Array.from(timerLinkSel.options).some((o) => o.value === prevLink);
-          timerLinkSel.value = hasPrev ? prevLink : '';
-          if (!hasPrev) timerState.linkValue = '';
-        }
-
-        ['task-skill-select', 'rec-skill-select'].forEach((sId) => {
-          const skillSel = document.getElementById(sId);
-          if (!skillSel) return;
-          const prevSkill = skillSel.value;
-          skillSel.innerHTML =
-            `<option value="">Link to Skill Goal (Optional)</option>` +
-            state.skills.map((s) => `<option value="${escapeHtml(s.id)}">Goal: ${escapeHtml(s.name)}</option>`).join('');
-          if (prevSkill && state.skills.some((s) => s.id === prevSkill)) skillSel.value = prevSkill;
-        });
-        updateTaskSubtaskToggleVisibility();
-      }
-
-      function updateTaskSubtaskToggleVisibility() {
-        const skillSel = document.getElementById('task-skill-select');
-        const wrap = document.getElementById('task-as-subtask-wrap');
-        if (!skillSel || !wrap) return;
-        if (skillSel.value) {
-          wrap.classList.remove('hidden');
-          wrap.classList.add('flex');
-        } else {
-          wrap.classList.add('hidden');
-          wrap.classList.remove('flex');
+          timerSel.innerHTML = html;
+          if (prevVal && Array.from(timerSel.options).some((o) => o.value === prevVal)) {
+            timerSel.value = prevVal;
+          } else if (state.platforms[0]) {
+            timerSel.value = 'platform:' + state.platforms[0].id;
+          } else {
+            timerSel.value = 'focus:general';
+          }
+          timerState.targetValue = timerSel.value;
         }
       }
 
@@ -3983,17 +3247,20 @@
         });
         document.getElementById('kpi-top-platform').textContent = topName;
 
-        // Card 4: Today's Tasks
-        const totalTasks = state.tasks.length;
-        const doneTasks = state.tasks.filter((t) => t.completed).length;
-        const highLeft = state.tasks.filter((t) => !t.completed && t.priority === 'High').length;
+        // Card 4: Today's Tasks (filtered to Today, excluding skill subtasks)
+        const todayStr = getDateStr(0);
+        const todayTasks = state.tasks.filter((t) => !t.subtaskId && (t.dueDate || todayStr) === todayStr);
+        const totalTasks = todayTasks.length;
+        const doneTasks = todayTasks.filter((t) => t.completed).length;
+        const pendingLeft = totalTasks - doneTasks;
         const taskPct = totalTasks > 0 ? Math.round((doneTasks / totalTasks) * 100) : 0;
 
         document.getElementById('kpi-tasks-done').textContent = String(doneTasks);
         document.getElementById('kpi-tasks-total').textContent = String(totalTasks);
         document.getElementById('kpi-tasks-pct').textContent = `${taskPct}%`;
         document.getElementById('kpi-tasks-bar').style.width = `${taskPct}%`;
-        document.getElementById('kpi-high-left').textContent = `${highLeft} remaining`;
+        const pendEl = document.getElementById('kpi-pending-left');
+        if (pendEl) pendEl.textContent = `${pendingLeft} remaining`;
 
         // Platforms List
         const container = document.getElementById('platforms-list');
@@ -4032,18 +3299,38 @@
       }
 
       function renderTasks() {
-        const allCnt = state.tasks.length;
-        const highCnt = state.tasks.filter((t) => t.priority === 'High').length;
-        const pendingCnt = state.tasks.filter((t) => !t.completed).length;
-        const doneCnt = state.tasks.filter((t) => t.completed).length;
+        const filterDateInput = document.getElementById('task-filter-date-input');
+        if (filterDateInput && document.activeElement !== filterDateInput) {
+          filterDateInput.value = selectedTaskDate;
+        }
+        const addDateInput = document.getElementById('task-date-input');
+        if (addDateInput && document.activeElement !== addDateInput && !addDateInput.dataset.userEdited) {
+          addDateInput.value = selectedTaskDate;
+        }
+        const todayBtn = document.getElementById('btn-task-today');
+        if (todayBtn) {
+          todayBtn.style.display = (!showAllTaskDates && selectedTaskDate !== getDateStr(0)) ? 'inline-flex' : 'none';
+        }
+        const allDatesBtn = document.getElementById('btn-task-all-dates');
+        if (allDatesBtn) {
+          allDatesBtn.classList.toggle('active', showAllTaskDates);
+        }
+
+        // Keep Skill sub-tasks out of Daily Priority Tasks (unless user explicitly wants clean daily list)
+        const dailyOnlyTasks = state.tasks.filter((t) => !t.subtaskId);
+        const dateScoped = showAllTaskDates
+          ? dailyOnlyTasks
+          : dailyOnlyTasks.filter((t) => (t.dueDate || getDateStr(0)) === selectedTaskDate);
+
+        const allCnt = dateScoped.length;
+        const pendingCnt = dateScoped.filter((t) => !t.completed).length;
+        const doneCnt = dateScoped.filter((t) => t.completed).length;
 
         document.getElementById('cnt-task-all').textContent = String(allCnt);
-        document.getElementById('cnt-task-high').textContent = String(highCnt);
         document.getElementById('cnt-task-pending').textContent = String(pendingCnt);
         document.getElementById('cnt-task-completed').textContent = String(doneCnt);
 
-        const filtered = state.tasks.filter((t) => {
-          if (activeTaskFilter === 'High') return t.priority === 'High';
+        const filtered = dateScoped.filter((t) => {
           if (activeTaskFilter === 'Pending') return !t.completed;
           if (activeTaskFilter === 'Completed') return t.completed;
           return true;
@@ -4051,26 +3338,16 @@
 
         const list = document.getElementById('task-list');
         if (filtered.length === 0) {
-          list.innerHTML = `<div class="empty-box">No tasks in "${escapeHtml(activeTaskFilter)}" filter.</div>`;
+          const scopeLabel = showAllTaskDates ? 'All Dates' : formatFriendlyDate(selectedTaskDate);
+          list.innerHTML = `<div class="empty-box">No ${activeTaskFilter === 'All' ? '' : activeTaskFilter.toLowerCase() + ' '}tasks scheduled for ${escapeHtml(scopeLabel)}.</div>`;
           return;
         }
 
         list.innerHTML = filtered
           .map((t) => {
             const plat = getPlatform(t.platformId);
-            const skill = t.skillId ? state.skills.find((s) => s.id === t.skillId) : null;
-            const prioStyle =
-              t.priority === 'High'
-                ? 'background:var(--accent-rose-soft);color:var(--accent-rose)'
-                : t.priority === 'Low'
-                ? 'background:var(--accent-emerald-soft);color:var(--accent-emerald)'
-                : 'background:var(--accent-amber-soft);color:var(--accent-amber)';
-
-            const skillOptions =
-              `<option value="">Unlinked</option>` +
-              state.skills
-                .map((s) => `<option value="${escapeHtml(s.id)}" ${t.skillId === s.id ? 'selected' : ''}>${escapeHtml(s.name)}</option>`)
-                .join('');
+            const due = t.dueDate || getDateStr(0);
+            const dueLabel = formatFriendlyDate(due);
 
             return `
               <div class="sub-item flex items-center justify-between gap-2.5 ${t.completed ? 'opacity-60' : ''}">
@@ -4079,22 +3356,12 @@
                   <div class="min-w-0 flex-1">
                     <div class="text-[13px] font-semibold break-words ${t.completed ? 'line-through' : ''}" style="${t.completed ? 'color:var(--text-muted)' : ''}">${escapeHtml(t.title)}</div>
                     <div class="flex items-center gap-1.5 flex-wrap mt-1.5">
-                      <span class="status-chip" style="${prioStyle}">${escapeHtml(t.priority)}</span>
                       <span class="status-chip status-syncing">${escapeHtml(plat.name)}</span>
-                      ${skill
-                        ? `<span class="status-chip status-synced">${ICONS.link}<span>${escapeHtml(skill.name)}</span></span>`
-                        : ''}
-                      ${t.reminderAt && !t.completed
-                        ? `<span class="status-chip status-amber font-mono-num">${ICONS.bell}<span>${escapeHtml(t.reminderAt.slice(5).replace('T', ' '))}</span></span>`
-                        : ''}
-                      <select data-relink-task="${escapeHtml(t.id)}" aria-label="Change linked skill" class="text-[11px] rounded-full px-2 py-0.5 cursor-pointer outline-none" style="background:var(--bg-input);border:1px solid var(--border-subtle);color:var(--text-secondary)">
-                        ${skillOptions}
-                      </select>
+                      <span class="status-chip status-local font-mono-num">${escapeHtml(dueLabel)} · ${escapeHtml(due)}</span>
                     </div>
                   </div>
                 </div>
                 <div class="inline-flex items-center gap-1 flex-shrink-0">
-                  <button type="button" class="icon-action-btn" style="${t.reminderAt && !t.reminderFired ? 'color:var(--accent-amber);border-color:rgba(245,158,11,0.55)' : ''}" data-set-task-rem="${escapeHtml(t.id)}" title="${t.reminderAt ? 'Edit Reminder (' + escapeHtml(t.reminderAt.replace('T', ' ')) + ')' : 'Set Reminder for this Task'}">${ICONS.bell}</button>
                   <button type="button" class="icon-action-btn" data-save-task-template="${escapeHtml(t.id)}" title="Save as Daily Recurring Template">${ICONS.repeat}</button>
                   <button type="button" class="icon-action-btn danger" data-del-task="${escapeHtml(t.id)}" title="Delete Task">${ICONS.x}</button>
                 </div>
@@ -4114,12 +3381,18 @@
         list.innerHTML = state.skills
           .map((s) => {
             const stats = getSkillStats(s);
-            const isOpen = expandedSkillIds.has(s.id) || stats.subtasks.length > 0;
+            const isOpen = expandedSkillIds.has(s.id);
             const reached = stats.current >= stats.target;
 
             const subtasksHtml = stats.subtasks
               .map((st) => {
-                const isInDaily = state.tasks.some((t) => t.skillId === s.id && t.subtaskId === st.id);
+                const isPinnedDaily = state.tasks.some((t) => t.skillId === s.id && t.subtaskId === st.id);
+                const pinBtnStyle = isPinnedDaily
+                  ? 'width:22px;height:22px;background:var(--accent-emerald-soft);border-color:var(--accent-emerald);color:var(--accent-emerald)'
+                  : 'width:22px;height:22px';
+                const pinTitle = isPinnedDaily
+                  ? 'Pinned to Daily — click to remove from Daily'
+                  : 'Pin to Daily Focus';
                 return `
                 <div class="subtask-row ${st.completed ? 'is-done' : ''}">
                   <label class="flex items-center gap-2 min-w-0 flex-1 cursor-pointer">
@@ -4127,7 +3400,7 @@
                     <span class="truncate ${st.completed ? 'line-through' : ''}" style="${st.completed ? 'color:var(--text-muted)' : ''}">${escapeHtml(st.title)}</span>
                   </label>
                   <div class="inline-flex items-center gap-1 flex-shrink-0">
-                    ${(!st.completed || isInDaily) ? `<button type="button" class="icon-action-btn ${isInDaily ? 'subtask-push-active' : ''}" style="width:22px;height:22px" data-push-subtask="${escapeHtml(s.id)}" data-subtask-id="${escapeHtml(st.id)}" title="${isInDaily ? 'In Daily Tasks — click to remove from Daily Tasks' : 'Send to Daily Priority Tasks'}">${ICONS.arrowUpRight}</button>` : ''}
+                    ${!st.completed ? `<button type="button" class="icon-action-btn" style="${pinBtnStyle}" data-push-subtask="${escapeHtml(s.id)}" data-subtask-id="${escapeHtml(st.id)}" title="${pinTitle}">${ICONS.arrowUpRight}</button>` : ''}
                     <button type="button" class="icon-action-btn danger" style="width:22px;height:22px" data-del-subtask="${escapeHtml(s.id)}" data-subtask-id="${escapeHtml(st.id)}" title="Remove Sub-task">${ICONS.x}</button>
                   </div>
                 </div>
@@ -4146,11 +3419,11 @@
                     <div class="flex items-center gap-1.5 flex-wrap mt-1">
                       <span class="status-chip status-syncing">${escapeHtml(s.category)}</span>
                       ${stats.subtasks.length > 0 ? `<span class="status-chip status-local font-mono-num">${stats.subtasksDone}/${stats.subtasks.length} sub-tasks</span>` : ''}
-                      ${stats.totalLinkedTasks > 0 ? `<span class="status-chip status-synced font-mono-num">${ICONS.link}<span>${stats.totalLinkedTasks} daily</span></span>` : ''}
+                      ${stats.totalLinkedTasks > 0 ? `<span class="status-chip status-synced font-mono-num">${ICONS.link}<span>${stats.totalLinkedTasks} pinned</span></span>` : ''}
                     </div>
                   </div>
                   <div class="inline-flex items-center gap-1.5 flex-shrink-0">
-                    <button type="button" class="icon-action-btn" data-toggle-skill-panel="${escapeHtml(s.id)}" title="Show / Hide Sub-tasks">${ICONS.chevronDown}</button>
+                    <button type="button" class="icon-action-btn" data-toggle-skill-panel="${escapeHtml(s.id)}" title="${isOpen ? 'Hide Sub-tasks' : 'Show Sub-tasks'}" style="${isOpen ? 'transform:rotate(180deg);border-color:var(--accent-indigo);color:var(--accent-indigo)' : ''}">${ICONS.chevronDown}</button>
                     <button type="button" class="icon-action-btn" data-step-skill="${escapeHtml(s.id)}" data-delta="-1" title="Decrement Milestone">${ICONS.minus}</button>
                     <button type="button" class="icon-action-btn" style="color:var(--accent-emerald);border-color:rgba(16,185,129,0.35)" data-step-skill="${escapeHtml(s.id)}" data-delta="1" title="Increment Milestone">${ICONS.plus}</button>
                     <button type="button" class="icon-action-btn" data-edit-skill="${escapeHtml(s.id)}" title="Edit Skill">${ICONS.pencil}</button>
@@ -4246,47 +3519,95 @@
         });
       }
 
-      function formatDurationHuman(totalSeconds) {
-        const secs = Math.max(0, Math.floor(Number(totalSeconds) || 0));
-        const h = Math.floor(secs / 3600);
-        const m = Math.floor((secs % 3600) / 60);
-        if (h > 0) return `${h}h ${m}m`;
-        return `${m}m`;
+      function parseTimerTarget() {
+        const sel = document.getElementById('timer-target-select');
+        const val = (sel && sel.value) || timerState.targetValue || 'focus:general';
+        const idx = val.indexOf(':');
+        const type = idx > 0 ? val.slice(0, idx) : 'focus';
+        const id = idx > 0 ? val.slice(idx + 1) : 'general';
+        if (type === 'platform') {
+          const plat = getPlatform(id);
+          return { type: 'platform', id: plat.id, name: plat.name, rate: Number(plat.rate) || 0 };
+        }
+        if (type === 'task') {
+          const t = state.tasks.find((x) => x.id === id);
+          return { type: 'task', id, name: t ? t.title : 'Task', rate: 0 };
+        }
+        if (type === 'skill') {
+          const sk = state.skills.find((x) => x.id === id);
+          return { type: 'skill', id, name: sk ? sk.name : 'Skill', rate: 0 };
+        }
+        return { type: 'focus', id: 'general', name: 'Pure Focus', rate: 0 };
       }
 
-      function renderFocusTimeStats() {
+      function formatDurationShort(totalSeconds) {
+        const mins = Math.floor(Math.max(0, totalSeconds) / 60);
+        const hrs = Math.floor(mins / 60);
+        const remMins = mins % 60;
+        if (hrs > 0) return `${hrs}h ${remMins}m`;
+        return `${mins}m`;
+      }
+
+      function renderFocusTotals() {
         const sessions = Array.isArray(state.focusSessions) ? state.focusSessions : [];
         const todayStr = getDateStr(0);
         let todaySecs = 0;
         let allSecs = 0;
-        sessions.forEach((s) => {
-          const sec = Number(s.seconds) || 0;
+        sessions.forEach((fs) => {
+          const sec = Math.max(0, Number(fs.seconds) || 0);
           allSecs += sec;
-          if (s.date === todayStr) todaySecs += sec;
+          if (fs.date === todayStr) todaySecs += sec;
         });
-
         const todayEl = document.getElementById('focus-today-total');
         const allEl = document.getElementById('focus-alltime-total');
-        if (todayEl) todayEl.textContent = formatDurationHuman(todaySecs);
-        if (allEl) allEl.textContent = `${formatDurationHuman(allSecs)} · ${sessions.length} ${sessions.length === 1 ? 'session' : 'sessions'}`;
+        if (todayEl) todayEl.textContent = formatDurationShort(todaySecs);
+        if (allEl) allEl.textContent = `${formatDurationShort(allSecs)} · ${sessions.length} session${sessions.length === 1 ? '' : 's'}`;
+      }
 
-        const linkSel = document.getElementById('timer-link-select');
-        const linkedRow = document.getElementById('focus-linked-row');
-        const linkedName = document.getElementById('focus-linked-name');
-        const linkedTotal = document.getElementById('focus-linked-total');
-        if (linkSel && linkedRow && linkedName && linkedTotal) {
-          const val = linkSel.value;
-          if (val) {
-            const matchedSecs = sessions
-              .filter((s) => s.linkValue === val)
-              .reduce((sum, s) => sum + (Number(s.seconds) || 0), 0);
-            const optText = linkSel.selectedOptions[0] ? linkSel.selectedOptions[0].textContent : val;
-            linkedName.textContent = optText;
-            linkedTotal.textContent = `${formatDurationHuman(matchedSecs)} total`;
-            linkedRow.style.display = 'flex';
-          } else {
-            linkedRow.style.display = 'none';
-          }
+      function saveTimerSession(elapsedSecs, autoFromPomo = false) {
+        if (elapsedSecs < 60) {
+          if (!autoFromPomo) showToast('Run the timer for at least 1 minute to save', 'warn');
+          return false;
+        }
+        const target = parseTimerTarget();
+        const todayStr = getDateStr(0);
+        const minsLogged = Math.round(elapsedSecs / 60);
+
+        if (target.type === 'platform') {
+          // Linked to a Platform -> Auto-logs BOTH time + money to Income Entries
+          const hours = Number((elapsedSecs / 3600).toFixed(2));
+          const amount = Number((hours * target.rate).toFixed(2));
+          state.incomeEntries.unshift({
+            id: 'ent_' + Date.now(),
+            platformId: target.id,
+            hours,
+            amount,
+            date: todayStr,
+            note: `Timer (${timerState.mode === 'pomodoro' ? 'Pomodoro' : 'Open Shift'})`
+          });
+          resetTimer();
+          saveState();
+          renderWorkKpisAndPlatforms();
+          renderWeeklyReview();
+          renderEntries();
+          showToast(`Logged ${hours}h ($${amount.toFixed(2)}) to ${target.name}`);
+          return true;
+        } else {
+          // Linked to Daily Task, Skill, or Pure Focus -> Logs TIME ONLY in Focus Timer totals (no money / work hours)
+          if (!Array.isArray(state.focusSessions)) state.focusSessions = [];
+          state.focusSessions.unshift({
+            id: 'foc_' + Date.now(),
+            date: todayStr,
+            seconds: elapsedSecs,
+            targetType: target.type,
+            targetId: target.id,
+            targetName: target.name
+          });
+          resetTimer();
+          saveState();
+          renderFocusTotals();
+          showToast(`Saved ${minsLogged}m focus session (${target.name})`);
+          return true;
         }
       }
 
@@ -4298,16 +3619,11 @@
           const totalPomoSecs = timerState.pomoMinutes * 60;
           displaySecs = Math.max(0, totalPomoSecs - elapsedSecs);
 
-          // Check if Pomodoro finished while in background or active tab
+          // Auto-stop & auto-save when Pomodoro reaches 00:00
           if (timerState.running && displaySecs <= 0) {
-            timerState.accumulatedMs = totalPomoSecs * 1000;
-            timerState.running = false;
-            timerState.startedAt = null;
-            clearInterval(timerTickInterval);
-            timerTickInterval = null;
-            saveTimerState();
             playGentleChime();
-            showToast('Pomodoro session completed');
+            saveTimerSession(totalPomoSecs, true);
+            return;
           }
         }
 
@@ -4321,41 +3637,32 @@
             : `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
         document.getElementById('timer-display').textContent = timeLabel;
 
-        // Live browser tab title & header pill while running (visible across all tabs)
-        const hPill = document.getElementById('btn-header-timer-pill');
-        const hTxt = document.getElementById('header-timer-text');
+        // Live browser tab title while running
         if (timerState.running) {
           document.title = `${timeLabel} · ${timerState.mode === 'pomodoro' ? 'Focus' : 'Shift'} | ${BASE_DOC_TITLE}`;
-          if (hPill && hTxt) {
-            hTxt.textContent = `${timeLabel} · ${timerState.mode === 'pomodoro' ? 'Focus' : 'Shift'}`;
-            hPill.style.display = 'inline-flex';
-          }
         } else {
           document.title = BASE_DOC_TITLE;
-          if (hPill) hPill.style.display = 'none';
         }
 
         const elapsedHours = elapsedSecs / 3600;
-        const elapsedMins = Math.floor(elapsedSecs / 60);
-        const selectedPlatId = document.getElementById('timer-platform-select').value;
-        const linkSelEl = document.getElementById('timer-link-select');
-        const selectedLinkVal = linkSelEl ? linkSelEl.value : '';
-        const logBtnLabel = document.getElementById('btn-timer-log-label');
+        const target = parseTimerTarget();
+        const badgeEl = document.getElementById('timer-routing-badge');
+        const estEl = document.getElementById('timer-est-value');
 
-        if (!selectedPlatId) {
-          const linkText = selectedLinkVal && linkSelEl && linkSelEl.selectedOptions[0]
-            ? linkSelEl.selectedOptions[0].textContent
-            : 'Pure Focus';
-          const shortLink = linkText.length > 28 ? linkText.slice(0, 28) + '…' : linkText;
-          document.getElementById('timer-est-value').textContent = `${shortLink} · ${elapsedMins}m (${elapsedHours.toFixed(2)}h)`;
-          if (logBtnLabel) logBtnLabel.textContent = 'Log Focus Time';
+        if (target.type === 'platform') {
+          const estUsd = elapsedHours * target.rate;
+          if (estEl) estEl.textContent = `$${estUsd.toFixed(2)} · ${elapsedHours.toFixed(2)}h`;
+          if (badgeEl) {
+            badgeEl.className = 'status-chip status-synced';
+            badgeEl.textContent = 'Auto-Logs to Income + Hours';
+          }
         } else {
-          const plat = getPlatform(selectedPlatId);
-          const estUsd = elapsedHours * (Number(plat.rate) || 0);
-          document.getElementById('timer-est-value').textContent = `$${estUsd.toFixed(2)} · ${elapsedHours.toFixed(2)}h`;
-          if (logBtnLabel) logBtnLabel.textContent = 'Log Shift to Income';
+          if (estEl) estEl.textContent = `${formatDurationShort(elapsedSecs)} (${elapsedHours.toFixed(2)}h) · Focus Only`;
+          if (badgeEl) {
+            badgeEl.className = 'status-chip status-syncing';
+            badgeEl.textContent = 'Focus Time Only (No Income)';
+          }
         }
-        renderFocusTimeStats();
 
         const caption = document.getElementById('timer-mode-caption');
         caption.textContent = timerState.running
@@ -4383,13 +3690,13 @@
 
       function startTimer() {
         if (timerState.running) return;
-        // If Pomodoro already reached 0, reset before starting fresh
         if (timerState.mode === 'pomodoro' && getTimerElapsedSeconds() >= timerState.pomoMinutes * 60) {
           timerState.accumulatedMs = 0;
         }
         timerState.running = true;
         timerState.startedAt = Date.now();
-        timerState.platformId = document.getElementById('timer-platform-select').value;
+        const sel = document.getElementById('timer-target-select');
+        if (sel) timerState.targetValue = sel.value;
         saveTimerState();
         updateTimerUI();
         ensureTimerTickLoop();
@@ -4404,6 +3711,11 @@
         timerTickInterval = null;
         saveTimerState();
         updateTimerUI();
+      }
+
+      function stopAndSaveTimer() {
+        const elapsedSecs = getTimerElapsedSeconds();
+        saveTimerSession(elapsedSecs, false);
       }
 
       function resetTimer() {
@@ -5053,9 +4365,7 @@
                   <div class="text-[13px] font-semibold break-words">${escapeHtml(rt.title)}</div>
                   <div class="flex items-center gap-1.5 flex-wrap mt-1">
                     <span class="status-chip ${freqClass}">${escapeHtml(rt.frequency)}</span>
-                    <span class="status-chip status-local">${escapeHtml(rt.priority)}</span>
                     <span class="status-chip status-syncing">${escapeHtml(plat.name)}</span>
-                    ${skill ? `<span class="status-chip status-synced">${ICONS.link}<span>${escapeHtml(skill.name)}</span></span>` : ''}
                   </div>
                 </div>
                 <div class="inline-flex items-center gap-1.5 flex-shrink-0">
@@ -5075,18 +4385,20 @@
           return;
         }
         let added = 0;
+        const targetDate = selectedTaskDate || getDateStr(0);
         list.forEach((rt) => {
           const existsPending = state.tasks.some(
-            (t) => !t.completed && t.title.trim().toLowerCase() === rt.title.trim().toLowerCase()
+            (t) => !t.completed && !t.subtaskId && (t.dueDate || getDateStr(0)) === targetDate && t.title.trim().toLowerCase() === rt.title.trim().toLowerCase()
           );
           if (!existsPending) {
             state.tasks.unshift({
               id: 'task_' + Date.now() + '_' + Math.floor(Math.random() * 1000),
               title: rt.title,
               platformId: rt.platformId || (state.platforms[0] ? state.platforms[0].id : ''),
-              priority: rt.priority || 'Medium',
-              skillId: rt.skillId || '',
+              priority: 'Medium',
+              skillId: '',
               subtaskId: '',
+              dueDate: targetDate,
               completed: false,
               createdAt: Date.now()
             });
@@ -5105,365 +4417,6 @@
         }
       }
 
-
-      /* ===================================================== */
-      /* INTERPRETING HUB & REMINDERS ENGINE                   */
-      /* ===================================================== */
-      let activeAlertReminder = null;
-
-      function getCairoNowParts() {
-        try {
-          const now = new Date();
-          const fmt = new Intl.DateTimeFormat('en-US', {
-            timeZone: 'Africa/Cairo',
-            weekday: 'short',
-            hour: '2-digit',
-            minute: '2-digit',
-            hour12: false
-          });
-          const parts = fmt.formatToParts(now);
-          const map = {};
-          parts.forEach((p) => { map[p.type] = p.value; });
-          const wkMap = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
-          const jsDay = wkMap[map.weekday] != null ? wkMap[map.weekday] : now.getDay();
-          const hour = Number(map.hour) % 24;
-          const minute = Number(map.minute) || 0;
-          return { jsDay, hourFloat: hour + minute / 60 };
-        } catch (e) {
-          const d = new Date();
-          return { jsDay: d.getDay(), hourFloat: d.getHours() + d.getMinutes() / 60 };
-        }
-      }
-
-      function renderInterpretingHub() {
-        const offset = state.interpretingOffsetHours === 6 ? 6 : 7;
-        const { jsDay, hourFloat } = getCairoNowParts();
-        const todayDef = INTERP_SCHEDULE_DEF.find((d) => d.jsDay === jsDay) || INTERP_SCHEDULE_DEF[0];
-
-        const offsetChip = document.getElementById('interp-offset-chip');
-        if (offsetChip) offsetChip.textContent = `Cairo = ET +${offset}h`;
-        document.querySelectorAll('#interp-offset-bar .filter-pill').forEach((b) => {
-          b.classList.toggle('active', Number(b.dataset.etOffset) === offset);
-        });
-
-        // Update dynamic footer time references
-        const caughtEl = document.getElementById('interp-caught-tail');
-        if (caughtEl) caughtEl.textContent = `${formatHour12(14.82 + offset)}–${formatHour12(14.98 + offset)} Cairo`;
-        const bsEl = document.getElementById('interp-backstop-times');
-        if (bsEl) bsEl.textContent = `${formatHour12(12.35 + offset)}, ${formatHour12(15.02 + offset)} & ${formatHour12(16.15 + offset)} Cairo`;
-        const missedEl = document.getElementById('interp-missed-win');
-        if (missedEl) missedEl.textContent = `${formatHour12(10 + offset)}–${formatHour12(11 + offset)} Cairo`;
-        const thuAmEl = document.getElementById('interp-thu-am');
-        if (thuAmEl) thuAmEl.textContent = `${formatHour12(3 + offset)}–${formatHour12(5 + offset)}`;
-
-        // Top Single Command Bar
-        const badgeEl = document.getElementById('interp-live-badge');
-        const headEl = document.getElementById('interp-live-headline');
-        const subEl = document.getElementById('interp-live-sub');
-        const slotsChip = document.getElementById('interp-today-slots-chip');
-
-        let activeSlot = null;
-        if (!todayDef.isRest) {
-          todayDef.slots.forEach((s) => {
-            const cStart = (s.startET + offset) % 24;
-            const cEnd = (s.endET + offset) % 24;
-            if (hourFloat >= cStart && hourFloat < cEnd) activeSlot = { ...s, cStart, cEnd };
-          });
-        }
-        const isLunchDip = !todayDef.isRest && todayDef.jsDay !== 5 && hourFloat >= (12 + offset) && hourFloat < (13 + offset);
-
-        if (todayDef.slots.length > 0) {
-          slotsChip.textContent = `${todayDef.short}: ` + todayDef.slots
-            .map((s) => `${formatHour12(s.startET + offset).replace(':00 ', '')}–${formatHour12(s.endET + offset).replace(':00 ', '')}`)
-            .join(' · ');
-        } else {
-          slotsChip.textContent = `${todayDef.short}: Weekend / Rest`;
-        }
-
-        if (activeSlot && (activeSlot.kind === 'peak' || activeSlot.kind === 'overflow')) {
-          badgeEl.className = 'status-chip status-synced';
-          badgeEl.textContent = activeSlot.kind === 'overflow' ? 'PEAK + OVERFLOW' : 'LIVE PEAK';
-          headEl.textContent = `${activeSlot.label} Active Now`;
-          subEl.textContent = `Stay online on InterpretManager until ${formatHour12(activeSlot.cEnd)} Cairo · ${todayDef.note}`;
-        } else if (activeSlot && activeSlot.kind === 'missed') {
-          badgeEl.className = 'status-chip status-amber';
-          badgeEl.textContent = 'LOW COMP';
-          headEl.textContent = 'Morning Missed-Call Window';
-          subEl.textContent = `Very few Arabic interpreters online until ${formatHour12(activeSlot.cEnd)} Cairo.`;
-        } else if (isLunchDip) {
-          badgeEl.className = 'status-chip status-amber';
-          badgeEl.textContent = 'LUNCH DIP';
-          headEl.textContent = 'US/Canada Lunch Dip';
-          subEl.textContent = `Volume slows 12–1 PM ET (occasional Backstop calls). Peak 2 starts at ${formatHour12(13 + offset)} Cairo.`;
-        } else {
-          badgeEl.className = 'status-chip status-local';
-          badgeEl.textContent = todayDef.isRest ? 'WEEKEND' : 'OFF-PEAK';
-          headEl.textContent = todayDef.isRest ? 'Weekend — Rest & Apply' : 'Off-Peak Hours';
-          const nextSlot = !todayDef.isRest && todayDef.slots.find((s) => (s.startET + offset) > hourFloat);
-          const nextTxt = nextSlot
-            ? `Next window today at ${formatHour12(nextSlot.startET + offset)} Cairo`
-            : `Next peak: ${todayDef.jsDay === 5 || todayDef.jsDay === 6 ? 'Monday' : 'Tomorrow'} ${formatHour12(9 + offset)} Cairo`;
-          subEl.textContent = `${nextTxt} · ${todayDef.note}`;
-        }
-
-        // Cert Unlock Countdown Chip (Apr 12, 2027)
-        const unlockMs = Date.UTC(2027, 3, 12);
-        const daysLeft = Math.max(0, Math.ceil((unlockMs - Date.now()) / 86400000));
-        const certChip = document.getElementById('interp-cert-chip');
-        if (certChip) certChip.textContent = `LC-1498 unlocks in ${daysLeft}d`;
-
-        // Current Week Monday Key (resets cleanly every Monday while keeping past weeks saved)
-        const nowLocal = new Date();
-        const diffToMon = (nowLocal.getDay() + 6) % 7;
-        const mondayDateStr = getDateStr(-diffToMon);
-        const weekLoggedMap = (state.interpretingLoggedDays && state.interpretingLoggedDays[mondayDateStr]) || {};
-        const customSlotsMap = state.interpretingCustomSlots || {};
-        let loggedDaysCount = 0;
-
-        // 7-Day Schedule Grid
-        const schedGrid = document.getElementById('interp-schedule-grid');
-        schedGrid.innerHTML = INTERP_SCHEDULE_DEF.map((d) => {
-          const dayKey = d.short.toLowerCase();
-          const isToday = d.jsDay === jsDay;
-          const isLogged = Boolean(weekLoggedMap[dayKey]);
-          if (isLogged) loggedDaysCount += 1;
-          const customSlots = Array.isArray(customSlotsMap[dayKey]) ? customSlotsMap[dayKey] : [];
-
-          const baseSlotsHtml = d.slots.length > 0
-            ? d.slots.map((s) => {
-                const slotClass = s.kind === 'missed' ? 'is-missed' : s.kind === 'overflow' ? 'is-overflow' : 'is-peak';
-                const slotColor = s.kind === 'missed' ? 'var(--accent-amber)' : s.kind === 'overflow' ? 'var(--accent-indigo)' : 'var(--accent-emerald)';
-                return `
-                  <div class="sched-slot ${slotClass}">
-                    <div class="flex items-center justify-between gap-1 text-[10px] font-bold" style="color:${slotColor}">
-                      <span>${escapeHtml(s.label)}</span>
-                      <span class="font-mono-num">${formatHour12(s.startET).replace(':00 ', '')}–${formatHour12(s.endET).replace(':00 ', '')} ET</span>
-                    </div>
-                    <div class="font-mono-num text-[11px] font-bold" style="color:var(--text-primary)">
-                      ${formatHour12(s.startET + offset)} – ${formatHour12(s.endET + offset)}
-                    </div>
-                  </div>
-                `;
-              }).join('')
-            : (customSlots.length === 0 ? `<div class="sched-slot"><div class="text-[11px] font-semibold" style="color:var(--text-muted)">Rest / Apply to New Platforms</div></div>` : '');
-
-          const customSlotsHtml = customSlots.map((cs) => `
-            <div class="sched-slot is-custom">
-              <div class="flex items-center justify-between gap-1 text-[10px] font-bold" style="color:#06b6d4">
-                <span>Custom · Calls</span>
-                <button type="button" class="cursor-pointer border-0 bg-transparent p-0 leading-none" style="color:var(--text-muted)" data-del-custom-slot="${escapeHtml(cs.id)}" data-slot-day="${escapeHtml(dayKey)}" title="Remove custom time">×</button>
-              </div>
-              <div class="font-mono-num text-[11px] font-bold" style="color:var(--text-primary)">${escapeHtml(cs.time)}</div>
-              ${cs.note ? `<div class="text-[10px] mt-0.5" style="color:var(--text-secondary)">${escapeHtml(cs.note)}</div>` : ''}
-            </div>
-          `).join('');
-
-          return `
-            <div class="sched-day-card ${isToday ? 'is-today' : ''} ${d.isRest ? 'is-rest' : ''} ${isLogged ? 'is-logged' : ''}">
-              <div class="flex flex-col gap-2">
-                <div class="flex items-center justify-between gap-1">
-                  <span class="font-display text-sm font-bold">${escapeHtml(d.short)}</span>
-                  ${isToday
-                    ? `<span class="status-chip status-synced">TODAY</span>`
-                    : `<span class="status-chip ${d.isRest ? 'status-local' : d.tier === '#1 Peak' ? 'status-synced' : 'status-syncing'}">${escapeHtml(d.tier)}</span>`}
-                </div>
-                <div class="flex flex-col gap-1.5">${baseSlotsHtml}${customSlotsHtml}</div>
-              </div>
-              <div class="flex flex-col gap-1.5 pt-1.5" style="border-top:1px dashed var(--border-subtle)">
-                <div class="text-[10.5px] leading-snug" style="color:var(--text-secondary)">
-                  <div class="font-mono-num font-bold mb-0.5" style="color:var(--text-primary)">${escapeHtml(d.volLabel)}</div>
-                  <div>${escapeHtml(d.note)}</div>
-                </div>
-                <div class="flex items-center gap-1 pt-0.5">
-                  <button type="button" class="day-log-btn flex-1 ${isLogged ? 'is-done' : ''}" data-toggle-interp-day="${escapeHtml(dayKey)}" data-week-key="${escapeHtml(mondayDateStr)}" title="Mark ${escapeHtml(d.name)} as logged in">
-                    ${isLogged ? ICONS.check : ''}
-                    <span>${isLogged ? 'Logged ✓' : 'Log Day'}</span>
-                  </button>
-                  <button type="button" class="day-log-btn" data-open-slot-day="${escapeHtml(dayKey)}" title="Add custom login time for ${escapeHtml(d.name)}">+ Time</button>
-                </div>
-              </div>
-            </div>
-          `;
-        }).join('');
-
-        const weekChip = document.getElementById('interp-logged-week-chip');
-        if (weekChip) {
-          weekChip.textContent = `${loggedDaysCount}/7 Days Logged`;
-          weekChip.className = `status-chip ${loggedDaysCount > 0 ? 'status-synced' : 'status-syncing'} font-mono-num`;
-        }
-
-        // Platforms Pipeline (Add / Edit / Delete + Status)
-        const platforms = Array.isArray(state.interpretingPlatforms) ? state.interpretingPlatforms : [];
-        let appliedCount = 0;
-        const pList = document.getElementById('interp-platforms-list');
-        if (platforms.length === 0) {
-          pList.innerHTML = `<div class="empty-box" style="grid-column:1/-1">No platforms in pipeline yet. Click "+ Add Platform" to add one.</div>`;
-        } else {
-          pList.innerHTML = platforms.map((p) => {
-            const curStatus = p.status || 'Not Applied';
-            if (curStatus !== 'Not Applied') appliedCount += 1;
-            const badgeClass =
-              curStatus === 'Active' ? 'status-synced' :
-              curStatus === 'Assessment' ? 'status-amber' :
-              curStatus === 'Applied' ? 'status-syncing' : 'status-local';
-
-            return `
-              <div class="sub-item flex flex-col justify-between gap-2">
-                <div class="flex items-start justify-between gap-2">
-                  <div class="min-w-0 flex-1">
-                    <div class="flex items-center gap-1.5 flex-wrap">
-                      <span class="font-display text-[13.5px] font-bold">${escapeHtml(p.name)}</span>
-                      <span class="status-chip ${badgeClass}">${escapeHtml(p.badge || 'Remote')}</span>
-                    </div>
-                    <div class="text-[11.5px] mt-0.5" style="color:var(--text-secondary)">${escapeHtml(p.model || '')}</div>
-                  </div>
-                  <div class="inline-flex items-center gap-1 flex-shrink-0">
-                    ${p.url ? `<a href="${escapeHtml(p.url)}" target="_blank" rel="noopener noreferrer" class="ui-btn ui-btn-sm ui-btn-primary"><span>Open</span>${ICONS.arrowUpRight}</a>` : ''}
-                    <button type="button" class="icon-action-btn" data-edit-ip="${escapeHtml(p.id)}" title="Edit Platform">${ICONS.pencil}</button>
-                    <button type="button" class="icon-action-btn danger" data-del-ip="${escapeHtml(p.id)}" title="Delete Platform">${ICONS.x}</button>
-                  </div>
-                </div>
-                <div class="flex items-center justify-between gap-2 pt-1" style="border-top:1px dashed var(--border-subtle)">
-                  <span class="text-[11px] font-semibold" style="color:var(--text-muted)">Status</span>
-                  <select data-interp-plat-status="${escapeHtml(p.id)}" class="text-xs rounded-lg px-2.5 py-1 cursor-pointer outline-none font-semibold" style="background:var(--bg-input);border:1px solid var(--border-subtle);color:var(--text-primary)">
-                    <option value="Not Applied" ${curStatus === 'Not Applied' ? 'selected' : ''}>Not Applied</option>
-                    <option value="Applied" ${curStatus === 'Applied' ? 'selected' : ''}>Applied</option>
-                    <option value="Assessment" ${curStatus === 'Assessment' ? 'selected' : ''}>Assessment / Interview</option>
-                    <option value="Active" ${curStatus === 'Active' ? 'selected' : ''}>Active Roster</option>
-                  </select>
-                </div>
-              </div>
-            `;
-          }).join('');
-        }
-        document.getElementById('interp-applied-chip').textContent = `${appliedCount}/${platforms.length} Applied`;
-      }
-
-      /* ===================================================== */
-      /* REMINDERS ENGINE (TASKS + INTERPRETING SHIFTS)        */
-      /* ===================================================== */
-      function toLocalDateTimeInputValue(dateObj) {
-        const d = dateObj instanceof Date ? dateObj : new Date();
-        const pad = (n) => String(n).padStart(2, '0');
-        return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
-      }
-
-      function getAllPendingReminders() {
-        const list = [];
-        (state.reminders || []).forEach((r) => {
-          if (!r.fired && r.dueAt) list.push({ id: r.id, label: r.label, dueAt: r.dueAt, kind: 'shift', taskId: '' });
-        });
-        (state.tasks || []).forEach((t) => {
-          if (!t.completed && t.reminderAt && !t.reminderFired) {
-            list.push({ id: 'taskrem_' + t.id, label: t.title, dueAt: t.reminderAt, kind: 'task', taskId: t.id });
-          }
-        });
-        return list.sort((a, b) => a.dueAt.localeCompare(b.dueAt));
-      }
-
-      function renderRemindersUI() {
-        const pending = getAllPendingReminders();
-        const chip = document.getElementById('active-reminders-chip');
-        if (chip) {
-          chip.textContent = String(pending.length);
-          chip.style.display = pending.length > 0 ? 'inline-flex' : 'none';
-        }
-        const listEl = document.getElementById('active-reminders-list');
-        if (!listEl) return;
-        if (pending.length === 0) {
-          listEl.innerHTML = `<div class="empty-box" style="padding:12px">No upcoming reminders set.</div>`;
-        } else {
-          listEl.innerHTML = pending.map((r) => `
-            <div class="sub-item flex items-center justify-between gap-2" style="padding:8px 10px">
-              <div class="min-w-0 flex-1">
-                <div class="text-xs font-semibold truncate">${escapeHtml(r.label)}</div>
-                <div class="font-mono-num text-[11px]" style="color:var(--accent-amber)">${escapeHtml(r.dueAt.replace('T', ' '))} · ${r.kind === 'task' ? 'Task' : 'Shift'}</div>
-              </div>
-              <button type="button" class="icon-action-btn danger" data-del-reminder="${escapeHtml(r.id)}" data-rem-kind="${r.kind}" data-rem-task="${escapeHtml(r.taskId)}" title="Delete Reminder">${ICONS.x}</button>
-            </div>
-          `).join('');
-        }
-      }
-
-      function openReminderModal(kind, taskId) {
-        const kindInp = document.getElementById('rem-kind-input');
-        const taskInp = document.getElementById('rem-task-id-input');
-        const labelInp = document.getElementById('rem-label-input');
-        const dtInp = document.getElementById('rem-datetime-input');
-        const clearBtn = document.getElementById('btn-clear-task-rem');
-
-        kindInp.value = kind;
-        taskInp.value = taskId || '';
-
-        if (kind === 'task' && taskId) {
-          const t = state.tasks.find((x) => x.id === taskId);
-          document.getElementById('modal-reminder-title').textContent = 'Task Reminder';
-          labelInp.value = t ? t.title : '';
-          dtInp.value = (t && t.reminderAt) ? t.reminderAt : toLocalDateTimeInputValue(new Date(Date.now() + 30 * 60000));
-          clearBtn.style.display = (t && t.reminderAt) ? 'inline-flex' : 'none';
-        } else {
-          document.getElementById('modal-reminder-title').textContent = 'Interpreting Shift Reminder';
-          labelInp.value = 'Log into Lingotec InterpretManager (Peak Window)';
-          const defTime = new Date();
-          defTime.setHours(15, 55, 0, 0);
-          if (defTime.getTime() <= Date.now()) defTime.setDate(defTime.getDate() + 1);
-          dtInp.value = toLocalDateTimeInputValue(defTime);
-          clearBtn.style.display = 'none';
-        }
-
-        renderRemindersUI();
-        document.getElementById('modal-reminder').classList.add('open');
-      }
-
-      function checkDueReminders() {
-        const nowMs = Date.now();
-        let changed = false;
-
-        (state.reminders || []).forEach((r) => {
-          if (!r.fired && r.dueAt) {
-            const dueMs = new Date(r.dueAt).getTime();
-            if (!isNaN(dueMs) && dueMs <= nowMs) {
-              r.fired = true;
-              changed = true;
-              fireReminderAlert({ kind: 'shift', id: r.id, label: r.label });
-            }
-          }
-        });
-
-        (state.tasks || []).forEach((t) => {
-          if (!t.completed && t.reminderAt && !t.reminderFired) {
-            const dueMs = new Date(t.reminderAt).getTime();
-            if (!isNaN(dueMs) && dueMs <= nowMs) {
-              t.reminderFired = true;
-              changed = true;
-              fireReminderAlert({ kind: 'task', taskId: t.id, label: t.title });
-            }
-          }
-        });
-
-        if (changed) {
-          saveState();
-          renderTasks();
-          renderRemindersUI();
-        }
-      }
-
-      function fireReminderAlert(rem) {
-        activeAlertReminder = rem;
-        playGentleChime();
-        const banner = document.getElementById('reminder-alert-banner');
-        const msg = document.getElementById('reminder-alert-msg');
-        if (banner && msg) {
-          msg.textContent = rem.label;
-          banner.classList.add('open');
-        }
-        try {
-          if ('Notification' in window && Notification.permission === 'granted') {
-            new Notification('Work & Habit Hub Reminder', { body: rem.label });
-          }
-        } catch (e) {}
-      }
-
       function renderAll() {
         populateSelects();
         renderWorkKpisAndPlatforms();
@@ -5475,9 +4428,8 @@
         renderEntries();
         syncTimerModeControlsUI();
         updateTimerUI();
+        renderFocusTotals();
         renderHabitsView();
-        renderInterpretingHub();
-        renderRemindersUI();
       }
 
       /* ===================================================== */
@@ -5502,307 +4454,8 @@
             document.querySelectorAll('[data-main-tab]').forEach((b) => b.classList.toggle('active', b === btn));
             document.getElementById('panel-work').classList.toggle('active', tab === 'work');
             document.getElementById('panel-habits').classList.toggle('active', tab === 'habits');
-            document.getElementById('panel-interpreting').classList.toggle('active', tab === 'interpreting');
-            if (tab === 'work') updateTimerUI();
             if (tab === 'habits') renderHabitsView();
-            if (tab === 'interpreting') renderInterpretingHub();
           });
-        });
-
-
-        // Header Live Timer Pill -> jump back to Work tab
-        document.getElementById('btn-header-timer-pill').addEventListener('click', () => {
-          const workBtn = document.querySelector('[data-main-tab="work"]');
-          if (workBtn) workBtn.click();
-        });
-
-        // Header Reminders Button -> request desktop notification permission + open reminders modal
-        document.getElementById('btn-enable-notif').addEventListener('click', () => {
-          try {
-            if ('Notification' in window && Notification.permission === 'default') {
-              Notification.requestPermission();
-            }
-          } catch (e) {}
-          openReminderModal('shift', '');
-        });
-
-        // Interpreting Hub Controls
-        document.getElementById('interp-offset-bar').addEventListener('click', (e) => {
-          const btn = e.target.closest('[data-et-offset]');
-          if (!btn) return;
-          state.interpretingOffsetHours = Number(btn.dataset.etOffset) === 6 ? 6 : 7;
-          saveState();
-          renderInterpretingHub();
-        });
-
-        function openAddInterpSlotModal(dayKey) {
-          const dayNames = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
-          const fallbackDay = dayNames[new Date().getDay()] || 'mon';
-          document.getElementById('islot-day-input').value = dayKey || fallbackDay;
-          document.getElementById('islot-time-input').value = '';
-          document.getElementById('islot-note-input').value = '';
-          document.getElementById('modal-interp-slot').classList.add('open');
-          setTimeout(() => document.getElementById('islot-time-input').focus(), 60);
-        }
-
-        document.getElementById('btn-open-add-interp-slot').addEventListener('click', () => {
-          openAddInterpSlotModal('');
-        });
-
-        document.getElementById('interp-schedule-grid').addEventListener('click', (e) => {
-          const toggleDayBtn = e.target.closest('[data-toggle-interp-day]');
-          if (toggleDayBtn) {
-            const dk = toggleDayBtn.dataset.toggleInterpDay;
-            const wk = toggleDayBtn.dataset.weekKey;
-            if (!state.interpretingLoggedDays || typeof state.interpretingLoggedDays !== 'object') {
-              state.interpretingLoggedDays = {};
-            }
-            if (!state.interpretingLoggedDays[wk]) state.interpretingLoggedDays[wk] = {};
-            const nextVal = !Boolean(state.interpretingLoggedDays[wk][dk]);
-            state.interpretingLoggedDays[wk][dk] = nextVal;
-            saveState();
-            renderInterpretingHub();
-            if (nextVal) {
-              triggerTaskCelebration(`${dk.toUpperCase()} Interpreting Shift Logged`, toggleDayBtn);
-            } else {
-              showToast(`Unmarked ${dk.toUpperCase()} login`);
-            }
-            return;
-          }
-
-          const addTimeBtn = e.target.closest('[data-open-slot-day]');
-          if (addTimeBtn) {
-            openAddInterpSlotModal(addTimeBtn.dataset.openSlotDay);
-            return;
-          }
-
-          const delSlotBtn = e.target.closest('[data-del-custom-slot]');
-          if (delSlotBtn) {
-            const sid = delSlotBtn.dataset.delCustomSlot;
-            const dk = delSlotBtn.dataset.slotDay;
-            if (state.interpretingCustomSlots && Array.isArray(state.interpretingCustomSlots[dk])) {
-              state.interpretingCustomSlots[dk] = state.interpretingCustomSlots[dk].filter((x) => x.id !== sid);
-              saveState();
-              renderInterpretingHub();
-              showToast('Custom time slot removed');
-            }
-          }
-        });
-
-        document.getElementById('form-interp-slot').addEventListener('submit', (e) => {
-          e.preventDefault();
-          const dk = document.getElementById('islot-day-input').value || 'mon';
-          const timeStr = document.getElementById('islot-time-input').value.trim();
-          const noteStr = document.getElementById('islot-note-input').value.trim();
-          if (!timeStr) return;
-          if (!state.interpretingCustomSlots || typeof state.interpretingCustomSlots !== 'object') {
-            state.interpretingCustomSlots = {};
-          }
-          if (!Array.isArray(state.interpretingCustomSlots[dk])) {
-            state.interpretingCustomSlots[dk] = [];
-          }
-          state.interpretingCustomSlots[dk].push({
-            id: 'cslot_' + Date.now(),
-            time: timeStr,
-            note: noteStr
-          });
-          saveState();
-          document.getElementById('modal-interp-slot').classList.remove('open');
-          renderInterpretingHub();
-          showToast(`Added custom time slot to ${dk.toUpperCase()}`);
-        });
-
-        document.getElementById('btn-open-interp-reminder').addEventListener('click', () => {
-          try {
-            if ('Notification' in window && Notification.permission === 'default') {
-              Notification.requestPermission();
-            }
-          } catch (e) {}
-          openReminderModal('shift', '');
-        });
-
-        // Interpreting Platforms CRUD (Add / Edit / Delete / Status)
-        document.getElementById('btn-open-add-interp-plat').addEventListener('click', () => {
-          document.getElementById('modal-interp-plat-title').textContent = 'Add Interpreting Platform';
-          document.getElementById('ip-id-input').value = '';
-          document.getElementById('ip-name-input').value = '';
-          document.getElementById('ip-badge-input').value = 'Remote AR-EN';
-          document.getElementById('ip-status-input').value = 'Not Applied';
-          document.getElementById('ip-model-input').value = '';
-          document.getElementById('ip-url-input').value = '';
-          document.getElementById('modal-interp-platform').classList.add('open');
-        });
-
-        document.getElementById('interp-platforms-list').addEventListener('change', (e) => {
-          const sel = e.target.closest('[data-interp-plat-status]');
-          if (!sel) return;
-          const p = (state.interpretingPlatforms || []).find((x) => x.id === sel.dataset.interpPlatStatus);
-          if (!p) return;
-          p.status = sel.value;
-          saveState();
-          renderInterpretingHub();
-          showToast('Platform status updated');
-        });
-
-        document.getElementById('interp-platforms-list').addEventListener('click', (e) => {
-          const editBtn = e.target.closest('[data-edit-ip]');
-          if (editBtn) {
-            const p = (state.interpretingPlatforms || []).find((x) => x.id === editBtn.dataset.editIp);
-            if (!p) return;
-            document.getElementById('modal-interp-plat-title').textContent = 'Edit Interpreting Platform';
-            document.getElementById('ip-id-input').value = p.id;
-            document.getElementById('ip-name-input').value = p.name;
-            document.getElementById('ip-badge-input').value = p.badge || '';
-            document.getElementById('ip-status-input').value = p.status || 'Not Applied';
-            document.getElementById('ip-model-input').value = p.model || '';
-            document.getElementById('ip-url-input').value = p.url || '';
-            document.getElementById('modal-interp-platform').classList.add('open');
-            return;
-          }
-          const delBtn = e.target.closest('[data-del-ip]');
-          if (delBtn) {
-            state.interpretingPlatforms = (state.interpretingPlatforms || []).filter((x) => x.id !== delBtn.dataset.delIp);
-            saveState();
-            renderInterpretingHub();
-            showToast('Platform removed from pipeline');
-          }
-        });
-
-        document.getElementById('form-interp-platform').addEventListener('submit', (e) => {
-          e.preventDefault();
-          const id = document.getElementById('ip-id-input').value;
-          const name = document.getElementById('ip-name-input').value.trim();
-          const badge = document.getElementById('ip-badge-input').value.trim() || 'Remote';
-          const status = document.getElementById('ip-status-input').value || 'Not Applied';
-          const model = document.getElementById('ip-model-input').value.trim();
-          const url = document.getElementById('ip-url-input').value.trim();
-          if (!name) return;
-          if (!Array.isArray(state.interpretingPlatforms)) state.interpretingPlatforms = [];
-
-          if (id) {
-            const p = state.interpretingPlatforms.find((x) => x.id === id);
-            if (p) {
-              p.name = name; p.badge = badge; p.status = status; p.model = model; p.url = url;
-            }
-            showToast('Interpreting platform updated');
-          } else {
-            state.interpretingPlatforms.unshift({ id: 'ip_' + Date.now(), name, badge, status, model, url });
-            showToast('Interpreting platform added');
-          }
-          saveState();
-          document.getElementById('modal-interp-platform').classList.remove('open');
-          renderInterpretingHub();
-        });
-
-        // Reminder Modal Controls
-        document.getElementById('form-reminder').addEventListener('click', (e) => {
-          const qBtn = e.target.closest('[data-rem-quick]');
-          if (qBtn) {
-            const mins = Number(qBtn.dataset.remQuick) || 15;
-            document.getElementById('rem-datetime-input').value = toLocalDateTimeInputValue(new Date(Date.now() + mins * 60000));
-            return;
-          }
-          const pBtn = e.target.closest('[data-rem-peak]');
-          if (pBtn) {
-            const offset = state.interpretingOffsetHours === 6 ? 6 : 7;
-            const targetHour = (pBtn.dataset.remPeak === 'peak2' ? 13 : 9) + offset;
-            const d = new Date();
-            d.setHours(targetHour - 1, 55, 0, 0);
-            if (d.getTime() <= Date.now()) d.setDate(d.getDate() + 1);
-            document.getElementById('rem-datetime-input').value = toLocalDateTimeInputValue(d);
-          }
-        });
-
-        document.getElementById('form-reminder').addEventListener('submit', (e) => {
-          e.preventDefault();
-          const kind = document.getElementById('rem-kind-input').value;
-          const taskId = document.getElementById('rem-task-id-input').value;
-          const label = document.getElementById('rem-label-input').value.trim();
-          const dueAt = document.getElementById('rem-datetime-input').value;
-          if (!label || !dueAt) return;
-
-          if (kind === 'task' && taskId) {
-            const t = state.tasks.find((x) => x.id === taskId);
-            if (t) {
-              t.reminderAt = dueAt;
-              t.reminderFired = false;
-            }
-          } else {
-            if (!Array.isArray(state.reminders)) state.reminders = [];
-            state.reminders.push({
-              id: 'rem_' + Date.now(),
-              label,
-              dueAt,
-              kind: 'shift',
-              taskId: '',
-              fired: false
-            });
-          }
-          saveState();
-          renderTasks();
-          renderRemindersUI();
-          document.getElementById('modal-reminder').classList.remove('open');
-          showToast('Reminder saved');
-        });
-
-        document.getElementById('btn-clear-task-rem').addEventListener('click', () => {
-          const taskId = document.getElementById('rem-task-id-input').value;
-          const t = state.tasks.find((x) => x.id === taskId);
-          if (t) {
-            t.reminderAt = '';
-            t.reminderFired = false;
-            saveState();
-            renderTasks();
-            renderRemindersUI();
-            document.getElementById('modal-reminder').classList.remove('open');
-            showToast('Task reminder removed');
-          }
-        });
-
-        document.getElementById('active-reminders-list').addEventListener('click', (e) => {
-          const del = e.target.closest('[data-del-reminder]');
-          if (!del) return;
-          if (del.dataset.remKind === 'task' && del.dataset.remTask) {
-            const t = state.tasks.find((x) => x.id === del.dataset.remTask);
-            if (t) { t.reminderAt = ''; t.reminderFired = false; }
-          } else {
-            state.reminders = (state.reminders || []).filter((x) => x.id !== del.dataset.delReminder);
-          }
-          saveState();
-          renderTasks();
-          renderRemindersUI();
-          showToast('Reminder removed');
-        });
-
-        document.getElementById('btn-dismiss-rem-alert').addEventListener('click', () => {
-          document.getElementById('reminder-alert-banner').classList.remove('open');
-        });
-        document.getElementById('btn-ok-rem-alert').addEventListener('click', () => {
-          document.getElementById('reminder-alert-banner').classList.remove('open');
-        });
-        document.getElementById('btn-snooze-rem-alert').addEventListener('click', () => {
-          if (activeAlertReminder) {
-            const nextDue = toLocalDateTimeInputValue(new Date(Date.now() + 10 * 60000));
-            if (activeAlertReminder.kind === 'task' && activeAlertReminder.taskId) {
-              const t = state.tasks.find((x) => x.id === activeAlertReminder.taskId);
-              if (t) { t.reminderAt = nextDue; t.reminderFired = false; }
-            } else {
-              if (!Array.isArray(state.reminders)) state.reminders = [];
-              state.reminders.push({
-                id: 'rem_' + Date.now(),
-                label: activeAlertReminder.label,
-                dueAt: nextDue,
-                kind: 'shift',
-                taskId: '',
-                fired: false
-              });
-            }
-            saveState();
-            renderTasks();
-            renderRemindersUI();
-            showToast('Snoozed for 10 minutes');
-          }
-          document.getElementById('reminder-alert-banner').classList.remove('open');
         });
 
         // Theme Toggle
@@ -5978,44 +4631,73 @@
           fetchUsdEgpRate(true);
         });
 
-        // Daily Priority Tasks
-        document.getElementById('task-skill-select').addEventListener('change', updateTaskSubtaskToggleVisibility);
+        // Daily Priority Tasks (Date-scheduled + Auto-filtered)
+        document.getElementById('task-date-input').addEventListener('change', (e) => {
+          e.target.dataset.userEdited = '1';
+        });
+
+        document.getElementById('btn-task-prev-day').addEventListener('click', () => {
+          showAllTaskDates = false;
+          selectedTaskDate = shiftDateStr(selectedTaskDate, -1);
+          delete document.getElementById('task-date-input').dataset.userEdited;
+          renderTasks();
+        });
+
+        document.getElementById('btn-task-next-day').addEventListener('click', () => {
+          showAllTaskDates = false;
+          selectedTaskDate = shiftDateStr(selectedTaskDate, 1);
+          delete document.getElementById('task-date-input').dataset.userEdited;
+          renderTasks();
+        });
+
+        document.getElementById('task-filter-date-input').addEventListener('change', (e) => {
+          if (e.target.value) {
+            showAllTaskDates = false;
+            selectedTaskDate = e.target.value;
+            delete document.getElementById('task-date-input').dataset.userEdited;
+            renderTasks();
+          }
+        });
+
+        document.getElementById('btn-task-today').addEventListener('click', () => {
+          showAllTaskDates = false;
+          selectedTaskDate = getDateStr(0);
+          delete document.getElementById('task-date-input').dataset.userEdited;
+          renderTasks();
+        });
+
+        document.getElementById('btn-task-all-dates').addEventListener('click', () => {
+          showAllTaskDates = !showAllTaskDates;
+          renderTasks();
+        });
 
         document.getElementById('form-add-task').addEventListener('submit', (e) => {
           e.preventDefault();
           const input = document.getElementById('task-title-input');
           const title = input.value.trim();
           if (!title) return;
-          const skillId = document.getElementById('task-skill-select').value;
-          const alsoSubtask = Boolean(skillId && document.getElementById('task-as-subtask-check').checked);
-          let subtaskId = '';
-
-          if (alsoSubtask) {
-            const sk = state.skills.find((x) => x.id === skillId);
-            if (sk) {
-              if (!Array.isArray(sk.subtasks)) sk.subtasks = [];
-              subtaskId = 'sub_' + Date.now();
-              sk.subtasks.push({ id: subtaskId, title, completed: false });
-              expandedSkillIds.add(sk.id);
-            }
-          }
+          const dueDate = document.getElementById('task-date-input').value || selectedTaskDate || getDateStr(0);
 
           state.tasks.unshift({
             id: 'task_' + Date.now(),
             title,
             platformId: document.getElementById('task-platform-select').value,
-            priority: document.getElementById('task-priority-select').value,
-            skillId,
-            subtaskId,
+            priority: 'Medium',
+            skillId: '',
+            subtaskId: '',
+            dueDate,
             completed: false,
             createdAt: Date.now()
           });
           input.value = '';
+          delete document.getElementById('task-date-input').dataset.userEdited;
+          if (!showAllTaskDates && dueDate !== selectedTaskDate) {
+            selectedTaskDate = dueDate;
+          }
           saveState();
+          populateSelects();
           renderTasks();
-          renderSkills();
           renderWorkKpisAndPlatforms();
-          if (skillId) showToast('Task added & linked to Skill Goal');
         });
 
         document.getElementById('task-filter-bar').addEventListener('click', (e) => {
@@ -6027,10 +4709,15 @@
         });
 
         document.getElementById('btn-clear-completed').addEventListener('click', () => {
-          state.tasks = state.tasks.filter((t) => !t.completed);
+          state.tasks = state.tasks.filter((t) => {
+            if (t.subtaskId) return true; // never delete skill-pinned links via Clear Done
+            if (!t.completed) return true;
+            if (!showAllTaskDates && (t.dueDate || getDateStr(0)) !== selectedTaskDate) return true;
+            return false;
+          });
           saveState();
+          populateSelects();
           renderTasks();
-          renderSkills();
           renderWorkKpisAndPlatforms();
           showToast('Completed tasks cleared');
         });
@@ -6041,7 +4728,6 @@
             const t = state.tasks.find((x) => x.id === tog.dataset.toggleTask);
             if (!t) return;
             t.completed = !t.completed;
-            if (t.completed) triggerTaskCelebration(t.title, tog);
             // Sync with mirrored Skill Sub-task if linked
             if (t.skillId && t.subtaskId) {
               const sk = state.skills.find((s) => s.id === t.skillId);
@@ -6079,11 +4765,6 @@
             showToast('Saved as Daily recurring template');
             return;
           }
-          const remBtn = e.target.closest('[data-set-task-rem]');
-          if (remBtn) {
-            openReminderModal('task', remBtn.dataset.setTaskRem);
-            return;
-          }
           const del = e.target.closest('[data-del-task]');
           if (del) {
             state.tasks = state.tasks.filter((x) => x.id !== del.dataset.delTask);
@@ -6094,17 +4775,7 @@
           }
         });
 
-        document.getElementById('task-list').addEventListener('change', (e) => {
-          const sel = e.target.closest('[data-relink-task]');
-          if (!sel) return;
-          const t = state.tasks.find((x) => x.id === sel.dataset.relinkTask);
-          if (!t) return;
-          t.skillId = sel.value;
-          t.subtaskId = '';
-          saveState();
-          renderTasks();
-          renderSkills();
-        });
+
 
         // Focus Timer (Wall-Clock Background-Proof)
         document.getElementById('btn-mode-pomo').addEventListener('click', () => {
@@ -6127,71 +4798,16 @@
           resetTimer();
         });
 
-        document.getElementById('timer-platform-select').addEventListener('change', (e) => {
-          timerState.platformId = e.target.value;
-          saveTimerState();
-          updateTimerUI();
-        });
-
-        document.getElementById('timer-link-select').addEventListener('change', (e) => {
-          timerState.linkValue = e.target.value;
+        document.getElementById('timer-target-select').addEventListener('change', (e) => {
+          timerState.targetValue = e.target.value;
           saveTimerState();
           updateTimerUI();
         });
 
         document.getElementById('btn-timer-start').addEventListener('click', startTimer);
         document.getElementById('btn-timer-pause').addEventListener('click', pauseTimer);
+        document.getElementById('btn-timer-stop-save').addEventListener('click', stopAndSaveTimer);
         document.getElementById('btn-timer-reset').addEventListener('click', resetTimer);
-
-        document.getElementById('btn-timer-log').addEventListener('click', () => {
-          const elapsedSecs = getTimerElapsedSeconds();
-          if (elapsedSecs < 60) {
-            showToast('Run the timer for at least 1 minute to log', 'warn');
-            return;
-          }
-          const selectedPlatId = document.getElementById('timer-platform-select').value;
-          const linkSel = document.getElementById('timer-link-select');
-          const linkVal = linkSel ? linkSel.value : '';
-          const linkLabel = linkVal && linkSel && linkSel.selectedOptions[0] ? linkSel.selectedOptions[0].textContent : '';
-
-          if (!Array.isArray(state.focusSessions)) state.focusSessions = [];
-          state.focusSessions.unshift({
-            id: 'fses_' + Date.now(),
-            seconds: elapsedSecs,
-            date: getDateStr(0),
-            mode: timerState.mode,
-            platformId: selectedPlatId,
-            linkValue: linkVal,
-            linkLabel: linkLabel
-          });
-
-          if (!selectedPlatId) {
-            resetTimer();
-            saveState();
-            renderFocusTimeStats();
-            triggerTaskCelebration(linkLabel || `${formatDurationHuman(elapsedSecs)} Focus Session`, document.getElementById('btn-timer-log'));
-            showToast(`Logged ${formatDurationHuman(elapsedSecs)} focus time${linkLabel ? ' (' + linkLabel + ')' : ''}`);
-          } else {
-            const hours = Number((elapsedSecs / 3600).toFixed(2));
-            const plat = getPlatform(selectedPlatId);
-            const amount = Number((hours * (Number(plat.rate) || 0)).toFixed(2));
-            state.incomeEntries.unshift({
-              id: 'ent_' + Date.now(),
-              platformId: plat.id,
-              hours,
-              amount,
-              date: getDateStr(0),
-              note: `Focus timer (${timerState.mode === 'pomodoro' ? 'Pomodoro' : 'Open Shift'})${linkLabel ? ' · ' + linkLabel : ''}`
-            });
-            resetTimer();
-            saveState();
-            renderWorkKpisAndPlatforms();
-            renderWeeklyReview();
-            renderEntries();
-            renderFocusTimeStats();
-            showToast(`Logged ${hours}h ($${amount.toFixed(2)}) to ${plat.name}`);
-          }
-        });
 
         // Platforms CRUD
         document.getElementById('btn-open-add-platform').addEventListener('click', () => {
@@ -6351,7 +4967,6 @@
             const st = sk.subtasks.find((item) => item.id === subId);
             if (!st) return;
             st.completed = !st.completed;
-            if (st.completed) triggerTaskCelebration(st.title, subCheck);
             // Keep any linked Daily Priority Task in sync
             state.tasks.forEach((t) => {
               if (t.skillId === sk.id && t.subtaskId === subId) {
@@ -6371,15 +4986,12 @@
             const subId = pushSub.dataset.subtaskId;
             const st = sk && Array.isArray(sk.subtasks) ? sk.subtasks.find((item) => item.id === subId) : null;
             if (!sk || !st) return;
-            const alreadyExists = state.tasks.some((t) => t.skillId === sk.id && t.subtaskId === subId);
-            if (alreadyExists) {
-              state.tasks = state.tasks.filter((t) => !(t.skillId === sk.id && t.subtaskId === subId));
+            const existingIdx = state.tasks.findIndex((t) => t.skillId === sk.id && t.subtaskId === subId);
+            if (existingIdx !== -1) {
+              state.tasks.splice(existingIdx, 1);
               saveState();
-              populateSelects();
-              renderTasks();
               renderSkills();
-              renderWorkKpisAndPlatforms();
-              showToast('Removed from Daily Priority Tasks');
+              showToast('Removed sub-task from Daily pin');
               return;
             }
             state.tasks.unshift({
@@ -6389,14 +5001,13 @@
               priority: 'Medium',
               skillId: sk.id,
               subtaskId: st.id,
+              dueDate: selectedTaskDate || getDateStr(0),
               completed: Boolean(st.completed),
               createdAt: Date.now()
             });
             saveState();
-            renderTasks();
             renderSkills();
-            renderWorkKpisAndPlatforms();
-            showToast('Sent sub-task to Daily Priority Tasks');
+            showToast('Pinned sub-task for Daily focus');
             return;
           }
 
@@ -6776,8 +5387,8 @@
             id: 'rec_' + Date.now(),
             title,
             platformId: document.getElementById('rec-platform-select').value,
-            priority: document.getElementById('rec-priority-select').value,
-            skillId: document.getElementById('rec-skill-select').value,
+            priority: 'Medium',
+            skillId: '',
             frequency: document.getElementById('rec-freq-select').value
           });
           inp.value = '';
@@ -6795,9 +5406,10 @@
               id: 'task_' + Date.now(),
               title: rt.title,
               platformId: rt.platformId || (state.platforms[0] ? state.platforms[0].id : ''),
-              priority: rt.priority || 'Medium',
-              skillId: rt.skillId || '',
+              priority: 'Medium',
+              skillId: '',
               subtaskId: '',
+              dueDate: selectedTaskDate || getDateStr(0),
               completed: false,
               createdAt: Date.now()
             });
@@ -6822,8 +5434,6 @@
           if (!document.hidden) {
             updateTimerUI();
             updateWorldClocks();
-            renderInterpretingHub();
-            checkDueReminders();
           }
         });
 
@@ -6846,6 +5456,8 @@
         applyTheme(state.theme);
         loadTimerState();
         document.getElementById('entry-date-input').value = getDateStr(0);
+        document.getElementById('task-date-input').value = selectedTaskDate;
+        document.getElementById('task-filter-date-input').value = selectedTaskDate;
         if (state.usdRateUpdatedAt) {
           document.getElementById('fx-updated-time').textContent = state.usdRateUpdatedAt;
         }
@@ -6854,9 +5466,6 @@
         ensureTimerTickLoop();
         updateWorldClocks();
         setInterval(updateWorldClocks, 1000);
-        setInterval(renderInterpretingHub, 60000);
-        setInterval(checkDueReminders, 15000);
-        checkDueReminders();
         fetchUsdEgpRate(false);
 
         if (syncUrl) {
